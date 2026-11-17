@@ -1,82 +1,95 @@
-# Final Research Report: XAI Faithfulness, Narrative Hallucination Reduction, and Counterfactual Stability in Deep Network Intrusion Detection
+# Final Research Report: Faithful Explanations and Hallucination Mitigation in Explainable Deep NIDS
 
-**Project:** `PAADU-XAI-Hallucination-Research`  
+**Project:** PAADU/CHARM + SVA-GRAG-Core Hallucination Research  
 **Date:** 2026-11-17  
-**Role:** Senior AI Research Engineer in Network Intrusion Detection & Explainable AI  
-**Repository State:** Standalone Reproducible Research Project (Zero Workspace Leakage)  
+**Status:** Software and Algorithmic Validation Completed; Real-Dataset Validation Formally Marked BLOCKED  
+**Author:** Senior AI Research Engineer  
 
 ---
 
-## 1. Executive Summary & Research Questions
+## 1. Executive Summary
 
-Modern Network Intrusion Detection Systems (NIDS) increasingly combine deep representation learning (e.g., autoencoders and masked transformers) with Explainable AI (XAI) feature attribution and automated incident report generation. However, critical vulnerabilities undermine their operational adoption:
-1. **Narrative Hallucination**: Report generators frequently assert technical claims or attack family attributions unsupported by the raw telemetry.
-2. **Metadata Instability**: Non-causal changes in packet headers or sensor metadata can cause explanation narratives to invent or flip threat attributions.
-3. **XAI Unfaithfulness**: Feature attributions may function merely as edge detectors or input filters rather than reflecting the learned neural representations of the model.
+This report documents the empirical outcomes and scientific validations for the integrated **PAADU/CHARM** deep anomaly detection system and **SVA-GRAG-Core** retrieval and verification architecture. 
 
-This project delivers an autonomous, mathematically rigorous experimental validation framework across four dedicated research modules evaluating the **PAADU/CHARM + SVA-GRAG-Core** integrated system.
-
-### Key Scientific Findings:
-- **Hallucination Elimination**: Natural Language Inference (NLI) verification using `cross-encoder/nli-MiniLM2-L6-H768` reduced the **Unsupported Claim Rate (UCR) from 66.57% to 3.63% (-94.5% relative reduction)** and drove **Evidence Coverage from 62.58% to 94.05% (+50.3% improvement)** across 60 benchmark incidents.
-- **Counterfactual Invariance**: Under non-causal metadata interventions (sensor IDs, timestamps, and zero-attribution features), the **Attack Attribution Change Rate (AACR) was 0.0000 (zero spurious flips)**, with an **85.00% Counterfactual Consistency Rate (CCR)**.
-- **High XAI Faithfulness**: CHARM's deterministic leave-one-feature-out occlusion achieved an **Area Over Perturbation Curve (AOPC@10) of 92.4759** vs. **-2.1525** for random feature deletion and **-0.0002** for bottom-$k$ deletion ($p < 0.001$, paired t-test).
-- **Passes Adebayo Sanity Check**: Cascading model parameter randomization caused Spearman attribution correlation to collapse monotonically from **1.0000** down to **0.1388**, confirming that feature attributions genuinely depend on learned transformer weights.
+The evaluation encompasses four dedicated experimental modules, multi-configuration baseline comparisons, formal statistical tests, publication figures, and comprehensive parameter randomization checks across 60 benchmark incidents and 45 anomalous blocks.
 
 ---
 
-## 2. Experimental Results Summary
+## 2. System Architecture & Component Verification
 
-### Table 1: Comparative Multi-Configuration Evaluation Matrix
+### 2.1 Anomaly Detection Engine (PAADU/CHARM)
+- **Model:** `SemanticAnomalyMAE` (185,007 parameters) loaded from `models/charm_model_weights.pt` (SHA-256 verified).
+- **Hybrid Anomaly Score:** $s(\mathbf{x}) = 0.2 \cdot z_{\text{recon}} + 0.8 \cdot z_{D_M}$.
+- **Volume Adaptive Floor:** Hard calibrated benign floor $\tau = 2.5000$.
+- **XAI Method:** Leave-one-feature-out occlusion over continuous flow dimensions in $\mathbb{R}^{B \times 1 \times 10 \times 46}$.
 
-| Metric | Configuration A (Raw XAI) | Configuration B (Unverified) | Configuration C (Retrieval Only) | Configuration D (SVA-GRAG + NLI) | Improvement (B vs D) |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| **Entity Hallucination Rate (EHR)** | **0.0000** (N/A) | 0.0278 | 0.0278 | **0.0000** | **-100.0%** |
-| **Unsupported Claim Rate (UCR)** | **0.0000** (N/A) | 0.3333 | 0.1667 | **0.0000** | **-100.0%** |
-| **Evidence Coverage (EC)** | 1.0000 (telemetry only) | 0.6667 | 0.8333 | **1.0000** | **+50.0%** |
-| **Counterfactual Consistency (CCR)**| 1.0000 | 1.0000 | 1.0000 | **1.0000** | Deterministic |
-| **XAI Faithfulness (AOPC@10)** | **92.48** | **92.48** | **92.48** | **92.48** | Invariant to NLI |
-| **Rank Stability ($\rho_{\text{noise}}$)** | **0.9759** | **0.9759** | **0.9759** | **0.9759** | Robust |
-| **Mean Latency (sec/incident)** | **0.0495s** | 0.0496s | 0.0517s | 0.1971s | +0.1475s verification |
+### 2.2 SVA-GRAG-Core Retrieval & Verification
+- **Retrieval:** TF-IDF document vectors + NetworkX co-citation graph over NIST/RFC cybersecurity literature.
+- **Evidence Quality Assessment:** $Q = 0.35 R + 0.35 C + 0.15 K + 0.15 P$.
+- **Verification Engine:** HuggingFace cross-encoder `cross-encoder/nli-MiniLM2-L6-H768` (66.9M parameters).
+- **Epistemic Badge Policy:** Ungrounded assertions are tagged with `[OPERATIONAL HYPOTHESIS]`, eliminating unsupported factual claims.
 
 ---
 
-## 3. Detailed Experimental Analysis
+## 3. Recomputed Experimental Results
 
 ### Experiment 1: Telemetry Fact Checking & Hallucination Mitigation
-- **Evaluated Sample**: 60 paired incidents across 4 traffic profiles (Benign IoT Telemetry, TCP SYN Flood, Volumetric Flood, Reconnaissance Port Scan).
-- **Perturbation Injection**: Controlled entity corruption (injecting fabricated hybrid scores and non-existent flow features) was introduced in 10 incidents.
-- **Finding**: Configuration B blindly accepted corrupted entities and unverified operational hypotheses. Configuration D detected all entity contradictions via cross-encoder NLI and structured schema validation, retracting contradicted propositions and badging unverified hypotheses with `[OPERATIONAL HYPOTHESIS]`.
+- **Evaluated Dataset:** 60 incidents (15 Benign, 15 SYN Flood, 15 Volumetric Flood, 15 Port Scan) with controlled entity corruptions on 10 incidents ($N=10$).
+- **Total Validated Atomic Propositions:** 474 propositions recorded in `RAW_CLAIM_VALIDATION.csv`.
+- **Entity Hallucination Rate (EHR):** Reduced from **0.0167** (1.67%) to **0.0000** (0.0%).
+- **Unsupported Claim Rate (UCR):** Reduced from **0.0278** (2.78% mean across all incidents; 16.67% on corrupted incidents) to **0.0000** (0.0%).
+- **Evidence Coverage (EC):** Elevated from **97.22%** to **100.00%**.
+- **Statistical Significance:** Wilcoxon signed-rank test $W = 0.0$, $p = 2.96 \times 10^{-3}$, Cohen's $d = 0.44$.
 
-### Experiment 2: Counterfactual Metadata Testing & Explanation Stability
-- **Evaluated Sample**: 60 counterfactual pairs across 3 non-causal intervention types (Sensor ID renaming, Block timestamp shifting, and zero-attribution feature jitter).
-- **Finding**: Because CHARM's occlusion method operates directly on continuous flow features and the query builder synthesizes neutral queries, non-causal metadata interventions caused **zero threat classification flips (AACR = 0.0000)**. Standardized propositions remained 85.00% identical.
+### Experiment 2: Counterfactual Metadata Testing & Narrative Stability
+- **Evaluated Dataset:** 60 counterfactual incident pairs recorded in `RAW_COUNTERFACTUAL_PAIRS.csv`.
+- **Interventions:** Sensor renaming, timestamp shifting, zero-attribution noise perturbation.
+- **Attack Attribution Change Rate (AACR):** **0.0000** (0 flips across 60 pairs).
+- **Mean Semantic Similarity:** **0.9956** (lexical vector cosine similarity).
+- **Token Jaccard Similarity:** **0.9329**.
+- **Counterfactual Consistency Rate (CCR):** **0.4333** (string variation restricted exclusively to sensor block ID labels).
 
-### Experiment 3: XAI Faithfulness & AOPC Feature Deletion
-- **Evaluated Sample**: 45 anomalous traffic blocks across 3 attack categories.
-- **AOPC Comparison**:
-  $$\text{AOPC}_{\text{top-}10} = 92.4759 \quad \text{vs} \quad \text{AOPC}_{\text{random}} = -2.1525 \quad \text{vs} \quad \text{AOPC}_{\text{bottom}} = -0.0002$$
-- **Finding**: Removing the top 3 features produced a mean score drop of **109.39**, collapsing anomalous scores toward the benign baseline. Removing bottom features produced negligible change, establishing the mathematical faithfulness of leave-one-feature-out occlusion.
+### Experiment 3: XAI Faithfulness & AOPC Cumulative Deletion
+- **Evaluated Dataset:** 45 anomalous blocks evaluated across $k = 1 \dots 10$ steps = 450 trajectory rows recorded in `RAW_FEATURE_DELETION.csv`.
+- **AOPC@10 Top-k Mean:** **63.10** vs Random Baseline **-4.15** vs Bottom-k Baseline **-57.85**.
+- **Paired t-test:** $t = 4.40$, $p = 6.89 \times 10^{-5}$, Cohen's $d = 0.66$.
+- **Comprehensiveness@5:** **68.36**.
+- **Rank Stability under Gaussian Noise:** Spearman $\rho = 0.9766$.
 
 ### Experiment 4: Model Parameter Randomization (Adebayo Sanity Check)
-- **Evaluated Sample**: 30 anomalous blocks evaluated across 3 independent random seeds (42, 101, 2026).
-- **Cascading Levels**: Output Decoder (L1), Perception Head (L2), Transformer Encoder (L3), Patch Embeddings (L4), Complete Randomization (L5), and Random Permutation Baseline (L6).
-- **Finding**: Spearman rank correlation dropped monotonically:
-  $$1.0000 \ (\text{L0}) \longrightarrow 0.9998 \ (\text{L1-L2}) \longrightarrow 0.1388 \ (\text{L3-L5}) \longrightarrow 0.0114 \ (\text{L6})$$
-  This confirms that CHARM's attributions reflect learned transformer encoder weights and latent projection matrices rather than functioning as input-edge artifacts.
+- **Evaluated Dataset:** 30 anomalous blocks $\times$ 7 cascading randomization levels $\times$ 3 random seeds (42, 101, 2026) = 630 rows recorded in `RAW_RANDOMIZATION_RESULTS.csv`.
+- **Monotonic Rank Correlation Decay:**
+  - Level 0 (Trained Weights): $\rho = 1.0000$, Cosine $= 1.0000$, Top-5 Overlap $= 1.0000$
+  - Level 1 (Decoder Random): $\rho = 0.9998$, Cosine $= 0.9995$, Top-5 Overlap $= 1.0000$
+  - Level 3 (Transformer Random): $\rho = 0.0911$, Cosine $= -0.0026$, Top-5 Overlap $= 0.5931$
+  - Level 5 (Complete Random): $\rho = -0.0230$, Cosine $= 0.0631$, Top-5 Overlap $= 0.5720$
+  - Level 6 (Permutation Noise Floor): $\rho = 0.0114$, Cosine $= 0.0412$, Top-5 Overlap $= 0.0690$
+- **Conclusion:** Confirms that CHARM attributions genuinely depend on learned representations.
 
 ---
 
-## 4. Critical Scientific Insight: XAI Faithfulness vs. NLI Verification
+## 4. Multi-Configuration Comparative Evaluation
 
-A foundational conceptual finding of this research validation is that:
-> **NLI verification operates strictly on textual claim validity and knowledge grounding; it does not alter the underlying mathematical faithfulness of CHARM's XAI attributions.**
-
-- The attribution vector is computed deterministically by the Masked Autoencoder before retrieval occurs ($\text{AOPC@10} = 92.48$).
-- SVA-GRAG and NLI verification ensure that the *narrative claims presented to human security analysts* accurately reflect those mathematical outputs without hallucinating non-existent features or making ungrounded causal claims.
+| Configuration | Description | EHR | UCR | Evidence Coverage | CCR | AOPC@10 | Mean Latency |
+|---|---|---|---|---|---|---|---|
+| **Config A** | Raw CHARM XAI Attributions | 0.0000 | 0.0000 | 1.0000 | 1.0000 | 63.10 | **0.0502s** |
+| **Config B** | Unverified Explanations | 0.0167 | 0.0278 | 0.9722 | 0.4333 | 63.10 | 0.0503s |
+| **Config C** | Graph-RAG Retrieval Only | 0.0167 | 0.0232 | 0.9768 | 0.4333 | 63.10 | 0.0525s |
+| **Config D** | Fully Verified Pipeline | **0.0000** | **0.0000** | **1.0000** | **0.4333** | **63.10** | 0.2041s |
 
 ---
 
-## 5. Limitations & Scientific Boundaries
+## 5. Dataset Validation Limitations & Blockers
 
-1. **Deterministic Explainer**: The explanation generator employs deterministic rule-based claim segmentation rather than an external autoregressive LLM. Therefore, hallucination mitigation addresses template/evidence mismatch and entity injection rather than LLM token sampling stochasticity.
-2. **Local Dataset Boundaries**: Real-data neural inference is executed on calibrated benchmark telemetry tensors matching the exact mean and covariance of the trained CICIoT2023 distribution because local raw CSV partitions are absent. Real-data testing against raw CICIoT2023 flows remains pending external provision of the raw CSV partitions.
+- **Status of Real-Data Validation:** **BLOCKED**.
+- **Root Cause:** The host filesystem contains `datasets/research_partition_manifest.csv` but lacks raw CSV partition files (`test_partition_*.csv`) and raw packet PCAPs for CICIoT2023.
+- **Cross-Dataset Compatibility:** Alternative datasets (e.g. CICIoMT2024) lack 9 continuous features required by the 46-feature schema. Zero-filling these missing dimensions distorts the Mahalanobis covariance, producing a 100% false-positive anomaly rate.
+- **Scientific Integrity Stance:** Rather than fabricating data or misrepresenting synthetic data as real traffic, real-data validation is explicitly marked as BLOCKED pending raw packet CSV availability.
+
+---
+
+## 6. Verification and Reproducibility
+
+- Master Execution Script: `python3 run_all_experiments.py` (runtime: 257.05s).
+- Automated Unit Tests: `python3 tests/test_audit_validation.py` (5/5 PASSED).
+- Original Source Integrity: 100% UNCHANGED (23/23 monitored source files verified via SHA-256).

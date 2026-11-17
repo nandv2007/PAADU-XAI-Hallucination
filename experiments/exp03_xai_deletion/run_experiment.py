@@ -47,6 +47,7 @@ def run_experiment():
     K = 10
     block_records = []
     csv_rows = []
+    raw_feature_deletion_rows = []
 
     for i in range(len(anom_blocks)):
         block = anom_blocks[i]
@@ -75,6 +76,30 @@ def run_experiment():
             top_step_scores.append(s_top)
             rand_step_scores.append(s_rand)
             bot_step_scores.append(s_bot)
+
+            # Record raw trajectory per step
+            topk_idx = sorted_top_indices[k - 1]
+            topk_name = engine.features[topk_idx]
+            topk_obs = float(block[0, 0, :, topk_idx].mean())
+            topk_ben = float(engine.mean[0, 0, 0, topk_idx])
+            topk_attr = float(attr_vec[topk_idx])
+
+            rand_idx = random_indices[k - 1]
+            rand_name = engine.features[rand_idx]
+
+            bot_idx = sorted_bottom_indices[k - 1]
+            bot_name = engine.features[bot_idx]
+
+            raw_feature_deletion_rows.append([
+                i, meta['block_id'], meta['traffic_profile'], base_score,
+                k, topk_name, topk_idx, k, topk_obs, topk_ben, topk_attr,
+                s_top, float(base_score - s_top),
+                rand_name, rand_idx, s_rand, float(base_score - s_rand),
+                bot_name, bot_idx, s_bot, float(base_score - s_bot),
+                compute_aopc(base_score, top_step_scores[:k]),
+                compute_aopc(base_score, rand_step_scores[:k]),
+                compute_aopc(base_score, bot_step_scores[:k])
+            ])
 
         # 2. Compute AOPC@10
         aopc_top = compute_aopc(base_score, top_step_scores)
@@ -168,23 +193,36 @@ def run_experiment():
         }
     }
 
-    # Save CSV
-    csv_path = PACKAGE_ROOT / 'results' / 'EXPERIMENT_3_RESULTS.csv'
-    csv_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(csv_path, 'w', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow([
-            'block_id', 'traffic_profile', 'base_anomaly_score',
-            'aopc_top10', 'aopc_random10', 'aopc_bottom10',
-            'comprehensiveness_k1', 'comprehensiveness_k3', 'comprehensiveness_k5', 'comprehensiveness_k10',
-            'sufficiency_k5', 'spearman_rho_noise', 'kendall_tau_noise'
-        ])
-        writer.writerows(csv_rows)
+    # Save CSVs to both recomputed_results and results
+    for out_dir in [PACKAGE_ROOT / 'recomputed_results', PACKAGE_ROOT / 'results']:
+        out_dir.mkdir(parents=True, exist_ok=True)
+        with open(out_dir / 'EXPERIMENT_3_RESULTS.csv', 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow([
+                'block_id', 'traffic_profile', 'base_anomaly_score',
+                'aopc_top10', 'aopc_random10', 'aopc_bottom10',
+                'comprehensiveness_k1', 'comprehensiveness_k3', 'comprehensiveness_k5', 'comprehensiveness_k10',
+                'sufficiency_k5', 'spearman_rho_noise', 'kendall_tau_noise'
+            ])
+            writer.writerows(csv_rows)
 
-    # Save JSON
-    json_path = PACKAGE_ROOT / 'results' / 'EXPERIMENT_3_METRICS.json'
-    with open(json_path, 'w') as f:
-        json.dump(summary_metrics, f, indent=2)
+        with open(out_dir / 'RAW_FEATURE_DELETION.csv', 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow([
+                'sample_index', 'block_id', 'traffic_profile', 'base_anomaly_score',
+                'step_k', 'topk_feature_name', 'topk_feature_index', 'topk_rank',
+                'topk_observed_mean', 'topk_benign_mean', 'topk_attribution',
+                'topk_recalculated_score', 'topk_score_drop',
+                'random_feature_name', 'random_feature_index',
+                'random_recalculated_score', 'random_score_drop',
+                'bottom_feature_name', 'bottom_feature_index',
+                'bottom_recalculated_score', 'bottom_score_drop',
+                'cumulative_aopc_topk', 'cumulative_aopc_random', 'cumulative_aopc_bottom'
+            ])
+            writer.writerows(raw_feature_deletion_rows)
+
+        with open(out_dir / 'EXPERIMENT_3_METRICS.json', 'w') as f:
+            json.dump(summary_metrics, f, indent=2)
 
     # Save Markdown Report in reports/
     rep_path = PACKAGE_ROOT / 'reports' / 'EXPERIMENT_3_REPORT.md'
@@ -233,7 +271,7 @@ This experiment evaluates the mathematical faithfulness of CHARM's deterministic
     print(f"  AOPC Top-k: {mean_aopc_top:.4f} vs Random: {mean_aopc_rand:.4f} vs Bottom: {mean_aopc_bot:.4f}")
     print(f"  Comprehensiveness@5: {mean_comp_5:.4f}")
     print(f"  Rank Stability Spearman Rho: {mean_rho:.4f}")
-    print(f"  Results saved to {csv_path} and {json_path}")
+    print(f"  Results saved to RAW_FEATURE_DELETION.csv and EXPERIMENT_3_RESULTS.csv")
 
 if __name__ == '__main__':
     run_experiment()

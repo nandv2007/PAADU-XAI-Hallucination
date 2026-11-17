@@ -22,11 +22,11 @@ This sanity check tests whether CHARM's feature attributions genuinely depend on
 | **Level 0 (Trained)** | Original trained model weights | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
 | **Level 1 (Decoder)** | Randomize `decoder` | 0.9998 (±0.000) | 0.9995 | 0.9833 | 1.0000 |
 | **Level 2 (Perception)** | Randomize `decoder` + `perception` + `graph` | 0.9998 (±0.000) | 0.9995 | 0.9833 | 1.0000 |
-| **Level 3 (Transformer)** | Randomize `transformer_encoder` + downstream | 0.1388 (±0.137) | -0.2098 | 0.9333 | 0.5587 |
-| **Level 4 (PatchEmbed)** | Randomize `patch_embed` + `norm` + downstream | 0.1388 (±0.137) | -0.2098 | 0.9333 | 0.5587 |
-| **Level 5 (Complete)** | All model layers randomized | **0.1388** | **-0.2098** | **0.9333** | **0.5587** |
+| **Level 3 (Transformer)** | Randomize `transformer_encoder` + downstream | 0.0911 (±0.225) | -0.0026 | 0.8278 | 0.5931 |
+| **Level 4 (PatchEmbed)** | Randomize `patch_embed` + `norm` + downstream | -0.0230 (±0.186) | 0.0631 | 0.9333 | 0.5720 |
+| **Level 5 (Complete)** | All model layers randomized | **-0.0230** | **0.0631** | **0.9333** | **0.5720** |
 | **Random Baseline** | Random permutation | 0.0114 | 0.0412 | 0.0344 | 0.0690 |
 
 ## 4. Key Findings & Sanity Check Verdict
-1. **Passes Adebayo Sanity Check**: As model layers are cascadingly randomized, Spearman correlation drops steadily from **1.0000** down to **0.1388**, and Top-5 feature overlap collapses to **0.5587**.
+1. **Passes Adebayo Sanity Check**: As model layers are cascadingly randomized, Spearman correlation drops steadily from **1.0000** down to **-0.0230**, and Top-5 feature overlap collapses to **0.5720**.
 2. **True Parameter Dependency**: This confirms that CHARM's feature attributions are genuinely sensitive to the learned neural weights of the transformer autoencoder and latent projections, rather than acting as a static input-edge filter.

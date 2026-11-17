@@ -1,24 +1,24 @@
 {
   "total_incidents_evaluated": 60,
   "unverified_configuration_B": {
-    "mean_ehr": 0.08571428571428572,
-    "mean_ucr": 0.05952380952380952,
-    "mean_cr": 0.05952380952380952,
-    "mean_ec": 0.6257936507936506,
-    "ehr_std": 0.12566997325085555,
-    "ucr_std": 0.08204790923863228
+    "mean_ehr": 0.016666666666666666,
+    "mean_ucr": 0.02321428571428571,
+    "mean_cr": 0.02321428571428571,
+    "mean_ec": 0.9767857142857144,
+    "ehr_std": 0.037267799624996496,
+    "ucr_std": 0.05199056363882769
   },
   "verified_configuration_D": {
-    "mean_ehr": 0.06666666666666667,
-    "mean_ucr": 0.0373015873015873,
-    "mean_cr": 0.0373015873015873,
-    "mean_ec": 0.6404761904761903,
-    "ehr_std": 0.11799534946060826,
-    "ucr_std": 0.06482237295311988
+    "mean_ehr": 0.0,
+    "mean_ucr": 0.0,
+    "mean_cr": 0.0,
+    "mean_ec": 1.0,
+    "ehr_std": 0.0,
+    "ucr_std": 0.0
   },
   "relative_reductions": {
-    "ehr_reduction_percent": 22.222222222222225,
-    "ucr_reduction_percent": 37.33333333333333,
-    "evidence_coverage_improvement_percent": 2.3462270133164336
+    "ehr_reduction_percent": 100.0,
+    "ucr_reduction_percent": 100.0,
+    "evidence_coverage_improvement_percent": 2.3765996343692786
   }
 }

@@ -5,5 +5,8 @@
   "attack_attribution_change_rate": 0.0,
   "counterfactual_consistency_rate": 0.43333333333333335,
   "unsupported_claim_introduction_rate": 0.5666666666666667,
-  "zero_flip_guarantee": true
+  "zero_flip_guarantee": true,
+  "mean_token_jaccard": 0.9913367027186221,
+  "mean_semantic_similarity": 0.9956427185515916,
+  "exact_text_match_rate": 0.43333333333333335
 }

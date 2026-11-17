@@ -9,14 +9,22 @@ import torch
 import torch.nn as nn
 from original.paadu_benchmark_v7 import VolumeAdaptiveRelaxer
 
-def reinit_layer(module: nn.Module, seed: int):
-    """Reinitializes parameters of a PyTorch module using standard initialization."""
+def reinit_param(name: str, p: nn.Parameter, seed: int):
+    """Initializes an individual parameter tensor according to its architectural role."""
     torch.manual_seed(seed)
-    for p in module.parameters():
-        if p.dim() > 1:
+    with torch.no_grad():
+        if 'pos_embed' in name or 'mask_token' in name or 'cls_token' in name:
+            nn.init.trunc_normal_(p, mean=0.0, std=0.02)
+        elif p.dim() > 1:
             nn.init.xavier_uniform_(p)
-        else:
+        elif p.dim() == 1 and ('norm' in name.lower() and 'weight' in name.lower()):
+            nn.init.ones_(p)
+        elif p.dim() == 1 and 'bias' in name.lower():
             nn.init.zeros_(p)
+        else:
+            nn.init.normal_(p, mean=0.0, std=0.02)
+
+reinit_layer = reinit_param
 
 def build_engine_copy(base_engine, model: nn.Module):
     """Wraps a disposable model copy inside a standalone CHARMEngine instance."""
@@ -40,30 +48,21 @@ def get_randomized_model_copy(orig_model: nn.Module, level_name: str, seed: int)
     disposable_model.eval()
 
     if level_name == 'Level_1_Decoder':
-        reinit_layer(disposable_model.decoder, seed)
-
+        target_prefixes = ('decoder.',)
     elif level_name == 'Level_2_Perception':
-        reinit_layer(disposable_model.decoder, seed)
-        reinit_layer(disposable_model.perception, seed)
-        reinit_layer(disposable_model.graph_layer, seed)
-
+        target_prefixes = ('decoder.', 'perception.', 'graph_layer.')
     elif level_name == 'Level_3_Transformer':
-        reinit_layer(disposable_model.decoder, seed)
-        reinit_layer(disposable_model.perception, seed)
-        reinit_layer(disposable_model.graph_layer, seed)
-        reinit_layer(disposable_model.transformer_encoder, seed)
-
+        target_prefixes = ('decoder.', 'perception.', 'graph_layer.', 'transformer_encoder.')
     elif level_name == 'Level_4_PatchEmbed':
-        reinit_layer(disposable_model.decoder, seed)
-        reinit_layer(disposable_model.perception, seed)
-        reinit_layer(disposable_model.graph_layer, seed)
-        reinit_layer(disposable_model.transformer_encoder, seed)
-        reinit_layer(disposable_model.patch_embed, seed)
-        reinit_layer(disposable_model.norm, seed)
-
+        target_prefixes = ('decoder.', 'perception.', 'graph_layer.', 'transformer_encoder.',
+                           'patch_embed.', 'norm.', 'pos_embed', 'mask_token')
     elif level_name == 'Level_5_Complete':
-        for m in disposable_model.modules():
-            if isinstance(m, (nn.Linear, nn.Conv1d, nn.Embedding, nn.LayerNorm)):
-                reinit_layer(m, seed)
+        target_prefixes = tuple(name for name, _ in disposable_model.named_parameters())
+    else:
+        target_prefixes = ()
+
+    for name, p in disposable_model.named_parameters():
+        if any(name.startswith(pre) or pre in name for pre in target_prefixes):
+            reinit_param(name, p, seed)
 
     return disposable_model

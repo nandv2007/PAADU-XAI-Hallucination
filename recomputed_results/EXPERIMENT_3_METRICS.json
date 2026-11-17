@@ -1,0 +1,24 @@
+{
+  "total_anomalous_blocks_evaluated": 45,
+  "aopc_K10": {
+    "top_k_features_mean": 63.09693203613137,
+    "random_baseline_mean": -4.150393167721666,
+    "bottom_k_baseline_mean": -57.852889095511266,
+    "paired_t_statistic": 4.395480350717363,
+    "paired_t_p_value": 6.888499252977957e-05,
+    "statistically_significant": true
+  },
+  "comprehensiveness": {
+    "comp_at_1": 20.135508558788693,
+    "comp_at_3": 63.13256231786047,
+    "comp_at_5": 68.3564666746849,
+    "comp_at_10": 68.40831384925113
+  },
+  "sufficiency": {
+    "suff_at_5": -60.17913535715115
+  },
+  "attribution_rank_stability": {
+    "spearman_rho_mean": 0.9766416555315725,
+    "kendall_tau_mean": 0.9068599033816426
+  }
+}

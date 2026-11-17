@@ -27,7 +27,10 @@ for p in [str(PACKAGE_ROOT), str(ORIG_SYSTEM), str(CHARM_ORIG / 'project'), str(
         sys.path.insert(0, p)
 
 from unified_integration.pipeline import UnifiedPAADUPipeline
+from unified_integration.generation.incident_explainer import FactualClaim
 from research_validation.scripts.dataset_generator import generate_evaluation_dataset
+from experiments.exp01_telemetry_hallucination.telemetry_validator import validate_claim_against_incident
+from experiments.exp01_telemetry_hallucination.ehr_metrics import compute_incident_metrics
 
 def run_baseline_comparison():
     print("=" * 72)
@@ -70,10 +73,22 @@ def run_baseline_comparison():
             custom_metadata=meta
         )
         unv_exp_no_ret = pipeline.explainer.generate_explanation(incident, evidence=[])
+        claims_b = list(unv_exp_no_ret.claims)
+        if inject_pert and len(claims_b) > 0:
+            bogus_claim = FactualClaim(
+                claim_id=f"BOGUS-{meta['block_id']}",
+                claim_text=f"Telemetry indicates an anomalous hybrid score of {incident.anomaly_score + 99.0:.3f} "
+                           f"and observed mean of 999.99 for non-existent flow feature.",
+                claim_type="OBSERVED_FACT"
+            )
+            claims_b.append(bogus_claim)
         t_b = time.perf_counter() - t0 + t_a
-        u_ehr = 0.1667 if inject_pert else 0.0
-        u_ucr = 0.3333
-        u_ec = 0.6667
+
+        evals_b = [validate_claim_against_incident(c.claim_text, c.claim_type, incident, cited_evidence=[]) for c in claims_b]
+        m_b = compute_incident_metrics(evals_b)
+        u_ehr = m_b['ehr']
+        u_ucr = m_b['ucr']
+        u_ec = m_b['ec']
         config_records['Config_B_Unverified_Expl']['ehr'].append(u_ehr)
         config_records['Config_B_Unverified_Expl']['ucr'].append(u_ucr)
         config_records['Config_B_Unverified_Expl']['ec'].append(u_ec)
@@ -90,10 +105,22 @@ def run_baseline_comparison():
         )
         ev_list = ref_res.final_evidence
         unv_exp_ret = pipeline.explainer.generate_explanation(incident, ev_list)
+        claims_c = list(unv_exp_ret.claims)
+        if inject_pert and len(claims_c) > 0:
+            bogus_claim = FactualClaim(
+                claim_id=f"BOGUS-{meta['block_id']}",
+                claim_text=f"Telemetry indicates an anomalous hybrid score of {incident.anomaly_score + 99.0:.3f} "
+                           f"and observed mean of 999.99 for non-existent flow feature.",
+                claim_type="OBSERVED_FACT"
+            )
+            claims_c.append(bogus_claim)
         t_c = time.perf_counter() - t0 + t_a
-        c_ehr = 0.1667 if inject_pert else 0.0
-        c_ucr = 0.1667
-        c_ec = 0.8333
+
+        evals_c = [validate_claim_against_incident(c.claim_text, c.claim_type, incident, cited_evidence=ev_list) for c in claims_c]
+        m_c = compute_incident_metrics(evals_c)
+        c_ehr = m_c['ehr']
+        c_ucr = m_c['ucr']
+        c_ec = m_c['ec']
         config_records['Config_C_Retrieval_Only']['ehr'].append(c_ehr)
         config_records['Config_C_Retrieval_Only']['ucr'].append(c_ucr)
         config_records['Config_C_Retrieval_Only']['ec'].append(c_ec)
@@ -102,15 +129,23 @@ def run_baseline_comparison():
 
         # Config D: CHARM + XAI + SVA-GRAG + NLI Verification & Correction
         t0 = time.perf_counter()
+        unv_exp_ret.claims = claims_c
         ver_summary = pipeline.verifier.verify_and_correct(
             explanation=unv_exp_ret,
             incident=incident,
             evidence=ev_list
         )
         t_d = time.perf_counter() - t0 + t_c
-        d_ehr = 0.0
-        d_ucr = 0.0
-        d_ec = 1.0
+
+        evals_d = [
+            validate_claim_against_incident(c.final_presented_text, c.claim_type, incident, cited_evidence=ev_list)
+            for c in ver_summary.claim_results
+            if c.verification_status not in ('CONTRADICTED', 'UNVERIFIED_TELEMETRY_MISMATCH')
+        ]
+        m_d = compute_incident_metrics(evals_d)
+        d_ehr = m_d['ehr']
+        d_ucr = m_d['ucr']
+        d_ec = m_d['ec']
         config_records['Config_D_Full_Verified']['ehr'].append(d_ehr)
         config_records['Config_D_Full_Verified']['ucr'].append(d_ucr)
         config_records['Config_D_Full_Verified']['ec'].append(d_ec)
@@ -162,37 +197,73 @@ def run_baseline_comparison():
         }
     }
 
-    # Save CSV
-    csv_path = PACKAGE_ROOT / 'results' / 'COMPARISON_SUMMARY.csv'
-    csv_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(csv_path, 'w', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow([
-            'metric', 'config_a_raw_xai', 'config_b_unverified', 'config_c_retrieval_only', 'config_d_fully_verified'
-        ])
-        writer.writerow(['entity_hallucination_rate', '0.0000', f"{summary_json['configurations']['Config_B']['ehr']:.4f}", f"{summary_json['configurations']['Config_C']['ehr']:.4f}", '0.0000'])
-        writer.writerow(['unsupported_claim_rate', '0.0000', f"{summary_json['configurations']['Config_B']['ucr']:.4f}", f"{summary_json['configurations']['Config_C']['ucr']:.4f}", '0.0000'])
-        writer.writerow(['evidence_coverage', '1.0000', f"{summary_json['configurations']['Config_B']['evidence_coverage']:.4f}", f"{summary_json['configurations']['Config_C']['evidence_coverage']:.4f}", '1.0000'])
-        writer.writerow(['counterfactual_consistency', '1.0000', '1.0000', '1.0000', '1.0000'])
-        writer.writerow(['xai_faithfulness_aopc10', '92.48', '92.48', '92.48', '92.48'])
-        writer.writerow(['mean_latency_sec', f"{summary_json['configurations']['Config_A']['mean_latency_sec']:.4f}", f"{summary_json['configurations']['Config_B']['mean_latency_sec']:.4f}", f"{summary_json['configurations']['Config_C']['mean_latency_sec']:.4f}", f"{summary_json['configurations']['Config_D']['mean_latency_sec']:.4f}"])
+    # Dynamically retrieve actual calculated values for cross-module metrics
+    exp3_json = PACKAGE_ROOT / 'results' / 'EXPERIMENT_3_METRICS.json'
+    if exp3_json.exists():
+        with open(exp3_json) as f:
+            exp3_m = json.load(f)
+            aopc10_val = float(exp3_m.get('aopc_K10', {}).get('top_k_features_mean', 63.10))
+    else:
+        aopc10_val = 63.10
 
-    # Also save detailed comparison
-    detailed_csv = PACKAGE_ROOT / 'results' / 'BASELINE_COMPARISON.csv'
-    with open(detailed_csv, 'w', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow([
-            'block_id', 'traffic_profile',
-            'config_a_latency', 'config_b_ehr', 'config_b_ucr', 'config_b_ec', 'config_b_latency',
-            'config_c_ehr', 'config_c_ucr', 'config_c_ec', 'config_c_latency',
-            'config_d_ehr', 'config_d_ucr', 'config_d_ec', 'config_d_latency'
-        ])
-        writer.writerows(detailed_rows)
+    exp2_json = PACKAGE_ROOT / 'results' / 'EXPERIMENT_2_METRICS.json'
+    if exp2_json.exists():
+        with open(exp2_json) as f:
+            exp2_m = json.load(f)
+            ccr_val = float(exp2_m.get('counterfactual_consistency_rate', 0.4333))
+    else:
+        ccr_val = 0.4333
 
-    # Save JSON
-    json_path = PACKAGE_ROOT / 'results' / 'BASELINE_COMPARISON.json'
-    with open(json_path, 'w') as f:
-        json.dump(summary_json, f, indent=2)
+    summary_json['xai_faithfulness_aopc10'] = aopc10_val
+    summary_json['counterfactual_consistency_rate'] = ccr_val
+
+    # Save CSVs to both recomputed_results and results
+    for out_dir in [PACKAGE_ROOT / 'recomputed_results', PACKAGE_ROOT / 'results']:
+        out_dir.mkdir(parents=True, exist_ok=True)
+        with open(out_dir / 'COMPARISON_SUMMARY.csv', 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow([
+                'metric', 'config_a_raw_xai', 'config_b_unverified', 'config_c_retrieval_only', 'config_d_fully_verified'
+            ])
+            writer.writerow(['entity_hallucination_rate',
+                f"{summary_json['configurations']['Config_A']['ehr']:.4f}",
+                f"{summary_json['configurations']['Config_B']['ehr']:.4f}",
+                f"{summary_json['configurations']['Config_C']['ehr']:.4f}",
+                f"{summary_json['configurations']['Config_D']['ehr']:.4f}"
+            ])
+            writer.writerow(['unsupported_claim_rate',
+                f"{summary_json['configurations']['Config_A']['ucr']:.4f}",
+                f"{summary_json['configurations']['Config_B']['ucr']:.4f}",
+                f"{summary_json['configurations']['Config_C']['ucr']:.4f}",
+                f"{summary_json['configurations']['Config_D']['ucr']:.4f}"
+            ])
+            writer.writerow(['evidence_coverage',
+                f"{summary_json['configurations']['Config_A']['evidence_coverage']:.4f}",
+                f"{summary_json['configurations']['Config_B']['evidence_coverage']:.4f}",
+                f"{summary_json['configurations']['Config_C']['evidence_coverage']:.4f}",
+                f"{summary_json['configurations']['Config_D']['evidence_coverage']:.4f}"
+            ])
+            writer.writerow(['counterfactual_consistency', '1.0000', f"{ccr_val:.4f}", f"{ccr_val:.4f}", f"{ccr_val:.4f}"])
+            writer.writerow(['xai_faithfulness_aopc10', f"{aopc10_val:.2f}", f"{aopc10_val:.2f}", f"{aopc10_val:.2f}", f"{aopc10_val:.2f}"])
+            writer.writerow(['mean_latency_sec',
+                f"{summary_json['configurations']['Config_A']['mean_latency_sec']:.4f}",
+                f"{summary_json['configurations']['Config_B']['mean_latency_sec']:.4f}",
+                f"{summary_json['configurations']['Config_C']['mean_latency_sec']:.4f}",
+                f"{summary_json['configurations']['Config_D']['mean_latency_sec']:.4f}"
+            ])
+
+        with open(out_dir / 'BASELINE_COMPARISON.csv', 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow([
+                'block_id', 'traffic_profile',
+                'config_a_latency', 'config_b_ehr', 'config_b_ucr', 'config_b_ec', 'config_b_latency',
+                'config_c_ehr', 'config_c_ucr', 'config_c_ec', 'config_c_latency',
+                'config_d_ehr', 'config_d_ucr', 'config_d_ec', 'config_d_latency'
+            ])
+            writer.writerows(detailed_rows)
+
+        with open(out_dir / 'BASELINE_COMPARISON.json', 'w') as f:
+            json.dump(summary_json, f, indent=2)
 
     # Save Markdown Report in reports/
     rep_path = PACKAGE_ROOT / 'reports' / 'BASELINE_COMPARISON_REPORT.md'
@@ -201,7 +272,7 @@ def run_baseline_comparison():
 
 **Evaluation Date:** 2026-11-17  
 **Evaluated Sample Size:** 60 paired incidents across 4 distinct traffic profiles  
-**Evaluation Mode:** Paired evaluation under identical deterministic conditions  
+**Evaluation Mode:** Paired evaluation under identical deterministic conditions (Dynamically Computed)  
 **Status:** Completed  
 
 ## 1. Evaluated Configurations
@@ -210,27 +281,27 @@ def run_baseline_comparison():
 - **Configuration C: CHARM + XAI + SVA-GRAG Retrieval**: Retrieval-augmented explanation referencing authoritative RFC/NIST literature, but without NLI verification.
 - **Configuration D: CHARM + XAI + SVA-GRAG + NLI Verification & Correction**: Complete pipeline featuring transformer cross-encoder claim verification, contradiction retraction, and conservative uncertainty badging.
 
-## 2. Comparative Evaluation Matrix
+## 2. Comparative Evaluation Matrix (Dynamically Measured)
 
 | Metric | Config A (Raw XAI) | Config B (Unverified) | Config C (Retrieval Only) | Config D (Fully Verified) |
 | :--- | :---: | :---: | :---: | :---: |
-| **Entity Hallucination Rate (EHR)** | **0.0000** (N/A) | {summary_json['configurations']['Config_B']['ehr']:.4f} | {summary_json['configurations']['Config_C']['ehr']:.4f} | **0.0000** |
-| **Unsupported Claim Rate (UCR)** | **0.0000** (N/A) | {summary_json['configurations']['Config_B']['ucr']:.4f} | {summary_json['configurations']['Config_C']['ucr']:.4f} | **0.0000** |
-| **Evidence Coverage (EC)** | 1.0000 (telemetry only) | {summary_json['configurations']['Config_B']['evidence_coverage']:.4f} | {summary_json['configurations']['Config_C']['evidence_coverage']:.4f} | **1.0000** |
-| **Counterfactual Consistency** | 1.0000 | 1.0000 | 1.0000 | **1.0000** |
-| **XAI Faithfulness (AOPC@10)** | 92.48 | 92.48 | 92.48 | 92.48 |
+| **Entity Hallucination Rate (EHR)** | **{summary_json['configurations']['Config_A']['ehr']:.4f}** (N/A) | {summary_json['configurations']['Config_B']['ehr']:.4f} | {summary_json['configurations']['Config_C']['ehr']:.4f} | **{summary_json['configurations']['Config_D']['ehr']:.4f}** |
+| **Unsupported Claim Rate (UCR)** | **{summary_json['configurations']['Config_A']['ucr']:.4f}** (N/A) | {summary_json['configurations']['Config_B']['ucr']:.4f} | {summary_json['configurations']['Config_C']['ucr']:.4f} | **{summary_json['configurations']['Config_D']['ucr']:.4f}** |
+| **Evidence Coverage (EC)** | {summary_json['configurations']['Config_A']['evidence_coverage']:.4f} (telemetry only) | {summary_json['configurations']['Config_B']['evidence_coverage']:.4f} | {summary_json['configurations']['Config_C']['evidence_coverage']:.4f} | **{summary_json['configurations']['Config_D']['evidence_coverage']:.4f}** |
+| **Counterfactual Consistency** | 1.0000 | {ccr_val:.4f} | {ccr_val:.4f} | **{ccr_val:.4f}** |
+| **XAI Faithfulness (AOPC@10)** | {aopc10_val:.2f} | {aopc10_val:.2f} | {aopc10_val:.2f} | **{aopc10_val:.2f}** |
 | **Mean Latency (sec/incident)** | **{summary_json['configurations']['Config_A']['mean_latency_sec']:.4f}s** | {summary_json['configurations']['Config_B']['mean_latency_sec']:.4f}s | {summary_json['configurations']['Config_C']['mean_latency_sec']:.4f}s | {summary_json['configurations']['Config_D']['mean_latency_sec']:.4f}s |
 
 ## 3. Important Scientific Clarification: XAI Faithfulness vs NLI Verification
 A critical conceptual finding of this research validation is that **NLI verification operates strictly on textual claim validity and knowledge grounding; it does not alter the underlying mathematical faithfulness of CHARM's XAI attributions**.
-- The feature attribution scores are computed directly by the leave-one-feature-out occlusion over the Masked Autoencoder ($\\text{{AOPC@10}} = 92.48$).
+- The feature attribution scores are computed directly by the leave-one-feature-out occlusion over the Masked Autoencoder ($\\text{{AOPC@10}} = {aopc10_val:.2f}$).
 - SVA-GRAG and NLI verification ensure that the *narrative claims presented to human analysts* accurately reflect those mathematical outputs without hallucinating non-existent features or making ungrounded causal claims.
 """)
 
     print(f"✓ Baseline comparison completed successfully.")
     print(f"  Config A Latency: {summary_json['configurations']['Config_A']['mean_latency_sec']:.4f}s")
     print(f"  Config D Latency: {summary_json['configurations']['Config_D']['mean_latency_sec']:.4f}s")
-    print(f"  Results saved to {csv_path} and {json_path}")
+    print(f"  Results saved to BASELINE_COMPARISON.csv and BASELINE_COMPARISON.json")
 
 if __name__ == '__main__':
     run_baseline_comparison()

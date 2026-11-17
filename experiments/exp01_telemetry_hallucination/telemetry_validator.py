@@ -94,12 +94,23 @@ def validate_claim_against_incident(
             label = "UNSUPPORTED"
 
     # 3. Evaluate Operational Hypotheses
-    elif claim_type == "OPERATIONAL_HYPOTHESIS":
-        # Hypotheses without explicit uncertainty tags or unverified against KB are UNSUPPORTED
-        if "[OPERATIONAL HYPOTHESIS]" in claim_text or "UNVERIFIED" in claim_text or "HYPOTHESIS" in claim_text:
-            label = "SUPPORTED"  # Properly badged with epistemic uncertainty
+    elif claim_type in ("HYPOTHESIS", "OPERATIONAL_HYPOTHESIS"):
+        # An operational hypothesis without explicit uncertainty tags or unverified against KB is UNSUPPORTED.
+        # If it carries an explicit uncertainty flag, it is classified as a valid bounded hypothesis.
+        has_uncertainty_badge = (
+            "[OPERATIONAL HYPOTHESIS]" in claim_text or
+            "[UNVERIFIED" in claim_text or
+            "cannot be conclusively attributed" in claim_text or
+            "Further investigation is recommended" in claim_text
+        )
+        if has_uncertainty_badge:
+            label = "SUPPORTED"  # Properly guarded with epistemic uncertainty
+            verifiable_count += 1
+            entity_matches += 1
         else:
             label = "UNSUPPORTED"
+            verifiable_count += 1
+            entity_errors += 1
 
     else:
         label = "UNVERIFIABLE"

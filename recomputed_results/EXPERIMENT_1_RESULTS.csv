@@ -1,0 +1,61 @@
+block_id,traffic_profile,perturbation_injected,unverified_ehr,unverified_ucr,unverified_cr,unverified_ec,verified_ehr,verified_ucr,verified_cr,verified_ec
+BENIGN-BLK-01,Benign IoT Sensor Telemetry,True,0.1,0.14285714285714285,0.14285714285714285,0.8571428571428571,0.0,0.0,0.0,1.0
+BENIGN-BLK-02,Benign IoT Sensor Telemetry,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+BENIGN-BLK-03,Benign IoT Sensor Telemetry,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+BENIGN-BLK-04,Benign IoT Sensor Telemetry,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+BENIGN-BLK-05,Benign IoT Sensor Telemetry,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+BENIGN-BLK-06,Benign IoT Sensor Telemetry,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+BENIGN-BLK-07,Benign IoT Sensor Telemetry,True,0.1,0.14285714285714285,0.14285714285714285,0.8571428571428571,0.0,0.0,0.0,1.0
+BENIGN-BLK-08,Benign IoT Sensor Telemetry,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+BENIGN-BLK-09,Benign IoT Sensor Telemetry,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+BENIGN-BLK-10,Benign IoT Sensor Telemetry,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+BENIGN-BLK-11,Benign IoT Sensor Telemetry,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+BENIGN-BLK-12,Benign IoT Sensor Telemetry,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+BENIGN-BLK-13,Benign IoT Sensor Telemetry,True,0.1,0.14285714285714285,0.14285714285714285,0.8571428571428571,0.0,0.0,0.0,1.0
+BENIGN-BLK-14,Benign IoT Sensor Telemetry,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+BENIGN-BLK-15,Benign IoT Sensor Telemetry,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+SYN-FLOOD-BLK-01,TCP SYN Flood Attack Simulation,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+SYN-FLOOD-BLK-02,TCP SYN Flood Attack Simulation,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+SYN-FLOOD-BLK-03,TCP SYN Flood Attack Simulation,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+SYN-FLOOD-BLK-04,TCP SYN Flood Attack Simulation,True,0.1,0.14285714285714285,0.14285714285714285,0.8571428571428571,0.0,0.0,0.0,1.0
+SYN-FLOOD-BLK-05,TCP SYN Flood Attack Simulation,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+SYN-FLOOD-BLK-06,TCP SYN Flood Attack Simulation,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+SYN-FLOOD-BLK-07,TCP SYN Flood Attack Simulation,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+SYN-FLOOD-BLK-08,TCP SYN Flood Attack Simulation,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+SYN-FLOOD-BLK-09,TCP SYN Flood Attack Simulation,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+SYN-FLOOD-BLK-10,TCP SYN Flood Attack Simulation,True,0.1,0.14285714285714285,0.14285714285714285,0.8571428571428571,0.0,0.0,0.0,1.0
+SYN-FLOOD-BLK-11,TCP SYN Flood Attack Simulation,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+SYN-FLOOD-BLK-12,TCP SYN Flood Attack Simulation,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+SYN-FLOOD-BLK-13,TCP SYN Flood Attack Simulation,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+SYN-FLOOD-BLK-14,TCP SYN Flood Attack Simulation,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+SYN-FLOOD-BLK-15,TCP SYN Flood Attack Simulation,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+VOLUMETRIC-BLK-01,Volumetric Rate / Byte Flood,True,0.1,0.125,0.125,0.875,0.0,0.0,0.0,1.0
+VOLUMETRIC-BLK-02,Volumetric Rate / Byte Flood,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+VOLUMETRIC-BLK-03,Volumetric Rate / Byte Flood,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+VOLUMETRIC-BLK-04,Volumetric Rate / Byte Flood,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+VOLUMETRIC-BLK-05,Volumetric Rate / Byte Flood,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+VOLUMETRIC-BLK-06,Volumetric Rate / Byte Flood,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+VOLUMETRIC-BLK-07,Volumetric Rate / Byte Flood,True,0.1,0.14285714285714285,0.14285714285714285,0.8571428571428571,0.0,0.0,0.0,1.0
+VOLUMETRIC-BLK-08,Volumetric Rate / Byte Flood,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+VOLUMETRIC-BLK-09,Volumetric Rate / Byte Flood,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+VOLUMETRIC-BLK-10,Volumetric Rate / Byte Flood,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+VOLUMETRIC-BLK-11,Volumetric Rate / Byte Flood,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+VOLUMETRIC-BLK-12,Volumetric Rate / Byte Flood,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+VOLUMETRIC-BLK-13,Volumetric Rate / Byte Flood,True,0.1,0.125,0.125,0.875,0.0,0.0,0.0,1.0
+VOLUMETRIC-BLK-14,Volumetric Rate / Byte Flood,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+VOLUMETRIC-BLK-15,Volumetric Rate / Byte Flood,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+PORTSCAN-BLK-01,Reconnaissance & Port Scan,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+PORTSCAN-BLK-02,Reconnaissance & Port Scan,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+PORTSCAN-BLK-03,Reconnaissance & Port Scan,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+PORTSCAN-BLK-04,Reconnaissance & Port Scan,True,0.1,0.14285714285714285,0.14285714285714285,0.8571428571428571,0.0,0.0,0.0,1.0
+PORTSCAN-BLK-05,Reconnaissance & Port Scan,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+PORTSCAN-BLK-06,Reconnaissance & Port Scan,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+PORTSCAN-BLK-07,Reconnaissance & Port Scan,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+PORTSCAN-BLK-08,Reconnaissance & Port Scan,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+PORTSCAN-BLK-09,Reconnaissance & Port Scan,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+PORTSCAN-BLK-10,Reconnaissance & Port Scan,True,0.1,0.14285714285714285,0.14285714285714285,0.8571428571428571,0.0,0.0,0.0,1.0
+PORTSCAN-BLK-11,Reconnaissance & Port Scan,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+PORTSCAN-BLK-12,Reconnaissance & Port Scan,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+PORTSCAN-BLK-13,Reconnaissance & Port Scan,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+PORTSCAN-BLK-14,Reconnaissance & Port Scan,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
+PORTSCAN-BLK-15,Reconnaissance & Port Scan,False,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0

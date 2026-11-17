@@ -29,456 +29,516 @@ VOLUMETRIC-BLK-12,Level_0_Trained,Original trained model weights,42,1.0,1.0,1.0,
 VOLUMETRIC-BLK-13,Level_0_Trained,Original trained model weights,42,1.0,1.0,1.0,1.0,1.0
 VOLUMETRIC-BLK-14,Level_0_Trained,Original trained model weights,42,1.0,1.0,1.0,1.0,1.0
 VOLUMETRIC-BLK-15,Level_0_Trained,Original trained model weights,42,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-01,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-02,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-03,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-04,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-05,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-06,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-07,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-08,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-09,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-10,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-11,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-12,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-13,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-14,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-15,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-01,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-02,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-03,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-04,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-05,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-06,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-07,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-08,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-09,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-10,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-11,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-12,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-13,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-14,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-15,Level_0_Trained,Original trained model weights,101,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-01,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-02,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-03,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-04,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-05,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-06,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-07,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-08,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-09,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-10,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-11,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-12,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-13,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-14,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+SYN-FLOOD-BLK-15,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-01,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-02,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-03,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-04,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-05,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-06,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-07,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-08,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-09,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-10,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-11,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-12,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-13,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-14,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
+VOLUMETRIC-BLK-15,Level_0_Trained,Original trained model weights,2026,1.0,1.0,1.0,1.0,1.0
 SYN-FLOOD-BLK-01,Level_1_Decoder,Randomize output decoder sequential network,42,1.0,1.0,0.9999994039535522,1.0,1.0
 SYN-FLOOD-BLK-02,Level_1_Decoder,Randomize output decoder sequential network,42,0.9998766574159728,0.9980676328502417,0.9999992251396179,1.0,1.0
-SYN-FLOOD-BLK-03,Level_1_Decoder,Randomize output decoder sequential network,42,1.0,1.0,0.9999991655349731,1.0,1.0
+SYN-FLOOD-BLK-03,Level_1_Decoder,Randomize output decoder sequential network,42,1.0,1.0,0.9999991059303284,1.0,1.0
 SYN-FLOOD-BLK-04,Level_1_Decoder,Randomize output decoder sequential network,42,1.0,1.0,0.999998927116394,1.0,1.0
-SYN-FLOOD-BLK-05,Level_1_Decoder,Randomize output decoder sequential network,42,1.0,1.0,0.9999986886978149,1.0,1.0
+SYN-FLOOD-BLK-05,Level_1_Decoder,Randomize output decoder sequential network,42,1.0,1.0,0.9999986290931702,1.0,1.0
 SYN-FLOOD-BLK-06,Level_1_Decoder,Randomize output decoder sequential network,42,0.9997533148319457,0.9961352657004832,0.9999983906745911,1.0,1.0
-SYN-FLOOD-BLK-07,Level_1_Decoder,Randomize output decoder sequential network,42,0.9998766574159728,0.9980676328502417,0.9999982714653015,1.0,1.0
+SYN-FLOOD-BLK-07,Level_1_Decoder,Randomize output decoder sequential network,42,0.9998766574159728,0.9980676328502417,0.9999982118606567,1.0,1.0
 SYN-FLOOD-BLK-08,Level_1_Decoder,Randomize output decoder sequential network,42,0.9998766574159728,0.9980676328502417,0.9999978542327881,1.0,1.0
-SYN-FLOOD-BLK-09,Level_1_Decoder,Randomize output decoder sequential network,42,0.9997533148319457,0.9961352657004832,0.9999974370002747,1.0,1.0
-SYN-FLOOD-BLK-10,Level_1_Decoder,Randomize output decoder sequential network,42,1.0,1.0,0.9999971389770508,1.0,1.0
+SYN-FLOOD-BLK-09,Level_1_Decoder,Randomize output decoder sequential network,42,0.9997533148319457,0.9961352657004832,0.9999973773956299,1.0,1.0
+SYN-FLOOD-BLK-10,Level_1_Decoder,Randomize output decoder sequential network,42,1.0,1.0,0.9999971985816956,1.0,1.0
 SYN-FLOOD-BLK-11,Level_1_Decoder,Randomize output decoder sequential network,42,1.0,1.0,0.9999967813491821,1.0,1.0
-SYN-FLOOD-BLK-12,Level_1_Decoder,Randomize output decoder sequential network,42,0.9998766574159728,0.9980676328502417,0.9999964833259583,1.0,1.0
+SYN-FLOOD-BLK-12,Level_1_Decoder,Randomize output decoder sequential network,42,0.9998766574159728,0.9980676328502417,0.9999964237213135,1.0,1.0
 SYN-FLOOD-BLK-13,Level_1_Decoder,Randomize output decoder sequential network,42,1.0,1.0,0.9999959468841553,1.0,1.0
 SYN-FLOOD-BLK-14,Level_1_Decoder,Randomize output decoder sequential network,42,0.9997533148319457,0.9961352657004832,0.9999954700469971,1.0,1.0
-SYN-FLOOD-BLK-15,Level_1_Decoder,Randomize output decoder sequential network,42,0.9997533148319457,0.9961352657004832,0.9999949932098389,1.0,1.0
-VOLUMETRIC-BLK-01,Level_1_Decoder,Randomize output decoder sequential network,42,1.0,1.0,0.9999437928199768,1.0,1.0
-VOLUMETRIC-BLK-02,Level_1_Decoder,Randomize output decoder sequential network,42,0.9997533148319457,0.9961352657004832,0.9998583197593689,1.0,1.0
-VOLUMETRIC-BLK-03,Level_1_Decoder,Randomize output decoder sequential network,42,0.9997533148319457,0.9961352657004832,0.999607264995575,1.0,1.0
-VOLUMETRIC-BLK-04,Level_1_Decoder,Randomize output decoder sequential network,42,0.9996299722479185,0.9942028985507246,0.9992800951004028,1.0,1.0
-VOLUMETRIC-BLK-05,Level_1_Decoder,Randomize output decoder sequential network,42,0.9997533148319457,0.9961352657004832,0.9989448189735413,1.0,1.0
-VOLUMETRIC-BLK-06,Level_1_Decoder,Randomize output decoder sequential network,42,0.9993832870798643,0.9922705314009662,0.9987647533416748,1.0,1.0
-VOLUMETRIC-BLK-07,Level_1_Decoder,Randomize output decoder sequential network,42,0.9998766574159728,0.9980676328502417,0.9987326860427856,0.5,1.0
-VOLUMETRIC-BLK-08,Level_1_Decoder,Randomize output decoder sequential network,42,0.9998766574159728,0.9980676328502417,0.9986797571182251,1.0,1.0
-VOLUMETRIC-BLK-09,Level_1_Decoder,Randomize output decoder sequential network,42,0.9998766574159728,0.9980676328502417,0.9987627863883972,1.0,1.0
-VOLUMETRIC-BLK-10,Level_1_Decoder,Randomize output decoder sequential network,42,0.9998766574159728,0.9980676328502417,0.9988609552383423,1.0,1.0
-VOLUMETRIC-BLK-11,Level_1_Decoder,Randomize output decoder sequential network,42,1.0,1.0,0.9988848567008972,1.0,1.0
-VOLUMETRIC-BLK-12,Level_1_Decoder,Randomize output decoder sequential network,42,0.9996299722479185,0.9942028985507246,0.9989300966262817,1.0,1.0
-VOLUMETRIC-BLK-13,Level_1_Decoder,Randomize output decoder sequential network,42,0.9997533148319457,0.9961352657004832,0.9989370703697205,1.0,1.0
-VOLUMETRIC-BLK-14,Level_1_Decoder,Randomize output decoder sequential network,42,0.9997533148319457,0.9961352657004832,0.9989831447601318,1.0,1.0
-VOLUMETRIC-BLK-15,Level_1_Decoder,Randomize output decoder sequential network,42,0.9998766574159728,0.9980676328502417,0.9989808797836304,1.0,1.0
-SYN-FLOOD-BLK-01,Level_1_Decoder,Randomize output decoder sequential network,101,1.0,1.0,0.9999994039535522,1.0,1.0
-SYN-FLOOD-BLK-02,Level_1_Decoder,Randomize output decoder sequential network,101,0.9998766574159728,0.9980676328502417,0.9999992251396179,1.0,1.0
-SYN-FLOOD-BLK-03,Level_1_Decoder,Randomize output decoder sequential network,101,1.0,1.0,0.9999991655349731,1.0,1.0
+SYN-FLOOD-BLK-15,Level_1_Decoder,Randomize output decoder sequential network,42,0.9997533148319457,0.9961352657004832,0.9999949336051941,1.0,1.0
+VOLUMETRIC-BLK-01,Level_1_Decoder,Randomize output decoder sequential network,42,1.0,1.0,0.999943196773529,1.0,1.0
+VOLUMETRIC-BLK-02,Level_1_Decoder,Randomize output decoder sequential network,42,0.9997533148319457,0.9961352657004832,0.9998564124107361,1.0,1.0
+VOLUMETRIC-BLK-03,Level_1_Decoder,Randomize output decoder sequential network,42,0.9997533148319457,0.9961352657004832,0.9996025562286377,1.0,1.0
+VOLUMETRIC-BLK-04,Level_1_Decoder,Randomize output decoder sequential network,42,0.9996299722479185,0.9942028985507246,0.9992765784263611,1.0,1.0
+VOLUMETRIC-BLK-05,Level_1_Decoder,Randomize output decoder sequential network,42,0.9997533148319457,0.9961352657004832,0.9989453554153442,1.0,1.0
+VOLUMETRIC-BLK-06,Level_1_Decoder,Randomize output decoder sequential network,42,0.9993832870798643,0.9922705314009662,0.9987687468528748,1.0,1.0
+VOLUMETRIC-BLK-07,Level_1_Decoder,Randomize output decoder sequential network,42,0.9998766574159728,0.9980676328502417,0.9987380504608154,0.5,1.0
+VOLUMETRIC-BLK-08,Level_1_Decoder,Randomize output decoder sequential network,42,0.9998766574159728,0.9980676328502417,0.9986863136291504,1.0,1.0
+VOLUMETRIC-BLK-09,Level_1_Decoder,Randomize output decoder sequential network,42,0.9998766574159728,0.9980676328502417,0.9987697005271912,1.0,1.0
+VOLUMETRIC-BLK-10,Level_1_Decoder,Randomize output decoder sequential network,42,0.9998766574159728,0.9980676328502417,0.9988677501678467,1.0,1.0
+VOLUMETRIC-BLK-11,Level_1_Decoder,Randomize output decoder sequential network,42,1.0,1.0,0.9988915920257568,1.0,1.0
+VOLUMETRIC-BLK-12,Level_1_Decoder,Randomize output decoder sequential network,42,0.9996299722479185,0.9942028985507246,0.9989367723464966,1.0,1.0
+VOLUMETRIC-BLK-13,Level_1_Decoder,Randomize output decoder sequential network,42,0.9997533148319457,0.9961352657004832,0.998943567276001,1.0,1.0
+VOLUMETRIC-BLK-14,Level_1_Decoder,Randomize output decoder sequential network,42,0.9997533148319457,0.9961352657004832,0.9989895820617676,1.0,1.0
+VOLUMETRIC-BLK-15,Level_1_Decoder,Randomize output decoder sequential network,42,0.9998766574159728,0.9980676328502417,0.9989874362945557,1.0,1.0
+SYN-FLOOD-BLK-01,Level_1_Decoder,Randomize output decoder sequential network,101,1.0,1.0,0.9999992847442627,1.0,1.0
+SYN-FLOOD-BLK-02,Level_1_Decoder,Randomize output decoder sequential network,101,0.9998766574159728,0.9980676328502417,0.9999993443489075,1.0,1.0
+SYN-FLOOD-BLK-03,Level_1_Decoder,Randomize output decoder sequential network,101,1.0,1.0,0.9999989867210388,1.0,1.0
 SYN-FLOOD-BLK-04,Level_1_Decoder,Randomize output decoder sequential network,101,1.0,1.0,0.999998927116394,1.0,1.0
-SYN-FLOOD-BLK-05,Level_1_Decoder,Randomize output decoder sequential network,101,1.0,1.0,0.9999986886978149,1.0,1.0
+SYN-FLOOD-BLK-05,Level_1_Decoder,Randomize output decoder sequential network,101,1.0,1.0,0.9999986290931702,1.0,1.0
 SYN-FLOOD-BLK-06,Level_1_Decoder,Randomize output decoder sequential network,101,0.9997533148319457,0.9961352657004832,0.9999983906745911,1.0,1.0
-SYN-FLOOD-BLK-07,Level_1_Decoder,Randomize output decoder sequential network,101,0.9998766574159728,0.9980676328502417,0.9999982714653015,1.0,1.0
+SYN-FLOOD-BLK-07,Level_1_Decoder,Randomize output decoder sequential network,101,0.9998766574159728,0.9980676328502417,0.999998152256012,1.0,1.0
 SYN-FLOOD-BLK-08,Level_1_Decoder,Randomize output decoder sequential network,101,0.9998766574159728,0.9980676328502417,0.9999978542327881,1.0,1.0
 SYN-FLOOD-BLK-09,Level_1_Decoder,Randomize output decoder sequential network,101,0.9997533148319457,0.9961352657004832,0.9999974370002747,1.0,1.0
-SYN-FLOOD-BLK-10,Level_1_Decoder,Randomize output decoder sequential network,101,1.0,1.0,0.9999971389770508,1.0,1.0
-SYN-FLOOD-BLK-11,Level_1_Decoder,Randomize output decoder sequential network,101,1.0,1.0,0.9999967813491821,1.0,1.0
+SYN-FLOOD-BLK-10,Level_1_Decoder,Randomize output decoder sequential network,101,1.0,1.0,0.9999971985816956,1.0,1.0
+SYN-FLOOD-BLK-11,Level_1_Decoder,Randomize output decoder sequential network,101,1.0,1.0,0.9999967217445374,1.0,1.0
 SYN-FLOOD-BLK-12,Level_1_Decoder,Randomize output decoder sequential network,101,0.9998766574159728,0.9980676328502417,0.9999964833259583,1.0,1.0
-SYN-FLOOD-BLK-13,Level_1_Decoder,Randomize output decoder sequential network,101,1.0,1.0,0.9999959468841553,1.0,1.0
+SYN-FLOOD-BLK-13,Level_1_Decoder,Randomize output decoder sequential network,101,1.0,1.0,0.9999960064888,1.0,1.0
 SYN-FLOOD-BLK-14,Level_1_Decoder,Randomize output decoder sequential network,101,0.9997533148319457,0.9961352657004832,0.9999954700469971,1.0,1.0
 SYN-FLOOD-BLK-15,Level_1_Decoder,Randomize output decoder sequential network,101,0.9997533148319457,0.9961352657004832,0.9999949932098389,1.0,1.0
-VOLUMETRIC-BLK-01,Level_1_Decoder,Randomize output decoder sequential network,101,1.0,1.0,0.9999437928199768,1.0,1.0
-VOLUMETRIC-BLK-02,Level_1_Decoder,Randomize output decoder sequential network,101,0.9997533148319457,0.9961352657004832,0.9998583197593689,1.0,1.0
-VOLUMETRIC-BLK-03,Level_1_Decoder,Randomize output decoder sequential network,101,0.9997533148319457,0.9961352657004832,0.999607264995575,1.0,1.0
-VOLUMETRIC-BLK-04,Level_1_Decoder,Randomize output decoder sequential network,101,0.9996299722479185,0.9942028985507246,0.9992800951004028,1.0,1.0
-VOLUMETRIC-BLK-05,Level_1_Decoder,Randomize output decoder sequential network,101,0.9997533148319457,0.9961352657004832,0.9989448189735413,1.0,1.0
-VOLUMETRIC-BLK-06,Level_1_Decoder,Randomize output decoder sequential network,101,0.9993832870798643,0.9922705314009662,0.9987647533416748,1.0,1.0
-VOLUMETRIC-BLK-07,Level_1_Decoder,Randomize output decoder sequential network,101,0.9998766574159728,0.9980676328502417,0.9987326860427856,0.5,1.0
-VOLUMETRIC-BLK-08,Level_1_Decoder,Randomize output decoder sequential network,101,0.9998766574159728,0.9980676328502417,0.9986797571182251,1.0,1.0
-VOLUMETRIC-BLK-09,Level_1_Decoder,Randomize output decoder sequential network,101,0.9998766574159728,0.9980676328502417,0.9987627863883972,1.0,1.0
-VOLUMETRIC-BLK-10,Level_1_Decoder,Randomize output decoder sequential network,101,0.9998766574159728,0.9980676328502417,0.9988609552383423,1.0,1.0
-VOLUMETRIC-BLK-11,Level_1_Decoder,Randomize output decoder sequential network,101,1.0,1.0,0.9988848567008972,1.0,1.0
-VOLUMETRIC-BLK-12,Level_1_Decoder,Randomize output decoder sequential network,101,0.9996299722479185,0.9942028985507246,0.9989300966262817,1.0,1.0
-VOLUMETRIC-BLK-13,Level_1_Decoder,Randomize output decoder sequential network,101,0.9997533148319457,0.9961352657004832,0.9989370703697205,1.0,1.0
-VOLUMETRIC-BLK-14,Level_1_Decoder,Randomize output decoder sequential network,101,0.9997533148319457,0.9961352657004832,0.9989831447601318,1.0,1.0
-VOLUMETRIC-BLK-15,Level_1_Decoder,Randomize output decoder sequential network,101,0.9998766574159728,0.9980676328502417,0.9989808797836304,1.0,1.0
+VOLUMETRIC-BLK-01,Level_1_Decoder,Randomize output decoder sequential network,101,1.0,1.0,0.9999440312385559,1.0,1.0
+VOLUMETRIC-BLK-02,Level_1_Decoder,Randomize output decoder sequential network,101,0.9997533148319457,0.9961352657004832,0.9998593330383301,1.0,1.0
+VOLUMETRIC-BLK-03,Level_1_Decoder,Randomize output decoder sequential network,101,0.9997533148319457,0.9961352657004832,0.9996113181114197,1.0,1.0
+VOLUMETRIC-BLK-04,Level_1_Decoder,Randomize output decoder sequential network,101,0.9996299722479185,0.9942028985507246,0.9992880821228027,1.0,1.0
+VOLUMETRIC-BLK-05,Level_1_Decoder,Randomize output decoder sequential network,101,0.9997533148319457,0.9961352657004832,0.9989556074142456,1.0,1.0
+VOLUMETRIC-BLK-06,Level_1_Decoder,Randomize output decoder sequential network,101,0.9993832870798643,0.9922705314009662,0.9987762570381165,1.0,1.0
+VOLUMETRIC-BLK-07,Level_1_Decoder,Randomize output decoder sequential network,101,0.9998766574159728,0.9980676328502417,0.9987438917160034,0.5,1.0
+VOLUMETRIC-BLK-08,Level_1_Decoder,Randomize output decoder sequential network,101,0.9998766574159728,0.9980676328502417,0.9986905455589294,1.0,1.0
+VOLUMETRIC-BLK-09,Level_1_Decoder,Randomize output decoder sequential network,101,0.9998766574159728,0.9980676328502417,0.9987720251083374,1.0,1.0
+VOLUMETRIC-BLK-10,Level_1_Decoder,Randomize output decoder sequential network,101,0.9998766574159728,0.9980676328502417,0.9988691210746765,1.0,1.0
+VOLUMETRIC-BLK-11,Level_1_Decoder,Randomize output decoder sequential network,101,1.0,1.0,0.9988926649093628,1.0,1.0
+VOLUMETRIC-BLK-12,Level_1_Decoder,Randomize output decoder sequential network,101,0.9996299722479185,0.9942028985507246,0.9989374876022339,1.0,1.0
+VOLUMETRIC-BLK-13,Level_1_Decoder,Randomize output decoder sequential network,101,0.9997533148319457,0.9961352657004832,0.9989442229270935,1.0,1.0
+VOLUMETRIC-BLK-14,Level_1_Decoder,Randomize output decoder sequential network,101,0.9997533148319457,0.9961352657004832,0.9989901781082153,1.0,1.0
+VOLUMETRIC-BLK-15,Level_1_Decoder,Randomize output decoder sequential network,101,0.9998766574159728,0.9980676328502417,0.9989878535270691,1.0,1.0
 SYN-FLOOD-BLK-01,Level_1_Decoder,Randomize output decoder sequential network,2026,1.0,1.0,0.9999994039535522,1.0,1.0
-SYN-FLOOD-BLK-02,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9998766574159728,0.9980676328502417,0.9999992251396179,1.0,1.0
+SYN-FLOOD-BLK-02,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9998766574159728,0.9980676328502417,0.9999993443489075,1.0,1.0
 SYN-FLOOD-BLK-03,Level_1_Decoder,Randomize output decoder sequential network,2026,1.0,1.0,0.9999991655349731,1.0,1.0
 SYN-FLOOD-BLK-04,Level_1_Decoder,Randomize output decoder sequential network,2026,1.0,1.0,0.999998927116394,1.0,1.0
-SYN-FLOOD-BLK-05,Level_1_Decoder,Randomize output decoder sequential network,2026,1.0,1.0,0.9999986886978149,1.0,1.0
-SYN-FLOOD-BLK-06,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9997533148319457,0.9961352657004832,0.9999983906745911,1.0,1.0
-SYN-FLOOD-BLK-07,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9998766574159728,0.9980676328502417,0.9999982714653015,1.0,1.0
+SYN-FLOOD-BLK-05,Level_1_Decoder,Randomize output decoder sequential network,2026,1.0,1.0,0.9999985098838806,1.0,1.0
+SYN-FLOOD-BLK-06,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9997533148319457,0.9961352657004832,0.9999983310699463,1.0,1.0
+SYN-FLOOD-BLK-07,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9998766574159728,0.9980676328502417,0.9999982118606567,1.0,1.0
 SYN-FLOOD-BLK-08,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9998766574159728,0.9980676328502417,0.9999978542327881,1.0,1.0
 SYN-FLOOD-BLK-09,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9997533148319457,0.9961352657004832,0.9999974370002747,1.0,1.0
-SYN-FLOOD-BLK-10,Level_1_Decoder,Randomize output decoder sequential network,2026,1.0,1.0,0.9999971389770508,1.0,1.0
+SYN-FLOOD-BLK-10,Level_1_Decoder,Randomize output decoder sequential network,2026,1.0,1.0,0.9999971985816956,1.0,1.0
 SYN-FLOOD-BLK-11,Level_1_Decoder,Randomize output decoder sequential network,2026,1.0,1.0,0.9999967813491821,1.0,1.0
-SYN-FLOOD-BLK-12,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9998766574159728,0.9980676328502417,0.9999964833259583,1.0,1.0
+SYN-FLOOD-BLK-12,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9998766574159728,0.9980676328502417,0.9999964237213135,1.0,1.0
 SYN-FLOOD-BLK-13,Level_1_Decoder,Randomize output decoder sequential network,2026,1.0,1.0,0.9999959468841553,1.0,1.0
 SYN-FLOOD-BLK-14,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9997533148319457,0.9961352657004832,0.9999954700469971,1.0,1.0
 SYN-FLOOD-BLK-15,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9997533148319457,0.9961352657004832,0.9999949932098389,1.0,1.0
-VOLUMETRIC-BLK-01,Level_1_Decoder,Randomize output decoder sequential network,2026,1.0,1.0,0.9999437928199768,1.0,1.0
-VOLUMETRIC-BLK-02,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9997533148319457,0.9961352657004832,0.9998583197593689,1.0,1.0
-VOLUMETRIC-BLK-03,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9997533148319457,0.9961352657004832,0.999607264995575,1.0,1.0
-VOLUMETRIC-BLK-04,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9996299722479185,0.9942028985507246,0.9992800951004028,1.0,1.0
-VOLUMETRIC-BLK-05,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9997533148319457,0.9961352657004832,0.9989448189735413,1.0,1.0
-VOLUMETRIC-BLK-06,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9993832870798643,0.9922705314009662,0.9987647533416748,1.0,1.0
-VOLUMETRIC-BLK-07,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9998766574159728,0.9980676328502417,0.9987326860427856,0.5,1.0
-VOLUMETRIC-BLK-08,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9998766574159728,0.9980676328502417,0.9986797571182251,1.0,1.0
-VOLUMETRIC-BLK-09,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9998766574159728,0.9980676328502417,0.9987627863883972,1.0,1.0
-VOLUMETRIC-BLK-10,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9998766574159728,0.9980676328502417,0.9988609552383423,1.0,1.0
-VOLUMETRIC-BLK-11,Level_1_Decoder,Randomize output decoder sequential network,2026,1.0,1.0,0.9988848567008972,1.0,1.0
-VOLUMETRIC-BLK-12,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9996299722479185,0.9942028985507246,0.9989300966262817,1.0,1.0
-VOLUMETRIC-BLK-13,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9997533148319457,0.9961352657004832,0.9989370703697205,1.0,1.0
-VOLUMETRIC-BLK-14,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9997533148319457,0.9961352657004832,0.9989831447601318,1.0,1.0
-VOLUMETRIC-BLK-15,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9998766574159728,0.9980676328502417,0.9989808797836304,1.0,1.0
+VOLUMETRIC-BLK-01,Level_1_Decoder,Randomize output decoder sequential network,2026,1.0,1.0,0.9999447464942932,1.0,1.0
+VOLUMETRIC-BLK-02,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9997533148319457,0.9961352657004832,0.9998605251312256,1.0,1.0
+VOLUMETRIC-BLK-03,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9997533148319457,0.9961352657004832,0.9996119737625122,1.0,1.0
+VOLUMETRIC-BLK-04,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9996299722479185,0.9942028985507246,0.9992873072624207,1.0,1.0
+VOLUMETRIC-BLK-05,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9997533148319457,0.9961352657004832,0.9989545345306396,1.0,1.0
+VOLUMETRIC-BLK-06,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9993832870798643,0.9922705314009662,0.9987756609916687,1.0,1.0
+VOLUMETRIC-BLK-07,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9998766574159728,0.9980676328502417,0.9987438917160034,0.5,1.0
+VOLUMETRIC-BLK-08,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9998766574159728,0.9980676328502417,0.9986915588378906,1.0,1.0
+VOLUMETRIC-BLK-09,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9998766574159728,0.9980676328502417,0.9987738132476807,1.0,1.0
+VOLUMETRIC-BLK-10,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9998766574159728,0.9980676328502417,0.9988712668418884,1.0,1.0
+VOLUMETRIC-BLK-11,Level_1_Decoder,Randomize output decoder sequential network,2026,1.0,1.0,0.998894989490509,1.0,1.0
+VOLUMETRIC-BLK-12,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9996299722479185,0.9942028985507246,0.9989399313926697,1.0,1.0
+VOLUMETRIC-BLK-13,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9997533148319457,0.9961352657004832,0.9989467859268188,1.0,1.0
+VOLUMETRIC-BLK-14,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9997533148319457,0.9961352657004832,0.9989925026893616,1.0,1.0
+VOLUMETRIC-BLK-15,Level_1_Decoder,Randomize output decoder sequential network,2026,0.9998766574159728,0.9980676328502417,0.9989902973175049,1.0,1.0
 SYN-FLOOD-BLK-01,Level_2_Perception,Randomize decoder + perception head + graph layer,42,1.0,1.0,0.9999994039535522,1.0,1.0
 SYN-FLOOD-BLK-02,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9998766574159728,0.9980676328502417,0.9999992251396179,1.0,1.0
-SYN-FLOOD-BLK-03,Level_2_Perception,Randomize decoder + perception head + graph layer,42,1.0,1.0,0.9999991655349731,1.0,1.0
+SYN-FLOOD-BLK-03,Level_2_Perception,Randomize decoder + perception head + graph layer,42,1.0,1.0,0.9999991059303284,1.0,1.0
 SYN-FLOOD-BLK-04,Level_2_Perception,Randomize decoder + perception head + graph layer,42,1.0,1.0,0.999998927116394,1.0,1.0
-SYN-FLOOD-BLK-05,Level_2_Perception,Randomize decoder + perception head + graph layer,42,1.0,1.0,0.9999986886978149,1.0,1.0
+SYN-FLOOD-BLK-05,Level_2_Perception,Randomize decoder + perception head + graph layer,42,1.0,1.0,0.9999986290931702,1.0,1.0
 SYN-FLOOD-BLK-06,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9997533148319457,0.9961352657004832,0.9999983906745911,1.0,1.0
-SYN-FLOOD-BLK-07,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9998766574159728,0.9980676328502417,0.9999982714653015,1.0,1.0
+SYN-FLOOD-BLK-07,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9998766574159728,0.9980676328502417,0.9999982118606567,1.0,1.0
 SYN-FLOOD-BLK-08,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9998766574159728,0.9980676328502417,0.9999978542327881,1.0,1.0
-SYN-FLOOD-BLK-09,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9997533148319457,0.9961352657004832,0.9999974370002747,1.0,1.0
-SYN-FLOOD-BLK-10,Level_2_Perception,Randomize decoder + perception head + graph layer,42,1.0,1.0,0.9999971389770508,1.0,1.0
+SYN-FLOOD-BLK-09,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9997533148319457,0.9961352657004832,0.9999973773956299,1.0,1.0
+SYN-FLOOD-BLK-10,Level_2_Perception,Randomize decoder + perception head + graph layer,42,1.0,1.0,0.9999971985816956,1.0,1.0
 SYN-FLOOD-BLK-11,Level_2_Perception,Randomize decoder + perception head + graph layer,42,1.0,1.0,0.9999967813491821,1.0,1.0
-SYN-FLOOD-BLK-12,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9998766574159728,0.9980676328502417,0.9999964833259583,1.0,1.0
+SYN-FLOOD-BLK-12,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9998766574159728,0.9980676328502417,0.9999964237213135,1.0,1.0
 SYN-FLOOD-BLK-13,Level_2_Perception,Randomize decoder + perception head + graph layer,42,1.0,1.0,0.9999959468841553,1.0,1.0
 SYN-FLOOD-BLK-14,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9997533148319457,0.9961352657004832,0.9999954700469971,1.0,1.0
-SYN-FLOOD-BLK-15,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9997533148319457,0.9961352657004832,0.9999949932098389,1.0,1.0
-VOLUMETRIC-BLK-01,Level_2_Perception,Randomize decoder + perception head + graph layer,42,1.0,1.0,0.9999437928199768,1.0,1.0
-VOLUMETRIC-BLK-02,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9997533148319457,0.9961352657004832,0.9998583197593689,1.0,1.0
-VOLUMETRIC-BLK-03,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9997533148319457,0.9961352657004832,0.999607264995575,1.0,1.0
-VOLUMETRIC-BLK-04,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9996299722479185,0.9942028985507246,0.9992800951004028,1.0,1.0
-VOLUMETRIC-BLK-05,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9997533148319457,0.9961352657004832,0.9989448189735413,1.0,1.0
-VOLUMETRIC-BLK-06,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9993832870798643,0.9922705314009662,0.9987647533416748,1.0,1.0
-VOLUMETRIC-BLK-07,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9998766574159728,0.9980676328502417,0.9987326860427856,0.5,1.0
-VOLUMETRIC-BLK-08,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9998766574159728,0.9980676328502417,0.9986797571182251,1.0,1.0
-VOLUMETRIC-BLK-09,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9998766574159728,0.9980676328502417,0.9987627863883972,1.0,1.0
-VOLUMETRIC-BLK-10,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9998766574159728,0.9980676328502417,0.9988609552383423,1.0,1.0
-VOLUMETRIC-BLK-11,Level_2_Perception,Randomize decoder + perception head + graph layer,42,1.0,1.0,0.9988848567008972,1.0,1.0
-VOLUMETRIC-BLK-12,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9996299722479185,0.9942028985507246,0.9989300966262817,1.0,1.0
-VOLUMETRIC-BLK-13,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9997533148319457,0.9961352657004832,0.9989370703697205,1.0,1.0
-VOLUMETRIC-BLK-14,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9997533148319457,0.9961352657004832,0.9989831447601318,1.0,1.0
-VOLUMETRIC-BLK-15,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9998766574159728,0.9980676328502417,0.9989808797836304,1.0,1.0
-SYN-FLOOD-BLK-01,Level_2_Perception,Randomize decoder + perception head + graph layer,101,1.0,1.0,0.9999994039535522,1.0,1.0
-SYN-FLOOD-BLK-02,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9998766574159728,0.9980676328502417,0.9999992251396179,1.0,1.0
-SYN-FLOOD-BLK-03,Level_2_Perception,Randomize decoder + perception head + graph layer,101,1.0,1.0,0.9999991655349731,1.0,1.0
+SYN-FLOOD-BLK-15,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9997533148319457,0.9961352657004832,0.9999949336051941,1.0,1.0
+VOLUMETRIC-BLK-01,Level_2_Perception,Randomize decoder + perception head + graph layer,42,1.0,1.0,0.999943196773529,1.0,1.0
+VOLUMETRIC-BLK-02,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9997533148319457,0.9961352657004832,0.9998564124107361,1.0,1.0
+VOLUMETRIC-BLK-03,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9997533148319457,0.9961352657004832,0.9996025562286377,1.0,1.0
+VOLUMETRIC-BLK-04,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9996299722479185,0.9942028985507246,0.9992765784263611,1.0,1.0
+VOLUMETRIC-BLK-05,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9997533148319457,0.9961352657004832,0.9989453554153442,1.0,1.0
+VOLUMETRIC-BLK-06,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9993832870798643,0.9922705314009662,0.9987687468528748,1.0,1.0
+VOLUMETRIC-BLK-07,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9998766574159728,0.9980676328502417,0.9987380504608154,0.5,1.0
+VOLUMETRIC-BLK-08,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9998766574159728,0.9980676328502417,0.9986863136291504,1.0,1.0
+VOLUMETRIC-BLK-09,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9998766574159728,0.9980676328502417,0.9987697005271912,1.0,1.0
+VOLUMETRIC-BLK-10,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9998766574159728,0.9980676328502417,0.9988677501678467,1.0,1.0
+VOLUMETRIC-BLK-11,Level_2_Perception,Randomize decoder + perception head + graph layer,42,1.0,1.0,0.9988915920257568,1.0,1.0
+VOLUMETRIC-BLK-12,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9996299722479185,0.9942028985507246,0.9989367723464966,1.0,1.0
+VOLUMETRIC-BLK-13,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9997533148319457,0.9961352657004832,0.998943567276001,1.0,1.0
+VOLUMETRIC-BLK-14,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9997533148319457,0.9961352657004832,0.9989895820617676,1.0,1.0
+VOLUMETRIC-BLK-15,Level_2_Perception,Randomize decoder + perception head + graph layer,42,0.9998766574159728,0.9980676328502417,0.9989874362945557,1.0,1.0
+SYN-FLOOD-BLK-01,Level_2_Perception,Randomize decoder + perception head + graph layer,101,1.0,1.0,0.9999992847442627,1.0,1.0
+SYN-FLOOD-BLK-02,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9998766574159728,0.9980676328502417,0.9999993443489075,1.0,1.0
+SYN-FLOOD-BLK-03,Level_2_Perception,Randomize decoder + perception head + graph layer,101,1.0,1.0,0.9999989867210388,1.0,1.0
 SYN-FLOOD-BLK-04,Level_2_Perception,Randomize decoder + perception head + graph layer,101,1.0,1.0,0.999998927116394,1.0,1.0
-SYN-FLOOD-BLK-05,Level_2_Perception,Randomize decoder + perception head + graph layer,101,1.0,1.0,0.9999986886978149,1.0,1.0
+SYN-FLOOD-BLK-05,Level_2_Perception,Randomize decoder + perception head + graph layer,101,1.0,1.0,0.9999986290931702,1.0,1.0
 SYN-FLOOD-BLK-06,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9997533148319457,0.9961352657004832,0.9999983906745911,1.0,1.0
-SYN-FLOOD-BLK-07,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9998766574159728,0.9980676328502417,0.9999982714653015,1.0,1.0
+SYN-FLOOD-BLK-07,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9998766574159728,0.9980676328502417,0.999998152256012,1.0,1.0
 SYN-FLOOD-BLK-08,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9998766574159728,0.9980676328502417,0.9999978542327881,1.0,1.0
 SYN-FLOOD-BLK-09,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9997533148319457,0.9961352657004832,0.9999974370002747,1.0,1.0
-SYN-FLOOD-BLK-10,Level_2_Perception,Randomize decoder + perception head + graph layer,101,1.0,1.0,0.9999971389770508,1.0,1.0
-SYN-FLOOD-BLK-11,Level_2_Perception,Randomize decoder + perception head + graph layer,101,1.0,1.0,0.9999967813491821,1.0,1.0
+SYN-FLOOD-BLK-10,Level_2_Perception,Randomize decoder + perception head + graph layer,101,1.0,1.0,0.9999971985816956,1.0,1.0
+SYN-FLOOD-BLK-11,Level_2_Perception,Randomize decoder + perception head + graph layer,101,1.0,1.0,0.9999967217445374,1.0,1.0
 SYN-FLOOD-BLK-12,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9998766574159728,0.9980676328502417,0.9999964833259583,1.0,1.0
-SYN-FLOOD-BLK-13,Level_2_Perception,Randomize decoder + perception head + graph layer,101,1.0,1.0,0.9999959468841553,1.0,1.0
+SYN-FLOOD-BLK-13,Level_2_Perception,Randomize decoder + perception head + graph layer,101,1.0,1.0,0.9999960064888,1.0,1.0
 SYN-FLOOD-BLK-14,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9997533148319457,0.9961352657004832,0.9999954700469971,1.0,1.0
 SYN-FLOOD-BLK-15,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9997533148319457,0.9961352657004832,0.9999949932098389,1.0,1.0
-VOLUMETRIC-BLK-01,Level_2_Perception,Randomize decoder + perception head + graph layer,101,1.0,1.0,0.9999437928199768,1.0,1.0
-VOLUMETRIC-BLK-02,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9997533148319457,0.9961352657004832,0.9998583197593689,1.0,1.0
-VOLUMETRIC-BLK-03,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9997533148319457,0.9961352657004832,0.999607264995575,1.0,1.0
-VOLUMETRIC-BLK-04,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9996299722479185,0.9942028985507246,0.9992800951004028,1.0,1.0
-VOLUMETRIC-BLK-05,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9997533148319457,0.9961352657004832,0.9989448189735413,1.0,1.0
-VOLUMETRIC-BLK-06,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9993832870798643,0.9922705314009662,0.9987647533416748,1.0,1.0
-VOLUMETRIC-BLK-07,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9998766574159728,0.9980676328502417,0.9987326860427856,0.5,1.0
-VOLUMETRIC-BLK-08,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9998766574159728,0.9980676328502417,0.9986797571182251,1.0,1.0
-VOLUMETRIC-BLK-09,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9998766574159728,0.9980676328502417,0.9987627863883972,1.0,1.0
-VOLUMETRIC-BLK-10,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9998766574159728,0.9980676328502417,0.9988609552383423,1.0,1.0
-VOLUMETRIC-BLK-11,Level_2_Perception,Randomize decoder + perception head + graph layer,101,1.0,1.0,0.9988848567008972,1.0,1.0
-VOLUMETRIC-BLK-12,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9996299722479185,0.9942028985507246,0.9989300966262817,1.0,1.0
-VOLUMETRIC-BLK-13,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9997533148319457,0.9961352657004832,0.9989370703697205,1.0,1.0
-VOLUMETRIC-BLK-14,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9997533148319457,0.9961352657004832,0.9989831447601318,1.0,1.0
-VOLUMETRIC-BLK-15,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9998766574159728,0.9980676328502417,0.9989808797836304,1.0,1.0
+VOLUMETRIC-BLK-01,Level_2_Perception,Randomize decoder + perception head + graph layer,101,1.0,1.0,0.9999440312385559,1.0,1.0
+VOLUMETRIC-BLK-02,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9997533148319457,0.9961352657004832,0.9998593330383301,1.0,1.0
+VOLUMETRIC-BLK-03,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9997533148319457,0.9961352657004832,0.9996113181114197,1.0,1.0
+VOLUMETRIC-BLK-04,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9996299722479185,0.9942028985507246,0.9992880821228027,1.0,1.0
+VOLUMETRIC-BLK-05,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9997533148319457,0.9961352657004832,0.9989556074142456,1.0,1.0
+VOLUMETRIC-BLK-06,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9993832870798643,0.9922705314009662,0.9987762570381165,1.0,1.0
+VOLUMETRIC-BLK-07,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9998766574159728,0.9980676328502417,0.9987438917160034,0.5,1.0
+VOLUMETRIC-BLK-08,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9998766574159728,0.9980676328502417,0.9986905455589294,1.0,1.0
+VOLUMETRIC-BLK-09,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9998766574159728,0.9980676328502417,0.9987720251083374,1.0,1.0
+VOLUMETRIC-BLK-10,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9998766574159728,0.9980676328502417,0.9988691210746765,1.0,1.0
+VOLUMETRIC-BLK-11,Level_2_Perception,Randomize decoder + perception head + graph layer,101,1.0,1.0,0.9988926649093628,1.0,1.0
+VOLUMETRIC-BLK-12,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9996299722479185,0.9942028985507246,0.9989374876022339,1.0,1.0
+VOLUMETRIC-BLK-13,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9997533148319457,0.9961352657004832,0.9989442229270935,1.0,1.0
+VOLUMETRIC-BLK-14,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9997533148319457,0.9961352657004832,0.9989901781082153,1.0,1.0
+VOLUMETRIC-BLK-15,Level_2_Perception,Randomize decoder + perception head + graph layer,101,0.9998766574159728,0.9980676328502417,0.9989878535270691,1.0,1.0
 SYN-FLOOD-BLK-01,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,1.0,1.0,0.9999994039535522,1.0,1.0
-SYN-FLOOD-BLK-02,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9998766574159728,0.9980676328502417,0.9999992251396179,1.0,1.0
+SYN-FLOOD-BLK-02,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9998766574159728,0.9980676328502417,0.9999993443489075,1.0,1.0
 SYN-FLOOD-BLK-03,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,1.0,1.0,0.9999991655349731,1.0,1.0
 SYN-FLOOD-BLK-04,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,1.0,1.0,0.999998927116394,1.0,1.0
-SYN-FLOOD-BLK-05,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,1.0,1.0,0.9999986886978149,1.0,1.0
-SYN-FLOOD-BLK-06,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9997533148319457,0.9961352657004832,0.9999983906745911,1.0,1.0
-SYN-FLOOD-BLK-07,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9998766574159728,0.9980676328502417,0.9999982714653015,1.0,1.0
+SYN-FLOOD-BLK-05,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,1.0,1.0,0.9999985098838806,1.0,1.0
+SYN-FLOOD-BLK-06,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9997533148319457,0.9961352657004832,0.9999983310699463,1.0,1.0
+SYN-FLOOD-BLK-07,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9998766574159728,0.9980676328502417,0.9999982118606567,1.0,1.0
 SYN-FLOOD-BLK-08,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9998766574159728,0.9980676328502417,0.9999978542327881,1.0,1.0
 SYN-FLOOD-BLK-09,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9997533148319457,0.9961352657004832,0.9999974370002747,1.0,1.0
-SYN-FLOOD-BLK-10,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,1.0,1.0,0.9999971389770508,1.0,1.0
+SYN-FLOOD-BLK-10,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,1.0,1.0,0.9999971985816956,1.0,1.0
 SYN-FLOOD-BLK-11,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,1.0,1.0,0.9999967813491821,1.0,1.0
-SYN-FLOOD-BLK-12,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9998766574159728,0.9980676328502417,0.9999964833259583,1.0,1.0
+SYN-FLOOD-BLK-12,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9998766574159728,0.9980676328502417,0.9999964237213135,1.0,1.0
 SYN-FLOOD-BLK-13,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,1.0,1.0,0.9999959468841553,1.0,1.0
 SYN-FLOOD-BLK-14,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9997533148319457,0.9961352657004832,0.9999954700469971,1.0,1.0
 SYN-FLOOD-BLK-15,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9997533148319457,0.9961352657004832,0.9999949932098389,1.0,1.0
-VOLUMETRIC-BLK-01,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,1.0,1.0,0.9999437928199768,1.0,1.0
-VOLUMETRIC-BLK-02,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9997533148319457,0.9961352657004832,0.9998583197593689,1.0,1.0
-VOLUMETRIC-BLK-03,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9997533148319457,0.9961352657004832,0.999607264995575,1.0,1.0
-VOLUMETRIC-BLK-04,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9996299722479185,0.9942028985507246,0.9992800951004028,1.0,1.0
-VOLUMETRIC-BLK-05,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9997533148319457,0.9961352657004832,0.9989448189735413,1.0,1.0
-VOLUMETRIC-BLK-06,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9993832870798643,0.9922705314009662,0.9987647533416748,1.0,1.0
-VOLUMETRIC-BLK-07,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9998766574159728,0.9980676328502417,0.9987326860427856,0.5,1.0
-VOLUMETRIC-BLK-08,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9998766574159728,0.9980676328502417,0.9986797571182251,1.0,1.0
-VOLUMETRIC-BLK-09,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9998766574159728,0.9980676328502417,0.9987627863883972,1.0,1.0
-VOLUMETRIC-BLK-10,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9998766574159728,0.9980676328502417,0.9988609552383423,1.0,1.0
-VOLUMETRIC-BLK-11,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,1.0,1.0,0.9988848567008972,1.0,1.0
-VOLUMETRIC-BLK-12,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9996299722479185,0.9942028985507246,0.9989300966262817,1.0,1.0
-VOLUMETRIC-BLK-13,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9997533148319457,0.9961352657004832,0.9989370703697205,1.0,1.0
-VOLUMETRIC-BLK-14,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9997533148319457,0.9961352657004832,0.9989831447601318,1.0,1.0
-VOLUMETRIC-BLK-15,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9998766574159728,0.9980676328502417,0.9989808797836304,1.0,1.0
-SYN-FLOOD-BLK-01,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,-0.09247093289885562,-0.06498594011396212,-0.6515230536460876,1.0,0.42857142857142855
-SYN-FLOOD-BLK-02,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.07926961225819178,0.0494669096389861,-0.7068823575973511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-03,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.24326744097587077,0.1767873698955595,-0.7419865131378174,1.0,0.42857142857142855
-SYN-FLOOD-BLK-04,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.019068192461233736,0.03503742974842703,-0.778762936592102,1.0,0.42857142857142855
-SYN-FLOOD-BLK-05,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.015548358906752355,0.019446183200016943,-0.8057911992073059,1.0,0.42857142857142855
-SYN-FLOOD-BLK-06,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.0325138070997423,0.026239513123548174,-0.8277921080589294,1.0,0.42857142857142855
-SYN-FLOOD-BLK-07,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.12664631437048074,0.10092284483719663,-0.8406034111976624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-08,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,-0.027176461738254883,-0.005891789399748619,-0.8540271520614624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-09,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.3226046323426,0.2340422220998521,-0.8653205037117004,1.0,0.42857142857142855
-SYN-FLOOD-BLK-10,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,-0.07293056108417727,-0.05482612931057433,-0.8779501914978027,1.0,0.42857142857142855
-SYN-FLOOD-BLK-11,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.11472478575301089,0.08479858418803843,-0.8858718872070312,1.0,0.42857142857142855
-SYN-FLOOD-BLK-12,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,-0.06645263621044113,-0.058800644340991054,-0.8941593170166016,1.0,0.42857142857142855
-SYN-FLOOD-BLK-13,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.25115742974223304,0.17765696377960555,-0.9002010822296143,1.0,0.42857142857142855
-SYN-FLOOD-BLK-14,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,-0.0020996097179187354,0.001960021478033035,-0.9051205515861511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-15,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.23343040790972572,0.175684072251802,-0.9103531837463379,1.0,0.42857142857142855
-VOLUMETRIC-BLK-01,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.21505048278785233,0.16066699732529383,0.5513401031494141,1.0,0.6666666666666666
-VOLUMETRIC-BLK-02,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.04557951871660402,0.03042573318327297,0.5930500626564026,1.0,0.6666666666666666
-VOLUMETRIC-BLK-03,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.04820479092273442,0.027605439398998614,0.6301366090774536,0.5,0.6666666666666666
-VOLUMETRIC-BLK-04,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.22606696513171398,0.16001520216634302,0.6414955854415894,0.5,0.6666666666666666
-VOLUMETRIC-BLK-05,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.19510580120906734,0.12921903591655856,0.5734687447547913,0.5,0.6666666666666666
-VOLUMETRIC-BLK-06,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.3642782448106144,0.2740825768900576,0.49734121561050415,0.5,0.6666666666666666
-VOLUMETRIC-BLK-07,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.3231628312356431,0.23653553861834792,0.43721964955329895,1.0,0.6666666666666666
-VOLUMETRIC-BLK-08,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.1427090972287611,0.09661106526122543,0.36421170830726624,1.0,0.6666666666666666
-VOLUMETRIC-BLK-09,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.3263309609349327,0.26129077659661,0.29430410265922546,1.0,0.6666666666666666
-VOLUMETRIC-BLK-10,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.3660980441069284,0.29182458065373756,0.26363906264305115,1.0,0.6666666666666666
-VOLUMETRIC-BLK-11,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.2080721577521177,0.16145487201233605,0.25337713956832886,1.0,0.6666666666666666
-VOLUMETRIC-BLK-12,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.12501676596201497,0.10673429549108207,0.24547675251960754,1.0,1.0
-VOLUMETRIC-BLK-13,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.07176872246841648,0.05129774984870367,0.25767987966537476,1.0,0.6666666666666666
-VOLUMETRIC-BLK-14,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.013975170818229216,0.011254382199850439,0.2736946642398834,1.0,0.6666666666666666
-VOLUMETRIC-BLK-15,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.3143071620929212,0.23899091556065985,0.2771100401878357,1.0,0.6666666666666666
-SYN-FLOOD-BLK-01,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.09247093289885562,-0.06498594011396212,-0.6515230536460876,1.0,0.42857142857142855
-SYN-FLOOD-BLK-02,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.07926961225819178,0.0494669096389861,-0.7068823575973511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-03,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.24326744097587077,0.1767873698955595,-0.7419865131378174,1.0,0.42857142857142855
-SYN-FLOOD-BLK-04,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.019068192461233736,0.03503742974842703,-0.778762936592102,1.0,0.42857142857142855
-SYN-FLOOD-BLK-05,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.015548358906752355,0.019446183200016943,-0.8057911992073059,1.0,0.42857142857142855
-SYN-FLOOD-BLK-06,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.0325138070997423,0.026239513123548174,-0.8277921080589294,1.0,0.42857142857142855
-SYN-FLOOD-BLK-07,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.12664631437048074,0.10092284483719663,-0.8406034111976624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-08,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.027176461738254883,-0.005891789399748619,-0.8540271520614624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-09,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.3226046323426,0.2340422220998521,-0.8653205037117004,1.0,0.42857142857142855
-SYN-FLOOD-BLK-10,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.07293056108417727,-0.05482612931057433,-0.8779501914978027,1.0,0.42857142857142855
-SYN-FLOOD-BLK-11,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.11472478575301089,0.08479858418803843,-0.8858718872070312,1.0,0.42857142857142855
-SYN-FLOOD-BLK-12,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.06645263621044113,-0.058800644340991054,-0.8941593170166016,1.0,0.42857142857142855
-SYN-FLOOD-BLK-13,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.25115742974223304,0.17765696377960555,-0.9002010822296143,1.0,0.42857142857142855
-SYN-FLOOD-BLK-14,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.0020996097179187354,0.001960021478033035,-0.9051205515861511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-15,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.23343040790972572,0.175684072251802,-0.9103531837463379,1.0,0.42857142857142855
-VOLUMETRIC-BLK-01,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.21505048278785233,0.16066699732529383,0.5513401031494141,1.0,0.6666666666666666
-VOLUMETRIC-BLK-02,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.04557951871660402,0.03042573318327297,0.5930500626564026,1.0,0.6666666666666666
-VOLUMETRIC-BLK-03,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.04820479092273442,0.027605439398998614,0.6301366090774536,0.5,0.6666666666666666
-VOLUMETRIC-BLK-04,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.22606696513171398,0.16001520216634302,0.6414955854415894,0.5,0.6666666666666666
-VOLUMETRIC-BLK-05,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.19510580120906734,0.12921903591655856,0.5734687447547913,0.5,0.6666666666666666
-VOLUMETRIC-BLK-06,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.3642782448106144,0.2740825768900576,0.49734121561050415,0.5,0.6666666666666666
-VOLUMETRIC-BLK-07,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.3231628312356431,0.23653553861834792,0.43721964955329895,1.0,0.6666666666666666
-VOLUMETRIC-BLK-08,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.1427090972287611,0.09661106526122543,0.36421170830726624,1.0,0.6666666666666666
-VOLUMETRIC-BLK-09,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.3263309609349327,0.26129077659661,0.29430410265922546,1.0,0.6666666666666666
-VOLUMETRIC-BLK-10,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.3660980441069284,0.29182458065373756,0.26363906264305115,1.0,0.6666666666666666
-VOLUMETRIC-BLK-11,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.2080721577521177,0.16145487201233605,0.25337713956832886,1.0,0.6666666666666666
-VOLUMETRIC-BLK-12,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.12501676596201497,0.10673429549108207,0.24547675251960754,1.0,1.0
-VOLUMETRIC-BLK-13,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.07176872246841648,0.05129774984870367,0.25767987966537476,1.0,0.6666666666666666
-VOLUMETRIC-BLK-14,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.013975170818229216,0.011254382199850439,0.2736946642398834,1.0,0.6666666666666666
-VOLUMETRIC-BLK-15,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.3143071620929212,0.23899091556065985,0.2771100401878357,1.0,0.6666666666666666
-SYN-FLOOD-BLK-01,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.09247093289885562,-0.06498594011396212,-0.6515230536460876,1.0,0.42857142857142855
-SYN-FLOOD-BLK-02,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.07926961225819178,0.0494669096389861,-0.7068823575973511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-03,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.24326744097587077,0.1767873698955595,-0.7419865131378174,1.0,0.42857142857142855
-SYN-FLOOD-BLK-04,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.019068192461233736,0.03503742974842703,-0.778762936592102,1.0,0.42857142857142855
-SYN-FLOOD-BLK-05,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.015548358906752355,0.019446183200016943,-0.8057911992073059,1.0,0.42857142857142855
-SYN-FLOOD-BLK-06,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.0325138070997423,0.026239513123548174,-0.8277921080589294,1.0,0.42857142857142855
-SYN-FLOOD-BLK-07,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.12664631437048074,0.10092284483719663,-0.8406034111976624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-08,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.027176461738254883,-0.005891789399748619,-0.8540271520614624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-09,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.3226046323426,0.2340422220998521,-0.8653205037117004,1.0,0.42857142857142855
-SYN-FLOOD-BLK-10,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.07293056108417727,-0.05482612931057433,-0.8779501914978027,1.0,0.42857142857142855
-SYN-FLOOD-BLK-11,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.11472478575301089,0.08479858418803843,-0.8858718872070312,1.0,0.42857142857142855
-SYN-FLOOD-BLK-12,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.06645263621044113,-0.058800644340991054,-0.8941593170166016,1.0,0.42857142857142855
-SYN-FLOOD-BLK-13,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.25115742974223304,0.17765696377960555,-0.9002010822296143,1.0,0.42857142857142855
-SYN-FLOOD-BLK-14,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.0020996097179187354,0.001960021478033035,-0.9051205515861511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-15,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.23343040790972572,0.175684072251802,-0.9103531837463379,1.0,0.42857142857142855
-VOLUMETRIC-BLK-01,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.21505048278785233,0.16066699732529383,0.5513401031494141,1.0,0.6666666666666666
-VOLUMETRIC-BLK-02,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.04557951871660402,0.03042573318327297,0.5930500626564026,1.0,0.6666666666666666
-VOLUMETRIC-BLK-03,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.04820479092273442,0.027605439398998614,0.6301366090774536,0.5,0.6666666666666666
-VOLUMETRIC-BLK-04,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.22606696513171398,0.16001520216634302,0.6414955854415894,0.5,0.6666666666666666
-VOLUMETRIC-BLK-05,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.19510580120906734,0.12921903591655856,0.5734687447547913,0.5,0.6666666666666666
-VOLUMETRIC-BLK-06,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.3642782448106144,0.2740825768900576,0.49734121561050415,0.5,0.6666666666666666
-VOLUMETRIC-BLK-07,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.3231628312356431,0.23653553861834792,0.43721964955329895,1.0,0.6666666666666666
-VOLUMETRIC-BLK-08,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.1427090972287611,0.09661106526122543,0.36421170830726624,1.0,0.6666666666666666
-VOLUMETRIC-BLK-09,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.3263309609349327,0.26129077659661,0.29430410265922546,1.0,0.6666666666666666
-VOLUMETRIC-BLK-10,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.3660980441069284,0.29182458065373756,0.26363906264305115,1.0,0.6666666666666666
-VOLUMETRIC-BLK-11,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.2080721577521177,0.16145487201233605,0.25337713956832886,1.0,0.6666666666666666
-VOLUMETRIC-BLK-12,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.12501676596201497,0.10673429549108207,0.24547675251960754,1.0,1.0
-VOLUMETRIC-BLK-13,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.07176872246841648,0.05129774984870367,0.25767987966537476,1.0,0.6666666666666666
-VOLUMETRIC-BLK-14,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.013975170818229216,0.011254382199850439,0.2736946642398834,1.0,0.6666666666666666
-VOLUMETRIC-BLK-15,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.3143071620929212,0.23899091556065985,0.2771100401878357,1.0,0.6666666666666666
-SYN-FLOOD-BLK-01,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,-0.09247093289885562,-0.06498594011396212,-0.6515230536460876,1.0,0.42857142857142855
-SYN-FLOOD-BLK-02,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.07926961225819178,0.0494669096389861,-0.7068823575973511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-03,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.24326744097587077,0.1767873698955595,-0.7419865131378174,1.0,0.42857142857142855
-SYN-FLOOD-BLK-04,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.019068192461233736,0.03503742974842703,-0.778762936592102,1.0,0.42857142857142855
-SYN-FLOOD-BLK-05,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.015548358906752355,0.019446183200016943,-0.8057911992073059,1.0,0.42857142857142855
-SYN-FLOOD-BLK-06,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.0325138070997423,0.026239513123548174,-0.8277921080589294,1.0,0.42857142857142855
-SYN-FLOOD-BLK-07,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.12664631437048074,0.10092284483719663,-0.8406034111976624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-08,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,-0.027176461738254883,-0.005891789399748619,-0.8540271520614624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-09,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.3226046323426,0.2340422220998521,-0.8653205037117004,1.0,0.42857142857142855
-SYN-FLOOD-BLK-10,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,-0.07293056108417727,-0.05482612931057433,-0.8779501914978027,1.0,0.42857142857142855
-SYN-FLOOD-BLK-11,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.11472478575301089,0.08479858418803843,-0.8858718872070312,1.0,0.42857142857142855
-SYN-FLOOD-BLK-12,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,-0.06645263621044113,-0.058800644340991054,-0.8941593170166016,1.0,0.42857142857142855
-SYN-FLOOD-BLK-13,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.25115742974223304,0.17765696377960555,-0.9002010822296143,1.0,0.42857142857142855
-SYN-FLOOD-BLK-14,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,-0.0020996097179187354,0.001960021478033035,-0.9051205515861511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-15,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.23343040790972572,0.175684072251802,-0.9103531837463379,1.0,0.42857142857142855
-VOLUMETRIC-BLK-01,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.21505048278785233,0.16066699732529383,0.5513401031494141,1.0,0.6666666666666666
-VOLUMETRIC-BLK-02,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.04557951871660402,0.03042573318327297,0.5930500626564026,1.0,0.6666666666666666
-VOLUMETRIC-BLK-03,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.04820479092273442,0.027605439398998614,0.6301366090774536,0.5,0.6666666666666666
-VOLUMETRIC-BLK-04,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.22606696513171398,0.16001520216634302,0.6414955854415894,0.5,0.6666666666666666
-VOLUMETRIC-BLK-05,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.19510580120906734,0.12921903591655856,0.5734687447547913,0.5,0.6666666666666666
-VOLUMETRIC-BLK-06,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.3642782448106144,0.2740825768900576,0.49734121561050415,0.5,0.6666666666666666
-VOLUMETRIC-BLK-07,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.3231628312356431,0.23653553861834792,0.43721964955329895,1.0,0.6666666666666666
-VOLUMETRIC-BLK-08,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.1427090972287611,0.09661106526122543,0.36421170830726624,1.0,0.6666666666666666
-VOLUMETRIC-BLK-09,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.3263309609349327,0.26129077659661,0.29430410265922546,1.0,0.6666666666666666
-VOLUMETRIC-BLK-10,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.3660980441069284,0.29182458065373756,0.26363906264305115,1.0,0.6666666666666666
-VOLUMETRIC-BLK-11,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.2080721577521177,0.16145487201233605,0.25337713956832886,1.0,0.6666666666666666
-VOLUMETRIC-BLK-12,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.12501676596201497,0.10673429549108207,0.24547675251960754,1.0,1.0
-VOLUMETRIC-BLK-13,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.07176872246841648,0.05129774984870367,0.25767987966537476,1.0,0.6666666666666666
-VOLUMETRIC-BLK-14,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.013975170818229216,0.011254382199850439,0.2736946642398834,1.0,0.6666666666666666
-VOLUMETRIC-BLK-15,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.3143071620929212,0.23899091556065985,0.2771100401878357,1.0,0.6666666666666666
-SYN-FLOOD-BLK-01,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.09247093289885562,-0.06498594011396212,-0.6515230536460876,1.0,0.42857142857142855
-SYN-FLOOD-BLK-02,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.07926961225819178,0.0494669096389861,-0.7068823575973511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-03,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.24326744097587077,0.1767873698955595,-0.7419865131378174,1.0,0.42857142857142855
-SYN-FLOOD-BLK-04,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.019068192461233736,0.03503742974842703,-0.778762936592102,1.0,0.42857142857142855
-SYN-FLOOD-BLK-05,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.015548358906752355,0.019446183200016943,-0.8057911992073059,1.0,0.42857142857142855
-SYN-FLOOD-BLK-06,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.0325138070997423,0.026239513123548174,-0.8277921080589294,1.0,0.42857142857142855
-SYN-FLOOD-BLK-07,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.12664631437048074,0.10092284483719663,-0.8406034111976624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-08,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.027176461738254883,-0.005891789399748619,-0.8540271520614624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-09,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.3226046323426,0.2340422220998521,-0.8653205037117004,1.0,0.42857142857142855
-SYN-FLOOD-BLK-10,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.07293056108417727,-0.05482612931057433,-0.8779501914978027,1.0,0.42857142857142855
-SYN-FLOOD-BLK-11,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.11472478575301089,0.08479858418803843,-0.8858718872070312,1.0,0.42857142857142855
-SYN-FLOOD-BLK-12,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.06645263621044113,-0.058800644340991054,-0.8941593170166016,1.0,0.42857142857142855
-SYN-FLOOD-BLK-13,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.25115742974223304,0.17765696377960555,-0.9002010822296143,1.0,0.42857142857142855
-SYN-FLOOD-BLK-14,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.0020996097179187354,0.001960021478033035,-0.9051205515861511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-15,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.23343040790972572,0.175684072251802,-0.9103531837463379,1.0,0.42857142857142855
-VOLUMETRIC-BLK-01,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.21505048278785233,0.16066699732529383,0.5513401031494141,1.0,0.6666666666666666
-VOLUMETRIC-BLK-02,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.04557951871660402,0.03042573318327297,0.5930500626564026,1.0,0.6666666666666666
-VOLUMETRIC-BLK-03,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.04820479092273442,0.027605439398998614,0.6301366090774536,0.5,0.6666666666666666
-VOLUMETRIC-BLK-04,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.22606696513171398,0.16001520216634302,0.6414955854415894,0.5,0.6666666666666666
-VOLUMETRIC-BLK-05,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.19510580120906734,0.12921903591655856,0.5734687447547913,0.5,0.6666666666666666
-VOLUMETRIC-BLK-06,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.3642782448106144,0.2740825768900576,0.49734121561050415,0.5,0.6666666666666666
-VOLUMETRIC-BLK-07,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.3231628312356431,0.23653553861834792,0.43721964955329895,1.0,0.6666666666666666
-VOLUMETRIC-BLK-08,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.1427090972287611,0.09661106526122543,0.36421170830726624,1.0,0.6666666666666666
-VOLUMETRIC-BLK-09,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.3263309609349327,0.26129077659661,0.29430410265922546,1.0,0.6666666666666666
-VOLUMETRIC-BLK-10,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.3660980441069284,0.29182458065373756,0.26363906264305115,1.0,0.6666666666666666
-VOLUMETRIC-BLK-11,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.2080721577521177,0.16145487201233605,0.25337713956832886,1.0,0.6666666666666666
-VOLUMETRIC-BLK-12,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.12501676596201497,0.10673429549108207,0.24547675251960754,1.0,1.0
-VOLUMETRIC-BLK-13,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.07176872246841648,0.05129774984870367,0.25767987966537476,1.0,0.6666666666666666
-VOLUMETRIC-BLK-14,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.013975170818229216,0.011254382199850439,0.2736946642398834,1.0,0.6666666666666666
-VOLUMETRIC-BLK-15,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,0.3143071620929212,0.23899091556065985,0.2771100401878357,1.0,0.6666666666666666
-SYN-FLOOD-BLK-01,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.09247093289885562,-0.06498594011396212,-0.6515230536460876,1.0,0.42857142857142855
-SYN-FLOOD-BLK-02,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.07926961225819178,0.0494669096389861,-0.7068823575973511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-03,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.24326744097587077,0.1767873698955595,-0.7419865131378174,1.0,0.42857142857142855
-SYN-FLOOD-BLK-04,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.019068192461233736,0.03503742974842703,-0.778762936592102,1.0,0.42857142857142855
-SYN-FLOOD-BLK-05,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.015548358906752355,0.019446183200016943,-0.8057911992073059,1.0,0.42857142857142855
-SYN-FLOOD-BLK-06,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.0325138070997423,0.026239513123548174,-0.8277921080589294,1.0,0.42857142857142855
-SYN-FLOOD-BLK-07,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.12664631437048074,0.10092284483719663,-0.8406034111976624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-08,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.027176461738254883,-0.005891789399748619,-0.8540271520614624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-09,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.3226046323426,0.2340422220998521,-0.8653205037117004,1.0,0.42857142857142855
-SYN-FLOOD-BLK-10,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.07293056108417727,-0.05482612931057433,-0.8779501914978027,1.0,0.42857142857142855
-SYN-FLOOD-BLK-11,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.11472478575301089,0.08479858418803843,-0.8858718872070312,1.0,0.42857142857142855
-SYN-FLOOD-BLK-12,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.06645263621044113,-0.058800644340991054,-0.8941593170166016,1.0,0.42857142857142855
-SYN-FLOOD-BLK-13,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.25115742974223304,0.17765696377960555,-0.9002010822296143,1.0,0.42857142857142855
-SYN-FLOOD-BLK-14,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.0020996097179187354,0.001960021478033035,-0.9051205515861511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-15,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.23343040790972572,0.175684072251802,-0.9103531837463379,1.0,0.42857142857142855
-VOLUMETRIC-BLK-01,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.21505048278785233,0.16066699732529383,0.5513401031494141,1.0,0.6666666666666666
-VOLUMETRIC-BLK-02,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.04557951871660402,0.03042573318327297,0.5930500626564026,1.0,0.6666666666666666
-VOLUMETRIC-BLK-03,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.04820479092273442,0.027605439398998614,0.6301366090774536,0.5,0.6666666666666666
-VOLUMETRIC-BLK-04,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.22606696513171398,0.16001520216634302,0.6414955854415894,0.5,0.6666666666666666
-VOLUMETRIC-BLK-05,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.19510580120906734,0.12921903591655856,0.5734687447547913,0.5,0.6666666666666666
-VOLUMETRIC-BLK-06,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.3642782448106144,0.2740825768900576,0.49734121561050415,0.5,0.6666666666666666
-VOLUMETRIC-BLK-07,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.3231628312356431,0.23653553861834792,0.43721964955329895,1.0,0.6666666666666666
-VOLUMETRIC-BLK-08,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.1427090972287611,0.09661106526122543,0.36421170830726624,1.0,0.6666666666666666
-VOLUMETRIC-BLK-09,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.3263309609349327,0.26129077659661,0.29430410265922546,1.0,0.6666666666666666
-VOLUMETRIC-BLK-10,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.3660980441069284,0.29182458065373756,0.26363906264305115,1.0,0.6666666666666666
-VOLUMETRIC-BLK-11,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.2080721577521177,0.16145487201233605,0.25337713956832886,1.0,0.6666666666666666
-VOLUMETRIC-BLK-12,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.12501676596201497,0.10673429549108207,0.24547675251960754,1.0,1.0
-VOLUMETRIC-BLK-13,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.07176872246841648,0.05129774984870367,0.25767987966537476,1.0,0.6666666666666666
-VOLUMETRIC-BLK-14,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.013975170818229216,0.011254382199850439,0.2736946642398834,1.0,0.6666666666666666
-VOLUMETRIC-BLK-15,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.3143071620929212,0.23899091556065985,0.2771100401878357,1.0,0.6666666666666666
-SYN-FLOOD-BLK-01,Level_5_Complete,Complete model randomization (all layers reinit),42,-0.09247093289885562,-0.06498594011396212,-0.6515230536460876,1.0,0.42857142857142855
-SYN-FLOOD-BLK-02,Level_5_Complete,Complete model randomization (all layers reinit),42,0.07926961225819178,0.0494669096389861,-0.7068823575973511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-03,Level_5_Complete,Complete model randomization (all layers reinit),42,0.24326744097587077,0.1767873698955595,-0.7419865131378174,1.0,0.42857142857142855
-SYN-FLOOD-BLK-04,Level_5_Complete,Complete model randomization (all layers reinit),42,0.019068192461233736,0.03503742974842703,-0.778762936592102,1.0,0.42857142857142855
-SYN-FLOOD-BLK-05,Level_5_Complete,Complete model randomization (all layers reinit),42,0.015548358906752355,0.019446183200016943,-0.8057911992073059,1.0,0.42857142857142855
-SYN-FLOOD-BLK-06,Level_5_Complete,Complete model randomization (all layers reinit),42,0.0325138070997423,0.026239513123548174,-0.8277921080589294,1.0,0.42857142857142855
-SYN-FLOOD-BLK-07,Level_5_Complete,Complete model randomization (all layers reinit),42,0.12664631437048074,0.10092284483719663,-0.8406034111976624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-08,Level_5_Complete,Complete model randomization (all layers reinit),42,-0.027176461738254883,-0.005891789399748619,-0.8540271520614624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-09,Level_5_Complete,Complete model randomization (all layers reinit),42,0.3226046323426,0.2340422220998521,-0.8653205037117004,1.0,0.42857142857142855
-SYN-FLOOD-BLK-10,Level_5_Complete,Complete model randomization (all layers reinit),42,-0.07293056108417727,-0.05482612931057433,-0.8779501914978027,1.0,0.42857142857142855
-SYN-FLOOD-BLK-11,Level_5_Complete,Complete model randomization (all layers reinit),42,0.11472478575301089,0.08479858418803843,-0.8858718872070312,1.0,0.42857142857142855
-SYN-FLOOD-BLK-12,Level_5_Complete,Complete model randomization (all layers reinit),42,-0.06645263621044113,-0.058800644340991054,-0.8941593170166016,1.0,0.42857142857142855
-SYN-FLOOD-BLK-13,Level_5_Complete,Complete model randomization (all layers reinit),42,0.25115742974223304,0.17765696377960555,-0.9002010822296143,1.0,0.42857142857142855
-SYN-FLOOD-BLK-14,Level_5_Complete,Complete model randomization (all layers reinit),42,-0.0020996097179187354,0.001960021478033035,-0.9051205515861511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-15,Level_5_Complete,Complete model randomization (all layers reinit),42,0.23343040790972572,0.175684072251802,-0.9103531837463379,1.0,0.42857142857142855
-VOLUMETRIC-BLK-01,Level_5_Complete,Complete model randomization (all layers reinit),42,0.21505048278785233,0.16066699732529383,0.5513401031494141,1.0,0.6666666666666666
-VOLUMETRIC-BLK-02,Level_5_Complete,Complete model randomization (all layers reinit),42,0.04557951871660402,0.03042573318327297,0.5930500626564026,1.0,0.6666666666666666
-VOLUMETRIC-BLK-03,Level_5_Complete,Complete model randomization (all layers reinit),42,0.04820479092273442,0.027605439398998614,0.6301366090774536,0.5,0.6666666666666666
-VOLUMETRIC-BLK-04,Level_5_Complete,Complete model randomization (all layers reinit),42,0.22606696513171398,0.16001520216634302,0.6414955854415894,0.5,0.6666666666666666
-VOLUMETRIC-BLK-05,Level_5_Complete,Complete model randomization (all layers reinit),42,0.19510580120906734,0.12921903591655856,0.5734687447547913,0.5,0.6666666666666666
-VOLUMETRIC-BLK-06,Level_5_Complete,Complete model randomization (all layers reinit),42,0.3642782448106144,0.2740825768900576,0.49734121561050415,0.5,0.6666666666666666
-VOLUMETRIC-BLK-07,Level_5_Complete,Complete model randomization (all layers reinit),42,0.3231628312356431,0.23653553861834792,0.43721964955329895,1.0,0.6666666666666666
-VOLUMETRIC-BLK-08,Level_5_Complete,Complete model randomization (all layers reinit),42,0.1427090972287611,0.09661106526122543,0.36421170830726624,1.0,0.6666666666666666
-VOLUMETRIC-BLK-09,Level_5_Complete,Complete model randomization (all layers reinit),42,0.3263309609349327,0.26129077659661,0.29430410265922546,1.0,0.6666666666666666
-VOLUMETRIC-BLK-10,Level_5_Complete,Complete model randomization (all layers reinit),42,0.3660980441069284,0.29182458065373756,0.26363906264305115,1.0,0.6666666666666666
-VOLUMETRIC-BLK-11,Level_5_Complete,Complete model randomization (all layers reinit),42,0.2080721577521177,0.16145487201233605,0.25337713956832886,1.0,0.6666666666666666
-VOLUMETRIC-BLK-12,Level_5_Complete,Complete model randomization (all layers reinit),42,0.12501676596201497,0.10673429549108207,0.24547675251960754,1.0,1.0
-VOLUMETRIC-BLK-13,Level_5_Complete,Complete model randomization (all layers reinit),42,0.07176872246841648,0.05129774984870367,0.25767987966537476,1.0,0.6666666666666666
-VOLUMETRIC-BLK-14,Level_5_Complete,Complete model randomization (all layers reinit),42,0.013975170818229216,0.011254382199850439,0.2736946642398834,1.0,0.6666666666666666
-VOLUMETRIC-BLK-15,Level_5_Complete,Complete model randomization (all layers reinit),42,0.3143071620929212,0.23899091556065985,0.2771100401878357,1.0,0.6666666666666666
-SYN-FLOOD-BLK-01,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.09247093289885562,-0.06498594011396212,-0.6515230536460876,1.0,0.42857142857142855
-SYN-FLOOD-BLK-02,Level_5_Complete,Complete model randomization (all layers reinit),101,0.07926961225819178,0.0494669096389861,-0.7068823575973511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-03,Level_5_Complete,Complete model randomization (all layers reinit),101,0.24326744097587077,0.1767873698955595,-0.7419865131378174,1.0,0.42857142857142855
-SYN-FLOOD-BLK-04,Level_5_Complete,Complete model randomization (all layers reinit),101,0.019068192461233736,0.03503742974842703,-0.778762936592102,1.0,0.42857142857142855
-SYN-FLOOD-BLK-05,Level_5_Complete,Complete model randomization (all layers reinit),101,0.015548358906752355,0.019446183200016943,-0.8057911992073059,1.0,0.42857142857142855
-SYN-FLOOD-BLK-06,Level_5_Complete,Complete model randomization (all layers reinit),101,0.0325138070997423,0.026239513123548174,-0.8277921080589294,1.0,0.42857142857142855
-SYN-FLOOD-BLK-07,Level_5_Complete,Complete model randomization (all layers reinit),101,0.12664631437048074,0.10092284483719663,-0.8406034111976624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-08,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.027176461738254883,-0.005891789399748619,-0.8540271520614624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-09,Level_5_Complete,Complete model randomization (all layers reinit),101,0.3226046323426,0.2340422220998521,-0.8653205037117004,1.0,0.42857142857142855
-SYN-FLOOD-BLK-10,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.07293056108417727,-0.05482612931057433,-0.8779501914978027,1.0,0.42857142857142855
-SYN-FLOOD-BLK-11,Level_5_Complete,Complete model randomization (all layers reinit),101,0.11472478575301089,0.08479858418803843,-0.8858718872070312,1.0,0.42857142857142855
-SYN-FLOOD-BLK-12,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.06645263621044113,-0.058800644340991054,-0.8941593170166016,1.0,0.42857142857142855
-SYN-FLOOD-BLK-13,Level_5_Complete,Complete model randomization (all layers reinit),101,0.25115742974223304,0.17765696377960555,-0.9002010822296143,1.0,0.42857142857142855
-SYN-FLOOD-BLK-14,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.0020996097179187354,0.001960021478033035,-0.9051205515861511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-15,Level_5_Complete,Complete model randomization (all layers reinit),101,0.23343040790972572,0.175684072251802,-0.9103531837463379,1.0,0.42857142857142855
-VOLUMETRIC-BLK-01,Level_5_Complete,Complete model randomization (all layers reinit),101,0.21505048278785233,0.16066699732529383,0.5513401031494141,1.0,0.6666666666666666
-VOLUMETRIC-BLK-02,Level_5_Complete,Complete model randomization (all layers reinit),101,0.04557951871660402,0.03042573318327297,0.5930500626564026,1.0,0.6666666666666666
-VOLUMETRIC-BLK-03,Level_5_Complete,Complete model randomization (all layers reinit),101,0.04820479092273442,0.027605439398998614,0.6301366090774536,0.5,0.6666666666666666
-VOLUMETRIC-BLK-04,Level_5_Complete,Complete model randomization (all layers reinit),101,0.22606696513171398,0.16001520216634302,0.6414955854415894,0.5,0.6666666666666666
-VOLUMETRIC-BLK-05,Level_5_Complete,Complete model randomization (all layers reinit),101,0.19510580120906734,0.12921903591655856,0.5734687447547913,0.5,0.6666666666666666
-VOLUMETRIC-BLK-06,Level_5_Complete,Complete model randomization (all layers reinit),101,0.3642782448106144,0.2740825768900576,0.49734121561050415,0.5,0.6666666666666666
-VOLUMETRIC-BLK-07,Level_5_Complete,Complete model randomization (all layers reinit),101,0.3231628312356431,0.23653553861834792,0.43721964955329895,1.0,0.6666666666666666
-VOLUMETRIC-BLK-08,Level_5_Complete,Complete model randomization (all layers reinit),101,0.1427090972287611,0.09661106526122543,0.36421170830726624,1.0,0.6666666666666666
-VOLUMETRIC-BLK-09,Level_5_Complete,Complete model randomization (all layers reinit),101,0.3263309609349327,0.26129077659661,0.29430410265922546,1.0,0.6666666666666666
-VOLUMETRIC-BLK-10,Level_5_Complete,Complete model randomization (all layers reinit),101,0.3660980441069284,0.29182458065373756,0.26363906264305115,1.0,0.6666666666666666
-VOLUMETRIC-BLK-11,Level_5_Complete,Complete model randomization (all layers reinit),101,0.2080721577521177,0.16145487201233605,0.25337713956832886,1.0,0.6666666666666666
-VOLUMETRIC-BLK-12,Level_5_Complete,Complete model randomization (all layers reinit),101,0.12501676596201497,0.10673429549108207,0.24547675251960754,1.0,1.0
-VOLUMETRIC-BLK-13,Level_5_Complete,Complete model randomization (all layers reinit),101,0.07176872246841648,0.05129774984870367,0.25767987966537476,1.0,0.6666666666666666
-VOLUMETRIC-BLK-14,Level_5_Complete,Complete model randomization (all layers reinit),101,0.013975170818229216,0.011254382199850439,0.2736946642398834,1.0,0.6666666666666666
-VOLUMETRIC-BLK-15,Level_5_Complete,Complete model randomization (all layers reinit),101,0.3143071620929212,0.23899091556065985,0.2771100401878357,1.0,0.6666666666666666
-SYN-FLOOD-BLK-01,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.09247093289885562,-0.06498594011396212,-0.6515230536460876,1.0,0.42857142857142855
-SYN-FLOOD-BLK-02,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.07926961225819178,0.0494669096389861,-0.7068823575973511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-03,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.24326744097587077,0.1767873698955595,-0.7419865131378174,1.0,0.42857142857142855
-SYN-FLOOD-BLK-04,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.019068192461233736,0.03503742974842703,-0.778762936592102,1.0,0.42857142857142855
-SYN-FLOOD-BLK-05,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.015548358906752355,0.019446183200016943,-0.8057911992073059,1.0,0.42857142857142855
-SYN-FLOOD-BLK-06,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.0325138070997423,0.026239513123548174,-0.8277921080589294,1.0,0.42857142857142855
-SYN-FLOOD-BLK-07,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.12664631437048074,0.10092284483719663,-0.8406034111976624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-08,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.027176461738254883,-0.005891789399748619,-0.8540271520614624,1.0,0.42857142857142855
-SYN-FLOOD-BLK-09,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.3226046323426,0.2340422220998521,-0.8653205037117004,1.0,0.42857142857142855
-SYN-FLOOD-BLK-10,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.07293056108417727,-0.05482612931057433,-0.8779501914978027,1.0,0.42857142857142855
-SYN-FLOOD-BLK-11,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.11472478575301089,0.08479858418803843,-0.8858718872070312,1.0,0.42857142857142855
-SYN-FLOOD-BLK-12,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.06645263621044113,-0.058800644340991054,-0.8941593170166016,1.0,0.42857142857142855
-SYN-FLOOD-BLK-13,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.25115742974223304,0.17765696377960555,-0.9002010822296143,1.0,0.42857142857142855
-SYN-FLOOD-BLK-14,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.0020996097179187354,0.001960021478033035,-0.9051205515861511,1.0,0.42857142857142855
-SYN-FLOOD-BLK-15,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.23343040790972572,0.175684072251802,-0.9103531837463379,1.0,0.42857142857142855
-VOLUMETRIC-BLK-01,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.21505048278785233,0.16066699732529383,0.5513401031494141,1.0,0.6666666666666666
-VOLUMETRIC-BLK-02,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.04557951871660402,0.03042573318327297,0.5930500626564026,1.0,0.6666666666666666
-VOLUMETRIC-BLK-03,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.04820479092273442,0.027605439398998614,0.6301366090774536,0.5,0.6666666666666666
-VOLUMETRIC-BLK-04,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.22606696513171398,0.16001520216634302,0.6414955854415894,0.5,0.6666666666666666
-VOLUMETRIC-BLK-05,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.19510580120906734,0.12921903591655856,0.5734687447547913,0.5,0.6666666666666666
-VOLUMETRIC-BLK-06,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.3642782448106144,0.2740825768900576,0.49734121561050415,0.5,0.6666666666666666
-VOLUMETRIC-BLK-07,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.3231628312356431,0.23653553861834792,0.43721964955329895,1.0,0.6666666666666666
-VOLUMETRIC-BLK-08,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.1427090972287611,0.09661106526122543,0.36421170830726624,1.0,0.6666666666666666
-VOLUMETRIC-BLK-09,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.3263309609349327,0.26129077659661,0.29430410265922546,1.0,0.6666666666666666
-VOLUMETRIC-BLK-10,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.3660980441069284,0.29182458065373756,0.26363906264305115,1.0,0.6666666666666666
-VOLUMETRIC-BLK-11,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.2080721577521177,0.16145487201233605,0.25337713956832886,1.0,0.6666666666666666
-VOLUMETRIC-BLK-12,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.12501676596201497,0.10673429549108207,0.24547675251960754,1.0,1.0
-VOLUMETRIC-BLK-13,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.07176872246841648,0.05129774984870367,0.25767987966537476,1.0,0.6666666666666666
-VOLUMETRIC-BLK-14,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.013975170818229216,0.011254382199850439,0.2736946642398834,1.0,0.6666666666666666
-VOLUMETRIC-BLK-15,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.3143071620929212,0.23899091556065985,0.2771100401878357,1.0,0.6666666666666666
+VOLUMETRIC-BLK-01,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,1.0,1.0,0.9999447464942932,1.0,1.0
+VOLUMETRIC-BLK-02,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9997533148319457,0.9961352657004832,0.9998605251312256,1.0,1.0
+VOLUMETRIC-BLK-03,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9997533148319457,0.9961352657004832,0.9996119737625122,1.0,1.0
+VOLUMETRIC-BLK-04,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9996299722479185,0.9942028985507246,0.9992873072624207,1.0,1.0
+VOLUMETRIC-BLK-05,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9997533148319457,0.9961352657004832,0.9989545345306396,1.0,1.0
+VOLUMETRIC-BLK-06,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9993832870798643,0.9922705314009662,0.9987756609916687,1.0,1.0
+VOLUMETRIC-BLK-07,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9998766574159728,0.9980676328502417,0.9987438917160034,0.5,1.0
+VOLUMETRIC-BLK-08,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9998766574159728,0.9980676328502417,0.9986915588378906,1.0,1.0
+VOLUMETRIC-BLK-09,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9998766574159728,0.9980676328502417,0.9987738132476807,1.0,1.0
+VOLUMETRIC-BLK-10,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9998766574159728,0.9980676328502417,0.9988712668418884,1.0,1.0
+VOLUMETRIC-BLK-11,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,1.0,1.0,0.998894989490509,1.0,1.0
+VOLUMETRIC-BLK-12,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9996299722479185,0.9942028985507246,0.9989399313926697,1.0,1.0
+VOLUMETRIC-BLK-13,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9997533148319457,0.9961352657004832,0.9989467859268188,1.0,1.0
+VOLUMETRIC-BLK-14,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9997533148319457,0.9961352657004832,0.9989925026893616,1.0,1.0
+VOLUMETRIC-BLK-15,Level_2_Perception,Randomize decoder + perception head + graph layer,2026,0.9998766574159728,0.9980676328502417,0.9989902973175049,1.0,1.0
+SYN-FLOOD-BLK-01,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.30558125192722785,0.25024154589371983,0.2551549971103668,1.0,0.42857142857142855
+SYN-FLOOD-BLK-02,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.2606845513413506,0.19806763285024157,0.2802698612213135,1.0,0.42857142857142855
+SYN-FLOOD-BLK-03,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.33370336108541476,0.25024154589371983,0.28899291157722473,1.0,0.42857142857142855
+SYN-FLOOD-BLK-04,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.24403330249768734,0.1806763285024155,0.323896199464798,1.0,0.42857142857142855
+SYN-FLOOD-BLK-05,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.3222325007708911,0.23285024154589373,0.2921214699745178,1.0,0.6666666666666666
+SYN-FLOOD-BLK-06,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.21788467468393463,0.16908212560386474,0.3249930739402771,1.0,0.42857142857142855
+SYN-FLOOD-BLK-07,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.4260869565217391,0.3159420289855073,0.34647220373153687,1.0,0.42857142857142855
+SYN-FLOOD-BLK-08,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.30558125192722785,0.23285024154589373,0.3493633270263672,1.0,0.42857142857142855
+SYN-FLOOD-BLK-09,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.23354918285538084,0.17874396135265702,0.34024569392204285,1.0,0.42857142857142855
+SYN-FLOOD-BLK-10,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.29472710453283996,0.221256038647343,0.3486977815628052,1.0,0.42857142857142855
+SYN-FLOOD-BLK-11,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.36379895158803577,0.2734299516908213,0.3374193012714386,1.0,0.6666666666666666
+SYN-FLOOD-BLK-12,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.3454209065679926,0.2714975845410628,0.32857203483581543,1.0,0.42857142857142855
+SYN-FLOOD-BLK-13,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.35886524822695026,0.2560386473429952,0.3493158221244812,1.0,0.42857142857142855
+SYN-FLOOD-BLK-14,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.272032069071847,0.2289855072463768,0.3542642891407013,1.0,0.42857142857142855
+SYN-FLOOD-BLK-15,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.464199814986124,0.3410628019323672,0.35148727893829346,1.0,0.42857142857142855
+VOLUMETRIC-BLK-01,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.22787542399013258,0.15169082125603867,0.5745961666107178,0.5,0.6666666666666666
+VOLUMETRIC-BLK-02,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.10058587727412889,0.08792270531400967,0.7062195539474487,0.5,0.6666666666666666
+VOLUMETRIC-BLK-03,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.36367560900400864,0.2463768115942029,0.8336163759231567,0.5,0.6666666666666666
+VOLUMETRIC-BLK-04,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.07937095282146162,0.06666666666666667,0.853598952293396,0.5,0.6666666666666666
+VOLUMETRIC-BLK-05,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.20826395312981807,0.14782608695652175,0.7914561629295349,0.5,0.6666666666666666
+VOLUMETRIC-BLK-06,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.05408572309589886,0.051207729468599035,0.6855989098548889,0.5,0.6666666666666666
+VOLUMETRIC-BLK-07,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.14153561517113783,0.1033816425120773,0.6235067248344421,1.0,0.6666666666666666
+VOLUMETRIC-BLK-08,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,-0.02325007708911502,-0.0106280193236715,0.5633297562599182,1.0,0.6666666666666666
+VOLUMETRIC-BLK-09,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,-0.01905642923219241,-0.014492753623188408,0.4977886378765106,1.0,0.6666666666666666
+VOLUMETRIC-BLK-10,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,-0.001911810052420598,-0.008695652173913045,0.44836166501045227,1.0,0.6666666666666666
+VOLUMETRIC-BLK-11,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.030650632130743136,0.012560386473429953,0.4216315746307373,1.0,0.6666666666666666
+VOLUMETRIC-BLK-12,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,-0.050138760407030525,-0.014492753623188408,0.39733290672302246,1.0,0.6666666666666666
+VOLUMETRIC-BLK-13,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.11526364477335797,0.0956521739130435,0.37850677967071533,1.0,0.6666666666666666
+VOLUMETRIC-BLK-14,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,0.06456984273820536,0.05507246376811595,0.3640187084674835,1.0,0.6666666666666666
+VOLUMETRIC-BLK-15,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,42,-0.03496762257169288,-0.014492753623188408,0.3550336956977844,1.0,0.6666666666666666
+SYN-FLOOD-BLK-01,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.414122725871107,0.30048309178743965,0.9329748153686523,1.0,1.0
+SYN-FLOOD-BLK-02,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.4202898550724638,0.3101449275362319,0.949270486831665,1.0,0.6666666666666666
+SYN-FLOOD-BLK-03,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.4352143077397471,0.31400966183574885,0.9586575627326965,1.0,0.42857142857142855
+SYN-FLOOD-BLK-04,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.3663891458526056,0.2888888888888889,0.968127429485321,1.0,0.42857142857142855
+SYN-FLOOD-BLK-05,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.3832870798643231,0.28695652173913044,0.9736422896385193,1.0,0.42857142857142855
+SYN-FLOOD-BLK-06,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.45729263028060435,0.3198067632850242,0.9782222509384155,1.0,1.0
+SYN-FLOOD-BLK-07,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.3045945112550108,0.20579710144927538,0.9811111092567444,1.0,0.6666666666666666
+SYN-FLOOD-BLK-08,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.42213999383287076,0.3198067632850242,0.9834171533584595,1.0,0.42857142857142855
+SYN-FLOOD-BLK-09,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.3936478569226025,0.2753623188405797,0.9858666062355042,1.0,0.42857142857142855
+SYN-FLOOD-BLK-10,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.3810669133518347,0.2753623188405797,0.9885677099227905,1.0,0.42857142857142855
+SYN-FLOOD-BLK-11,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.36552574776441565,0.26956521739130435,0.9901916980743408,1.0,0.6666666666666666
+SYN-FLOOD-BLK-12,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.2830095590502621,0.19613526570048312,0.9914880990982056,1.0,0.42857142857142855
+SYN-FLOOD-BLK-13,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.357631822386679,0.24057971014492757,0.9918737411499023,1.0,0.6666666666666666
+SYN-FLOOD-BLK-14,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.39253777366635834,0.285024154589372,0.9928122162818909,1.0,0.6666666666666666
+SYN-FLOOD-BLK-15,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,0.23946962688868328,0.16521739130434784,0.9931650161743164,1.0,0.42857142857142855
+VOLUMETRIC-BLK-01,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.008202281837804502,-0.02415458937198068,-0.2315843403339386,0.5,0.6666666666666666
+VOLUMETRIC-BLK-02,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.25871106999691645,-0.19420289855072465,-0.1885128915309906,0.5,0.6666666666666666
+VOLUMETRIC-BLK-03,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.10712303422756705,-0.07632850241545895,-0.20573830604553223,0.5,0.6666666666666666
+VOLUMETRIC-BLK-04,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.36478569226025287,-0.25797101449275367,-0.28094732761383057,0.5,0.6666666666666666
+VOLUMETRIC-BLK-05,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.1902559358618563,-0.15169082125603867,-0.33112943172454834,0.5,0.6666666666666666
+VOLUMETRIC-BLK-06,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.2053037311131668,-0.15555555555555556,-0.3730326294898987,0.5,0.6666666666666666
+VOLUMETRIC-BLK-07,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.07530064754856612,-0.053140096618357495,-0.3815375566482544,0.5,0.6666666666666666
+VOLUMETRIC-BLK-08,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.23219241443108235,-0.1710144927536232,-0.37765613198280334,0.5,0.6666666666666666
+VOLUMETRIC-BLK-09,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.04939870490286771,-0.022222222222222227,-0.371692419052124,0.5,0.6666666666666666
+VOLUMETRIC-BLK-10,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.025470243601603455,-0.02415458937198068,-0.3856278657913208,0.5,0.6666666666666666
+VOLUMETRIC-BLK-11,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.19642306506321308,-0.13623188405797104,-0.40015631914138794,0.5,0.6666666666666666
+VOLUMETRIC-BLK-12,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.1860622880049337,-0.11884057971014494,-0.4185945987701416,0.5,0.6666666666666666
+VOLUMETRIC-BLK-13,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.0343509096515572,-0.004830917874396136,-0.4403995871543884,0.5,0.6666666666666666
+VOLUMETRIC-BLK-14,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.1620104841196423,-0.13623188405797104,-0.46843957901000977,0.5,0.6666666666666666
+VOLUMETRIC-BLK-15,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,101,-0.21640456367560898,-0.1594202898550725,-0.4799312651157379,0.5,0.6666666666666666
+SYN-FLOOD-BLK-01,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.17187789084181312,-0.12077294685990339,-0.7659725546836853,1.0,0.6666666666666666
+SYN-FLOOD-BLK-02,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.16312056737588654,0.11690821256038648,-0.7797263264656067,1.0,0.6666666666666666
+SYN-FLOOD-BLK-03,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.026827012025901945,0.016425120772946864,-0.7847405672073364,1.0,0.42857142857142855
+SYN-FLOOD-BLK-04,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.03139068763490595,0.04734299516908213,-0.7904995679855347,1.0,0.42857142857142855
+SYN-FLOOD-BLK-05,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.10625963613937711,0.08405797101449276,-0.7999677658081055,1.0,0.42857142857142855
+SYN-FLOOD-BLK-06,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.13882207832254087,0.0956521739130435,-0.7971086502075195,1.0,0.6666666666666666
+SYN-FLOOD-BLK-07,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.18001850138760406,0.13043478260869565,-0.8046613931655884,1.0,0.6666666666666666
+SYN-FLOOD-BLK-08,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.08529139685476411,0.06859903381642513,-0.807601809501648,1.0,0.42857142857142855
+SYN-FLOOD-BLK-09,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.11612704286154796,0.08599033816425121,-0.811922013759613,1.0,0.42857142857142855
+SYN-FLOOD-BLK-10,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.12550107924761023,0.08405797101449276,-0.8136865496635437,1.0,0.42857142857142855
+SYN-FLOOD-BLK-11,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.03373419673142153,0.02995169082125604,-0.8177745342254639,1.0,0.42857142857142855
+SYN-FLOOD-BLK-12,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.08615479494295405,0.06473429951690822,-0.8252479434013367,1.0,0.42857142857142855
+SYN-FLOOD-BLK-13,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.008202281837804502,0.004830917874396136,-0.8246818780899048,1.0,0.42857142857142855
+SYN-FLOOD-BLK-14,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.18741905642923218,0.1420289855072464,-0.839591920375824,1.0,0.42857142857142855
+SYN-FLOOD-BLK-15,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.04175146469318532,0.026086956521739136,-0.8354572653770447,1.0,0.42857142857142855
+VOLUMETRIC-BLK-01,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.10860314523589268,0.07053140096618357,-0.020928477868437767,0.5,0.6666666666666666
+VOLUMETRIC-BLK-02,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.09688559975331483,0.058937198067632854,-0.13675875961780548,0.5,0.6666666666666666
+VOLUMETRIC-BLK-03,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,0.05988282454517422,0.053140096618357495,-0.36277520656585693,0.5,0.6666666666666666
+VOLUMETRIC-BLK-04,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.16904101140918903,-0.11304347826086958,-0.613185465335846,0.5,0.6666666666666666
+VOLUMETRIC-BLK-05,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.11205673758865248,-0.060869565217391314,-0.7751631140708923,1.0,0.6666666666666666
+VOLUMETRIC-BLK-06,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.21837804502004318,-0.14975845410628022,-0.8615471720695496,1.0,0.6666666666666666
+VOLUMETRIC-BLK-07,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.2310823311748381,-0.1748792270531401,-0.880807638168335,0.5,0.6666666666666666
+VOLUMETRIC-BLK-08,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.1958063521430774,-0.12270531400966185,-0.8834380507469177,0.5,0.6666666666666666
+VOLUMETRIC-BLK-09,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.13623188405797101,-0.07439613526570048,-0.8798559308052063,0.5,0.6666666666666666
+VOLUMETRIC-BLK-10,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.2716620413197656,-0.2096618357487923,-0.8837080001831055,0.5,0.6666666666666666
+VOLUMETRIC-BLK-11,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.33703361085414735,-0.2289855072463768,-0.889366090297699,0.5,0.6666666666666666
+VOLUMETRIC-BLK-12,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.25143385753931546,-0.1826086956521739,-0.8941179513931274,0.5,1.0
+VOLUMETRIC-BLK-13,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.2736355226641998,-0.1922705314009662,-0.9037877321243286,1.0,0.6666666666666666
+VOLUMETRIC-BLK-14,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.16386062288004932,-0.0995169082125604,-0.9155065417289734,1.0,0.6666666666666666
+VOLUMETRIC-BLK-15,Level_3_Transformer,Randomize decoder + perception + transformer_encoder,2026,-0.17471477027443724,-0.09178743961352658,-0.9206684827804565,1.0,0.6666666666666666
+SYN-FLOOD-BLK-01,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,-0.18988590810977493,-0.14975845410628022,-0.0566377267241478,1.0,0.42857142857142855
+SYN-FLOOD-BLK-02,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,-0.26438482886216463,-0.1922705314009662,-0.07744400203227997,1.0,0.42857142857142855
+SYN-FLOOD-BLK-03,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,-0.09084181313598519,-0.08405797101449276,-0.0002867422590497881,1.0,0.42857142857142855
+SYN-FLOOD-BLK-04,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,-0.1470860314523589,-0.12077294685990339,0.17080307006835938,1.0,0.42857142857142855
+SYN-FLOOD-BLK-05,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,-0.06345975948196114,-0.03381642512077295,0.025166155770421028,1.0,0.6666666666666666
+SYN-FLOOD-BLK-06,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,-0.10588960838729572,-0.08405797101449276,0.1413078010082245,1.0,0.42857142857142855
+SYN-FLOOD-BLK-07,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,-0.21677459142769043,-0.15555555555555556,0.17377305030822754,1.0,0.42857142857142855
+SYN-FLOOD-BLK-08,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,-0.08849830403946961,-0.06859903381642513,0.0974888727068901,1.0,0.42857142857142855
+SYN-FLOOD-BLK-09,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,-0.04619179771816219,-0.035748792270531404,0.24809898436069489,1.0,0.42857142857142855
+SYN-FLOOD-BLK-10,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,-0.05063213074313906,-0.02415458937198068,0.30174028873443604,1.0,0.42857142857142855
+SYN-FLOOD-BLK-11,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,-0.091581868640148,-0.053140096618357495,0.23164133727550507,1.0,0.42857142857142855
+SYN-FLOOD-BLK-12,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,-0.03533765032377428,-0.012560386473429953,0.25815558433532715,1.0,0.42857142857142855
+SYN-FLOOD-BLK-13,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.10736971939562133,0.0782608695652174,0.2321733832359314,1.0,0.42857142857142855
+SYN-FLOOD-BLK-14,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.11168670983657107,0.08019323671497586,0.3561002016067505,1.0,0.42857142857142855
+SYN-FLOOD-BLK-15,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.04532839962997225,0.060869565217391314,0.2976415455341339,1.0,0.42857142857142855
+VOLUMETRIC-BLK-01,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.1965464076472402,0.1845410628019324,0.19457149505615234,1.0,0.6666666666666666
+VOLUMETRIC-BLK-02,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.24724020968239283,0.221256038647343,0.3902912139892578,1.0,0.6666666666666666
+VOLUMETRIC-BLK-03,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.2952204748689485,0.24830917874396138,0.6307268142700195,0.5,0.6666666666666666
+VOLUMETRIC-BLK-04,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.12587110699969162,0.0995169082125604,0.7917784452438354,0.5,0.6666666666666666
+VOLUMETRIC-BLK-05,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.22010484119642307,0.2096618357487923,0.8663422465324402,0.5,0.6666666666666666
+VOLUMETRIC-BLK-06,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.3681159420289855,0.3159420289855073,0.8589065670967102,0.5,0.6666666666666666
+VOLUMETRIC-BLK-07,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.32778291705211227,0.26183574879227056,0.8434488773345947,1.0,0.6666666666666666
+VOLUMETRIC-BLK-08,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.4439716312056738,0.33719806763285026,0.8268389701843262,1.0,0.6666666666666666
+VOLUMETRIC-BLK-09,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.3274128893000309,0.2599033816425121,0.7955322265625,1.0,0.6666666666666666
+VOLUMETRIC-BLK-10,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.36404563675609003,0.26956521739130435,0.7687591910362244,1.0,0.6666666666666666
+VOLUMETRIC-BLK-11,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.43842121492445263,0.3449275362318841,0.7481186389923096,1.0,0.6666666666666666
+VOLUMETRIC-BLK-12,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.1794017884674684,0.15169082125603867,0.732227623462677,1.0,0.6666666666666666
+VOLUMETRIC-BLK-13,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.29337033610854146,0.23671497584541065,0.7218728065490723,1.0,0.6666666666666666
+VOLUMETRIC-BLK-14,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.3240826395312982,0.26956521739130435,0.7116544246673584,1.0,0.6666666666666666
+VOLUMETRIC-BLK-15,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,42,0.3132284921369103,0.2599033816425121,0.70834881067276,1.0,0.6666666666666666
+SYN-FLOOD-BLK-01,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.1701510946654332,-0.15555555555555556,-0.9933752417564392,1.0,0.42857142857142855
+SYN-FLOOD-BLK-02,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.13943879124267652,-0.10917874396135266,-0.9968024492263794,1.0,0.42857142857142855
+SYN-FLOOD-BLK-03,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.3059512796793093,-0.2347826086956522,-0.9979068636894226,1.0,0.42857142857142855
+SYN-FLOOD-BLK-04,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.19568300955905027,-0.14009661835748793,-0.9989327788352966,1.0,0.42857142857142855
+SYN-FLOOD-BLK-05,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.15695343817452975,-0.11690821256038648,-0.9991511702537537,1.0,0.42857142857142855
+SYN-FLOOD-BLK-06,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.18655565834104224,-0.12270531400966185,-0.9988424181938171,1.0,0.6666666666666666
+SYN-FLOOD-BLK-07,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.22294172062904719,-0.13623188405797104,-0.9983904957771301,1.0,0.42857142857142855
+SYN-FLOOD-BLK-08,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.22639531298180696,-0.16714975845410632,-0.9979560375213623,1.0,0.42857142857142855
+SYN-FLOOD-BLK-09,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.018563058896083874,-0.012560386473429953,-0.9977396130561829,1.0,0.42857142857142855
+SYN-FLOOD-BLK-10,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.3276595744680851,-0.2463768115942029,-0.9966489672660828,1.0,0.6666666666666666
+SYN-FLOOD-BLK-11,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.251063829787234,-0.1748792270531401,-0.996228814125061,1.0,0.42857142857142855
+SYN-FLOOD-BLK-12,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.05260561208757323,-0.04734299516908213,-0.9955064654350281,1.0,0.42857142857142855
+SYN-FLOOD-BLK-13,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.06901017576318223,-0.058937198067632854,-0.99502032995224,1.0,0.42857142857142855
+SYN-FLOOD-BLK-14,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.27918593894542093,-0.20193236714975848,-0.9945897459983826,1.0,0.6666666666666666
+SYN-FLOOD-BLK-15,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.06345975948196114,-0.053140096618357495,-0.9935317039489746,1.0,0.42857142857142855
+VOLUMETRIC-BLK-01,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.15757015109466543,-0.09178743961352658,-0.17418785393238068,1.0,0.42857142857142855
+VOLUMETRIC-BLK-02,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.22318840579710145,-0.14975845410628022,-0.2304263412952423,1.0,0.6666666666666666
+VOLUMETRIC-BLK-03,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.274745605920444,-0.20579710144927538,-0.2440251111984253,0.5,0.6666666666666666
+VOLUMETRIC-BLK-04,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.028060437866173293,-0.02415458937198068,-0.1822001188993454,0.5,0.6666666666666666
+VOLUMETRIC-BLK-05,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.08270120259019426,-0.053140096618357495,-0.12177391350269318,0.5,0.6666666666666666
+VOLUMETRIC-BLK-06,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.13832870798643232,-0.0995169082125604,-0.055715084075927734,0.5,1.0
+VOLUMETRIC-BLK-07,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.20234350909651555,-0.1420289855072464,-0.03092179261147976,1.0,0.6666666666666666
+VOLUMETRIC-BLK-08,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.3296330558125193,-0.2270531400966184,-0.023442605510354042,1.0,0.6666666666666666
+VOLUMETRIC-BLK-09,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.12352759790317606,-0.09758454106280194,-0.010217859409749508,1.0,0.42857142857142855
+VOLUMETRIC-BLK-10,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.22306506321307432,-0.18647342995169083,0.010336965322494507,1.0,0.6666666666666666
+VOLUMETRIC-BLK-11,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.17878507554733272,-0.1420289855072464,0.02925414778292179,1.0,0.42857142857142855
+VOLUMETRIC-BLK-12,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.08146777674992291,-0.03381642512077295,0.043715622276067734,1.0,0.6666666666666666
+VOLUMETRIC-BLK-13,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.18766574159728644,-0.14396135265700485,0.06746011227369308,1.0,0.6666666666666666
+VOLUMETRIC-BLK-14,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.18495220474868945,-0.13043478260869565,0.09252290427684784,1.0,0.6666666666666666
+VOLUMETRIC-BLK-15,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,101,-0.17866173296330556,-0.12850241545893723,0.10320659726858139,1.0,0.6666666666666666
+SYN-FLOOD-BLK-01,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.016096207215541166,-0.018357487922705317,0.9095354676246643,1.0,0.42857142857142855
+SYN-FLOOD-BLK-02,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.10317607153869873,-0.0782608695652174,0.9232669472694397,1.0,0.42857142857142855
+SYN-FLOOD-BLK-03,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.17323465926611162,-0.12077294685990339,0.9338402152061462,1.0,0.42857142857142855
+SYN-FLOOD-BLK-04,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.1146469318532223,0.08405797101449276,0.9436191320419312,1.0,0.42857142857142855
+SYN-FLOOD-BLK-05,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.12007400555041627,-0.11884057971014494,0.9533736705780029,1.0,0.6666666666666666
+SYN-FLOOD-BLK-06,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.021399938328707985,0.0106280193236715,0.9579846858978271,1.0,0.6666666666666666
+SYN-FLOOD-BLK-07,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.023866790009250693,0.0009661835748792271,0.9614026546478271,1.0,1.0
+SYN-FLOOD-BLK-08,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.12167745914276905,0.06280193236714976,0.9636213183403015,1.0,0.42857142857142855
+SYN-FLOOD-BLK-09,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.06703669441874806,0.02801932367149759,0.965259850025177,1.0,0.42857142857142855
+SYN-FLOOD-BLK-10,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.023496762257169287,-0.022222222222222227,0.9686875343322754,1.0,0.42857142857142855
+SYN-FLOOD-BLK-11,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.12525439407955596,0.08405797101449276,0.9712636470794678,1.0,0.6666666666666666
+SYN-FLOOD-BLK-12,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.08923835954363243,0.06280193236714976,0.9727972745895386,1.0,0.42857142857142855
+SYN-FLOOD-BLK-13,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.010299105766265802,0.018357487922705317,0.973126232624054,1.0,0.42857142857142855
+SYN-FLOOD-BLK-14,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.07443724946037619,0.04347826086956522,0.9747605919837952,1.0,0.42857142857142855
+SYN-FLOOD-BLK-15,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.13832870798643232,0.09758454106280194,0.9756497144699097,1.0,0.42857142857142855
+VOLUMETRIC-BLK-01,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.21813135985198892,-0.15748792270531403,-0.7674420475959778,1.0,0.6666666666666666
+VOLUMETRIC-BLK-02,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.2140610545790934,-0.14396135265700485,-0.8443469405174255,1.0,0.6666666666666666
+VOLUMETRIC-BLK-03,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.1341350601295097,-0.0995169082125604,-0.8744910359382629,0.5,1.0
+VOLUMETRIC-BLK-04,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.057662658032685776,-0.03961352657004831,-0.7802906632423401,0.5,0.6666666666666666
+VOLUMETRIC-BLK-05,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.12562442183163736,-0.08599033816425121,-0.626792848110199,0.5,0.6666666666666666
+VOLUMETRIC-BLK-06,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.002898550724637681,0.0028985507246376816,-0.4668961763381958,0.5,0.6666666666666666
+VOLUMETRIC-BLK-07,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.10638297872340426,0.07246376811594203,-0.37893399596214294,1.0,0.6666666666666666
+VOLUMETRIC-BLK-08,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.06740672217082948,0.04927536231884058,-0.3069068491458893,1.0,0.6666666666666666
+VOLUMETRIC-BLK-09,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.07295713845205057,0.0570048309178744,-0.22593072056770325,1.0,0.6666666666666666
+VOLUMETRIC-BLK-10,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.11082331174838113,-0.07439613526570048,-0.1742318868637085,1.0,0.6666666666666666
+VOLUMETRIC-BLK-11,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.020043169904409495,-0.0106280193236715,-0.14132283627986908,1.0,0.6666666666666666
+VOLUMETRIC-BLK-12,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.09762565525747763,0.05507246376811595,-0.11941323429346085,1.0,0.6666666666666666
+VOLUMETRIC-BLK-13,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,-0.05692260252852297,-0.051207729468599035,-0.10056406259536743,1.0,0.6666666666666666
+VOLUMETRIC-BLK-14,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.05729263028060438,0.04347826086956522,-0.09272944182157516,1.0,0.6666666666666666
+VOLUMETRIC-BLK-15,Level_4_PatchEmbed,Randomize transformer + input patch_embed and norm,2026,0.05704594511255011,0.03381642512077295,-0.0820150300860405,1.0,0.6666666666666666
+SYN-FLOOD-BLK-01,Level_5_Complete,Complete model randomization (all layers reinit),42,-0.18988590810977493,-0.14975845410628022,-0.0566377267241478,1.0,0.42857142857142855
+SYN-FLOOD-BLK-02,Level_5_Complete,Complete model randomization (all layers reinit),42,-0.26438482886216463,-0.1922705314009662,-0.07744400203227997,1.0,0.42857142857142855
+SYN-FLOOD-BLK-03,Level_5_Complete,Complete model randomization (all layers reinit),42,-0.09084181313598519,-0.08405797101449276,-0.0002867422590497881,1.0,0.42857142857142855
+SYN-FLOOD-BLK-04,Level_5_Complete,Complete model randomization (all layers reinit),42,-0.1470860314523589,-0.12077294685990339,0.17080307006835938,1.0,0.42857142857142855
+SYN-FLOOD-BLK-05,Level_5_Complete,Complete model randomization (all layers reinit),42,-0.06345975948196114,-0.03381642512077295,0.025166155770421028,1.0,0.6666666666666666
+SYN-FLOOD-BLK-06,Level_5_Complete,Complete model randomization (all layers reinit),42,-0.10588960838729572,-0.08405797101449276,0.1413078010082245,1.0,0.42857142857142855
+SYN-FLOOD-BLK-07,Level_5_Complete,Complete model randomization (all layers reinit),42,-0.21677459142769043,-0.15555555555555556,0.17377305030822754,1.0,0.42857142857142855
+SYN-FLOOD-BLK-08,Level_5_Complete,Complete model randomization (all layers reinit),42,-0.08849830403946961,-0.06859903381642513,0.0974888727068901,1.0,0.42857142857142855
+SYN-FLOOD-BLK-09,Level_5_Complete,Complete model randomization (all layers reinit),42,-0.04619179771816219,-0.035748792270531404,0.24809898436069489,1.0,0.42857142857142855
+SYN-FLOOD-BLK-10,Level_5_Complete,Complete model randomization (all layers reinit),42,-0.05063213074313906,-0.02415458937198068,0.30174028873443604,1.0,0.42857142857142855
+SYN-FLOOD-BLK-11,Level_5_Complete,Complete model randomization (all layers reinit),42,-0.091581868640148,-0.053140096618357495,0.23164133727550507,1.0,0.42857142857142855
+SYN-FLOOD-BLK-12,Level_5_Complete,Complete model randomization (all layers reinit),42,-0.03533765032377428,-0.012560386473429953,0.25815558433532715,1.0,0.42857142857142855
+SYN-FLOOD-BLK-13,Level_5_Complete,Complete model randomization (all layers reinit),42,0.10736971939562133,0.0782608695652174,0.2321733832359314,1.0,0.42857142857142855
+SYN-FLOOD-BLK-14,Level_5_Complete,Complete model randomization (all layers reinit),42,0.11168670983657107,0.08019323671497586,0.3561002016067505,1.0,0.42857142857142855
+SYN-FLOOD-BLK-15,Level_5_Complete,Complete model randomization (all layers reinit),42,0.04532839962997225,0.060869565217391314,0.2976415455341339,1.0,0.42857142857142855
+VOLUMETRIC-BLK-01,Level_5_Complete,Complete model randomization (all layers reinit),42,0.1965464076472402,0.1845410628019324,0.19457149505615234,1.0,0.6666666666666666
+VOLUMETRIC-BLK-02,Level_5_Complete,Complete model randomization (all layers reinit),42,0.24724020968239283,0.221256038647343,0.3902912139892578,1.0,0.6666666666666666
+VOLUMETRIC-BLK-03,Level_5_Complete,Complete model randomization (all layers reinit),42,0.2952204748689485,0.24830917874396138,0.6307268142700195,0.5,0.6666666666666666
+VOLUMETRIC-BLK-04,Level_5_Complete,Complete model randomization (all layers reinit),42,0.12587110699969162,0.0995169082125604,0.7917784452438354,0.5,0.6666666666666666
+VOLUMETRIC-BLK-05,Level_5_Complete,Complete model randomization (all layers reinit),42,0.22010484119642307,0.2096618357487923,0.8663422465324402,0.5,0.6666666666666666
+VOLUMETRIC-BLK-06,Level_5_Complete,Complete model randomization (all layers reinit),42,0.3681159420289855,0.3159420289855073,0.8589065670967102,0.5,0.6666666666666666
+VOLUMETRIC-BLK-07,Level_5_Complete,Complete model randomization (all layers reinit),42,0.32778291705211227,0.26183574879227056,0.8434488773345947,1.0,0.6666666666666666
+VOLUMETRIC-BLK-08,Level_5_Complete,Complete model randomization (all layers reinit),42,0.4439716312056738,0.33719806763285026,0.8268389701843262,1.0,0.6666666666666666
+VOLUMETRIC-BLK-09,Level_5_Complete,Complete model randomization (all layers reinit),42,0.3274128893000309,0.2599033816425121,0.7955322265625,1.0,0.6666666666666666
+VOLUMETRIC-BLK-10,Level_5_Complete,Complete model randomization (all layers reinit),42,0.36404563675609003,0.26956521739130435,0.7687591910362244,1.0,0.6666666666666666
+VOLUMETRIC-BLK-11,Level_5_Complete,Complete model randomization (all layers reinit),42,0.43842121492445263,0.3449275362318841,0.7481186389923096,1.0,0.6666666666666666
+VOLUMETRIC-BLK-12,Level_5_Complete,Complete model randomization (all layers reinit),42,0.1794017884674684,0.15169082125603867,0.732227623462677,1.0,0.6666666666666666
+VOLUMETRIC-BLK-13,Level_5_Complete,Complete model randomization (all layers reinit),42,0.29337033610854146,0.23671497584541065,0.7218728065490723,1.0,0.6666666666666666
+VOLUMETRIC-BLK-14,Level_5_Complete,Complete model randomization (all layers reinit),42,0.3240826395312982,0.26956521739130435,0.7116544246673584,1.0,0.6666666666666666
+VOLUMETRIC-BLK-15,Level_5_Complete,Complete model randomization (all layers reinit),42,0.3132284921369103,0.2599033816425121,0.70834881067276,1.0,0.6666666666666666
+SYN-FLOOD-BLK-01,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.1701510946654332,-0.15555555555555556,-0.9933752417564392,1.0,0.42857142857142855
+SYN-FLOOD-BLK-02,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.13943879124267652,-0.10917874396135266,-0.9968024492263794,1.0,0.42857142857142855
+SYN-FLOOD-BLK-03,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.3059512796793093,-0.2347826086956522,-0.9979068636894226,1.0,0.42857142857142855
+SYN-FLOOD-BLK-04,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.19568300955905027,-0.14009661835748793,-0.9989327788352966,1.0,0.42857142857142855
+SYN-FLOOD-BLK-05,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.15695343817452975,-0.11690821256038648,-0.9991511702537537,1.0,0.42857142857142855
+SYN-FLOOD-BLK-06,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.18655565834104224,-0.12270531400966185,-0.9988424181938171,1.0,0.6666666666666666
+SYN-FLOOD-BLK-07,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.22294172062904719,-0.13623188405797104,-0.9983904957771301,1.0,0.42857142857142855
+SYN-FLOOD-BLK-08,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.22639531298180696,-0.16714975845410632,-0.9979560375213623,1.0,0.42857142857142855
+SYN-FLOOD-BLK-09,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.018563058896083874,-0.012560386473429953,-0.9977396130561829,1.0,0.42857142857142855
+SYN-FLOOD-BLK-10,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.3276595744680851,-0.2463768115942029,-0.9966489672660828,1.0,0.6666666666666666
+SYN-FLOOD-BLK-11,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.251063829787234,-0.1748792270531401,-0.996228814125061,1.0,0.42857142857142855
+SYN-FLOOD-BLK-12,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.05260561208757323,-0.04734299516908213,-0.9955064654350281,1.0,0.42857142857142855
+SYN-FLOOD-BLK-13,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.06901017576318223,-0.058937198067632854,-0.99502032995224,1.0,0.42857142857142855
+SYN-FLOOD-BLK-14,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.27918593894542093,-0.20193236714975848,-0.9945897459983826,1.0,0.6666666666666666
+SYN-FLOOD-BLK-15,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.06345975948196114,-0.053140096618357495,-0.9935317039489746,1.0,0.42857142857142855
+VOLUMETRIC-BLK-01,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.15757015109466543,-0.09178743961352658,-0.17418785393238068,1.0,0.42857142857142855
+VOLUMETRIC-BLK-02,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.22318840579710145,-0.14975845410628022,-0.2304263412952423,1.0,0.6666666666666666
+VOLUMETRIC-BLK-03,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.274745605920444,-0.20579710144927538,-0.2440251111984253,0.5,0.6666666666666666
+VOLUMETRIC-BLK-04,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.028060437866173293,-0.02415458937198068,-0.1822001188993454,0.5,0.6666666666666666
+VOLUMETRIC-BLK-05,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.08270120259019426,-0.053140096618357495,-0.12177391350269318,0.5,0.6666666666666666
+VOLUMETRIC-BLK-06,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.13832870798643232,-0.0995169082125604,-0.055715084075927734,0.5,1.0
+VOLUMETRIC-BLK-07,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.20234350909651555,-0.1420289855072464,-0.03092179261147976,1.0,0.6666666666666666
+VOLUMETRIC-BLK-08,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.3296330558125193,-0.2270531400966184,-0.023442605510354042,1.0,0.6666666666666666
+VOLUMETRIC-BLK-09,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.12352759790317606,-0.09758454106280194,-0.010217859409749508,1.0,0.42857142857142855
+VOLUMETRIC-BLK-10,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.22306506321307432,-0.18647342995169083,0.010336965322494507,1.0,0.6666666666666666
+VOLUMETRIC-BLK-11,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.17878507554733272,-0.1420289855072464,0.02925414778292179,1.0,0.42857142857142855
+VOLUMETRIC-BLK-12,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.08146777674992291,-0.03381642512077295,0.043715622276067734,1.0,0.6666666666666666
+VOLUMETRIC-BLK-13,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.18766574159728644,-0.14396135265700485,0.06746011227369308,1.0,0.6666666666666666
+VOLUMETRIC-BLK-14,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.18495220474868945,-0.13043478260869565,0.09252290427684784,1.0,0.6666666666666666
+VOLUMETRIC-BLK-15,Level_5_Complete,Complete model randomization (all layers reinit),101,-0.17866173296330556,-0.12850241545893723,0.10320659726858139,1.0,0.6666666666666666
+SYN-FLOOD-BLK-01,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.016096207215541166,-0.018357487922705317,0.9095354676246643,1.0,0.42857142857142855
+SYN-FLOOD-BLK-02,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.10317607153869873,-0.0782608695652174,0.9232669472694397,1.0,0.42857142857142855
+SYN-FLOOD-BLK-03,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.17323465926611162,-0.12077294685990339,0.9338402152061462,1.0,0.42857142857142855
+SYN-FLOOD-BLK-04,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.1146469318532223,0.08405797101449276,0.9436191320419312,1.0,0.42857142857142855
+SYN-FLOOD-BLK-05,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.12007400555041627,-0.11884057971014494,0.9533736705780029,1.0,0.6666666666666666
+SYN-FLOOD-BLK-06,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.021399938328707985,0.0106280193236715,0.9579846858978271,1.0,0.6666666666666666
+SYN-FLOOD-BLK-07,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.023866790009250693,0.0009661835748792271,0.9614026546478271,1.0,1.0
+SYN-FLOOD-BLK-08,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.12167745914276905,0.06280193236714976,0.9636213183403015,1.0,0.42857142857142855
+SYN-FLOOD-BLK-09,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.06703669441874806,0.02801932367149759,0.965259850025177,1.0,0.42857142857142855
+SYN-FLOOD-BLK-10,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.023496762257169287,-0.022222222222222227,0.9686875343322754,1.0,0.42857142857142855
+SYN-FLOOD-BLK-11,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.12525439407955596,0.08405797101449276,0.9712636470794678,1.0,0.6666666666666666
+SYN-FLOOD-BLK-12,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.08923835954363243,0.06280193236714976,0.9727972745895386,1.0,0.42857142857142855
+SYN-FLOOD-BLK-13,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.010299105766265802,0.018357487922705317,0.973126232624054,1.0,0.42857142857142855
+SYN-FLOOD-BLK-14,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.07443724946037619,0.04347826086956522,0.9747605919837952,1.0,0.42857142857142855
+SYN-FLOOD-BLK-15,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.13832870798643232,0.09758454106280194,0.9756497144699097,1.0,0.42857142857142855
+VOLUMETRIC-BLK-01,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.21813135985198892,-0.15748792270531403,-0.7674420475959778,1.0,0.6666666666666666
+VOLUMETRIC-BLK-02,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.2140610545790934,-0.14396135265700485,-0.8443469405174255,1.0,0.6666666666666666
+VOLUMETRIC-BLK-03,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.1341350601295097,-0.0995169082125604,-0.8744910359382629,0.5,1.0
+VOLUMETRIC-BLK-04,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.057662658032685776,-0.03961352657004831,-0.7802906632423401,0.5,0.6666666666666666
+VOLUMETRIC-BLK-05,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.12562442183163736,-0.08599033816425121,-0.626792848110199,0.5,0.6666666666666666
+VOLUMETRIC-BLK-06,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.002898550724637681,0.0028985507246376816,-0.4668961763381958,0.5,0.6666666666666666
+VOLUMETRIC-BLK-07,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.10638297872340426,0.07246376811594203,-0.37893399596214294,1.0,0.6666666666666666
+VOLUMETRIC-BLK-08,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.06740672217082948,0.04927536231884058,-0.3069068491458893,1.0,0.6666666666666666
+VOLUMETRIC-BLK-09,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.07295713845205057,0.0570048309178744,-0.22593072056770325,1.0,0.6666666666666666
+VOLUMETRIC-BLK-10,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.11082331174838113,-0.07439613526570048,-0.1742318868637085,1.0,0.6666666666666666
+VOLUMETRIC-BLK-11,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.020043169904409495,-0.0106280193236715,-0.14132283627986908,1.0,0.6666666666666666
+VOLUMETRIC-BLK-12,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.09762565525747763,0.05507246376811595,-0.11941323429346085,1.0,0.6666666666666666
+VOLUMETRIC-BLK-13,Level_5_Complete,Complete model randomization (all layers reinit),2026,-0.05692260252852297,-0.051207729468599035,-0.10056406259536743,1.0,0.6666666666666666
+VOLUMETRIC-BLK-14,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.05729263028060438,0.04347826086956522,-0.09272944182157516,1.0,0.6666666666666666
+VOLUMETRIC-BLK-15,Level_5_Complete,Complete model randomization (all layers reinit),2026,0.05704594511255011,0.03381642512077295,-0.0820150300860405,1.0,0.6666666666666666
 SYN-FLOOD-BLK-01,Level_6_RandomBaseline,Independent random feature permutation baseline,42,-0.14622263336416896,-0.11690821256038648,-3.22518935718108e-05,0.0,0.0
 SYN-FLOOD-BLK-02,Level_6_RandomBaseline,Independent random feature permutation baseline,42,0.13425840271353684,0.0956521739130435,0.2541136145591736,0.2,0.25
 SYN-FLOOD-BLK-03,Level_6_RandomBaseline,Independent random feature permutation baseline,42,-0.09343200740055504,-0.05507246376811595,-0.00023029536532703787,0.0,0.0

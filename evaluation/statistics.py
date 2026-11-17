@@ -83,12 +83,13 @@ def run_statistical_analysis() -> Dict[str, Any]:
         }
         print(f"  Exp 3 AOPC Faithfulness: Paired t={t_stat:.2f}, p={t_pval:.2e}, Cohen's d={d_aopc:.2f}")
 
-    # Save to JSON
-    json_path = PACKAGE_ROOT / 'results' / 'STATISTICAL_TESTS.json'
-    with open(json_path, 'w') as f:
-        json.dump(stat_results, f, indent=2)
+    # Save to both recomputed_results and results
+    for out_dir in [PACKAGE_ROOT / 'recomputed_results', PACKAGE_ROOT / 'results']:
+        out_dir.mkdir(parents=True, exist_ok=True)
+        with open(out_dir / 'STATISTICAL_TESTS.json', 'w') as f:
+            json.dump(stat_results, f, indent=2)
 
-    print(f"✓ Statistical evaluation saved to {json_path}")
+    print(f"✓ Statistical evaluation saved to STATISTICAL_TESTS.json")
     return stat_results
 
 if __name__ == '__main__':

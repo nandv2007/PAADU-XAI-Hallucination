@@ -1,0 +1,20 @@
+experiment,metric_name,recomputed_value,derivation_provenance
+Experiment 1,Unverified EHR,0.0167,Dynamic claim evaluation
+Experiment 1,Verified EHR,0.0000,Dynamic claim evaluation
+Experiment 1,Unverified UCR,0.0232,Dynamic claim evaluation
+Experiment 1,Verified UCR,0.0000,Dynamic claim evaluation
+Experiment 1,UCR Relative Reduction,100.0%,Dynamic relative improvement
+Experiment 2,Attack Attribution Change Rate,0.0000,Zero attack attribution flips
+Experiment 2,Mean Narrative Variance,0.1613,Dynamic Jaccard claim distance
+Experiment 2,Counterfactual Consistency Rate,0.4333,Dynamic proposition identity
+Experiment 2,Mean Semantic Similarity,0.9956,Term vector cosine similarity
+Experiment 3,AOPC Top-k Mean,63.0969,Dynamic occlusion drop
+Experiment 3,AOPC Random Mean,-4.1504,Dynamic random permutation drop
+Experiment 3,AOPC Paired t-stat,4.3955,Paired t-test (Top-k vs Random)
+Experiment 3,AOPC p-value,6.89e-05,Statistically significant
+Experiment 3,Comprehensiveness @ 5,68.3565,Dynamic top-5 score drop
+Experiment 4,Level 0 Trained Spearman,1.0000,Original weights baseline
+Experiment 4,Level 1 Decoder Spearman,0.9998,Decoder randomization
+Experiment 4,Level 3 Transformer Spearman,0.0911,Transformer encoder randomized
+Experiment 4,Level 5 Complete Spearman,-0.0230,Complete architecture randomized
+Experiment 4,Level 6 Random Permutation,0.0114,Permutation noise floor

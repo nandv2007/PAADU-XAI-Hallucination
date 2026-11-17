@@ -19,13 +19,16 @@ This experiment evaluates the invariance of incident explanations under controll
 
 ## 3. Results Summary Table
 
-| Metric | Configuration B (Unverified) | Configuration D (Verified) | Improvement |
-| :--- | :---: | :---: | :---: |
-| **Narrative Variance Score (NVS)** | 0.1613 | **0.1613** | **-0.0%** |
-| **Attack Attribution Change Rate (AACR)** | 0.0000 | **0.0000** | **0.0% (Zero Spurious Flips)** |
-| **Counterfactual Consistency Rate (CCR)** | 0.4333 | **0.4333** | **100% Deterministic Consistency** |
-| **Unsupported Claim Introduction Rate (UCIR)**| 0.5667 | **0.5667** | **0.0% (Zero Spurious Inventions)**|
+| Metric | Evaluated Value | Scientific Interpretation |
+| :--- | :---: | :--- |
+| **Attack Attribution Change Rate (AACR)** | **0.0000** | **Zero Spurious Attribution Flips**: Attack family remained 100% stable across all pairs. |
+| **Exact Narrative Match Rate** | 0.4333 | Fraction of pairs with character-identical full narratives. |
+| **Mean Token Jaccard Similarity** | 0.9913 | Lexical overlap between original and counterfactual texts. |
+| **Mean Semantic Similarity** | 0.9956 | Vector space cosine similarity of narrative terms. |
+| **Counterfactual Consistency Rate (CCR)** | 0.4333 | Fraction of pairs with 100% standardized claim identity. |
+| **Narrative Variance Score (NVS)** | 0.1613 (±0.1443) | Mean claim set Jaccard distance between pairs. |
 
-## 4. Key Findings
-1. Because the integration employs deterministic leave-one-feature-out occlusion and schema-checked incident adapters, non-semantic metadata changes (such as renaming sensor nodes or shifting timestamps) did **not** cause the underlying threat narrative or attack attribution to flip (AACR = 0.0%).
-2. In the verified pipeline (Config D), standardized claim propositions achieve 100% counterfactual consistency (CCR = 85.0%), proving that non-causal metadata interventions do not induce hallucinated threat narratives.
+## 4. Scientific Findings & Audit Disclosures
+1. **Preserved Attack Invariance**: Because CHARM's occlusion engine operates on continuous flow features and the query builder synthesizes neutral queries, non-causal metadata interventions caused **zero threat attribution flips (AACR = 0.0000)** across all 60 evaluated pairs.
+2. **Deterministic Architecture Clarification**: The high semantic similarity (0.9956) and zero attribution flips are primarily structural properties of deterministic proposition generation rather than proof of generalized LLM hallucination resistance. When evaluated under genuine token-sampling LLMs, metadata shifts can introduce non-deterministic variance.
+3. **Audited Trajectories**: Complete paired records (including exact scores, decisions, token Jaccards, semantic similarities, and claim differences) are preserved in `RAW_COUNTERFACTUAL_PAIRS.csv` for independent audit.

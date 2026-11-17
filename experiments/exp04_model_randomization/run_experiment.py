@@ -60,6 +60,7 @@ def run_experiment():
     seeds = [42, 101, 2026]
     results_by_level = {}
     csv_rows = []
+    raw_randomization_rows = []
 
     for lvl_name, desc in randomization_levels:
         print(f"  Evaluating {lvl_name}: {desc}...")
@@ -71,16 +72,25 @@ def run_experiment():
         level_top5_overlaps = []
 
         if lvl_name == 'Level_0_Trained':
-            for i in range(len(eval_blocks)):
-                level_spearmans.append(1.0)
-                level_kendalls.append(1.0)
-                level_cosines.append(1.0)
-                level_top3_overlaps.append(1.0)
-                level_top5_overlaps.append(1.0)
-                csv_rows.append([
-                    eval_meta[i]['block_id'], lvl_name, desc, 42,
-                    1.0, 1.0, 1.0, 1.0, 1.0
-                ])
+            for seed in seeds:
+                for i in range(len(eval_blocks)):
+                    orig_vec = baseline_attributions[i]
+                    base_top3 = [orig_engine.features[k] for k in np.argsort(orig_vec)[::-1][:3]]
+                    level_spearmans.append(1.0)
+                    level_kendalls.append(1.0)
+                    level_cosines.append(1.0)
+                    level_top3_overlaps.append(1.0)
+                    level_top5_overlaps.append(1.0)
+                    csv_rows.append([
+                        eval_meta[i]['block_id'], lvl_name, desc, seed,
+                        1.0, 1.0, 1.0, 1.0, 1.0
+                    ])
+                    raw_randomization_rows.append([
+                        i, eval_meta[i]['block_id'], eval_meta[i]['traffic_profile'],
+                        lvl_name, desc, seed,
+                        1.0, 1.0, 1.0, 1.0, 1.0,
+                        ";".join(base_top3), ";".join(base_top3)
+                    ])
 
         elif lvl_name == 'Level_6_RandomBaseline':
             for seed in seeds:
@@ -96,10 +106,20 @@ def run_experiment():
                     level_top3_overlaps.append(metrics['top3_overlap'])
                     level_top5_overlaps.append(metrics['top5_overlap'])
 
+                    base_top3 = [orig_engine.features[k] for k in np.argsort(orig_vec)[::-1][:3]]
+                    rand_top3 = [orig_engine.features[k] for k in np.argsort(rand_vec)[::-1][:3]]
+
                     csv_rows.append([
                         eval_meta[i]['block_id'], lvl_name, desc, seed,
                         metrics['spearman_rho'], metrics['kendall_tau'],
                         metrics['cosine_similarity'], metrics['top3_overlap'], metrics['top5_overlap']
+                    ])
+                    raw_randomization_rows.append([
+                        i, eval_meta[i]['block_id'], eval_meta[i]['traffic_profile'],
+                        lvl_name, desc, seed,
+                        metrics['spearman_rho'], metrics['kendall_tau'],
+                        metrics['cosine_similarity'], metrics['top3_overlap'], metrics['top5_overlap'],
+                        ";".join(base_top3), ";".join(rand_top3)
                     ])
 
         else:
@@ -118,10 +138,20 @@ def run_experiment():
                     level_top3_overlaps.append(metrics['top3_overlap'])
                     level_top5_overlaps.append(metrics['top5_overlap'])
 
+                    base_top3 = [orig_engine.features[k] for k in np.argsort(orig_vec)[::-1][:3]]
+                    rand_top3 = [orig_engine.features[k] for k in np.argsort(rand_vec)[::-1][:3]]
+
                     csv_rows.append([
                         eval_meta[i]['block_id'], lvl_name, desc, seed,
                         metrics['spearman_rho'], metrics['kendall_tau'],
                         metrics['cosine_similarity'], metrics['top3_overlap'], metrics['top5_overlap']
+                    ])
+                    raw_randomization_rows.append([
+                        i, eval_meta[i]['block_id'], eval_meta[i]['traffic_profile'],
+                        lvl_name, desc, seed,
+                        metrics['spearman_rho'], metrics['kendall_tau'],
+                        metrics['cosine_similarity'], metrics['top3_overlap'], metrics['top5_overlap'],
+                        ";".join(base_top3), ";".join(rand_top3)
                     ])
 
         results_by_level[lvl_name] = {
@@ -139,21 +169,30 @@ def run_experiment():
     results_by_level['Level_3_LatentProj'] = results_by_level['Level_3_Transformer']
     results_by_level['Level_4_Encoder'] = results_by_level['Level_4_PatchEmbed']
 
-    # Save CSV
-    csv_path = PACKAGE_ROOT / 'results' / 'EXPERIMENT_4_RESULTS.csv'
-    csv_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(csv_path, 'w', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow([
-            'block_id', 'randomization_level', 'description', 'seed',
-            'spearman_rho', 'kendall_tau', 'cosine_similarity', 'top3_overlap', 'top5_overlap'
-        ])
-        writer.writerows(csv_rows)
+    # Save CSVs to both recomputed_results and results
+    for out_dir in [PACKAGE_ROOT / 'recomputed_results', PACKAGE_ROOT / 'results']:
+        out_dir.mkdir(parents=True, exist_ok=True)
+        with open(out_dir / 'EXPERIMENT_4_RESULTS.csv', 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow([
+                'block_id', 'randomization_level', 'description', 'seed',
+                'spearman_rho', 'kendall_tau', 'cosine_similarity', 'top3_overlap', 'top5_overlap'
+            ])
+            writer.writerows(csv_rows)
 
-    # Save JSON
-    json_path = PACKAGE_ROOT / 'results' / 'EXPERIMENT_4_METRICS.json'
-    with open(json_path, 'w') as f:
-        json.dump(results_by_level, f, indent=2)
+        with open(out_dir / 'RAW_RANDOMIZATION_RESULTS.csv', 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow([
+                'sample_id', 'block_id', 'traffic_profile',
+                'randomization_level', 'description', 'seed',
+                'spearman_rho', 'kendall_tau', 'cosine_similarity',
+                'top3_overlap', 'top5_overlap',
+                'baseline_top3_features', 'randomized_top3_features'
+            ])
+            writer.writerows(raw_randomization_rows)
+
+        with open(out_dir / 'EXPERIMENT_4_METRICS.json', 'w') as f:
+            json.dump(results_by_level, f, indent=2)
 
     # Save Markdown Report in reports/
     rep_path = PACKAGE_ROOT / 'reports' / 'EXPERIMENT_4_REPORT.md'
@@ -196,7 +235,7 @@ This sanity check tests whether CHARM's feature attributions genuinely depend on
     print(f"  Level 0 (Trained) Spearman: 1.0000")
     print(f"  Level 3 (Transformer) Spearman: {results_by_level['Level_3_Transformer']['mean_spearman']:.4f}")
     print(f"  Level 5 (Complete Random) Spearman: {results_by_level['Level_5_Complete']['mean_spearman']:.4f}")
-    print(f"  Results saved to {csv_path} and {json_path}")
+    print(f"  Results saved to RAW_RANDOMIZATION_RESULTS.csv and EXPERIMENT_4_METRICS.json")
 
 if __name__ == '__main__':
     run_experiment()

@@ -53,10 +53,10 @@ def extract_entities_from_text(claim_text: str) -> ExtractedTelemetryEntities:
         entities.mahalanobis_distance = float(mahal_match.group(1))
         entities.raw_entities['mahalanobis_distance'] = entities.mahalanobis_distance
 
-    # Top occlusion features and attributions
-    feat_matches = re.findall(r'([a-zA-Z_0-9]+)\s*\(contribution:\s*([+-]?[0-9]+\.[0-9]+)', claim_text)
+    # Top occlusion features and attributions (supports multi-word features like 'Protocol Type', 'Tot sum', 'Tot size')
+    feat_matches = re.findall(r'(?:as:\s*|;\s*)?([a-zA-Z0-9_\- ]+?)\s*\(contribution:\s*([+-]?[0-9]+\.[0-9]+)', claim_text)
     if feat_matches:
-        entities.features = {f[0]: float(f[1]) for f in feat_matches}
+        entities.features = {f[0].strip(): float(f[1]) for f in feat_matches if f[0].strip()}
         entities.raw_entities['features'] = entities.features
 
     # Observed vs benign mean comparisons
