@@ -84,11 +84,37 @@ def validate_claim_against_incident(
             else:
                 entity_errors += 1
 
-        # Check features
-        top_feature_names = [f.feature for f in incident.top_xai_features]
-        for feat_name in entities.features.keys():
+        # Check decision status
+        if entities.status:
             verifiable_count += 1
-            if feat_name in top_feature_names:
+            exp_status = 'ANOMALOUS' if incident.anomaly_detected else 'BENIGN'
+            if entities.status.upper() == exp_status:
+                entity_matches += 1
+            else:
+                entity_errors += 1
+
+        # Check features and signed contributions
+        top_features_by_name = {f.feature.lower(): f for f in incident.top_xai_features}
+        for feat_name, asserted_contrib in entities.features.items():
+            verifiable_count += 1
+            feat_lower = feat_name.lower()
+            if feat_lower in top_features_by_name:
+                actual_f = top_features_by_name[feat_lower]
+                if abs(asserted_contrib - actual_f.hybrid_contribution) <= 0.05:
+                    entity_matches += 1
+                else:
+                    entity_errors += 1
+            else:
+                entity_errors += 1
+
+        # Check observed and benign means
+        for obs, ben in entities.means:
+            verifiable_count += 2
+            if any(abs(obs - f.observed_mean) <= 0.1 for f in incident.top_xai_features):
+                entity_matches += 1
+            else:
+                entity_errors += 1
+            if any(abs(ben - f.benign_mean) <= 0.1 for f in incident.top_xai_features):
                 entity_matches += 1
             else:
                 entity_errors += 1

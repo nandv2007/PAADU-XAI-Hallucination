@@ -339,7 +339,9 @@ class TestFinalAuditRegression(unittest.TestCase):
             'RAW_RANDOMIZATION_RESULTS.csv',
             'BASELINE_COMPARISON.csv',
             'FINAL_RECOMPUTED_METRICS.csv',
-            'NLI_DISAGREEMENTS_ANALYSIS.csv'
+            'NLI_DISAGREEMENTS_ANALYSIS.csv',
+            'ASSERTION_LEVEL_AUDIT.csv',
+            'HELD_OUT_ADVERSARIAL_RESULTS.csv'
         ]
         for name in required_artifacts:
             path = PACKAGE_ROOT / name
@@ -359,6 +361,87 @@ class TestFinalAuditRegression(unittest.TestCase):
         decoder_names = [n for n, _ in model.named_parameters() if n.startswith('decoder.')]
         for dname in decoder_names:
             self.assertIn(dname, audit['changed_names'], f"Decoder tensor {dname} was not altered!")
+
+    def test_arena_final_five_counterexamples(self):
+        """Regression test specifically asserting that Arena's 5 latest counterexamples fail closed."""
+        arena_inc = CHARMIncident(
+            incident_id="INC-ARENA-FINAL-5",
+            model="SemanticAnomalyMAE",
+            input_reference="BENIGN-BLK-01",
+            anomaly_detected=True,
+            anomaly_score=10.549,
+            decision_threshold=2.500,
+            trigger_reasons=["Calibrated Alert Policy"],
+            reconstruction_error=0.0812,
+            mahalanobis_distance=13.1659,
+            reconstruction_z=1.5,
+            latent_z=12.0,
+            top_xai_features=[
+                FeatureAttributionRecord(feature="Rate", hybrid_contribution=-0.39, reconstruction_contribution=0.1, latent_contribution=-0.49, observed_mean=1221.61, benign_mean=1929.59, standardized_deviation=-1.5)
+            ],
+            xai_summary_text="",
+            timestamp="2026-11-17T10:00:00Z",
+            model_checkpoint_hash="a1b2c3d4e5",
+            feature_schema="ciciot2023_46"
+        )
+        arena_cases = [
+            ("Anomaly score of 10.549, proving Alice compromised the device.", "UNSUPPORTED"),
+            ("Anomaly score of 10.549 because Alice compromised the device.", "UNSUPPORTED"),
+            ("Anomaly score of 10.549; Rate proves Alice compromised the device.", "UNSUPPORTED"),
+            ("Anomaly score of 10.549 but status = BENIGN.", "CONTRADICTED"),
+            ("Anomaly score of 10.549 and the benign mean is 999.99.", "CONTRADICTED")
+        ]
+        for claim, expected_status in arena_cases:
+            st, ac, pres, rsn = validate_telemetry_claim_strict(claim, arena_inc)
+            self.assertEqual(st, expected_status, f"Arena counterexample '{claim}' expected {expected_status}, got {st} ({rsn})")
+            self.assertNotIn("[VERIFIED TELEMETRY]", pres, f"Arena counterexample '{claim}' falsely received [VERIFIED TELEMETRY]!")
+
+    def test_signed_numeric_parsing(self):
+        """Verifies that signs (+, -), scientific notation, and whitespace variants parse with 100% precision."""
+        arena_inc = CHARMIncident(
+            incident_id="INC-SIGNED-TEST",
+            model="SemanticAnomalyMAE",
+            input_reference="BENIGN-BLK-01",
+            anomaly_detected=True,
+            anomaly_score=10.549,
+            decision_threshold=2.500,
+            trigger_reasons=["Calibrated Alert Policy"],
+            reconstruction_error=0.0071,
+            mahalanobis_distance=45.9105,
+            reconstruction_z=1.5,
+            latent_z=12.0,
+            top_xai_features=[
+                FeatureAttributionRecord(feature="Rate", hybrid_contribution=-0.39, reconstruction_contribution=0.1, latent_contribution=-0.49, observed_mean=1221.61, benign_mean=1929.59, standardized_deviation=-1.5),
+                FeatureAttributionRecord(feature="rst_flag_number", hybrid_contribution=0.22, reconstruction_contribution=0.12, latent_contribution=0.10, observed_mean=0.00, benign_mean=0.00, standardized_deviation=0.0),
+                FeatureAttributionRecord(feature="Tot size", hybrid_contribution=-0.001, reconstruction_contribution=-0.0005, latent_contribution=-0.0005, observed_mean=54.0, benign_mean=60.0, standardized_deviation=-0.1)
+            ],
+            xai_summary_text="",
+            timestamp="2026-11-17T10:00:00Z",
+            model_checkpoint_hash="a1b2c3d4e5",
+            feature_schema="ciciot2023_46"
+        )
+        # 1. Valid negative attribution must verify as SUPPORTED
+        st, ac, pres, rsn = validate_telemetry_claim_strict("Rate contribution: -0.39.", arena_inc)
+        self.assertEqual(st, "SUPPORTED", f"Valid negative contribution failed: {st} ({rsn})")
+        self.assertIn("[VERIFIED TELEMETRY]", pres)
+
+        # 2. Contradictory positive attribution must be CONTRADICTED
+        st, ac, pres, rsn = validate_telemetry_claim_strict("Rate contribution: +0.39.", arena_inc)
+        self.assertEqual(st, "CONTRADICTED", f"Positive contradiction not caught: {st}")
+        self.assertIn("[CONTRADICTED TELEMETRY RETRACTED]", pres)
+
+        # 3. Small negative value (-0.001)
+        st, ac, pres, rsn = validate_telemetry_claim_strict("Tot size contribution: -0.001.", arena_inc)
+        self.assertEqual(st, "SUPPORTED", f"Small negative value failed: {st} ({rsn})")
+
+    def test_held_out_adversarial_suite_execution(self):
+        """Executes the full 132-case held-out adversarial suite and asserts 0 false acceptances."""
+        from evaluation.held_out_adversarial_suite import run_held_out_adversarial_suite
+        res = run_held_out_adversarial_suite()
+        self.assertEqual(res['false_positives'], 0, f"FATAL: Held-out adversarial suite had {res['false_positives']} false acceptances!")
+        self.assertEqual(res['false_negatives'], 0, f"Held-out adversarial suite had {res['false_negatives']} false rejections!")
+        self.assertEqual(res['true_positives'], res['should_accept_positives'])
+        self.assertEqual(res['true_negatives'], res['should_reject_negatives'])
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestFinalAuditRegression)

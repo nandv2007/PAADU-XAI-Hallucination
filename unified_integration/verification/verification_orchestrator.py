@@ -23,6 +23,10 @@ from integrated_pipeline import EvidenceVerifier, Evidence
 from unified_integration.adapters.charm_incident_adapter import CHARMIncident
 from unified_integration.generation.incident_explainer import FactualClaim, IncidentExplanation
 from unified_integration.retrieval.adaptive_controller import EnrichedEvidence
+from unified_integration.verification.telemetry_grammar import (
+    parse_and_validate_telemetry,
+    AtomicAssertionAudit
+)
 
 @dataclass
 class ClaimVerificationResult:
@@ -68,7 +72,7 @@ class VerificationSummary:
 
 def validate_telemetry_claim_strict(claim_text: str, incident: CHARMIncident) -> tuple[str, str, str, str]:
     """
-    Structured atomic factual assertion validation of telemetry claims against CHARMIncident ground-truth.
+    Structured allowlisted grammar-based factual assertion validation of telemetry claims against CHARMIncident ground-truth.
     Individually extracts and audits every asserted numerical measurement, status, feature, and clause.
     
     Fail-closed policy:
@@ -78,176 +82,7 @@ def validate_telemetry_claim_strict(claim_text: str, incident: CHARMIncident) ->
     - ONLY if ALL asserted facts are supported by authoritative telemetry AND NO unverified or unrecognized
       clause exists -> SUPPORTED (RETAINED_VERIFIED) -> [VERIFIED TELEMETRY].
     """
-    text = claim_text.strip()
-    contradictions = []
-    unsupported_assertions = []
-    supported_assertions = []
-
-    # 0. Check for existing retraction markers
-    if "[CONTRADICTED TELEMETRY RETRACTED]" in text or "[CONTRADICTED CLAIM RETRACTED]" in text:
-        return "CONTRADICTED", "CONTRADICTION_RETRACTED", text, "Pre-existing retraction marker"
-
-    # 1. Global Numerical Claims Extraction & Verification (Find ALL occurrences across the string)
-    # 1.1 Anomaly / Hybrid Score Assertions (handles punctuation variants: ':', '=', '-', whitespace)
-    score_matches = list(re.finditer(r'\b(?:hybrid|anomaly)?\s*score\s*(?:is\s+|of\s+|=|\:|\-|\s+)*([0-9]+\.?[0-9]*)', text, re.IGNORECASE))
-    for m in score_matches:
-        val = float(m.group(1))
-        if abs(val - incident.anomaly_score) > 0.05:
-            contradictions.append(f"asserted score {val:.3f} contradicts actual {incident.anomaly_score:.3f}")
-        else:
-            supported_assertions.append(f"anomaly_score={val:.3f}")
-
-    # 1.2 Decision Threshold Assertions
-    thresh_matches = list(re.finditer(r'\b(?:baseline\s*)?threshold\s*(?:is\s+|of\s+|=|\:|\-|\s+)*([0-9]+\.?[0-9]*)', text, re.IGNORECASE))
-    for m in thresh_matches:
-        val = float(m.group(1))
-        if abs(val - incident.decision_threshold) > 0.05:
-            contradictions.append(f"asserted threshold {val:.3f} contradicts actual {incident.decision_threshold:.3f}")
-        else:
-            supported_assertions.append(f"threshold={val:.3f}")
-
-    # 1.3 Reconstruction Error Assertions
-    recon_matches = list(re.finditer(r'\breconstruction\s*(?:error|loss)?\s*(?:is\s+|of\s+|=|\:|\-|\s+)*([0-9]+\.?[0-9]*)', text, re.IGNORECASE))
-    for m in recon_matches:
-        val = float(m.group(1))
-        if abs(val - incident.reconstruction_error) > 0.05:
-            contradictions.append(f"asserted reconstruction error {val:.4f} contradicts actual {incident.reconstruction_error:.4f}")
-        else:
-            supported_assertions.append(f"reconstruction_error={val:.4f}")
-
-    # 1.4 Mahalanobis Distance Assertions
-    mahal_matches = list(re.finditer(r'\b(?:latent\s*)?mahalanobis\s*(?:distance)?\s*(?:is\s+|of\s+|=|\:|\-|\s+)*([0-9]+\.?[0-9]*)', text, re.IGNORECASE))
-    for m in mahal_matches:
-        val = float(m.group(1))
-        if abs(val - incident.mahalanobis_distance) > 0.5:
-            contradictions.append(f"asserted mahalanobis distance {val:.4f} contradicts actual {incident.mahalanobis_distance:.4f}")
-        else:
-            supported_assertions.append(f"mahalanobis_distance={val:.4f}")
-
-    # 1.5 Observed Mean & Feature Statistics Assertions
-    top_feats_by_name = {f.feature.lower(): f for f in incident.top_xai_features}
-    mean_matches = list(re.finditer(r'\bobserved\s*mean\s*(?:is\s+|of\s+|=|\:|\-|\s+)*([0-9]+\.?[0-9]*)(?:\s*(?:for|of)\s*([a-zA-Z0-9_\-]+))?', text, re.IGNORECASE))
-    for m in mean_matches:
-        val = float(m.group(1))
-        feat_name = m.group(2)
-        if feat_name:
-            feat_lower = feat_name.lower()
-            if feat_lower in top_feats_by_name:
-                actual_feat = top_feats_by_name[feat_lower]
-                if abs(val - actual_feat.observed_mean) > 0.1:
-                    contradictions.append(f"asserted observed mean {val:.2f} for {feat_name} contradicts actual {actual_feat.observed_mean:.2f}")
-                else:
-                    supported_assertions.append(f"observed_mean_{feat_name}={val:.2f}")
-            else:
-                contradictions.append(f"asserted observed mean {val:.2f} for unknown/non-top feature '{feat_name}'")
-        else:
-            matching_obs = any(abs(val - f.observed_mean) < 0.1 for f in incident.top_xai_features)
-            if not matching_obs:
-                contradictions.append(f"asserted observed mean {val:.2f} contradicts all top feature values")
-            else:
-                supported_assertions.append(f"observed_mean={val:.2f}")
-
-    # 1.6 Feature Contribution Assertions
-    contrib_matches = list(re.finditer(r'\bcontribution\s*(?:is\s+|of\s+|=|\:|\-|\s+)*([+\-]?[0-9]+\.?[0-9]*)', text, re.IGNORECASE))
-    for m in contrib_matches:
-        val = float(m.group(1))
-        matching_contrib = any(abs(val - f.hybrid_contribution) < 0.1 for f in incident.top_xai_features)
-        if not matching_contrib:
-            contradictions.append(f"asserted contribution {val:+.2f} contradicts top feature attributions")
-        else:
-            supported_assertions.append(f"contribution={val:+.2f}")
-
-    # 1.7 Check Explicit Non-Existent / Bogus Feature Mentions
-    if "non-existent" in text.lower() or "bogus" in text.lower():
-        contradictions.append("asserts non-existent flow feature")
-
-    # 1.8 Decision Status Assertions (ANOMALOUS vs BENIGN)
-    if re.search(r'\b(?:as|status\s+is|status\:)\s+ANOMALOUS\b', text, re.IGNORECASE):
-        if not incident.anomaly_detected:
-            contradictions.append("asserted ANOMALOUS but actual decision is BENIGN")
-        else:
-            supported_assertions.append("status=ANOMALOUS")
-    if re.search(r'\b(?:as|status\s+is|status\:)\s+BENIGN\b', text, re.IGNORECASE):
-        if incident.anomaly_detected:
-            contradictions.append("asserted BENIGN but actual decision is ANOMALOUS")
-        else:
-            supported_assertions.append("status=BENIGN")
-
-    # 1.9 Trigger Policies
-    if incident.trigger_reasons:
-        for r in incident.trigger_reasons:
-            if r in text:
-                supported_assertions.append(f"trigger_policy={r}")
-
-    # 1.10 Ungrounded IP Addresses
-    m_ip = re.search(r'\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b', text)
-    if m_ip:
-        unsupported_assertions.append(f"asserts ungrounded IP address '{m_ip.group(0)}' unsupported by flow telemetry")
-
-    # 2. Structured Atomic Clause Decomposition & Verification
-    # Ensure NO unrecognized clause, causal claim, or attacker attribution is silently ignored.
-    clean_text = text.rstrip('.')
-    raw_clauses = [c.strip() for c in re.split(r';|\s+(?:and|but|as well as|while|whereas)\s+', clean_text) if c.strip()]
-
-    for clause in raw_clauses:
-        sub_clauses = [s.strip() for s in re.split(r'\s+(?:with|against)\s+', clause) if s.strip()]
-        for sub in sub_clauses:
-            if not sub:
-                continue
-            is_recognized = False
-            # Check recognition against valid telemetry proposition patterns
-            if re.search(r'\b(?:hybrid|anomaly)?\s*score\b', sub, re.IGNORECASE):
-                is_recognized = True
-            elif re.search(r'\b(?:baseline\s*)?threshold\b', sub, re.IGNORECASE):
-                is_recognized = True
-            elif re.search(r'\breconstruction\s*(?:error|loss)?\b', sub, re.IGNORECASE):
-                is_recognized = True
-            elif re.search(r'\b(?:latent\s*)?mahalanobis\b', sub, re.IGNORECASE):
-                is_recognized = True
-            elif re.search(r'\bobserved\s*mean\b', sub, re.IGNORECASE) or re.search(r'\bbenign\s*mean\b', sub, re.IGNORECASE):
-                is_recognized = True
-            elif re.search(r'\bcontribution\b', sub, re.IGNORECASE):
-                is_recognized = True
-            elif re.search(r'\bevaluated\b.*\bas\s+(?:ANOMALOUS|BENIGN)\b', sub, re.IGNORECASE):
-                is_recognized = True
-            elif re.search(r'\bstatus\s*(?:is|=|:)?\s*(?:ANOMALOUS|BENIGN)\b', sub, re.IGNORECASE):
-                is_recognized = True
-            elif re.search(r'\bpolicies\:\s*\[.*?\]', sub, re.IGNORECASE) or re.search(r'\balert\s+was\s+triggered\b', sub, re.IGNORECASE):
-                is_recognized = True
-            elif re.search(r'influential\s+features\s+as\:', sub, re.IGNORECASE) or re.search(r'leave-one-feature-out\s+occlusion', sub, re.IGNORECASE):
-                is_recognized = True
-            elif any(f.feature.lower() in sub.lower() for f in incident.top_xai_features):
-                is_recognized = True
-
-            if not is_recognized:
-                unsupported_assertions.append(f"unrecognized factual assertion: '{sub}'")
-
-    # 3. Fail-Closed Composition Decision
-    if contradictions:
-        status = "CONTRADICTED"
-        action = "CONTRADICTION_RETRACTED"
-        reason = "; ".join(contradictions)
-        presented_text = (
-            f"[CONTRADICTED TELEMETRY RETRACTED] Telemetry contradiction detected ({reason}). "
-            f"Actual PAADU/CHARM telemetry: anomaly_score={incident.anomaly_score:.3f}, "
-            f"threshold={incident.decision_threshold:.3f}, status={'ANOMALOUS' if incident.anomaly_detected else 'BENIGN'}."
-        )
-    elif unsupported_assertions:
-        status = "UNSUPPORTED"
-        action = "FLAGGED_WITH_UNCERTAINTY"
-        reason = "; ".join(unsupported_assertions)
-        presented_text = f"[UNVERIFIED TELEMETRY - UNGROUNDED ASSERTION] Compound telemetry claim contains unverified assertions ({reason}): '{claim_text}'"
-    elif supported_assertions:
-        status = "SUPPORTED"
-        action = "RETAINED_VERIFIED"
-        reason = f"Verified fields: {', '.join(supported_assertions)}"
-        presented_text = f"[VERIFIED TELEMETRY] {claim_text}"
-    else:
-        status = "UNSUPPORTED"
-        action = "FLAGGED_WITH_UNCERTAINTY"
-        reason = "No verifiable telemetry fields identified matching incident schema"
-        presented_text = f"[UNVERIFIED TELEMETRY - MISMATCH] {claim_text}"
-
+    status, action, presented_text, reason, _ = parse_and_validate_telemetry(claim_text, incident)
     return status, action, presented_text, reason
 
 

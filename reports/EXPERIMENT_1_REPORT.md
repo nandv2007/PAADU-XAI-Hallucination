@@ -18,23 +18,23 @@ The Incident Explanation Generator in `unified_integration/generation/incident_e
 ### Macro Incident-Level Metrics (N = 60 incidents)
 | Metric | Configuration B (Unverified Explanations) | Configuration D (SVA-GRAG + NLI Verified) | Relative Improvement |
 | :--- | :---: | :---: | :---: |
-| **Entity Hallucination Rate (EHR)** | 0.0518 (±0.0717) | **0.0000** (±0.0000) | **-100.0%** |
+| **Entity Hallucination Rate (EHR)** | 0.0319 (±0.0448) | **0.0000** (±0.0000) | **-100.0%** |
 | **Unsupported Claim Rate (UCR)** | 0.0641 (±0.0848) | **0.0000** (±0.0000) | **-100.0%** |
 | **Contradiction Rate (CR)** | 0.0232 | **0.0000** | **-100.0%** |
-| **Evidence Coverage (EC)** | 0.6212 | **0.5111** | **+-17.7%** |
+| **Evidence Coverage (EC)** | 0.6212 | **0.6212** | **+0.0%** |
 
 ### Pooled Metrics Across All Assertions
 | Dimension | Unverified Denominator | Unverified Numerator | Unverified Pooled Rate | Verified Denominator | Verified Numerator | Verified Pooled Rate |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **EHR (Entity Errors / Total Entities)** | 634 | 35 | **0.0552** | 540 | 0 | **0.0000** |
+| **EHR (Entity Errors / Total Entities)** | 1054 | 35 | **0.0332** | 1044 | 0 | **0.0000** |
 | **UCR (Unsupported / Total Claims)** | 384 | 25 | **0.0651** | 384 | 0 | **0.0000** |
 
 ### Displayed Assertion Breakdown (Configuration D)
 - **Total Displayed Claims**: 384
-- **Supported Factual Assertions**: 197
-- **Retracted Contradictions**: 52
+- **Supported Factual Assertions**: 239
+- **Retracted Contradictions**: 10
 - **Flagged Uncertainty Assertions**: 135
 - **Contradicted Assertions**: 0
 - **Unsupported Assertions**: 0
 - **Unverifiable Assertions**: 0
-- **Displayed with Verified Badge**: 197
+- **Displayed with Verified Badge**: 239

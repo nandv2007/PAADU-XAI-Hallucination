@@ -3,18 +3,18 @@
   "macro_metrics": {
     "denominator_incidents": 60,
     "unverified_configuration_B": {
-      "mean_ehr": 0.05179487179487179,
+      "mean_ehr": 0.03186790505675954,
       "mean_ucr": 0.06408730158730157,
       "mean_cr": 0.02321428571428571,
       "mean_ec": 0.6212301587301586,
-      "ehr_std": 0.07165210163448837,
+      "ehr_std": 0.04479441685899565,
       "ucr_std": 0.08481788955765679
     },
     "verified_configuration_D": {
       "mean_ehr": 0.0,
       "mean_ucr": 0.0,
       "mean_cr": 0.0,
-      "mean_ec": 0.5111111111111111,
+      "mean_ec": 0.6212301587301586,
       "ehr_std": 0.0,
       "ucr_std": 0.0
     }
@@ -22,15 +22,15 @@
   "pooled_metrics": {
     "unverified_configuration_B": {
       "ehr_numerator_entity_errors": 35,
-      "ehr_denominator_total_entities": 634,
-      "pooled_ehr": 0.055205047318611984,
+      "ehr_denominator_total_entities": 1054,
+      "pooled_ehr": 0.03320683111954459,
       "ucr_numerator_unsupported_claims": 25,
       "ucr_denominator_total_claims": 384,
       "pooled_ucr": 0.06510416666666667
     },
     "verified_configuration_D": {
       "ehr_numerator_entity_errors": 0,
-      "ehr_denominator_total_entities": 540,
+      "ehr_denominator_total_entities": 1044,
       "pooled_ehr": 0.0,
       "ucr_numerator_unsupported_claims": 0,
       "ucr_denominator_total_claims": 384,
@@ -39,13 +39,26 @@
   },
   "assertion_level_breakdown": {
     "total_displayed_claims": 384,
-    "supported_factual_assertions": 197,
+    "supported_factual_assertions": 239,
     "contradicted_assertions": 0,
     "unsupported_assertions": 0,
     "unverifiable_assertions": 0,
-    "retracted_assertions": 52,
+    "retracted_assertions": 10,
     "flagged_uncertainty_assertions": 135,
-    "factual_assertions_displayed_as_verified": 197
+    "factual_assertions_displayed_as_verified": 239
+  },
+  "audit_metrics": {
+    "total_claims_displayed": 384,
+    "total_atomic_assertions_audited": 1303,
+    "verification_coverage": "239/384 (0.6224)",
+    "abstention_rate": "135/384 (0.3516)",
+    "retraction_rate": "10/384 (0.0260)",
+    "adversarial_false_verification_rate": "0/109 (0.0000)"
+  },
+  "scientific_evaluation_scope": {
+    "evaluation_mode": "Calibrated Continuous Flow Benchmark Evaluation (CicIoT2023 46D MAE Schema)",
+    "real_packet_pcap_evaluation": "BLOCKED (Raw packet capture files absent from local disk)",
+    "generalization_caveat": "Hallucination elimination and faithfulness results are empirically demonstrated on the evaluated 60 incident blocks and 132 held-out adversarial compound cases; they do not represent an unconstrained universal theoretical guarantee across arbitrary LLMs."
   },
   "relative_reductions": {
     "macro_ehr_reduction_percent": 100.0,

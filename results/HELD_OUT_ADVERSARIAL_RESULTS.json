@@ -1,0 +1,21 @@
+{
+  "total_cases_evaluated": 132,
+  "should_accept_positives": 23,
+  "should_reject_negatives": 109,
+  "true_positives": 23,
+  "false_positives": 0,
+  "true_negatives": 109,
+  "false_negatives": 0,
+  "false_acceptance_rate_str": "0/109 (0.0000)",
+  "false_rejection_rate_str": "0/23 (0.0000)",
+  "precision_str": "23/23 (1.0000)",
+  "recall_str": "23/23 (1.0000)",
+  "abstention_rate_str": "109/132 (0.8258)",
+  "raw_metrics": {
+    "false_acceptance_rate": 0.0,
+    "false_rejection_rate": 0.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "abstention_rate": 0.8257575757575758
+  }
+}
