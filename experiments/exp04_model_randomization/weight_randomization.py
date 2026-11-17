@@ -5,13 +5,20 @@ Implements progressive cascading layer randomization from output decoder back to
 Operates exclusively on in-memory disposable copies, strictly preserving the original checkpoint on disk.
 """
 import copy
+import sys
+from pathlib import Path
 import torch
 import torch.nn as nn
+
+_PKG_ROOT = Path(__file__).resolve().parents[2]
+_CHARM_PROJ = _PKG_ROOT / 'integrated_project' / 'charm_original' / 'project'
+if str(_CHARM_PROJ) not in sys.path:
+    sys.path.insert(0, str(_CHARM_PROJ))
+
 from original.paadu_benchmark_v7 import VolumeAdaptiveRelaxer
 
-def reinit_param(name: str, p: nn.Parameter, seed: int):
-    """Initializes an individual parameter tensor according to its architectural role."""
-    torch.manual_seed(seed)
+def reinit_param(name: str, p: nn.Parameter):
+    """Initializes an individual parameter tensor according to its architectural role using advancing RNG."""
     with torch.no_grad():
         if 'pos_embed' in name or 'mask_token' in name or 'cls_token' in name:
             nn.init.trunc_normal_(p, mean=0.0, std=0.02)
@@ -44,6 +51,8 @@ def build_engine_copy(base_engine, model: nn.Module):
 
 def get_randomized_model_copy(orig_model: nn.Module, level_name: str, seed: int) -> nn.Module:
     """Creates an in-memory disposable copy with specified cascading layer randomization."""
+    # Seed the RNG ONCE per model copy so the random generator advances continuously across all tensors
+    torch.manual_seed(seed)
     disposable_model = copy.deepcopy(orig_model)
     disposable_model.eval()
 
@@ -63,6 +72,6 @@ def get_randomized_model_copy(orig_model: nn.Module, level_name: str, seed: int)
 
     for name, p in disposable_model.named_parameters():
         if any(name.startswith(pre) or pre in name for pre in target_prefixes):
-            reinit_param(name, p, seed)
+            reinit_param(name, p)
 
     return disposable_model

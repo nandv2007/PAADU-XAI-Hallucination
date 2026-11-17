@@ -55,22 +55,23 @@ def run_experiment():
 
         base_score, attr_vec = compute_occlusion_vector(engine, block)
 
-        # Top-k feature indices (highest positive contribution to anomaly)
-        sorted_top_indices = list(np.argsort(attr_vec)[::-1])
-        # Bottom-k feature indices (lowest contribution)
-        sorted_bottom_indices = list(np.argsort(attr_vec))
+        # Align with original CHARM XAI ranking policy: absolute attribution magnitude
+        sorted_top_indices = list(np.argsort(np.abs(attr_vec))[::-1])
+        sorted_bottom_indices = list(np.argsort(np.abs(attr_vec)))
 
         # 1. Progressive Deletion Curves up to K=10
         top_step_scores = []
         rand_step_scores = []
         bot_step_scores = []
 
+        # Multiple random-feature permutations (M=10) for robust empirical baseline
         rng = np.random.default_rng(42 + i)
-        random_indices = list(rng.permutation(len(engine.features)))
+        perm_list = [list(rng.permutation(len(engine.features))) for _ in range(10)]
 
         for k in range(1, K + 1):
             s_top = apply_feature_deletion(engine, block, sorted_top_indices[:k])
-            s_rand = apply_feature_deletion(engine, block, random_indices[:k])
+            # Average across 10 random permutations
+            s_rand = float(np.mean([apply_feature_deletion(engine, block, p[:k]) for p in perm_list]))
             s_bot = apply_feature_deletion(engine, block, sorted_bottom_indices[:k])
 
             top_step_scores.append(s_top)
@@ -84,7 +85,7 @@ def run_experiment():
             topk_ben = float(engine.mean[0, 0, 0, topk_idx])
             topk_attr = float(attr_vec[topk_idx])
 
-            rand_idx = random_indices[k - 1]
+            rand_idx = perm_list[0][k - 1]
             rand_name = engine.features[rand_idx]
 
             bot_idx = sorted_bottom_indices[k - 1]
@@ -112,9 +113,11 @@ def run_experiment():
         comp_5 = compute_comprehensiveness(base_score, top_step_scores[4])
         comp_10 = compute_comprehensiveness(base_score, top_step_scores[9])
 
-        # 4. Compute Sufficiency at k=5
-        score_suff_5 = apply_feature_retention(engine, block, sorted_top_indices[:5])
-        suff_5 = compute_sufficiency(base_score, score_suff_5)
+        # 4. Compute actual Sufficiency at k=1, 3, 5, 10 (actual recorded observations)
+        suff_1 = compute_sufficiency(base_score, apply_feature_retention(engine, block, sorted_top_indices[:1]))
+        suff_3 = compute_sufficiency(base_score, apply_feature_retention(engine, block, sorted_top_indices[:3]))
+        suff_5 = compute_sufficiency(base_score, apply_feature_retention(engine, block, sorted_top_indices[:5]))
+        suff_10 = compute_sufficiency(base_score, apply_feature_retention(engine, block, sorted_top_indices[:10]))
 
         # 5. Evaluate Attribution Rank Stability under Gaussian noise (std * 0.01)
         noisy_block = block + rng.normal(loc=0.0, scale=engine.std * 0.01, size=block.shape).astype(np.float32)
@@ -132,7 +135,10 @@ def run_experiment():
             'comp_3': comp_3,
             'comp_5': comp_5,
             'comp_10': comp_10,
+            'suff_1': suff_1,
+            'suff_3': suff_3,
             'suff_5': suff_5,
+            'suff_10': suff_10,
             'spearman_rho': stab['spearman_rho'],
             'kendall_tau': stab['kendall_tau']
         }
@@ -157,7 +163,10 @@ def run_experiment():
     mean_comp_3 = float(np.mean([r['comp_3'] for r in block_records]))
     mean_comp_5 = float(np.mean([r['comp_5'] for r in block_records]))
     mean_comp_10 = float(np.mean([r['comp_10'] for r in block_records]))
+    mean_suff_1 = float(np.mean([r['suff_1'] for r in block_records]))
+    mean_suff_3 = float(np.mean([r['suff_3'] for r in block_records]))
     mean_suff_5 = float(np.mean([r['suff_5'] for r in block_records]))
+    mean_suff_10 = float(np.mean([r['suff_10'] for r in block_records]))
 
     mean_rho = float(np.mean([r['spearman_rho'] for r in block_records]))
     mean_tau = float(np.mean([r['kendall_tau'] for r in block_records]))
@@ -185,7 +194,10 @@ def run_experiment():
             'comp_at_10': mean_comp_10
         },
         'sufficiency': {
-            'suff_at_5': mean_suff_5
+            'suff_at_1': mean_suff_1,
+            'suff_at_3': mean_suff_3,
+            'suff_at_5': mean_suff_5,
+            'suff_at_10': mean_suff_10
         },
         'attribution_rank_stability': {
             'spearman_rho_mean': mean_rho,

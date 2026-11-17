@@ -1,0 +1,18 @@
+{
+  "total_tests_run": 6,
+  "passed": true,
+  "failures": 0,
+  "errors": 0,
+  "tests": [
+    "test_ten_previously_misclassified_claims",
+    "test_legitimate_telemetry_verifies_correctly",
+    "test_advancing_rng_parameter_randomization",
+    "test_xai_ranking_absolute_magnitude",
+    "test_figures_no_invented_data",
+    "test_final_displayed_claims_evaluation"
+  ],
+  "ten_previously_misclassified_claims_passed": true,
+  "zero_false_claims_displayed_as_verified": true,
+  "advancing_rng_verified": true,
+  "figures_no_invented_data_verified": true
+}

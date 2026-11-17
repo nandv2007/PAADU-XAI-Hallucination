@@ -18,17 +18,32 @@ def normalize_claim_proposition(text: str) -> str:
     return t
 
 def extract_attack_attribution(explanation_text: str) -> str:
-    """Extracts inferred attack attribution family from explanation text."""
-    t = explanation_text.lower()
-    if 'syn flood' in t or 'tcp syn' in t:
-        return 'TCP_SYN_FLOOD'
-    elif 'volumetric' in t or 'byte flood' in t or 'rate flood' in t:
-        return 'VOLUMETRIC_FLOOD'
-    elif 'reconnaissance' in t or 'port scan' in t or 'host scan' in t:
-        return 'RECONNAISSANCE_SCAN'
-    elif 'benign' in t or 'normal' in t:
+    """
+    Extracts the primary inferred attack attribution family from the explanation.
+    Checks the primary evaluation status and operative interpretation claims,
+    distinguishing actual attack categorization from passive background evidence text.
+    """
+    lines = [line.strip() for line in explanation_text.split('\n') if line.strip()]
+    if not lines:
+        return 'UNKNOWN'
+
+    # 1. Check primary decision line
+    decision_line = lines[0].lower()
+    if 'as benign' in decision_line:
         return 'BENIGN'
-    return 'UNKNOWN_ANOMALY'
+
+    # 2. Check operative interpretation propositions
+    operative_text = " ".join(lines[1:]).lower()
+    if 'syn flood' in operative_text or 'three-way handshake' in operative_text:
+        return 'TCP_SYN_FLOOD'
+    elif 'udp flood' in operative_text or 'high-rate datagrams' in operative_text or 'massive volumes' in operative_text:
+        return 'VOLUMETRIC_FLOOD'
+    elif 'port scan' in operative_text or 'reconnaissance' in operative_text or 'probing a range' in operative_text:
+        return 'RECONNAISSANCE_SCAN'
+    elif 'as anomalous' in decision_line:
+        return 'ANOMALOUS_UNSPECIFIED'
+    
+    return 'UNKNOWN'
 
 def compare_narrative_claims(
     orig_claims: List[str],

@@ -106,8 +106,9 @@ def run_experiment():
                     level_top3_overlaps.append(metrics['top3_overlap'])
                     level_top5_overlaps.append(metrics['top5_overlap'])
 
-                    base_top3 = [orig_engine.features[k] for k in np.argsort(orig_vec)[::-1][:3]]
-                    rand_top3 = [orig_engine.features[k] for k in np.argsort(rand_vec)[::-1][:3]]
+                    base_top3 = [orig_engine.features[k] for k in np.argsort(np.abs(orig_vec))[::-1][:3]]
+                    rand_top3 = [orig_engine.features[k] for k in np.argsort(np.abs(rand_vec))[::-1][:3]]
+                    attr_vec_str = ";".join(f"{v:.4f}" for v in rand_vec)
 
                     csv_rows.append([
                         eval_meta[i]['block_id'], lvl_name, desc, seed,
@@ -119,7 +120,7 @@ def run_experiment():
                         lvl_name, desc, seed,
                         metrics['spearman_rho'], metrics['kendall_tau'],
                         metrics['cosine_similarity'], metrics['top3_overlap'], metrics['top5_overlap'],
-                        ";".join(base_top3), ";".join(rand_top3)
+                        ";".join(base_top3), ";".join(rand_top3), attr_vec_str
                     ])
 
         else:
@@ -138,8 +139,9 @@ def run_experiment():
                     level_top3_overlaps.append(metrics['top3_overlap'])
                     level_top5_overlaps.append(metrics['top5_overlap'])
 
-                    base_top3 = [orig_engine.features[k] for k in np.argsort(orig_vec)[::-1][:3]]
-                    rand_top3 = [orig_engine.features[k] for k in np.argsort(rand_vec)[::-1][:3]]
+                    base_top3 = [orig_engine.features[k] for k in np.argsort(np.abs(orig_vec))[::-1][:3]]
+                    rand_top3 = [orig_engine.features[k] for k in np.argsort(np.abs(rand_vec))[::-1][:3]]
+                    attr_vec_str = ";".join(f"{v:.4f}" for v in rand_vec)
 
                     csv_rows.append([
                         eval_meta[i]['block_id'], lvl_name, desc, seed,
@@ -151,7 +153,7 @@ def run_experiment():
                         lvl_name, desc, seed,
                         metrics['spearman_rho'], metrics['kendall_tau'],
                         metrics['cosine_similarity'], metrics['top3_overlap'], metrics['top5_overlap'],
-                        ";".join(base_top3), ";".join(rand_top3)
+                        ";".join(base_top3), ";".join(rand_top3), attr_vec_str
                     ])
 
         results_by_level[lvl_name] = {
@@ -187,7 +189,8 @@ def run_experiment():
                 'randomization_level', 'description', 'seed',
                 'spearman_rho', 'kendall_tau', 'cosine_similarity',
                 'top3_overlap', 'top5_overlap',
-                'baseline_top3_features', 'randomized_top3_features'
+                'baseline_top3_features', 'randomized_top3_features',
+                'attribution_vector_46d'
             ])
             writer.writerows(raw_randomization_rows)
 

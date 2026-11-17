@@ -140,7 +140,6 @@ def run_baseline_comparison():
         evals_d = [
             validate_claim_against_incident(c.final_presented_text, c.claim_type, incident, cited_evidence=ev_list)
             for c in ver_summary.claim_results
-            if c.verification_status not in ('CONTRADICTED', 'UNVERIFIED_TELEMETRY_MISMATCH')
         ]
         m_d = compute_incident_metrics(evals_d)
         d_ehr = m_d['ehr']

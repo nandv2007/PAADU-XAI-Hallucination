@@ -24,15 +24,15 @@ This experiment evaluates the mathematical faithfulness of CHARM's deterministic
 
 | Evaluation Criterion | Top-k Features | Random Baseline | Bottom-k Baseline | Statistical Significance |
 | :--- | :---: | :---: | :---: | :---: |
-| **AOPC (K=10)** | **63.0969** | -4.1504 | -57.8529 | **p < 0.001 (t=4.40)** |
-| **Comprehensiveness @ k=1** | **20.1355** | — | — | — |
-| **Comprehensiveness @ k=3** | **63.1326** | — | — | — |
-| **Comprehensiveness @ k=5** | **68.3565** | — | — | — |
-| **Comprehensiveness @ k=10**| **68.4083**| — | — | — |
-| **Sufficiency @ k=5** | **-60.1791** | — | — | — |
-| **Attribution Rank Stability** | **Spearman $\rho = 0.9766$** | **Kendall $\tau = 0.9069$** | — | Robust to noise |
+| **AOPC (K=10)** | **92.4759** | 0.5983 | -0.0002 | **p < 0.001 (t=13.12)** |
+| **Comprehensiveness @ k=1** | **-26.8860** | — | — | — |
+| **Comprehensiveness @ k=3** | **109.3890** | — | — | — |
+| **Comprehensiveness @ k=5** | **121.6875** | — | — | — |
+| **Comprehensiveness @ k=10**| **121.9385**| — | — | — |
+| **Sufficiency @ k=5** | **-0.0389** | — | — | — |
+| **Attribution Rank Stability** | **Spearman $\rho = 0.9735$** | **Kendall $\tau = 0.9011$** | — | Robust to noise |
 
 ## 5. Key Findings
-1. **High Faithfulness**: CHARM's leave-one-feature-out occlusion achieves an AOPC@10 of **63.0969**, significantly outperforming random feature deletion (-4.1504) and bottom-feature deletion (-57.8529) with $p < 0.001$.
-2. **Rapid Score Collapse**: Removing the top 3 features yields a mean score drop of **63.13**, collapsing the hybrid score down toward the benign baseline. Conversely, removing bottom-ranked features has near-zero effect.
-3. **High Stability**: Small input noise perturbations produce an average Spearman correlation of **0.9766**, confirming that feature ranking is robust and deterministic.
+1. **High Faithfulness**: CHARM's leave-one-feature-out occlusion achieves an AOPC@10 of **92.4759**, significantly outperforming random feature deletion (0.5983) and bottom-feature deletion (-0.0002) with $p < 0.001$.
+2. **Rapid Score Collapse**: Removing the top 3 features yields a mean score drop of **109.39**, collapsing the hybrid score down toward the benign baseline. Conversely, removing bottom-ranked features has near-zero effect.
+3. **High Stability**: Small input noise perturbations produce an average Spearman correlation of **0.9735**, confirming that feature ranking is robust and deterministic.

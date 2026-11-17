@@ -14,19 +14,19 @@
     ]
   },
   "experiment_3_aopc": {
-    "paired_t_statistic": 4.395480350717363,
-    "paired_t_p_value": 6.888499252977957e-05,
-    "wilcoxon_statistic": 225.0,
-    "wilcoxon_p_value": 0.0006849665251706938,
+    "paired_t_statistic": 13.11724587146244,
+    "paired_t_p_value": 8.318364088458941e-17,
+    "wilcoxon_statistic": 0.0,
+    "wilcoxon_p_value": 5.684341886080802e-14,
     "statistically_significant": true,
-    "cohens_d": 0.6552395238007312,
+    "cohens_d": 1.9554035626617363,
     "top_k_95ci": [
-      35.00927905538431,
-      93.81594536519454
+      77.96524386060786,
+      107.45293647647753
     ],
     "random_95ci": [
-      -10.854749523047651,
-      1.5473387258480373
+      -1.5646228321073457,
+      2.5739419861828376
     ]
   }
 }

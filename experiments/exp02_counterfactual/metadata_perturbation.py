@@ -29,13 +29,19 @@ def apply_metadata_intervention(
         cf_meta['intervention'] = 'sensor_id_scramble'
 
     elif intervention_type == 'timestamp':
+        import datetime
         orig_ts = metadata.get('timestamp', '2026-11-14T10:00:00Z')
-        cf_meta['timestamp'] = orig_ts.replace('10:', '18:').replace('11:', '19:')
+        try:
+            dt = datetime.datetime.fromisoformat(orig_ts.replace('Z', '+00:00'))
+            new_dt = dt + datetime.timedelta(hours=8)
+            cf_meta['timestamp'] = new_dt.strftime('%Y-%m-%dT%H:%M:%SZ')
+        except Exception:
+            cf_meta['timestamp'] = '2026-11-14T18:00:00Z'
         cf_meta['block_id'] = f"{metadata['block_id']}-CF-TIME"
         cf_meta['intervention'] = 'timestamp_shift'
 
     elif intervention_type == 'zero_attribution_jitter':
-        # Add slight jitter only to features that had zero XAI contribution
+        # Add slight jitter only to verified negligible-attribution features
         cf_meta['intervention'] = 'zero_attribution_feature_jitter'
         if zero_attribution_features:
             for feat_idx in zero_attribution_features[:3]:

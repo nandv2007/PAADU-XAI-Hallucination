@@ -55,12 +55,17 @@ def run_experiment():
         orig_decision = orig_scores[0]['anomaly']
         orig_xai = pipeline.xai.explain(block, orig_scores, metadata=[meta])[0]
 
-        # Identify zero-attribution features for non-causal feature jitter
-        top_feats = [f['feature'] for f in orig_xai.get('feature_attributions', [])[:5]]
-        zero_feats = [
-            j for j, feat_name in enumerate(pipeline.engine.features)
-            if feat_name not in top_feats
-        ]
+        # Identify lowest-attribution features for non-causal feature jitter
+        norm_single = (block[0] - pipeline.engine.mean[0]) / pipeline.engine.std[0]
+        base_h, _, _ = pipeline.engine.score_one_components(norm_single)
+        attr_scores = []
+        for j, feat_name in enumerate(pipeline.engine.features):
+            occ = norm_single.copy()
+            occ[:, :, j] = 0.0
+            h_occ, _, _ = pipeline.engine.score_one_components(occ)
+            attr_scores.append((j, feat_name, abs(base_h - h_occ)))
+        attr_scores.sort(key=lambda x: x[2])
+        zero_feats = [x[0] for x in attr_scores[:5]]
 
         # 2. Counterfactual Intervention
         cf_block, cf_meta = apply_metadata_intervention(
@@ -74,8 +79,17 @@ def run_experiment():
         cf_decision = cf_scores[0]['anomaly']
         cf_xai = pipeline.xai.explain(cf_block, cf_scores, metadata=[cf_meta])[0]
 
-        # Boundary Stability Check: only analyze pairs where decision is stable
+        # Boundary Stability Check: record all pairs, noting rejection if decision flipped
         if orig_decision != cf_decision:
+            raw_pair_rows.append([
+                f"PAIR-{i+1:03d}", meta['block_id'], meta['traffic_profile'], intervention,
+                orig_scores[0]['hybrid_score'], cf_scores[0]['hybrid_score'],
+                abs(orig_scores[0]['hybrid_score'] - cf_scores[0]['hybrid_score']),
+                orig_decision, cf_decision, False,
+                "REJECTED", "REJECTED", True,
+                False, 0.0, 0.0,
+                1.0, 0, 0, 0, 0
+            ])
             continue
 
         # 3. Analyze Original Narrative
@@ -184,6 +198,19 @@ def run_experiment():
     summary_metrics['mean_token_jaccard'] = float(np.mean([p['token_jaccard'] for p in pair_results]))
     summary_metrics['mean_semantic_similarity'] = float(np.mean([p['semantic_similarity'] for p in pair_results]))
     summary_metrics['exact_text_match_rate'] = float(np.mean([1.0 if p['exact_text_match'] else 0.0 for p in pair_results]))
+
+    per_intervention = {}
+    for it in intervention_types:
+        it_pairs = [p for p in pair_results if p['intervention'] == it]
+        if it_pairs:
+            per_intervention[it] = {
+                'count': len(it_pairs),
+                'mean_semantic_similarity': float(np.mean([p['semantic_similarity'] for p in it_pairs])),
+                'mean_token_jaccard': float(np.mean([p['token_jaccard'] for p in it_pairs])),
+                'exact_text_match_rate': float(np.mean([1.0 if p['exact_text_match'] else 0.0 for p in it_pairs])),
+                'attribution_flip_rate': float(np.mean([1.0 if p['attribution_flipped'] else 0.0 for p in it_pairs]))
+            }
+    summary_metrics['per_intervention'] = per_intervention
 
     # Save CSVs to both recomputed_results and results
     for out_dir in [PACKAGE_ROOT / 'recomputed_results', PACKAGE_ROOT / 'results']:

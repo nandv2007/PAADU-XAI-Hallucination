@@ -15,14 +15,14 @@
 
 | Metric | Config A (Raw XAI) | Config B (Unverified) | Config C (Retrieval Only) | Config D (Fully Verified) |
 | :--- | :---: | :---: | :---: | :---: |
-| **Entity Hallucination Rate (EHR)** | **0.0000** (N/A) | 0.0167 | 0.0167 | **0.0000** |
+| **Entity Hallucination Rate (EHR)** | **0.0000** (N/A) | 0.0303 | 0.0274 | **0.0000** |
 | **Unsupported Claim Rate (UCR)** | **0.0000** (N/A) | 0.0278 | 0.0232 | **0.0000** |
-| **Evidence Coverage (EC)** | 1.0000 (telemetry only) | 0.9722 | 0.9768 | **1.0000** |
-| **Counterfactual Consistency** | 1.0000 | 0.4333 | 0.4333 | **0.4333** |
-| **XAI Faithfulness (AOPC@10)** | 63.10 | 63.10 | 63.10 | **63.10** |
-| **Mean Latency (sec/incident)** | **0.0502s** | 0.0503s | 0.0525s | 0.2041s |
+| **Evidence Coverage (EC)** | 1.0000 (telemetry only) | 0.9722 | 0.9768 | **0.9768** |
+| **Counterfactual Consistency** | 1.0000 | 0.3333 | 0.3333 | **0.3333** |
+| **XAI Faithfulness (AOPC@10)** | 92.48 | 92.48 | 92.48 | **92.48** |
+| **Mean Latency (sec/incident)** | **0.0506s** | 0.0507s | 0.0529s | 0.2025s |
 
 ## 3. Important Scientific Clarification: XAI Faithfulness vs NLI Verification
 A critical conceptual finding of this research validation is that **NLI verification operates strictly on textual claim validity and knowledge grounding; it does not alter the underlying mathematical faithfulness of CHARM's XAI attributions**.
-- The feature attribution scores are computed directly by the leave-one-feature-out occlusion over the Masked Autoencoder ($\text{AOPC@10} = 63.10$).
+- The feature attribution scores are computed directly by the leave-one-feature-out occlusion over the Masked Autoencoder ($\text{AOPC@10} = 92.48$).
 - SVA-GRAG and NLI verification ensure that the *narrative claims presented to human analysts* accurately reflect those mathematical outputs without hallucinating non-existent features or making ungrounded causal claims.

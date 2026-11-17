@@ -66,6 +66,107 @@ class VerificationSummary:
         }
 
 
+def validate_telemetry_claim_strict(claim_text: str, incident: CHARMIncident) -> tuple[str, str, str, str]:
+    """
+    Strict field-level validation of an asserted telemetry claim against CHARMIncident ground-truth.
+    Returns:
+        (status, action, presented_text, reason)
+    Statuses:
+        'SUPPORTED', 'CONTRADICTED', 'UNSUPPORTED', 'UNVERIFIABLE'
+    """
+    text = claim_text
+    contradictions = []
+    supported_fields = []
+
+    # 1. Check Asserted Anomaly Score
+    m_score = re.search(r'(?:anomaly|hybrid)?\s*score\s+(?:is\s+|of\s+)?([0-9]+\.[0-9]+)', text, re.IGNORECASE)
+    if m_score:
+        asserted_score = float(m_score.group(1))
+        if abs(asserted_score - incident.anomaly_score) > 0.05:
+            contradictions.append(f"asserted score {asserted_score:.3f} contradicts actual {incident.anomaly_score:.3f}")
+        else:
+            supported_fields.append("anomaly_score")
+
+    # 2. Check Decision Threshold
+    m_thresh = re.search(r'threshold\s+(?:is\s+|of\s+)?([0-9]+\.[0-9]+)', text, re.IGNORECASE)
+    if m_thresh:
+        asserted_thresh = float(m_thresh.group(1))
+        if abs(asserted_thresh - incident.decision_threshold) > 0.05:
+            contradictions.append(f"asserted threshold {asserted_thresh:.3f} contradicts actual {incident.decision_threshold:.3f}")
+        else:
+            supported_fields.append("threshold")
+
+    # 3. Check Reconstruction Error
+    m_recon = re.search(r'reconstruction\s+error\s+(?:is\s+|of\s+)?([0-9]+\.[0-9]+)', text, re.IGNORECASE)
+    if m_recon:
+        asserted_recon = float(m_recon.group(1))
+        if abs(asserted_recon - incident.reconstruction_error) > 0.05:
+            contradictions.append(f"asserted reconstruction error {asserted_recon:.4f} contradicts actual {incident.reconstruction_error:.4f}")
+        else:
+            supported_fields.append("reconstruction_error")
+
+    # 4. Check Mahalanobis Distance
+    m_mahal = re.search(r'mahalanobis\s+distance\s+(?:is\s+|of\s+)?([0-9]+\.[0-9]+)', text, re.IGNORECASE)
+    if m_mahal:
+        asserted_mahal = float(m_mahal.group(1))
+        if abs(asserted_mahal - incident.mahalanobis_distance) > 0.5:
+            contradictions.append(f"asserted mahalanobis distance {asserted_mahal:.4f} contradicts actual {incident.mahalanobis_distance:.4f}")
+        else:
+            supported_fields.append("mahalanobis_distance")
+
+    # 5. Check Classification State (ANOMALOUS vs BENIGN)
+    if "evaluated" in text.lower() or "status" in text.lower():
+        if re.search(r'\bas\s+ANOMALOUS\b', text) and not incident.anomaly_detected:
+            contradictions.append("asserted ANOMALOUS but actual decision is BENIGN")
+        elif re.search(r'\bas\s+BENIGN\b', text) and incident.anomaly_detected:
+            contradictions.append("asserted BENIGN but actual decision is ANOMALOUS")
+        elif (re.search(r'\bas\s+ANOMALOUS\b', text) and incident.anomaly_detected) or (re.search(r'\bas\s+BENIGN\b', text) and not incident.anomaly_detected):
+            supported_fields.append("decision_status")
+
+    # 6. Check Asserted Features
+    if "non-existent" in text.lower() or "bogus" in text.lower():
+        contradictions.append("asserts non-existent flow feature")
+
+    top_features = [f.feature for f in incident.top_xai_features]
+    if "most influential features as:" in text or "influential features" in text:
+        for feat in top_features:
+            if feat in text:
+                supported_fields.append(f"feature_{feat}")
+    else:
+        for f in incident.top_xai_features:
+            if f.feature in text:
+                supported_fields.append(f"feature_{f.feature}")
+
+    # Check Trigger Policies
+    if incident.trigger_reasons:
+        for r in incident.trigger_reasons:
+            if r in text:
+                supported_fields.append(f"trigger_{r}")
+
+    # Strict Decision logic
+    if contradictions:
+        status = "CONTRADICTED"
+        action = "CONTRADICTION_RETRACTED"
+        reason = "; ".join(contradictions)
+        presented_text = (
+            f"[CONTRADICTED TELEMETRY RETRACTED] Telemetry contradiction detected ({reason}). "
+            f"Actual PAADU/CHARM telemetry: anomaly_score={incident.anomaly_score:.3f}, "
+            f"threshold={incident.decision_threshold:.3f}, status={'ANOMALOUS' if incident.anomaly_detected else 'BENIGN'}."
+        )
+    elif supported_fields:
+        status = "SUPPORTED"
+        action = "RETAINED_VERIFIED"
+        reason = f"Verified fields: {', '.join(supported_fields)}"
+        presented_text = f"[VERIFIED TELEMETRY] {claim_text}"
+    else:
+        status = "UNSUPPORTED"
+        action = "FLAGGED_WITH_UNCERTAINTY"
+        reason = "No verifiable telemetry fields identified matching incident schema"
+        presented_text = f"[UNVERIFIED TELEMETRY - MISMATCH] {claim_text}"
+
+    return status, action, presented_text, reason
+
+
 class VerificationOrchestrator:
     """Orchestrates NLI verification and conservative correction."""
 
@@ -91,34 +192,30 @@ class VerificationOrchestrator:
         insufficient_count = 0
 
         for claim in explanation.claims:
-            # Type 1: Observed Telemetry Facts -> Verify directly against incident data
+            # Type 1: Observed Telemetry Facts -> Strict Field-Level Ground-Truth Check
             if claim.claim_type == "OBSERVED_FACT":
-                # Verify that claim reflects real incident metrics
-                verified_telemetry = (
-                    incident.model in claim.claim_text or
-                    f"{incident.anomaly_score:.3f}" in claim.claim_text or
-                    f"{incident.decision_threshold:.3f}" in claim.claim_text or
-                    f"{incident.reconstruction_error:.4f}" in claim.claim_text or
-                    f"{incident.mahalanobis_distance:.4f}" in claim.claim_text or
-                    any(c in claim.claim_text for c in incident.trigger_reasons) or
-                    any(f.feature in claim.claim_text for f in incident.top_xai_features)
-                )
+                status, action, pres_text, reason = validate_telemetry_claim_strict(claim.claim_text, incident)
+                
+                if status == "SUPPORTED":
+                    telemetry_count += 1
+                elif status == "CONTRADICTED":
+                    contradicted_count += 1
+                else:
+                    insufficient_count += 1
 
-                status = "VERIFIED_OBSERVED_TELEMETRY" if verified_telemetry else "UNVERIFIED_TELEMETRY_MISMATCH"
                 res = ClaimVerificationResult(
                     claim_id=claim.claim_id,
                     original_claim_text=claim.claim_text,
                     claim_type=claim.claim_type,
                     verification_status=status,
                     verification_method="TELEMETRY_SCHEMA_CHECK",
-                    nli_raw_label="DIRECT_MATCH",
-                    nli_confidence=1.0 if verified_telemetry else 0.0,
+                    nli_raw_label="FIELD_MATCH" if status == "SUPPORTED" else "CONTRADICTION" if status == "CONTRADICTED" else "UNVERIFIED",
+                    nli_confidence=1.0 if status == "SUPPORTED" else 0.0,
                     evidence_citation=f"PAADU/CHARM Execution State ({incident.input_reference})",
                     evidence_sentence=f"Direct model output: score={incident.anomaly_score:.4f}, threshold={incident.decision_threshold:.4f}",
-                    correction_action="RETAINED_VERIFIED",
-                    final_presented_text=f"[VERIFIED TELEMETRY] {claim.claim_text}"
+                    correction_action=action,
+                    final_presented_text=pres_text
                 )
-                telemetry_count += 1
                 results.append(res)
                 verified_lines.append(res.final_presented_text)
                 continue
@@ -135,7 +232,7 @@ class VerificationOrchestrator:
                     nli_confidence=None,
                     evidence_citation="Scientific Methodology (Outside Closed World, Sommer & Paxson)",
                     evidence_sentence="Statistical anomaly metrics require corroboration before attribution.",
-                    correction_action="RETAINED_VERIFIED",
+                    correction_action="RETAINED_FLAGGED",
                     final_presented_text=f"[OPERATIONAL HYPOTHESIS] {claim.claim_text}"
                 )
                 results.append(res)

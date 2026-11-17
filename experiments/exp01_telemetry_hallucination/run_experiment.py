@@ -42,6 +42,7 @@ def run_experiment():
     results = []
     csv_rows = []
     raw_claim_rows = []
+    final_displayed_rows = []
 
     for i in range(len(metadata_list)):
         block = dataset_tensor[i:i+1]
@@ -106,14 +107,24 @@ def run_experiment():
         for c in verification_summary.claim_results:
             is_retracted = (c.verification_status in ('CONTRADICTED', 'UNVERIFIED_TELEMETRY_MISMATCH'))
             ev_res = validate_claim_against_incident(c.final_presented_text, c.claim_type, incident, evidence)
-            if not is_retracted:
-                ver_evals.append(ev_res)
+            # Evaluate the actual displayed proposition for all claims
+            ver_evals.append(ev_res)
+            
             raw_claim_rows.append([
                 meta['block_id'], meta['traffic_profile'], c.claim_id, c.claim_type,
                 'Config_D_Verified', c.final_presented_text,
-                'RETRACTED_CONTRADICTION' if is_retracted else ev_res['validation_label'],
+                ev_res['validation_label'],
                 ev_res['entity_matches'], ev_res['entity_errors'], ev_res['verifiable_count'],
                 inject_perturbation
+            ])
+
+            # Track in final displayed claims
+            final_displayed_rows.append([
+                i, meta['block_id'], meta['traffic_profile'], c.claim_id, c.claim_type,
+                'Config_D_Verified', c.original_claim_text, c.final_presented_text,
+                c.verification_status, c.correction_action, ev_res['validation_label'],
+                ev_res['entity_matches'], ev_res['entity_errors'], ev_res['verifiable_count'],
+                bool(ev_res['validation_label'] == 'CONTRADICTED' or (ev_res['validation_label'] == 'UNSUPPORTED' and '[OPERATIONAL HYPOTHESIS]' not in c.final_presented_text))
             ])
 
         unv_m = compute_incident_metrics(unv_evals)
@@ -192,6 +203,26 @@ def run_experiment():
                 'is_perturbed'
             ])
             writer.writerows(raw_claim_rows)
+
+        with open(out_dir / 'FINAL_DISPLAYED_CLAIMS.csv', 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow([
+                'sample_id', 'block_id', 'traffic_profile', 'claim_id', 'claim_type',
+                'configuration', 'original_claim_text', 'final_displayed_text',
+                'verification_status', 'correction_action', 'validation_label',
+                'entity_matches', 'entity_errors', 'verifiable_count', 'is_hallucination'
+            ])
+            writer.writerows(final_displayed_rows)
+
+    with open(PACKAGE_ROOT / 'FINAL_DISPLAYED_CLAIMS.csv', 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow([
+            'sample_id', 'block_id', 'traffic_profile', 'claim_id', 'claim_type',
+            'configuration', 'original_claim_text', 'final_displayed_text',
+            'verification_status', 'correction_action', 'validation_label',
+            'entity_matches', 'entity_errors', 'verifiable_count', 'is_hallucination'
+        ])
+        writer.writerows(final_displayed_rows)
 
         with open(out_dir / 'EXPERIMENT_1_METRICS.json', 'w') as f:
             json.dump(summary_metrics, f, indent=2)

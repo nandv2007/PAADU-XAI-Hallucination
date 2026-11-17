@@ -11,7 +11,7 @@
     "mean_spearman": 0.9998437660602322,
     "std_spearman": 0.00014218617712644956,
     "mean_kendall": 0.9976167471819647,
-    "mean_cosine": 0.999540419711007,
+    "mean_cosine": 0.9995364665985107,
     "mean_top3_overlap": 0.9833333333333333,
     "mean_top5_overlap": 1.0
   },
@@ -19,33 +19,33 @@
     "mean_spearman": 0.9998437660602322,
     "std_spearman": 0.00014218617712644956,
     "mean_kendall": 0.9976167471819647,
-    "mean_cosine": 0.999540419711007,
+    "mean_cosine": 0.9995362440745036,
     "mean_top3_overlap": 0.9833333333333333,
     "mean_top5_overlap": 1.0
   },
   "Level_3_Transformer": {
-    "mean_spearman": 0.09109260972350702,
-    "std_spearman": 0.22545265351476246,
-    "mean_kendall": 0.06980139559849705,
-    "mean_cosine": -0.002555384466217624,
-    "mean_top3_overlap": 0.8277777777777777,
-    "mean_top5_overlap": 0.5931216931216932
+    "mean_spearman": 0.09086511117963478,
+    "std_spearman": 0.20831279391055987,
+    "mean_kendall": 0.0696081588835212,
+    "mean_cosine": -0.2135516414625777,
+    "mean_top3_overlap": 0.8722222222222222,
+    "mean_top5_overlap": 0.5645502645502646
   },
   "Level_4_PatchEmbed": {
-    "mean_spearman": -0.02304176516942474,
-    "std_spearman": 0.1855013467281516,
-    "mean_kendall": -0.013032742887815354,
-    "mean_cosine": 0.06308870996290353,
-    "mean_top3_overlap": 0.9333333333333333,
-    "mean_top5_overlap": 0.5719576719576719
+    "mean_spearman": 0.10907869942097508,
+    "std_spearman": 0.09711095594827931,
+    "mean_kendall": 0.08813741277509395,
+    "mean_cosine": 0.07105531351019939,
+    "mean_top3_overlap": 0.9277777777777778,
+    "mean_top5_overlap": 0.5878306878306877
   },
   "Level_5_Complete": {
-    "mean_spearman": -0.02304176516942474,
-    "std_spearman": 0.1855013467281516,
-    "mean_kendall": -0.013032742887815354,
-    "mean_cosine": 0.06308870996290353,
-    "mean_top3_overlap": 0.9333333333333333,
-    "mean_top5_overlap": 0.5719576719576719
+    "mean_spearman": 0.10907869942097508,
+    "std_spearman": 0.09711095594827931,
+    "mean_kendall": 0.08813741277509395,
+    "mean_cosine": 0.07105531351019939,
+    "mean_top3_overlap": 0.9277777777777778,
+    "mean_top5_overlap": 0.5878306878306877
   },
   "Level_6_RandomBaseline": {
     "mean_spearman": 0.011390002398328023,
@@ -59,7 +59,7 @@
     "mean_spearman": 0.9998437660602322,
     "std_spearman": 0.00014218617712644956,
     "mean_kendall": 0.9976167471819647,
-    "mean_cosine": 0.999540419711007,
+    "mean_cosine": 0.9995364665985107,
     "mean_top3_overlap": 0.9833333333333333,
     "mean_top5_overlap": 1.0
   },
@@ -67,24 +67,24 @@
     "mean_spearman": 0.9998437660602322,
     "std_spearman": 0.00014218617712644956,
     "mean_kendall": 0.9976167471819647,
-    "mean_cosine": 0.999540419711007,
+    "mean_cosine": 0.9995362440745036,
     "mean_top3_overlap": 0.9833333333333333,
     "mean_top5_overlap": 1.0
   },
   "Level_3_LatentProj": {
-    "mean_spearman": 0.09109260972350702,
-    "std_spearman": 0.22545265351476246,
-    "mean_kendall": 0.06980139559849705,
-    "mean_cosine": -0.002555384466217624,
-    "mean_top3_overlap": 0.8277777777777777,
-    "mean_top5_overlap": 0.5931216931216932
+    "mean_spearman": 0.09086511117963478,
+    "std_spearman": 0.20831279391055987,
+    "mean_kendall": 0.0696081588835212,
+    "mean_cosine": -0.2135516414625777,
+    "mean_top3_overlap": 0.8722222222222222,
+    "mean_top5_overlap": 0.5645502645502646
   },
   "Level_4_Encoder": {
-    "mean_spearman": -0.02304176516942474,
-    "std_spearman": 0.1855013467281516,
-    "mean_kendall": -0.013032742887815354,
-    "mean_cosine": 0.06308870996290353,
-    "mean_top3_overlap": 0.9333333333333333,
-    "mean_top5_overlap": 0.5719576719576719
+    "mean_spearman": 0.10907869942097508,
+    "std_spearman": 0.09711095594827931,
+    "mean_kendall": 0.08813741277509395,
+    "mean_cosine": 0.07105531351019939,
+    "mean_top3_overlap": 0.9277777777777778,
+    "mean_top5_overlap": 0.5878306878306877
   }
 }

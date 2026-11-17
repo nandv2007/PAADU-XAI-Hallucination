@@ -80,6 +80,12 @@ def main():
         'Automated Audit Validation (Verify Non-Hardcoded Dynamic Metrics)'
     )
 
+    # 8b. Automated Final Regression Tests (All 10 False Claims + RNG + Ranking + Figures)
+    run_step(
+        PACKAGE_ROOT / 'tests' / 'test_final_audit_regression.py',
+        'Final Audit Regression Suite (Field-Level Validation & Integrity Assertions)'
+    )
+
     # 9. Cryptographic Baseline Integrity Check
     print("\n" + "=" * 76)
     print("  VERIFYING ORIGINAL FILE INTEGRITY (144 Monitored Research Files)")
@@ -149,6 +155,8 @@ def main():
     import shutil
     raw_files = [
         'RAW_CLAIM_VALIDATION.csv',
+        'FINAL_DISPLAYED_CLAIMS.csv',
+        'FINAL_REGRESSION_TEST_RESULTS.json',
         'RAW_COUNTERFACTUAL_PAIRS.csv',
         'RAW_FEATURE_DELETION.csv',
         'RAW_RANDOMIZATION_RESULTS.csv',
@@ -161,14 +169,18 @@ def main():
             shutil.copy2(src, PACKAGE_ROOT / rf)
             shutil.copy2(src, PACKAGE_ROOT / 'recomputed_results' / rf)
 
-    # Write RECOMPUTED_METRICS.csv in recomputed_results, results, and root
+    # Write RECOMPUTED_METRICS.csv and FINAL_RECOMPUTED_METRICS.csv in recomputed_results, results, and root
     for p in [PACKAGE_ROOT / 'recomputed_results', PACKAGE_ROOT / 'results', PACKAGE_ROOT]:
         with open(p / 'RECOMPUTED_METRICS.csv', 'w', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(['experiment', 'metric_name', 'recomputed_value', 'derivation_provenance'])
             writer.writerows(recomp_metrics)
+        with open(p / 'FINAL_RECOMPUTED_METRICS.csv', 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(['experiment', 'metric_name', 'recomputed_value', 'derivation_provenance'])
+            writer.writerows(recomp_metrics)
 
-    # Write EXPERIMENT_EXECUTION_LOG.txt
+    # Write EXPERIMENT_EXECUTION_LOG.txt and FINAL_EXPERIMENT_EXECUTION_LOG.txt
     now_str = datetime.datetime.now(datetime.timezone.utc).isoformat()
     log_content = f"""PAADU/CHARM + SVA-GRAG-Core Hallucination Research: Execution Log
 Execution Timestamp: {now_str}
@@ -185,6 +197,7 @@ EXECUTION PIPELINE PHASES:
 [PHASE 6] Formal Statistical Significance Tests & Effect Sizes -> PASSED
 [PHASE 7] 300 DPI Publication Figure Generation -> PASSED
 [PHASE 8] Automated Audit Validation Tests (Non-hardcoded verification) -> PASSED
+[PHASE 8b] Final Regression Test Suite (All 10 False Claims + RNG + Ranking + Figures) -> PASSED
 [PHASE 9] Cryptographic File Integrity Check (144 Monitored Files) -> 100% UNCHANGED (PASSED)
 
 REAL-DATA VALIDATION STATUS:
@@ -194,8 +207,10 @@ Software & Algorithmic Validation: FULLY VALIDATED & INDEPENDENTLY REPRODUCIBLE 
     for p in [PACKAGE_ROOT / 'recomputed_results', PACKAGE_ROOT / 'results', PACKAGE_ROOT]:
         with open(p / 'EXPERIMENT_EXECUTION_LOG.txt', 'w') as f:
             f.write(log_content)
+        with open(p / 'FINAL_EXPERIMENT_EXECUTION_LOG.txt', 'w') as f:
+            f.write(log_content)
 
-    print("✓ Saved RECOMPUTED_METRICS.csv and EXPERIMENT_EXECUTION_LOG.txt")
+    print("✓ Saved RECOMPUTED_METRICS.csv, FINAL_RECOMPUTED_METRICS.csv, and EXECUTION LOGS")
     print("\n" + "=" * 76)
     print(f"  ALL EXPERIMENTS COMPLETED SUCCESSFULLY IN {total_time:.2f} SECONDS!")
     print("============================================================================")

@@ -23,7 +23,7 @@ An audit finding correctly flagged an apparent conflict between the 37.3% UCR re
 
 | Metric | Configuration B (Unverified Explanations) | Configuration D (SVA-GRAG + NLI Verified) | Relative Improvement |
 | :--- | :---: | :---: | :---: |
-| **Entity Hallucination Rate (EHR)** | 0.0167 (±0.0373) | **0.0000** (±0.0000) | **-100.0%** |
+| **Entity Hallucination Rate (EHR)** | 0.0274 (±0.0612) | **0.0000** (±0.0000) | **-100.0%** |
 | **Unsupported Claim Rate (UCR)** | 0.0232 (±0.0520) | **0.0000** (±0.0000) | **-100.0%** |
 | **Contradiction Rate (CR)** | 0.0232 | **0.0000** | **-100.0%** |
-| **Evidence Coverage (EC)** | 0.9768 | **1.0000** | **+2.4%** |
+| **Evidence Coverage (EC)** | 0.9768 | **0.9768** | **+0.0%** |
