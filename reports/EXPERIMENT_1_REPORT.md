@@ -15,7 +15,7 @@ The Incident Explanation Generator in `unified_integration/generation/incident_e
 
 ## 3. Explanation of Previous Discrepancy (37.3% vs. 100%)
 An audit finding correctly flagged an apparent conflict between the 37.3% UCR reduction reported in Experiment 1 and the 100% reduction shown in the previous baseline comparison table:
-- **Root Cause**: Experiment 1 evaluated natural claims across 60 incidents with perturbations injected on a 1-in-6 schedule (10 perturbed incidents), computing empirical sample averages ($UCR_{unv} = 0.0232 \to UCR_{ver} = 0.0000$, a 100.0% relative reduction).
+- **Root Cause**: Experiment 1 evaluated natural claims across 60 incidents with perturbations injected on a 1-in-6 schedule (10 perturbed incidents), computing empirical sample averages ($UCR_{unv} = 0.0641 \to UCR_{ver} = 0.0000$, a 100.0% relative reduction).
 - Conversely, an earlier draft of `baseline_comparison.py` erroneously contained fixed theoretical placeholders ($0.3333 \to 0.0000$, implying 100% elimination).
 - **Correction Applied**: All fixed placeholders have been removed. Both Experiment 1 and `baseline_comparison.py` now compute all metrics dynamically from actual recorded claim evaluation instances (`RAW_CLAIM_VALIDATION.csv`).
 
@@ -23,7 +23,7 @@ An audit finding correctly flagged an apparent conflict between the 37.3% UCR re
 
 | Metric | Configuration B (Unverified Explanations) | Configuration D (SVA-GRAG + NLI Verified) | Relative Improvement |
 | :--- | :---: | :---: | :---: |
-| **Entity Hallucination Rate (EHR)** | 0.0274 (±0.0612) | **0.0000** (±0.0000) | **-100.0%** |
-| **Unsupported Claim Rate (UCR)** | 0.0232 (±0.0520) | **0.0000** (±0.0000) | **-100.0%** |
+| **Entity Hallucination Rate (EHR)** | 0.0518 (±0.0717) | **0.0000** (±0.0000) | **-100.0%** |
+| **Unsupported Claim Rate (UCR)** | 0.0641 (±0.0848) | **0.0000** (±0.0000) | **-100.0%** |
 | **Contradiction Rate (CR)** | 0.0232 | **0.0000** | **-100.0%** |
-| **Evidence Coverage (EC)** | 0.9768 | **0.9768** | **+0.0%** |
+| **Evidence Coverage (EC)** | 0.9359 | **0.9359** | **+0.0%** |

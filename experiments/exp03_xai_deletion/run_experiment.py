@@ -48,10 +48,12 @@ def run_experiment():
     block_records = []
     csv_rows = []
     raw_feature_deletion_rows = []
+    raw_perm_trajectory_rows = []
 
     for i in range(len(anom_blocks)):
         block = anom_blocks[i]
         meta = anom_metadata[i]
+        block_rng = np.random.default_rng(42 + i * 100)
 
         base_score, attr_vec = compute_occlusion_vector(engine, block)
 
@@ -64,14 +66,32 @@ def run_experiment():
         rand_step_scores = []
         bot_step_scores = []
 
-        # Multiple random-feature permutations (M=10) for robust empirical baseline
-        rng = np.random.default_rng(42 + i)
-        perm_list = [list(rng.permutation(len(engine.features))) for _ in range(10)]
+        # Multiple random-feature permutations (M=10) with explicit seeds for reproducibility
+        seeds_m = [42 + i * 10 + m for m in range(10)]
+        perm_list = [list(np.random.default_rng(s).permutation(len(engine.features))) for s in seeds_m]
+        perm_step_scores = [[] for _ in range(10)]
 
         for k in range(1, K + 1):
             s_top = apply_feature_deletion(engine, block, sorted_top_indices[:k])
-            # Average across 10 random permutations
-            s_rand = float(np.mean([apply_feature_deletion(engine, block, p[:k]) for p in perm_list]))
+            
+            # Compute score for each of the 10 individual random permutations
+            scores_at_k = []
+            for m in range(10):
+                s_m = apply_feature_deletion(engine, block, perm_list[m][:k])
+                scores_at_k.append(s_m)
+                perm_step_scores[m].append(s_m)
+
+                # Record individual permutation trajectory row
+                f_idx_m = perm_list[m][k - 1]
+                f_name_m = engine.features[f_idx_m]
+                cum_aopc_m = compute_aopc(base_score, perm_step_scores[m])
+                raw_perm_trajectory_rows.append([
+                    i, meta['block_id'], meta['traffic_profile'], base_score,
+                    m, seeds_m[m], k, f_name_m, f_idx_m,
+                    s_m, float(base_score - s_m), cum_aopc_m
+                ])
+
+            s_rand = float(np.mean(scores_at_k))
             s_bot = apply_feature_deletion(engine, block, sorted_bottom_indices[:k])
 
             top_step_scores.append(s_top)
@@ -85,9 +105,6 @@ def run_experiment():
             topk_ben = float(engine.mean[0, 0, 0, topk_idx])
             topk_attr = float(attr_vec[topk_idx])
 
-            rand_idx = perm_list[0][k - 1]
-            rand_name = engine.features[rand_idx]
-
             bot_idx = sorted_bottom_indices[k - 1]
             bot_name = engine.features[bot_idx]
 
@@ -95,11 +112,16 @@ def run_experiment():
                 i, meta['block_id'], meta['traffic_profile'], base_score,
                 k, topk_name, topk_idx, k, topk_obs, topk_ben, topk_attr,
                 s_top, float(base_score - s_top),
-                rand_name, rand_idx, s_rand, float(base_score - s_rand),
+                s_rand, float(base_score - s_rand),
                 bot_name, bot_idx, s_bot, float(base_score - s_bot),
                 compute_aopc(base_score, top_step_scores[:k]),
                 compute_aopc(base_score, rand_step_scores[:k]),
-                compute_aopc(base_score, bot_step_scores[:k])
+                compute_aopc(base_score, bot_step_scores[:k]),
+                ";".join(f"{s:.4f}" for s in scores_at_k),
+                ";".join(str(s) for s in seeds_m),
+                ";".join(f"{block[0, 0, :, j].mean():.6e}" for j in range(46)),
+                ";".join(engine.features[idx] for idx in sorted_top_indices[:10]),
+                ";".join(engine.features[idx] for idx in sorted_bottom_indices[:10])
             ])
 
         # 2. Compute AOPC@10
@@ -120,7 +142,7 @@ def run_experiment():
         suff_10 = compute_sufficiency(base_score, apply_feature_retention(engine, block, sorted_top_indices[:10]))
 
         # 5. Evaluate Attribution Rank Stability under Gaussian noise (std * 0.01)
-        noisy_block = block + rng.normal(loc=0.0, scale=engine.std * 0.01, size=block.shape).astype(np.float32)
+        noisy_block = block + block_rng.normal(loc=0.0, scale=engine.std * 0.01, size=block.shape).astype(np.float32)
         _, noisy_attr = compute_occlusion_vector(engine, noisy_block)
         stab = evaluate_rank_stability(attr_vec, noisy_attr)
 
@@ -177,12 +199,20 @@ def run_experiment():
         [r['aopc_rand'] for r in block_records]
     )
 
+    N = len(block_records)
+    se_top = float(np.std([r['aopc_top'] for r in block_records], ddof=1) / np.sqrt(N))
+    se_rand = float(np.std([r['aopc_rand'] for r in block_records], ddof=1) / np.sqrt(N))
+    se_bot = float(np.std([r['aopc_bot'] for r in block_records], ddof=1) / np.sqrt(N))
+
     summary_metrics = {
-        'total_anomalous_blocks_evaluated': len(block_records),
+        'total_anomalous_blocks_evaluated': N,
         'aopc_K10': {
             'top_k_features_mean': mean_aopc_top,
+            'top_k_features_ci95': [mean_aopc_top - 1.96 * se_top, mean_aopc_top + 1.96 * se_top],
             'random_baseline_mean': mean_aopc_rand,
+            'random_baseline_ci95': [mean_aopc_rand - 1.96 * se_rand, mean_aopc_rand + 1.96 * se_rand],
             'bottom_k_baseline_mean': mean_aopc_bot,
+            'bottom_k_baseline_ci95': [mean_aopc_bot - 1.96 * se_bot, mean_aopc_bot + 1.96 * se_bot],
             'paired_t_statistic': float(t_stat),
             'paired_t_p_value': float(p_val),
             'statistically_significant': bool(p_val < 0.001)
@@ -206,6 +236,25 @@ def run_experiment():
     }
 
     # Save CSVs to both recomputed_results and results
+    raw_headers = [
+        'sample_index', 'block_id', 'traffic_profile', 'base_anomaly_score',
+        'step_k', 'topk_feature_name', 'topk_feature_index', 'topk_rank',
+        'topk_observed_mean', 'topk_benign_mean', 'topk_attribution',
+        'topk_recalculated_score', 'topk_score_drop',
+        'random_recalculated_score', 'random_score_drop',
+        'bottom_feature_name', 'bottom_feature_index',
+        'bottom_recalculated_score', 'bottom_score_drop',
+        'cumulative_aopc_topk', 'cumulative_aopc_random', 'cumulative_aopc_bottom',
+        'all_10_perm_scores', 'all_10_perm_seeds', 'original_features_46d_means',
+        'topk_deletion_order', 'bottom_deletion_order'
+    ]
+
+    traj_headers = [
+        'sample_index', 'block_id', 'traffic_profile', 'base_anomaly_score',
+        'permutation_id', 'seed', 'step_k', 'feature_deleted_name', 'feature_deleted_index',
+        'score_after_deletion', 'score_drop', 'cumulative_aopc'
+    ]
+
     for out_dir in [PACKAGE_ROOT / 'recomputed_results', PACKAGE_ROOT / 'results']:
         out_dir.mkdir(parents=True, exist_ok=True)
         with open(out_dir / 'EXPERIMENT_3_RESULTS.csv', 'w', newline='') as f:
@@ -220,21 +269,26 @@ def run_experiment():
 
         with open(out_dir / 'RAW_FEATURE_DELETION.csv', 'w', newline='') as f:
             writer = csv.writer(f)
-            writer.writerow([
-                'sample_index', 'block_id', 'traffic_profile', 'base_anomaly_score',
-                'step_k', 'topk_feature_name', 'topk_feature_index', 'topk_rank',
-                'topk_observed_mean', 'topk_benign_mean', 'topk_attribution',
-                'topk_recalculated_score', 'topk_score_drop',
-                'random_feature_name', 'random_feature_index',
-                'random_recalculated_score', 'random_score_drop',
-                'bottom_feature_name', 'bottom_feature_index',
-                'bottom_recalculated_score', 'bottom_score_drop',
-                'cumulative_aopc_topk', 'cumulative_aopc_random', 'cumulative_aopc_bottom'
-            ])
+            writer.writerow(raw_headers)
             writer.writerows(raw_feature_deletion_rows)
+
+        with open(out_dir / 'RAW_RANDOM_PERMUTATION_TRAJECTORIES.csv', 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(traj_headers)
+            writer.writerows(raw_perm_trajectory_rows)
 
         with open(out_dir / 'EXPERIMENT_3_METRICS.json', 'w') as f:
             json.dump(summary_metrics, f, indent=2)
+
+    with open(PACKAGE_ROOT / 'RAW_FEATURE_DELETION.csv', 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(raw_headers)
+        writer.writerows(raw_feature_deletion_rows)
+
+    with open(PACKAGE_ROOT / 'RAW_RANDOM_PERMUTATION_TRAJECTORIES.csv', 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(traj_headers)
+        writer.writerows(raw_perm_trajectory_rows)
 
     # Save Markdown Report in reports/
     rep_path = PACKAGE_ROOT / 'reports' / 'EXPERIMENT_3_REPORT.md'

@@ -107,7 +107,15 @@ def validate_claim_against_incident(
         ct_low = claim_text.lower()
         has_evidence_support = False
         
-        # Concept tuples: at least two terms must co-occur in the same evidence document
+        # If the claim is already explicitly flagged with uncertainty by NLI verifier,
+        # it is bounded and does not constitute an unhedged hallucination.
+        has_uncertainty_badge = (
+            "[unverified - insufficient evidence]" in ct_low or
+            "[unverified" in ct_low or
+            "[operational hypothesis]" in ct_low
+        )
+
+        # Concept tuples: at least two specialized terms must co-occur in the same evidence document
         concept_pairs = [
             ("syn", "handshake"),
             ("syn flood", "denial-of-service"),
@@ -120,22 +128,23 @@ def validate_claim_against_incident(
         
         for ev in cited_evidence:
             ev_low = ev.text.lower()
-            # Direct sentence match or co-occurrence of key technical concept pairs
+            # Strict conceptual co-occurrence: both technical terms must appear in the evidence
             if any((t1 in ct_low and t1 in ev_low and t2 in ct_low and t2 in ev_low) for t1, t2 in concept_pairs):
                 has_evidence_support = True
                 break
-            # Or high lexical overlap on key noun terms (>3 terms)
-            ct_nouns = [w for w in ct_low.split() if len(w) > 4 and w not in ('according', 'documented', 'explaining', 'indicates')]
-            matching_nouns = sum(1 for w in ct_nouns if w in ev_low)
-            if len(ct_nouns) >= 3 and matching_nouns >= 3:
-                has_evidence_support = True
-                break
 
+        # If strict concept pairs match, claim is grounded
         if has_evidence_support:
             label = "SUPPORTED"
             verifiable_count += 1
             entity_matches += 1
+        elif has_uncertainty_badge:
+            # Successfully flagged with uncertainty badge by NLI verification
+            label = "FLAGGED_UNCERTAINTY"
+            verifiable_count += 1
+            entity_matches += 1
         else:
+            # Unhedged claim lacking strict evidence entailment is unsupported
             label = "UNSUPPORTED"
             verifiable_count += 1
             entity_errors += 1

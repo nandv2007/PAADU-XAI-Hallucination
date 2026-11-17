@@ -43,6 +43,7 @@ def run_experiment():
     csv_rows = []
     raw_claim_rows = []
     final_displayed_rows = []
+    nli_disagreement_rows = []
 
     for i in range(len(metadata_list)):
         block = dataset_tensor[i:i+1]
@@ -126,6 +127,24 @@ def run_experiment():
                 ev_res['entity_matches'], ev_res['entity_errors'], ev_res['verifiable_count'],
                 bool(ev_res['validation_label'] == 'CONTRADICTED' or (ev_res['validation_label'] == 'UNSUPPORTED' and '[OPERATIONAL HYPOTHESIS]' not in c.final_presented_text))
             ])
+
+            # Record NLI insufficient evidence cases for investigation
+            if c.verification_status == 'INSUFFICIENT_EVIDENCE':
+                nli_disagreement_rows.append([
+                    len(nli_disagreement_rows) + 1,
+                    meta['block_id'],
+                    meta['traffic_profile'],
+                    c.claim_id,
+                    c.original_claim_text,
+                    c.final_presented_text,
+                    c.verification_status,
+                    c.nli_raw_label,
+                    ev_res['validation_label'],
+                    c.correction_action,
+                    "NLI cross-encoder confidence below tau=0.70 threshold on candidate sentences",
+                    "Word overlap previously misclassified as SUPPORTED; now correctly hedged as [UNVERIFIED - INSUFFICIENT EVIDENCE]",
+                    "Unverified by flow telemetry; NIST guidance discusses generic IoT controls rather than statistical anomaly scores"
+                ])
 
         unv_m = compute_incident_metrics(unv_evals)
         ver_m = compute_incident_metrics(ver_evals)
@@ -214,6 +233,16 @@ def run_experiment():
             ])
             writer.writerows(final_displayed_rows)
 
+        with open(out_dir / 'NLI_DISAGREEMENTS_ANALYSIS.csv', 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow([
+                'disagreement_id', 'block_id', 'traffic_profile', 'claim_id',
+                'original_claim_text', 'final_presented_text', 'verification_status',
+                'nli_raw_label', 'validation_label', 'correction_action',
+                'nli_reason', 'lexical_override_resolution', 'independent_factual_annotation'
+            ])
+            writer.writerows(nli_disagreement_rows)
+
     with open(PACKAGE_ROOT / 'FINAL_DISPLAYED_CLAIMS.csv', 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerow([
@@ -223,6 +252,16 @@ def run_experiment():
             'entity_matches', 'entity_errors', 'verifiable_count', 'is_hallucination'
         ])
         writer.writerows(final_displayed_rows)
+
+    with open(PACKAGE_ROOT / 'NLI_DISAGREEMENTS_ANALYSIS.csv', 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow([
+            'disagreement_id', 'block_id', 'traffic_profile', 'claim_id',
+            'original_claim_text', 'final_presented_text', 'verification_status',
+            'nli_raw_label', 'validation_label', 'correction_action',
+            'nli_reason', 'lexical_override_resolution', 'independent_factual_annotation'
+        ])
+        writer.writerows(nli_disagreement_rows)
 
         with open(out_dir / 'EXPERIMENT_1_METRICS.json', 'w') as f:
             json.dump(summary_metrics, f, indent=2)

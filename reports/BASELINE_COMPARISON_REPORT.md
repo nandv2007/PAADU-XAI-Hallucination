@@ -15,12 +15,12 @@
 
 | Metric | Config A (Raw XAI) | Config B (Unverified) | Config C (Retrieval Only) | Config D (Fully Verified) |
 | :--- | :---: | :---: | :---: | :---: |
-| **Entity Hallucination Rate (EHR)** | **0.0000** (N/A) | 0.0303 | 0.0274 | **0.0000** |
-| **Unsupported Claim Rate (UCR)** | **0.0000** (N/A) | 0.0278 | 0.0232 | **0.0000** |
-| **Evidence Coverage (EC)** | 1.0000 (telemetry only) | 0.9722 | 0.9768 | **0.9768** |
+| **Entity Hallucination Rate (EHR)** | **0.0000** (N/A) | 0.0303 | 0.0518 | **0.0000** |
+| **Unsupported Claim Rate (UCR)** | **0.0000** (N/A) | 0.0278 | 0.0641 | **0.0000** |
+| **Evidence Coverage (EC)** | 1.0000 (telemetry only) | 0.9722 | 0.9359 | **0.9359** |
 | **Counterfactual Consistency** | 1.0000 | 0.3333 | 0.3333 | **0.3333** |
 | **XAI Faithfulness (AOPC@10)** | 92.48 | 92.48 | 92.48 | **92.48** |
-| **Mean Latency (sec/incident)** | **0.0506s** | 0.0507s | 0.0529s | 0.2025s |
+| **Mean Latency (sec/incident)** | **0.0501s** | 0.0502s | 0.0524s | 0.2040s |
 
 ## 3. Important Scientific Clarification: XAI Faithfulness vs NLI Verification
 A critical conceptual finding of this research validation is that **NLI verification operates strictly on textual claim validity and knowledge grounding; it does not alter the underlying mathematical faithfulness of CHARM's XAI attributions**.

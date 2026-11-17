@@ -195,7 +195,13 @@ def plot_figure3():
     with open(exp3_json, 'r') as f:
         e3 = json.load(f)
 
-    # Actual recorded comprehensiveness and sufficiency values across k budgets
+    # Strictly require recorded comprehensiveness and sufficiency values across k budgets
+    if 'sufficiency' not in e3:
+        raise KeyError("Missing required 'sufficiency' section in EXPERIMENT_3_METRICS.json")
+    for req_k in ('suff_at_1', 'suff_at_3', 'suff_at_5', 'suff_at_10'):
+        if req_k not in e3['sufficiency']:
+            raise KeyError(f"Missing required sufficiency metric '{req_k}' in EXPERIMENT_3_METRICS.json")
+
     comp_vals = [
         e3['comprehensiveness']['comp_at_1'],
         e3['comprehensiveness']['comp_at_3'],
@@ -203,10 +209,10 @@ def plot_figure3():
         e3['comprehensiveness']['comp_at_10']
     ]
     suff_vals = [
-        e3['sufficiency'].get('suff_at_1', e3['sufficiency']['suff_at_5']),
-        e3['sufficiency'].get('suff_at_3', e3['sufficiency']['suff_at_5']),
+        e3['sufficiency']['suff_at_1'],
+        e3['sufficiency']['suff_at_3'],
         e3['sufficiency']['suff_at_5'],
-        e3['sufficiency'].get('suff_at_10', e3['sufficiency']['suff_at_5'])
+        e3['sufficiency']['suff_at_10']
     ]
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.5))
@@ -297,7 +303,13 @@ def plot_figure5():
         raise FileNotFoundError(f"Missing required baseline comparison file: {b_json}")
 
     with open(b_json, 'r') as f:
-        b_data = json.load(f)['configurations']
+        root_b_data = json.load(f)
+        configs = root_b_data['configurations']
+
+    if 'counterfactual_consistency_rate' not in root_b_data:
+        raise KeyError("Missing 'counterfactual_consistency_rate' in BASELINE_COMPARISON.json")
+    if 'xai_faithfulness_aopc10' not in root_b_data:
+        raise KeyError("Missing 'xai_faithfulness_aopc10' in BASELINE_COMPARISON.json")
 
     labels = [
         'Factual Grounding\n(1 - EHR)',
@@ -312,17 +324,18 @@ def plot_figure5():
     angles += angles[:1]
 
     # Dynamically derive all radar dimensions directly from recorded configuration observations
-    ccr_val = float(b_data.get('counterfactual_consistency_rate', 0.3333))
-    aopc_val = float(b_data.get('xai_faithfulness_aopc10', 92.48))
+    ccr_val = float(root_b_data['counterfactual_consistency_rate'])
+    aopc_val = float(root_b_data['xai_faithfulness_aopc10'])
+    fastest_latency = min(float(c['mean_latency_sec']) for c in configs.values())
+
     def compute_config_vector(cfg):
-        c = b_data[cfg]
+        c = configs[cfg]
         ehr_score = float(max(0.0, 1.0 - c['ehr']))
         ucr_score = float(max(0.0, 1.0 - c['ucr']))
         ec_score = float(min(1.0, c['evidence_coverage']))
         ccr_score = 1.0 if cfg == 'Config_A' else float(min(1.0, ccr_val))
         aopc_score = float(min(1.0, max(0.0, aopc_val / 100.0)))
-        # Throughput relative to fastest configuration (Config A ~0.05s)
-        eff_score = float(min(1.0, 0.05 / max(c['mean_latency_sec'], 0.001)))
+        eff_score = float(min(1.0, fastest_latency / max(float(c['mean_latency_sec']), 0.001)))
         return [ehr_score, ucr_score, ec_score, ccr_score, aopc_score, eff_score]
 
     config_a = compute_config_vector('Config_A')

@@ -1,18 +1,18 @@
 {
   "total_incidents_evaluated": 60,
   "unverified_configuration_B": {
-    "mean_ehr": 0.02735042735042735,
-    "mean_ucr": 0.02321428571428571,
+    "mean_ehr": 0.05179487179487179,
+    "mean_ucr": 0.06408730158730157,
     "mean_cr": 0.02321428571428571,
-    "mean_ec": 0.9767857142857144,
-    "ehr_std": 0.06119323869972221,
-    "ucr_std": 0.05199056363882769
+    "mean_ec": 0.9359126984126985,
+    "ehr_std": 0.07165210163448837,
+    "ucr_std": 0.08481788955765679
   },
   "verified_configuration_D": {
     "mean_ehr": 0.0,
     "mean_ucr": 0.0,
     "mean_cr": 0.0,
-    "mean_ec": 0.9767857142857144,
+    "mean_ec": 0.9359126984126985,
     "ehr_std": 0.0,
     "ucr_std": 0.0
   },

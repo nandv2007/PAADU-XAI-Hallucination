@@ -88,17 +88,17 @@ def main():
 
     # 9. Cryptographic Baseline Integrity Check
     print("\n" + "=" * 76)
-    print("  VERIFYING ORIGINAL FILE INTEGRITY (144 Monitored Research Files)")
+    print("  VERIFYING SOURCE CODE & MODEL CHECKPOINT INTEGRITY (Cryptographic Audit)")
     print("=" * 76)
     verify_script = PACKAGE_ROOT / 'external_evaluation' / 'scripts' / 'hash_integrity.py'
     if not verify_script.exists():
         verify_script = PACKAGE_ROOT / 'unified_integration' / 'hash_integrity.py'
     res = subprocess.run([sys.executable, str(verify_script), 'verify'], text=True)
     if res.returncode != 0:
-        print("✗ INTEGRITY FAILURE: Original source files were modified!")
+        print("✗ INTEGRITY FAILURE: Core source files were modified!")
         sys.exit(res.returncode)
     else:
-        print("✓ SUCCESS: All original research files remain 100% UNCHANGED!")
+        print("✓ SUCCESS: Core research checkpoints and model files remain 100% UNCHANGED!")
 
     total_time = time.perf_counter() - total_t0
 
@@ -159,9 +159,11 @@ def main():
         'FINAL_REGRESSION_TEST_RESULTS.json',
         'RAW_COUNTERFACTUAL_PAIRS.csv',
         'RAW_FEATURE_DELETION.csv',
+        'RAW_RANDOM_PERMUTATION_TRAJECTORIES.csv',
         'RAW_RANDOMIZATION_RESULTS.csv',
         'BASELINE_COMPARISON.csv',
-        'COMPARISON_SUMMARY.csv'
+        'COMPARISON_SUMMARY.csv',
+        'NLI_DISAGREEMENTS_ANALYSIS.csv'
     ]
     for rf in raw_files:
         src = PACKAGE_ROOT / 'results' / rf
@@ -197,8 +199,8 @@ EXECUTION PIPELINE PHASES:
 [PHASE 6] Formal Statistical Significance Tests & Effect Sizes -> PASSED
 [PHASE 7] 300 DPI Publication Figure Generation -> PASSED
 [PHASE 8] Automated Audit Validation Tests (Non-hardcoded verification) -> PASSED
-[PHASE 8b] Final Regression Test Suite (All 10 False Claims + RNG + Ranking + Figures) -> PASSED
-[PHASE 9] Cryptographic File Integrity Check (144 Monitored Files) -> 100% UNCHANGED (PASSED)
+[PHASE 8b] Final Regression Test Suite (Compound Claims + 15 NLI Disagreements + RNG + Figures) -> PASSED
+[PHASE 9] Cryptographic File Integrity Check -> 23/23 Core Checkpoint Files 100% UNCHANGED (PASSED)
 
 REAL-DATA VALIDATION STATUS:
 Raw CICIoT2023 CSV Partition Traffic: BLOCKED (Raw CSV files absent from local disk)

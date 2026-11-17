@@ -2,10 +2,22 @@
   "total_anomalous_blocks_evaluated": 45,
   "aopc_K10": {
     "top_k_features_mean": 92.47589273013226,
-    "random_baseline_mean": 0.5982707629054692,
+    "top_k_features_ci95": [
+      78.2326429897933,
+      106.71914247047121
+    ],
+    "random_baseline_mean": -1.168108716288714,
+    "random_baseline_ci95": [
+      -2.9111758044409015,
+      0.5749583718634736
+    ],
     "bottom_k_baseline_mean": -0.00018260678159088504,
-    "paired_t_statistic": 13.11724587146244,
-    "paired_t_p_value": 8.318364088458941e-17,
+    "bottom_k_baseline_ci95": [
+      -0.0006760917019536577,
+      0.0003108781387718877
+    ],
+    "paired_t_statistic": 13.695733715351649,
+    "paired_t_p_value": 1.7952967736214987e-17,
     "statistically_significant": true
   },
   "comprehensiveness": {
@@ -21,7 +33,7 @@
     "suff_at_10": -0.00839589881555993
   },
   "attribution_rank_stability": {
-    "spearman_rho_mean": 0.973470380648919,
-    "kendall_tau_mean": 0.9010628019323672
+    "spearman_rho_mean": 0.9801747353273718,
+    "kendall_tau_mean": 0.9101234567901234
   }
 }

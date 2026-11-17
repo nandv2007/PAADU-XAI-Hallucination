@@ -161,22 +161,94 @@ class TestFinalAuditRegression(unittest.TestCase):
 
     def test_final_displayed_claims_evaluation(self):
         """Verifies that FINAL_DISPLAYED_CLAIMS.csv exists and contains zero uncorrected hallucinations."""
-        claims_csv = PACKAGE_ROOT / 'results' / 'FINAL_DISPLAYED_CLAIMS.csv'
-        if not claims_csv.exists():
-            claims_csv = PACKAGE_ROOT / 'FINAL_DISPLAYED_CLAIMS.csv'
+        claims_csv = PACKAGE_ROOT / 'FINAL_DISPLAYED_CLAIMS.csv'
+        self.assertTrue(claims_csv.exists(), f"Missing required artifact: {claims_csv}")
         
-        if claims_csv.exists():
-            with open(claims_csv, 'r') as f:
-                reader = csv.DictReader(f)
-                rows = list(reader)
-            
-            # Check that every displayed claim with [VERIFIED TELEMETRY] has entity_errors == 0
-            for r in rows:
-                if "[VERIFIED TELEMETRY]" in r['final_displayed_text']:
-                    self.assertEqual(
-                        int(r['entity_errors']), 0,
-                        f"FATAL: Claim marked [VERIFIED TELEMETRY] has entity errors in block {r['block_id']}: {r['final_displayed_text']}"
-                    )
+        with open(claims_csv, 'r') as f:
+            reader = csv.DictReader(f)
+            rows = list(reader)
+        
+        self.assertGreater(len(rows), 0, "FINAL_DISPLAYED_CLAIMS.csv must not be empty")
+        # Check that every displayed claim with [VERIFIED TELEMETRY] has entity_errors == 0
+        for r in rows:
+            if "[VERIFIED TELEMETRY]" in r['final_displayed_text']:
+                self.assertEqual(
+                    int(r['entity_errors']), 0,
+                    f"FATAL: Claim marked [VERIFIED TELEMETRY] has entity errors in block {r['block_id']}: {r['final_displayed_text']}"
+                )
+
+    def test_adversarial_compound_claims(self):
+        """Regression test: Compound claims with correct telemetry but ungrounded IP/attacker attribution must fail closed."""
+        adversarial_cases = [
+            # Case from Audit: correct score but ungrounded IP and attacker claim
+            f"Anomaly score of {self.incident.anomaly_score:.3f} and IP address 203.0.113.99 is the attacker.",
+            f"Hybrid anomaly score of {self.incident.anomaly_score:.3f} and host 192.168.1.50 is the malicious botnet controller.",
+            f"PAADU/CHARM evaluated {self.incident.input_reference} as ANOMALOUS with IP address 10.0.0.1 as the adversary.",
+            f"Threshold of {self.incident.decision_threshold:.3f} and threat actor APT29 is responsible for this flood."
+        ]
+
+        for claim in adversarial_cases:
+            status, action, pres_text, reason = validate_telemetry_claim_strict(claim, self.incident)
+            self.assertNotEqual(
+                status, "SUPPORTED",
+                f"Adversarial compound claim must NOT be marked SUPPORTED: '{claim}'"
+            )
+            self.assertNotIn(
+                "[VERIFIED TELEMETRY]", pres_text,
+                f"Adversarial compound claim must NEVER receive [VERIFIED TELEMETRY]: '{pres_text}'"
+            )
+            self.assertIn(
+                "[UNVERIFIED TELEMETRY", pres_text,
+                f"Adversarial compound claim must be flagged as unverified: '{pres_text}'"
+            )
+
+    def test_nli_disagreements_investigation(self):
+        """Verifies that all 15 NLI insufficient evidence cases are preserved, analyzed, and properly hedged."""
+        disagree_csv = PACKAGE_ROOT / 'NLI_DISAGREEMENTS_ANALYSIS.csv'
+        self.assertTrue(disagree_csv.exists(), f"Missing required NLI disagreement analysis: {disagree_csv}")
+
+        with open(disagree_csv, 'r') as f:
+            reader = csv.DictReader(f)
+            rows = list(reader)
+
+        self.assertEqual(len(rows), 15, f"Must document exactly 15 NLI disagreement rows, found {len(rows)}")
+        for r in rows:
+            self.assertEqual(r['verification_status'], 'INSUFFICIENT_EVIDENCE')
+            self.assertIn("[UNVERIFIED - INSUFFICIENT EVIDENCE]", r['final_presented_text'])
+            self.assertNotIn("[VERIFIED EVIDENCE]", r['final_presented_text'])
+            self.assertNotIn("[VERIFIED TELEMETRY]", r['final_presented_text'])
+
+    def test_required_audit_csv_artifacts(self):
+        """Explicitly fails if any required raw experimental CSV artifact is missing."""
+        required_artifacts = [
+            'FINAL_DISPLAYED_CLAIMS.csv',
+            'RAW_CLAIM_VALIDATION.csv',
+            'RAW_COUNTERFACTUAL_PAIRS.csv',
+            'RAW_FEATURE_DELETION.csv',
+            'RAW_RANDOM_PERMUTATION_TRAJECTORIES.csv',
+            'RAW_RANDOMIZATION_RESULTS.csv',
+            'BASELINE_COMPARISON.csv',
+            'FINAL_RECOMPUTED_METRICS.csv',
+            'NLI_DISAGREEMENTS_ANALYSIS.csv'
+        ]
+        for name in required_artifacts:
+            path = PACKAGE_ROOT / name
+            self.assertTrue(path.exists(), f"CRITICAL AUDIT FAILURE: Required artifact missing: {name}")
+            self.assertGreater(path.stat().st_size, 0, f"Artifact is empty: {name}")
+
+    def test_parameter_change_verification(self):
+        """Verifies that 100% of targeted parameter tensors underwent actual non-zero weight alteration."""
+        from original.paadu_benchmark_v7 import SemanticAnomalyMAE
+        from experiments.exp04_model_randomization.weight_randomization import verify_parameter_changes
+        model = SemanticAnomalyMAE(num_nodes=1, seq_len=10, feature_dim=46, embed_dim=64)
+        rand_model = get_randomized_model_copy(model, 'Level_1_Decoder', seed=101)
+
+        audit = verify_parameter_changes(model, rand_model, 'Level_1_Decoder')
+        self.assertGreater(audit['changed_tensors_count'], 0)
+        # All decoder parameter tensors must be in changed_names
+        decoder_names = [n for n, _ in model.named_parameters() if n.startswith('decoder.')]
+        for dname in decoder_names:
+            self.assertIn(dname, audit['changed_names'], f"Decoder tensor {dname} was not altered!")
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestFinalAuditRegression)
@@ -188,18 +260,15 @@ if __name__ == '__main__':
         'passed': res.wasSuccessful(),
         'failures': len(res.failures),
         'errors': len(res.errors),
-        'tests': [
-            'test_ten_previously_misclassified_claims',
-            'test_legitimate_telemetry_verifies_correctly',
-            'test_advancing_rng_parameter_randomization',
-            'test_xai_ranking_absolute_magnitude',
-            'test_figures_no_invented_data',
-            'test_final_displayed_claims_evaluation'
-        ],
-        'ten_previously_misclassified_claims_passed': True,
-        'zero_false_claims_displayed_as_verified': True,
-        'advancing_rng_verified': True,
-        'figures_no_invented_data_verified': True
+        'tests': [method for method in dir(TestFinalAuditRegression) if method.startswith('test_')],
+        'compound_claims_adversarial_passed': res.wasSuccessful(),
+        'fifteen_nli_disagreements_resolved': res.wasSuccessful(),
+        'ten_previously_misclassified_claims_passed': res.wasSuccessful(),
+        'zero_false_claims_displayed_as_verified': res.wasSuccessful(),
+        'advancing_rng_verified': res.wasSuccessful(),
+        'figures_no_invented_data_verified': res.wasSuccessful(),
+        'parameter_change_verified': res.wasSuccessful(),
+        'all_required_csv_artifacts_present': res.wasSuccessful()
     }
 
     for p in [PACKAGE_ROOT / 'recomputed_results', PACKAGE_ROOT / 'results', PACKAGE_ROOT]:

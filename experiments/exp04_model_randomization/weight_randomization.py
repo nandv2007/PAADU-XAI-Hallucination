@@ -25,9 +25,9 @@ def reinit_param(name: str, p: nn.Parameter):
         elif p.dim() > 1:
             nn.init.xavier_uniform_(p)
         elif p.dim() == 1 and ('norm' in name.lower() and 'weight' in name.lower()):
-            nn.init.ones_(p)
+            nn.init.normal_(p, mean=1.0, std=0.02)
         elif p.dim() == 1 and 'bias' in name.lower():
-            nn.init.zeros_(p)
+            nn.init.normal_(p, mean=0.0, std=0.02)
         else:
             nn.init.normal_(p, mean=0.0, std=0.02)
 
@@ -70,8 +70,41 @@ def get_randomized_model_copy(orig_model: nn.Module, level_name: str, seed: int)
     else:
         target_prefixes = ()
 
+    orig_dict = dict(orig_model.named_parameters())
+    altered_count = 0
+
     for name, p in disposable_model.named_parameters():
         if any(name.startswith(pre) or pre in name for pre in target_prefixes):
             reinit_param(name, p)
+            # Verify actual parameter change
+            orig_p = orig_dict[name]
+            diff = (p - orig_p).abs().sum().item()
+            if p.numel() > 0:
+                assert diff > 0.0, f"Critical: Parameter {name} was not altered during {level_name} randomization!"
+                altered_count += 1
 
     return disposable_model
+
+
+def verify_parameter_changes(orig_model: nn.Module, rand_model: nn.Module, level_name: str) -> dict:
+    """Audits and returns exact tensor-level parameter changes between models."""
+    orig_params = dict(orig_model.named_parameters())
+    rand_params = dict(rand_model.named_parameters())
+    changed = []
+    unchanged = []
+
+    for name, op in orig_params.items():
+        rp = rand_params[name]
+        diff = (rp - op).abs().sum().item()
+        if diff > 0.0:
+            changed.append((name, diff))
+        else:
+            unchanged.append(name)
+
+    return {
+        'level_name': level_name,
+        'changed_tensors_count': len(changed),
+        'unchanged_tensors_count': len(unchanged),
+        'total_tensors': len(orig_params),
+        'changed_names': [c[0] for c in changed]
+    }

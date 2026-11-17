@@ -1,18 +1,26 @@
 {
-  "total_tests_run": 6,
+  "total_tests_run": 10,
   "passed": true,
   "failures": 0,
   "errors": 0,
   "tests": [
-    "test_ten_previously_misclassified_claims",
-    "test_legitimate_telemetry_verifies_correctly",
     "test_advancing_rng_parameter_randomization",
-    "test_xai_ranking_absolute_magnitude",
+    "test_adversarial_compound_claims",
     "test_figures_no_invented_data",
-    "test_final_displayed_claims_evaluation"
+    "test_final_displayed_claims_evaluation",
+    "test_legitimate_telemetry_verifies_correctly",
+    "test_nli_disagreements_investigation",
+    "test_parameter_change_verification",
+    "test_required_audit_csv_artifacts",
+    "test_ten_previously_misclassified_claims",
+    "test_xai_ranking_absolute_magnitude"
   ],
+  "compound_claims_adversarial_passed": true,
+  "fifteen_nli_disagreements_resolved": true,
   "ten_previously_misclassified_claims_passed": true,
   "zero_false_claims_displayed_as_verified": true,
   "advancing_rng_verified": true,
-  "figures_no_invented_data_verified": true
+  "figures_no_invented_data_verified": true,
+  "parameter_change_verified": true,
+  "all_required_csv_artifacts_present": true
 }

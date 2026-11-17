@@ -68,14 +68,19 @@ class VerificationSummary:
 
 def validate_telemetry_claim_strict(claim_text: str, incident: CHARMIncident) -> tuple[str, str, str, str]:
     """
-    Strict field-level validation of an asserted telemetry claim against CHARMIncident ground-truth.
-    Returns:
-        (status, action, presented_text, reason)
-    Statuses:
-        'SUPPORTED', 'CONTRADICTED', 'UNSUPPORTED', 'UNVERIFIABLE'
+    Strict field-level compound validation of an asserted telemetry claim against CHARMIncident ground-truth.
+    Decomposes compound sentences into atomic propositions and checks every asserted fact.
+    
+    Fail-closed policy:
+    - If ANY assertion is CONTRADICTED -> CONTRADICTED (CONTRADICTION_RETRACTED).
+    - If ANY assertion is UNVERIFIABLE/UNSUPPORTED (e.g. unknown fields, ungrounded IP addresses, 
+      unverified external attacker attribution, nonexistent features) -> UNSUPPORTED (FLAGGED_WITH_UNCERTAINTY).
+    - ONLY if ALL asserted facts are supported by telemetry ground-truth AND there are no unverified assertions 
+      -> SUPPORTED (RETAINED_VERIFIED) -> [VERIFIED TELEMETRY].
     """
     text = claim_text
     contradictions = []
+    unsupported_assertions = []
     supported_fields = []
 
     # 1. Check Asserted Anomaly Score
@@ -123,12 +128,22 @@ def validate_telemetry_claim_strict(claim_text: str, incident: CHARMIncident) ->
         elif (re.search(r'\bas\s+ANOMALOUS\b', text) and incident.anomaly_detected) or (re.search(r'\bas\s+BENIGN\b', text) and not incident.anomaly_detected):
             supported_fields.append("decision_status")
 
-    # 6. Check Asserted Features
+    # 6. Check Observed Mean
+    m_mean = re.search(r'observed\s+mean\s+(?:is\s+|of\s+)?([0-9]+\.[0-9]+)', text, re.IGNORECASE)
+    if m_mean:
+        asserted_mean = float(m_mean.group(1))
+        matching_obs = any(abs(asserted_mean - f.observed_mean) < 0.1 for f in incident.top_xai_features)
+        if not matching_obs:
+            contradictions.append(f"asserted observed mean {asserted_mean:.2f} contradicts top XAI feature values")
+        else:
+            supported_fields.append("observed_mean")
+
+    # 7. Check Asserted Features
     if "non-existent" in text.lower() or "bogus" in text.lower():
         contradictions.append("asserts non-existent flow feature")
 
     top_features = [f.feature for f in incident.top_xai_features]
-    if "most influential features as:" in text or "influential features" in text:
+    if "most influential features as:" in text or "influential features" in text or "score changes:" in text:
         for feat in top_features:
             if feat in text:
                 supported_fields.append(f"feature_{feat}")
@@ -143,7 +158,18 @@ def validate_telemetry_claim_strict(claim_text: str, incident: CHARMIncident) ->
             if r in text:
                 supported_fields.append(f"trigger_{r}")
 
-    # Strict Decision logic
+    # 8. Check for Ungrounded External Fields (IP Addresses)
+    # PAADU/CHARM flow tensors operate on statistical flow features, NOT IP addresses
+    m_ip = re.search(r'\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b', text)
+    if m_ip:
+        unsupported_assertions.append(f"asserts ungrounded IP address '{m_ip.group(0)}' unsupported by flow telemetry")
+
+    # 9. Check for Unverified External Attacker Attribution
+    # Unless part of the standard negative disclaimer ('not a verified attack family')
+    if re.search(r'\b(?:is\s+the\s+attacker|attacker\s+IP|threat\s+actor|adversary\s+identity|malicious\s+host|botnet\s+controller)\b', text, re.IGNORECASE):
+        unsupported_assertions.append("asserts unverified external attack/attacker attribution not present in telemetry")
+
+    # 10. Fail-Closed Compound Decision Logic
     if contradictions:
         status = "CONTRADICTED"
         action = "CONTRADICTION_RETRACTED"
@@ -153,6 +179,11 @@ def validate_telemetry_claim_strict(claim_text: str, incident: CHARMIncident) ->
             f"Actual PAADU/CHARM telemetry: anomaly_score={incident.anomaly_score:.3f}, "
             f"threshold={incident.decision_threshold:.3f}, status={'ANOMALOUS' if incident.anomaly_detected else 'BENIGN'}."
         )
+    elif unsupported_assertions:
+        status = "UNSUPPORTED"
+        action = "FLAGGED_WITH_UNCERTAINTY"
+        reason = "; ".join(unsupported_assertions)
+        presented_text = f"[UNVERIFIED TELEMETRY - UNGROUNDED ASSERTION] Compound telemetry claim contains unverified assertions ({reason}): '{claim_text}'"
     elif supported_fields:
         status = "SUPPORTED"
         action = "RETAINED_VERIFIED"
