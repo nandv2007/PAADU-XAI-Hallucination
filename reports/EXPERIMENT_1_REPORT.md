@@ -13,17 +13,28 @@ This experiment quantitatively assesses the hallucination rate of generated inci
 ## 2. Technical Clarification: Generator Architecture
 The Incident Explanation Generator in `unified_integration/generation/incident_explainer.py` employs a deterministic, rule-based proposition segmentation architecture that transforms numerical telemetry and retrieved evidence into typed `FactualClaim` propositions. **It does not invoke an external autoregressive Large Language Model (such as GPT-4 or LLaMA)**. In unverified generation, operational hypotheses and injected entity distortions lack verification checks. Under Configuration D, fine-grained cross-encoder NLI (`cross-encoder/nli-MiniLM2-L6-H768`) and structured telemetry schema checks verify each proposition.
 
-## 3. Explanation of Previous Discrepancy (37.3% vs. 100%)
-An audit finding correctly flagged an apparent conflict between the 37.3% UCR reduction reported in Experiment 1 and the 100% reduction shown in the previous baseline comparison table:
-- **Root Cause**: Experiment 1 evaluated natural claims across 60 incidents with perturbations injected on a 1-in-6 schedule (10 perturbed incidents), computing empirical sample averages ($UCR_{unv} = 0.0641 \to UCR_{ver} = 0.0000$, a 100.0% relative reduction).
-- Conversely, an earlier draft of `baseline_comparison.py` erroneously contained fixed theoretical placeholders ($0.3333 \to 0.0000$, implying 100% elimination).
-- **Correction Applied**: All fixed placeholders have been removed. Both Experiment 1 and `baseline_comparison.py` now compute all metrics dynamically from actual recorded claim evaluation instances (`RAW_CLAIM_VALIDATION.csv`).
+## 3. Quantitative Results Matrix
 
-## 4. Quantitative Results Matrix
-
+### Macro Incident-Level Metrics (N = 60 incidents)
 | Metric | Configuration B (Unverified Explanations) | Configuration D (SVA-GRAG + NLI Verified) | Relative Improvement |
 | :--- | :---: | :---: | :---: |
 | **Entity Hallucination Rate (EHR)** | 0.0518 (±0.0717) | **0.0000** (±0.0000) | **-100.0%** |
 | **Unsupported Claim Rate (UCR)** | 0.0641 (±0.0848) | **0.0000** (±0.0000) | **-100.0%** |
 | **Contradiction Rate (CR)** | 0.0232 | **0.0000** | **-100.0%** |
-| **Evidence Coverage (EC)** | 0.9359 | **0.9359** | **+0.0%** |
+| **Evidence Coverage (EC)** | 0.6212 | **0.5111** | **+-17.7%** |
+
+### Pooled Metrics Across All Assertions
+| Dimension | Unverified Denominator | Unverified Numerator | Unverified Pooled Rate | Verified Denominator | Verified Numerator | Verified Pooled Rate |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **EHR (Entity Errors / Total Entities)** | 634 | 35 | **0.0552** | 540 | 0 | **0.0000** |
+| **UCR (Unsupported / Total Claims)** | 384 | 25 | **0.0651** | 384 | 0 | **0.0000** |
+
+### Displayed Assertion Breakdown (Configuration D)
+- **Total Displayed Claims**: 384
+- **Supported Factual Assertions**: 197
+- **Retracted Contradictions**: 52
+- **Flagged Uncertainty Assertions**: 135
+- **Contradicted Assertions**: 0
+- **Unsupported Assertions**: 0
+- **Unverifiable Assertions**: 0
+- **Displayed with Verified Badge**: 197

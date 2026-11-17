@@ -297,7 +297,7 @@ def plot_figure4():
     save_fig(fig, 'figure4_parameter_randomization_sanity.png')
 
 def plot_figure5():
-    """Figure 5: Multi-Metric System Trade-off Radar Chart."""
+    """Figure 5: Measured Multi-Metric Configuration Trade-off Radar Chart."""
     b_json = RESULTS_DIR / 'BASELINE_COMPARISON.json'
     if not b_json.exists():
         raise FileNotFoundError(f"Missing required baseline comparison file: {b_json}")
@@ -306,26 +306,17 @@ def plot_figure5():
         root_b_data = json.load(f)
         configs = root_b_data['configurations']
 
-    if 'counterfactual_consistency_rate' not in root_b_data:
-        raise KeyError("Missing 'counterfactual_consistency_rate' in BASELINE_COMPARISON.json")
-    if 'xai_faithfulness_aopc10' not in root_b_data:
-        raise KeyError("Missing 'xai_faithfulness_aopc10' in BASELINE_COMPARISON.json")
-
+    # Strictly plot measured configuration metrics with direct source records in BASELINE_COMPARISON.json
     labels = [
         'Factual Grounding\n(1 - EHR)',
         'Claim Faithfulness\n(1 - UCR)',
         'Evidence Grounding\n(Evidence Coverage)',
-        'Counterfactual Stability\n(CCR)',
-        'XAI Faithfulness\n(Normalized AOPC)',
-        'Inference Efficiency\n(Throughput Ratio)'
+        'Inference Efficiency\n(Relative Throughput)'
     ]
     num_vars = len(labels)
     angles = np.linspace(0, 2 * np.pi, num_vars, endpoint=False).tolist()
     angles += angles[:1]
 
-    # Dynamically derive all radar dimensions directly from recorded configuration observations
-    ccr_val = float(root_b_data['counterfactual_consistency_rate'])
-    aopc_val = float(root_b_data['xai_faithfulness_aopc10'])
     fastest_latency = min(float(c['mean_latency_sec']) for c in configs.values())
 
     def compute_config_vector(cfg):
@@ -333,10 +324,8 @@ def plot_figure5():
         ehr_score = float(max(0.0, 1.0 - c['ehr']))
         ucr_score = float(max(0.0, 1.0 - c['ucr']))
         ec_score = float(min(1.0, c['evidence_coverage']))
-        ccr_score = 1.0 if cfg == 'Config_A' else float(min(1.0, ccr_val))
-        aopc_score = float(min(1.0, max(0.0, aopc_val / 100.0)))
         eff_score = float(min(1.0, fastest_latency / max(float(c['mean_latency_sec']), 0.001)))
-        return [ehr_score, ucr_score, ec_score, ccr_score, aopc_score, eff_score]
+        return [ehr_score, ucr_score, ec_score, eff_score]
 
     config_a = compute_config_vector('Config_A')
     config_b = compute_config_vector('Config_B')
@@ -359,7 +348,7 @@ def plot_figure5():
     ax.set_xticklabels(labels, size=9)
     ax.set_ylim(0, 1.1)
     ax.legend(loc='upper right', bbox_to_anchor=(1.35, 1.1), frameon=True)
-    plt.title('Figure 5: Multi-Metric System Trade-off Radar Chart', y=1.08)
+    plt.title('Figure 5: Measured System Trade-off Radar Chart', y=1.08)
 
     save_fig(fig, 'figure5_end_to_end_radar.png')
 

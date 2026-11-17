@@ -40,6 +40,17 @@ def validate_claim_against_incident(
                 'entity_errors': 0,
                 'verifiable_count': 1
             }
+        elif "[UNVERIFIED TELEMETRY" in claim_text or "[UNVERIFIED" in claim_text:
+            label = "FLAGGED_UNCERTAINTY"
+            verifiable_count += 1
+            return {
+                'claim_text': claim_text,
+                'claim_type': claim_type,
+                'validation_label': label,
+                'entity_matches': 1,
+                'entity_errors': 0,
+                'verifiable_count': 1
+            }
 
         # Check hybrid score
         if entities.hybrid_score >= 0:
@@ -152,7 +163,7 @@ def validate_claim_against_incident(
     # 3. Evaluate Operational Hypotheses
     elif claim_type in ("HYPOTHESIS", "OPERATIONAL_HYPOTHESIS"):
         # An operational hypothesis without explicit uncertainty tags or unverified against KB is UNSUPPORTED.
-        # If it carries an explicit uncertainty flag, it is classified as a valid bounded hypothesis.
+        # If it carries an explicit uncertainty flag, it is classified as FLAGGED_UNCERTAINTY (not claimed as verified fact).
         has_uncertainty_badge = (
             "[OPERATIONAL HYPOTHESIS]" in claim_text or
             "[UNVERIFIED" in claim_text or
@@ -160,7 +171,7 @@ def validate_claim_against_incident(
             "Further investigation is recommended" in claim_text
         )
         if has_uncertainty_badge:
-            label = "SUPPORTED"  # Properly guarded with epistemic uncertainty
+            label = "FLAGGED_UNCERTAINTY"  # Properly guarded with epistemic uncertainty; not counted as verified fact
             verifiable_count += 1
             entity_matches += 1
         else:

@@ -166,38 +166,97 @@ def run_experiment():
         if (i + 1) % 15 == 0:
             print(f"  Processed {i+1}/{len(metadata_list)} incidents...")
 
-    unv_ehr = np.mean([r['unverified_metrics']['ehr'] for r in results])
-    unv_ucr = np.mean([r['unverified_metrics']['ucr'] for r in results])
-    unv_cr = np.mean([r['unverified_metrics']['cr'] for r in results])
-    unv_ec = np.mean([r['unverified_metrics']['ec'] for r in results])
+    # 1. Macro Metrics across incidents (N=60)
+    macro_unv_ehr = float(np.mean([r['unverified_metrics']['ehr'] for r in results]))
+    macro_unv_ucr = float(np.mean([r['unverified_metrics']['ucr'] for r in results]))
+    macro_unv_cr = float(np.mean([r['unverified_metrics']['cr'] for r in results]))
+    macro_unv_ec = float(np.mean([r['unverified_metrics']['ec'] for r in results]))
 
-    ver_ehr = np.mean([r['verified_metrics']['ehr'] for r in results])
-    ver_ucr = np.mean([r['verified_metrics']['ucr'] for r in results])
-    ver_cr = np.mean([r['verified_metrics']['cr'] for r in results])
-    ver_ec = np.mean([r['verified_metrics']['ec'] for r in results])
+    macro_ver_ehr = float(np.mean([r['verified_metrics']['ehr'] for r in results]))
+    macro_ver_ucr = float(np.mean([r['verified_metrics']['ucr'] for r in results]))
+    macro_ver_cr = float(np.mean([r['verified_metrics']['cr'] for r in results]))
+    macro_ver_ec = float(np.mean([r['verified_metrics']['ec'] for r in results]))
+
+    # 2. Pooled Metrics across all entities and claims
+    unv_total_entities = int(sum(r['unverified_metrics']['total_entities'] for r in results))
+    unv_entity_errors = int(sum(r['unverified_metrics']['entity_errors'] for r in results))
+    pooled_unv_ehr = float(unv_entity_errors / max(unv_total_entities, 1))
+
+    unv_total_claims = int(sum(r['unverified_metrics']['total_claims'] for r in results))
+    unv_unsupported_claims = int(sum(r['unverified_metrics']['unsupported_claims'] for r in results))
+    pooled_unv_ucr = float(unv_unsupported_claims / max(unv_total_claims, 1))
+
+    ver_total_entities = int(sum(r['verified_metrics']['total_entities'] for r in results))
+    ver_entity_errors = int(sum(r['verified_metrics']['entity_errors'] for r in results))
+    pooled_ver_ehr = float(ver_entity_errors / max(ver_total_entities, 1))
+
+    ver_total_claims = int(sum(r['verified_metrics']['total_claims'] for r in results))
+    ver_unsupported_claims = int(sum(r['verified_metrics']['unsupported_claims'] for r in results))
+    pooled_ver_ucr = float(ver_unsupported_claims / max(ver_total_claims, 1))
+
+    # 3. Separate Assertion-Level Categories for Displayed Explanations
+    disp_supported = sum(1 for row in final_displayed_rows if row[10] == 'SUPPORTED')
+    disp_contradicted = sum(1 for row in final_displayed_rows if row[10] == 'CONTRADICTED')
+    disp_unsupported = sum(1 for row in final_displayed_rows if row[10] == 'UNSUPPORTED')
+    disp_unverifiable = sum(1 for row in final_displayed_rows if row[10] == 'UNVERIFIABLE')
+    disp_retracted = sum(1 for row in final_displayed_rows if row[10] == 'CONTRADICTION_RETRACTED')
+    disp_uncertainty = sum(1 for row in final_displayed_rows if row[10] == 'FLAGGED_UNCERTAINTY')
+    disp_verified_badge = sum(1 for row in final_displayed_rows if '[VERIFIED TELEMETRY]' in row[7] or '[VERIFIED EVIDENCE]' in row[7])
 
     summary_metrics = {
         'total_incidents_evaluated': len(results),
-        'unverified_configuration_B': {
-            'mean_ehr': float(unv_ehr),
-            'mean_ucr': float(unv_ucr),
-            'mean_cr': float(unv_cr),
-            'mean_ec': float(unv_ec),
-            'ehr_std': float(np.std([r['unverified_metrics']['ehr'] for r in results])),
-            'ucr_std': float(np.std([r['unverified_metrics']['ucr'] for r in results]))
+        'macro_metrics': {
+            'denominator_incidents': len(results),
+            'unverified_configuration_B': {
+                'mean_ehr': macro_unv_ehr,
+                'mean_ucr': macro_unv_ucr,
+                'mean_cr': macro_unv_cr,
+                'mean_ec': macro_unv_ec,
+                'ehr_std': float(np.std([r['unverified_metrics']['ehr'] for r in results])),
+                'ucr_std': float(np.std([r['unverified_metrics']['ucr'] for r in results]))
+            },
+            'verified_configuration_D': {
+                'mean_ehr': macro_ver_ehr,
+                'mean_ucr': macro_ver_ucr,
+                'mean_cr': macro_ver_cr,
+                'mean_ec': macro_ver_ec,
+                'ehr_std': float(np.std([r['verified_metrics']['ehr'] for r in results])),
+                'ucr_std': float(np.std([r['verified_metrics']['ucr'] for r in results]))
+            }
         },
-        'verified_configuration_D': {
-            'mean_ehr': float(ver_ehr),
-            'mean_ucr': float(ver_ucr),
-            'mean_cr': float(ver_cr),
-            'mean_ec': float(ver_ec),
-            'ehr_std': float(np.std([r['verified_metrics']['ehr'] for r in results])),
-            'ucr_std': float(np.std([r['verified_metrics']['ucr'] for r in results]))
+        'pooled_metrics': {
+            'unverified_configuration_B': {
+                'ehr_numerator_entity_errors': unv_entity_errors,
+                'ehr_denominator_total_entities': unv_total_entities,
+                'pooled_ehr': pooled_unv_ehr,
+                'ucr_numerator_unsupported_claims': unv_unsupported_claims,
+                'ucr_denominator_total_claims': unv_total_claims,
+                'pooled_ucr': pooled_unv_ucr
+            },
+            'verified_configuration_D': {
+                'ehr_numerator_entity_errors': ver_entity_errors,
+                'ehr_denominator_total_entities': ver_total_entities,
+                'pooled_ehr': pooled_ver_ehr,
+                'ucr_numerator_unsupported_claims': ver_unsupported_claims,
+                'ucr_denominator_total_claims': ver_total_claims,
+                'pooled_ucr': pooled_ver_ucr
+            }
+        },
+        'assertion_level_breakdown': {
+            'total_displayed_claims': len(final_displayed_rows),
+            'supported_factual_assertions': disp_supported,
+            'contradicted_assertions': disp_contradicted,
+            'unsupported_assertions': disp_unsupported,
+            'unverifiable_assertions': disp_unverifiable,
+            'retracted_assertions': disp_retracted,
+            'flagged_uncertainty_assertions': disp_uncertainty,
+            'factual_assertions_displayed_as_verified': disp_verified_badge
         },
         'relative_reductions': {
-            'ehr_reduction_percent': float((unv_ehr - ver_ehr) / max(unv_ehr, 1e-6) * 100),
-            'ucr_reduction_percent': float((unv_ucr - ver_ucr) / max(unv_ucr, 1e-6) * 100),
-            'evidence_coverage_improvement_percent': float((ver_ec - unv_ec) / max(unv_ec, 1e-6) * 100)
+            'macro_ehr_reduction_percent': float((macro_unv_ehr - macro_ver_ehr) / max(macro_unv_ehr, 1e-6) * 100),
+            'macro_ucr_reduction_percent': float((macro_unv_ucr - macro_ver_ucr) / max(macro_unv_ucr, 1e-6) * 100),
+            'pooled_ehr_reduction_percent': float((pooled_unv_ehr - pooled_ver_ehr) / max(pooled_unv_ehr, 1e-6) * 100),
+            'pooled_ucr_reduction_percent': float((pooled_unv_ucr - pooled_ver_ucr) / max(pooled_unv_ucr, 1e-6) * 100)
         }
     }
 
@@ -266,6 +325,16 @@ def run_experiment():
         with open(out_dir / 'EXPERIMENT_1_METRICS.json', 'w') as f:
             json.dump(summary_metrics, f, indent=2)
 
+    # Define convenient aliases
+    unv_ehr = macro_unv_ehr
+    unv_ucr = macro_unv_ucr
+    unv_cr = macro_unv_cr
+    unv_ec = macro_unv_ec
+    ver_ehr = macro_ver_ehr
+    ver_ucr = macro_ver_ucr
+    ver_cr = macro_ver_cr
+    ver_ec = macro_ver_ec
+
     # Save Markdown Report in reports/
     rep_path = PACKAGE_ROOT / 'reports' / 'EXPERIMENT_1_REPORT.md'
     rep_path.parent.mkdir(parents=True, exist_ok=True)
@@ -285,26 +354,39 @@ This experiment quantitatively assesses the hallucination rate of generated inci
 ## 2. Technical Clarification: Generator Architecture
 The Incident Explanation Generator in `unified_integration/generation/incident_explainer.py` employs a deterministic, rule-based proposition segmentation architecture that transforms numerical telemetry and retrieved evidence into typed `FactualClaim` propositions. **It does not invoke an external autoregressive Large Language Model (such as GPT-4 or LLaMA)**. In unverified generation, operational hypotheses and injected entity distortions lack verification checks. Under Configuration D, fine-grained cross-encoder NLI (`cross-encoder/nli-MiniLM2-L6-H768`) and structured telemetry schema checks verify each proposition.
 
-## 3. Explanation of Previous Discrepancy (37.3% vs. 100%)
-An audit finding correctly flagged an apparent conflict between the 37.3% UCR reduction reported in Experiment 1 and the 100% reduction shown in the previous baseline comparison table:
-- **Root Cause**: Experiment 1 evaluated natural claims across 60 incidents with perturbations injected on a 1-in-6 schedule (10 perturbed incidents), computing empirical sample averages ($UCR_{{unv}} = {unv_ucr:.4f} \\to UCR_{{ver}} = {ver_ucr:.4f}$, a {summary_metrics['relative_reductions']['ucr_reduction_percent']:.1f}% relative reduction).
-- Conversely, an earlier draft of `baseline_comparison.py` erroneously contained fixed theoretical placeholders ($0.3333 \\to 0.0000$, implying 100% elimination).
-- **Correction Applied**: All fixed placeholders have been removed. Both Experiment 1 and `baseline_comparison.py` now compute all metrics dynamically from actual recorded claim evaluation instances (`RAW_CLAIM_VALIDATION.csv`).
+## 3. Quantitative Results Matrix
 
-## 4. Quantitative Results Matrix
-
+### Macro Incident-Level Metrics (N = {len(results)} incidents)
 | Metric | Configuration B (Unverified Explanations) | Configuration D (SVA-GRAG + NLI Verified) | Relative Improvement |
 | :--- | :---: | :---: | :---: |
-| **Entity Hallucination Rate (EHR)** | {unv_ehr:.4f} (±{summary_metrics['unverified_configuration_B']['ehr_std']:.4f}) | **{ver_ehr:.4f}** (±{summary_metrics['verified_configuration_D']['ehr_std']:.4f}) | **-{summary_metrics['relative_reductions']['ehr_reduction_percent']:.1f}%** |
-| **Unsupported Claim Rate (UCR)** | {unv_ucr:.4f} (±{summary_metrics['unverified_configuration_B']['ucr_std']:.4f}) | **{ver_ucr:.4f}** (±{summary_metrics['verified_configuration_D']['ucr_std']:.4f}) | **-{summary_metrics['relative_reductions']['ucr_reduction_percent']:.1f}%** |
-| **Contradiction Rate (CR)** | {unv_cr:.4f} | **{ver_cr:.4f}** | **-{((unv_cr - ver_cr) / max(unv_cr, 1e-6) * 100):.1f}%** |
-| **Evidence Coverage (EC)** | {unv_ec:.4f} | **{ver_ec:.4f}** | **+{summary_metrics['relative_reductions']['evidence_coverage_improvement_percent']:.1f}%** |
+| **Entity Hallucination Rate (EHR)** | {macro_unv_ehr:.4f} (±{summary_metrics['macro_metrics']['unverified_configuration_B']['ehr_std']:.4f}) | **{macro_ver_ehr:.4f}** (±{summary_metrics['macro_metrics']['verified_configuration_D']['ehr_std']:.4f}) | **-{summary_metrics['relative_reductions']['macro_ehr_reduction_percent']:.1f}%** |
+| **Unsupported Claim Rate (UCR)** | {macro_unv_ucr:.4f} (±{summary_metrics['macro_metrics']['unverified_configuration_B']['ucr_std']:.4f}) | **{macro_ver_ucr:.4f}** (±{summary_metrics['macro_metrics']['verified_configuration_D']['ucr_std']:.4f}) | **-{summary_metrics['relative_reductions']['macro_ucr_reduction_percent']:.1f}%** |
+| **Contradiction Rate (CR)** | {macro_unv_cr:.4f} | **{macro_ver_cr:.4f}** | **-{((macro_unv_cr - macro_ver_cr) / max(macro_unv_cr, 1e-6) * 100):.1f}%** |
+| **Evidence Coverage (EC)** | {macro_unv_ec:.4f} | **{macro_ver_ec:.4f}** | **+{((macro_ver_ec - macro_unv_ec) / max(macro_unv_ec, 1e-6) * 100):.1f}%** |
+
+### Pooled Metrics Across All Assertions
+| Dimension | Unverified Denominator | Unverified Numerator | Unverified Pooled Rate | Verified Denominator | Verified Numerator | Verified Pooled Rate |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **EHR (Entity Errors / Total Entities)** | {unv_total_entities} | {unv_entity_errors} | **{pooled_unv_ehr:.4f}** | {ver_total_entities} | {ver_entity_errors} | **{pooled_ver_ehr:.4f}** |
+| **UCR (Unsupported / Total Claims)** | {unv_total_claims} | {unv_unsupported_claims} | **{pooled_unv_ucr:.4f}** | {ver_total_claims} | {ver_unsupported_claims} | **{pooled_ver_ucr:.4f}** |
+
+### Displayed Assertion Breakdown (Configuration D)
+- **Total Displayed Claims**: {len(final_displayed_rows)}
+- **Supported Factual Assertions**: {disp_supported}
+- **Retracted Contradictions**: {disp_retracted}
+- **Flagged Uncertainty Assertions**: {disp_uncertainty}
+- **Contradicted Assertions**: {disp_contradicted}
+- **Unsupported Assertions**: {disp_unsupported}
+- **Unverifiable Assertions**: {disp_unverifiable}
+- **Displayed with Verified Badge**: {disp_verified_badge}
 """)
 
     print(f"✓ Experiment 1 completed successfully.")
-    print(f"  Unverified EHR: {unv_ehr:.4f} -> Verified EHR: {ver_ehr:.4f}")
-    print(f"  Unverified UCR: {unv_ucr:.4f} -> Verified UCR: {ver_ucr:.4f}")
-    print(f"  Saved raw validations to RAW_CLAIM_VALIDATION.csv")
+    print(f"  Macro Unverified EHR: {macro_unv_ehr:.4f} -> Verified EHR: {macro_ver_ehr:.4f}")
+    print(f"  Macro Unverified UCR: {macro_unv_ucr:.4f} -> Verified UCR: {macro_ver_ucr:.4f}")
+    print(f"  Pooled Unverified EHR: {pooled_unv_ehr:.4f} (errors={unv_entity_errors}/{unv_total_entities}) -> Verified EHR: {pooled_ver_ehr:.4f} (errors={ver_entity_errors}/{ver_total_entities})")
+    print(f"  Pooled Unverified UCR: {pooled_unv_ucr:.4f} (unsupported={unv_unsupported_claims}/{unv_total_claims}) -> Verified UCR: {pooled_ver_ucr:.4f} (unsupported={ver_unsupported_claims}/{ver_total_claims})")
+    print(f"  Saved raw validations to RAW_CLAIM_VALIDATION.csv and FINAL_DISPLAYED_CLAIMS.csv")
 
 if __name__ == '__main__':
     run_experiment()

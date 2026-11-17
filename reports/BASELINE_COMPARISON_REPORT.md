@@ -17,10 +17,10 @@
 | :--- | :---: | :---: | :---: | :---: |
 | **Entity Hallucination Rate (EHR)** | **0.0000** (N/A) | 0.0303 | 0.0518 | **0.0000** |
 | **Unsupported Claim Rate (UCR)** | **0.0000** (N/A) | 0.0278 | 0.0641 | **0.0000** |
-| **Evidence Coverage (EC)** | 1.0000 (telemetry only) | 0.9722 | 0.9359 | **0.9359** |
+| **Evidence Coverage (EC)** | 1.0000 (telemetry only) | 0.5833 | 0.6212 | **0.5111** |
 | **Counterfactual Consistency** | 1.0000 | 0.3333 | 0.3333 | **0.3333** |
 | **XAI Faithfulness (AOPC@10)** | 92.48 | 92.48 | 92.48 | **92.48** |
-| **Mean Latency (sec/incident)** | **0.0501s** | 0.0502s | 0.0524s | 0.2040s |
+| **Mean Latency (sec/incident)** | **0.0491s** | 0.0492s | 0.0514s | 0.2022s |
 
 ## 3. Important Scientific Clarification: XAI Faithfulness vs NLI Verification
 A critical conceptual finding of this research validation is that **NLI verification operates strictly on textual claim validity and knowledge grounding; it does not alter the underlying mathematical faithfulness of CHARM's XAI attributions**.

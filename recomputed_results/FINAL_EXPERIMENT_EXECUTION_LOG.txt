@@ -1,6 +1,6 @@
 PAADU/CHARM + SVA-GRAG-Core Hallucination Research: Execution Log
-Execution Timestamp: 2026-11-17T16:09:37.166160+00:00
-Total Execution Time: 122.52 seconds
+Execution Timestamp: 2026-11-17T16:46:57.178422+00:00
+Total Execution Time: 125.94 seconds
 Python Executable: /opt/anaconda3/bin/python3
 Platform: darwin
 

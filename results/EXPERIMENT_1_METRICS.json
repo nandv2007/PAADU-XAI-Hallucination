@@ -1,24 +1,56 @@
 {
   "total_incidents_evaluated": 60,
-  "unverified_configuration_B": {
-    "mean_ehr": 0.05179487179487179,
-    "mean_ucr": 0.06408730158730157,
-    "mean_cr": 0.02321428571428571,
-    "mean_ec": 0.9359126984126985,
-    "ehr_std": 0.07165210163448837,
-    "ucr_std": 0.08481788955765679
+  "macro_metrics": {
+    "denominator_incidents": 60,
+    "unverified_configuration_B": {
+      "mean_ehr": 0.05179487179487179,
+      "mean_ucr": 0.06408730158730157,
+      "mean_cr": 0.02321428571428571,
+      "mean_ec": 0.6212301587301586,
+      "ehr_std": 0.07165210163448837,
+      "ucr_std": 0.08481788955765679
+    },
+    "verified_configuration_D": {
+      "mean_ehr": 0.0,
+      "mean_ucr": 0.0,
+      "mean_cr": 0.0,
+      "mean_ec": 0.5111111111111111,
+      "ehr_std": 0.0,
+      "ucr_std": 0.0
+    }
   },
-  "verified_configuration_D": {
-    "mean_ehr": 0.0,
-    "mean_ucr": 0.0,
-    "mean_cr": 0.0,
-    "mean_ec": 0.9359126984126985,
-    "ehr_std": 0.0,
-    "ucr_std": 0.0
+  "pooled_metrics": {
+    "unverified_configuration_B": {
+      "ehr_numerator_entity_errors": 35,
+      "ehr_denominator_total_entities": 634,
+      "pooled_ehr": 0.055205047318611984,
+      "ucr_numerator_unsupported_claims": 25,
+      "ucr_denominator_total_claims": 384,
+      "pooled_ucr": 0.06510416666666667
+    },
+    "verified_configuration_D": {
+      "ehr_numerator_entity_errors": 0,
+      "ehr_denominator_total_entities": 540,
+      "pooled_ehr": 0.0,
+      "ucr_numerator_unsupported_claims": 0,
+      "ucr_denominator_total_claims": 384,
+      "pooled_ucr": 0.0
+    }
+  },
+  "assertion_level_breakdown": {
+    "total_displayed_claims": 384,
+    "supported_factual_assertions": 197,
+    "contradicted_assertions": 0,
+    "unsupported_assertions": 0,
+    "unverifiable_assertions": 0,
+    "retracted_assertions": 52,
+    "flagged_uncertainty_assertions": 135,
+    "factual_assertions_displayed_as_verified": 197
   },
   "relative_reductions": {
-    "ehr_reduction_percent": 100.0,
-    "ucr_reduction_percent": 100.0,
-    "evidence_coverage_improvement_percent": 0.0
+    "macro_ehr_reduction_percent": 100.0,
+    "macro_ucr_reduction_percent": 100.0,
+    "pooled_ehr_reduction_percent": 100.0,
+    "pooled_ucr_reduction_percent": 100.0
   }
 }

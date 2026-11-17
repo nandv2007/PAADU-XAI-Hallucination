@@ -1,13 +1,13 @@
 {
   "total_stable_pairs_evaluated": 60,
-  "mean_narrative_variance_score": 0.2328968253968254,
-  "std_narrative_variance_score": 0.19958313115307796,
+  "mean_narrative_variance_score": 0.2355158730158731,
+  "std_narrative_variance_score": 0.18883333766967605,
   "attack_attribution_change_rate": 0.0,
   "counterfactual_consistency_rate": 0.3333333333333333,
   "unsupported_claim_introduction_rate": 0.6666666666666666,
   "zero_flip_guarantee": true,
-  "mean_token_jaccard": 0.9833831430039599,
-  "mean_semantic_similarity": 0.9915284711100287,
+  "mean_token_jaccard": 0.9833994113334995,
+  "mean_semantic_similarity": 0.9915506162013202,
   "exact_text_match_rate": 0.3333333333333333,
   "per_intervention": {
     "sensor_id": {
@@ -19,15 +19,15 @@
     },
     "timestamp": {
       "count": 20,
-      "mean_semantic_similarity": 0.992661709339924,
-      "mean_token_jaccard": 0.9853774983993226,
+      "mean_semantic_similarity": 0.992026657844689,
+      "mean_token_jaccard": 0.9841171855996927,
       "exact_text_match_rate": 0.0,
       "attribution_flip_rate": 0.0
     },
     "zero_attribution_jitter": {
       "count": 20,
-      "mean_semantic_similarity": 0.981923703990162,
-      "mean_token_jaccard": 0.9647719306125575,
+      "mean_semantic_similarity": 0.982625190759272,
+      "mean_token_jaccard": 0.9660810484008054,
       "exact_text_match_rate": 0.0,
       "attribution_flip_rate": 0.0
     }

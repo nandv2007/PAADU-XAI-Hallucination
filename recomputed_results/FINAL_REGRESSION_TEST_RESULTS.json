@@ -1,18 +1,21 @@
 {
-  "total_tests_run": 10,
+  "total_tests_run": 13,
   "passed": true,
   "failures": 0,
   "errors": 0,
   "tests": [
     "test_advancing_rng_parameter_randomization",
     "test_adversarial_compound_claims",
+    "test_arena_fourth_audit_counterexamples",
     "test_figures_no_invented_data",
     "test_final_displayed_claims_evaluation",
     "test_legitimate_telemetry_verifies_correctly",
     "test_nli_disagreements_investigation",
     "test_parameter_change_verification",
+    "test_production_orchestrator_integration",
     "test_required_audit_csv_artifacts",
     "test_ten_previously_misclassified_claims",
+    "test_unseen_adversarial_generalization",
     "test_xai_ranking_absolute_magnitude"
   ],
   "compound_claims_adversarial_passed": true,

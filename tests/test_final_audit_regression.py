@@ -177,6 +177,116 @@ class TestFinalAuditRegression(unittest.TestCase):
                     f"FATAL: Claim marked [VERIFIED TELEMETRY] has entity errors in block {r['block_id']}: {r['final_displayed_text']}"
                 )
 
+    def test_arena_fourth_audit_counterexamples(self):
+        """Regression test for the three specific Arena Fourth Audit counterexamples."""
+        # Incident configured specifically matching the Arena counterexample metrics
+        arena_inc = CHARMIncident(
+            incident_id="INC-ARENA-AUDIT-4",
+            model="SemanticAnomalyMAE",
+            input_reference="SYN-FLOOD-BLK-01",
+            anomaly_detected=True,
+            anomaly_score=10.549,
+            decision_threshold=2.500,
+            trigger_reasons=["Calibrated Alert Policy"],
+            reconstruction_error=0.0812,
+            mahalanobis_distance=13.1659,
+            reconstruction_z=1.5,
+            latent_z=12.0,
+            top_xai_features=[
+                FeatureAttributionRecord(feature="Rate", hybrid_contribution=5.0, reconstruction_contribution=1.0, latent_contribution=4.0, observed_mean=50.0, benign_mean=0.0, standardized_deviation=5.0)
+            ],
+            xai_summary_text="",
+            timestamp="2026-11-17T10:00:00Z",
+            model_checkpoint_hash="a1b2c3d4e5",
+            feature_schema="ciciot2023_46"
+        )
+
+        cases = [
+            ("Anomaly score of 10.549 and the attack was launched by Alice.", "UNSUPPORTED", "UNGROUNDED ASSERTION"),
+            ("Anomaly score of 10.549 and the anomaly score of 999.000.", "CONTRADICTED", "CONTRADICTED TELEMETRY RETRACTED"),
+            ("Anomaly score of 10.549 and observed mean: 999.99 for Rate.", "CONTRADICTED", "CONTRADICTED TELEMETRY RETRACTED")
+        ]
+        for claim, expected_status, expected_phrase in cases:
+            status, action, pres_text, reason = validate_telemetry_claim_strict(claim, arena_inc)
+            self.assertEqual(
+                status, expected_status,
+                f"Counterexample failed: '{claim}' expected {expected_status}, got {status} ({reason})"
+            )
+            self.assertNotIn(
+                "[VERIFIED TELEMETRY]", pres_text,
+                f"FATAL: Counterexample received [VERIFIED TELEMETRY]: '{claim}' -> '{pres_text}'"
+            )
+            self.assertIn(
+                expected_phrase, pres_text,
+                f"Presented text must contain '{expected_phrase}': '{pres_text}'"
+            )
+
+    def test_unseen_adversarial_generalization(self):
+        """Generalization test: Verifies that unseen adversarial assertions across various categories fail closed."""
+        s = self.incident.anomaly_score
+        t = self.incident.decision_threshold
+        r = self.incident.reconstruction_error
+        unseen_cases = [
+            (f"Anomaly score of {s:.3f} and caused by a power outage.", "UNSUPPORTED"),
+            (f"Reconstruction error of {r:.4f} and Bob is the adversary.", "UNSUPPORTED"),
+            (f"Hybrid anomaly score of {s:.3f} and threshold of 99.999.", "CONTRADICTED"),
+            ("PAADU/CHARM evaluated SYN-FLOOD-BLK-01 as ANOMALOUS and traffic originated from Russia.", "UNSUPPORTED"),
+            (f"Anomaly score of {s:.3f} and hardware failure occurred in switch 3.", "UNSUPPORTED"),
+            (f"Score = {s:.3f} and the threat actor is APT29.", "UNSUPPORTED"),
+            (f"Score: {s:.3f} and feature FooBar has observed mean 50.0.", "CONTRADICTED"),
+            (f"Threshold of {t:.3f} and threshold is {t:.3f} and threshold is 5.000.", "CONTRADICTED"),
+            (f"Anomaly score of {s:.3f}; switch 3 experienced 100% packet loss.", "UNSUPPORTED")
+        ]
+        for claim, expected_status in unseen_cases:
+            status, action, pres_text, reason = validate_telemetry_claim_strict(claim, self.incident)
+            self.assertEqual(
+                status, expected_status,
+                f"Unseen adversarial test failed: '{claim}' expected {expected_status}, got {status} ({reason})"
+            )
+            self.assertNotIn(
+                "[VERIFIED TELEMETRY]", pres_text,
+                f"FATAL: Unseen adversarial claim received [VERIFIED TELEMETRY]: '{claim}'"
+            )
+
+    def test_production_orchestrator_integration(self):
+        """Invokes the actual production VerificationOrchestrator pipeline on adversarial incident explanations."""
+        from unified_integration.verification.verification_orchestrator import VerificationOrchestrator
+        from unified_integration.generation.incident_explainer import IncidentExplanation, FactualClaim
+        orchestrator = VerificationOrchestrator(enable_nli=False)
+
+        adv_explanation = IncidentExplanation(
+            explanation_id="TEST-EXP",
+            incident_id=self.incident.incident_id,
+            observed_facts=[],
+            supported_interpretations=[],
+            unverified_hypotheses=[],
+            claims=[
+                FactualClaim("CLM-1", f"PAADU/CHARM evaluated {self.incident.input_reference} as ANOMALOUS with a hybrid anomaly score of {self.incident.anomaly_score:.3f} against the calibrated baseline threshold of {self.incident.decision_threshold:.3f}.", "OBSERVED_FACT"),
+                FactualClaim("CLM-2", f"Anomaly score of {self.incident.anomaly_score:.3f} and the attack was launched by Alice.", "OBSERVED_FACT"),
+                FactualClaim("CLM-3", f"Anomaly score of {self.incident.anomaly_score:.3f} and the anomaly score of 999.000.", "OBSERVED_FACT"),
+                FactualClaim("CLM-4", f"Anomaly score of {self.incident.anomaly_score:.3f} and observed mean: 999.99 for Rate.", "OBSERVED_FACT")
+            ],
+            full_narrative="",
+            citations=[]
+        )
+
+        summary = orchestrator.verify_and_correct(adv_explanation, self.incident, evidence=[])
+        results_by_id = {r.claim_id: r for r in summary.claim_results}
+
+        # CLM-1 must be verified
+        self.assertEqual(results_by_id["CLM-1"].verification_status, "SUPPORTED")
+        self.assertIn("[VERIFIED TELEMETRY]", results_by_id["CLM-1"].final_presented_text)
+
+        # CLM-2, CLM-3, CLM-4 must NEVER receive verified telemetry badge
+        self.assertEqual(results_by_id["CLM-2"].verification_status, "UNSUPPORTED")
+        self.assertNotIn("[VERIFIED TELEMETRY]", results_by_id["CLM-2"].final_presented_text)
+
+        self.assertEqual(results_by_id["CLM-3"].verification_status, "CONTRADICTED")
+        self.assertNotIn("[VERIFIED TELEMETRY]", results_by_id["CLM-3"].final_presented_text)
+
+        self.assertEqual(results_by_id["CLM-4"].verification_status, "CONTRADICTED")
+        self.assertNotIn("[VERIFIED TELEMETRY]", results_by_id["CLM-4"].final_presented_text)
+
     def test_adversarial_compound_claims(self):
         """Regression test: Compound claims with correct telemetry but ungrounded IP/attacker attribution must fail closed."""
         adversarial_cases = [

@@ -1,13 +1,16 @@
 experiment,metric_name,recomputed_value,derivation_provenance
-Experiment 1,Unverified EHR,0.0518,Dynamic claim evaluation
-Experiment 1,Verified EHR,0.0000,Dynamic claim evaluation
-Experiment 1,Unverified UCR,0.0641,Dynamic claim evaluation
-Experiment 1,Verified UCR,0.0000,Dynamic claim evaluation
-Experiment 1,UCR Relative Reduction,100.0%,Dynamic relative improvement
+Experiment 1,Macro Unverified EHR,0.0518,Dynamic claim evaluation (N=60)
+Experiment 1,Macro Verified EHR,0.0000,Dynamic claim evaluation (N=60)
+Experiment 1,Macro Unverified UCR,0.0641,Dynamic claim evaluation (N=60)
+Experiment 1,Macro Verified UCR,0.0000,Dynamic claim evaluation (N=60)
+Experiment 1,Pooled Unverified EHR,0.0552,Errors=35/634
+Experiment 1,Pooled Verified EHR,0.0000,Errors=0/540
+Experiment 1,Pooled Unverified UCR,0.0651,Unsupported=25/384
+Experiment 1,Pooled Verified UCR,0.0000,Unsupported=0/384
 Experiment 2,Attack Attribution Change Rate,0.0000,Zero attack attribution flips
-Experiment 2,Mean Narrative Variance,0.2329,Dynamic Jaccard claim distance
+Experiment 2,Mean Narrative Variance,0.2355,Dynamic Jaccard claim distance
 Experiment 2,Counterfactual Consistency Rate,0.3333,Dynamic proposition identity
-Experiment 2,Mean Semantic Similarity,0.9915,Term vector cosine similarity
+Experiment 2,Mean Semantic Similarity,0.9916,Term vector cosine similarity
 Experiment 3,AOPC Top-k Mean,92.4759,Dynamic occlusion drop
 Experiment 3,AOPC Random Mean,-1.1681,Dynamic random permutation drop
 Experiment 3,AOPC Paired t-stat,13.6957,Paired t-test (Top-k vs Random)

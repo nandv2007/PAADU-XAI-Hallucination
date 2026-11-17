@@ -196,22 +196,22 @@ def run_baseline_comparison():
         }
     }
 
-    # Dynamically retrieve actual calculated values for cross-module metrics
+    # Dynamically retrieve actual calculated values for cross-module metrics (strictly no fallbacks)
     exp3_json = PACKAGE_ROOT / 'results' / 'EXPERIMENT_3_METRICS.json'
     if exp3_json.exists():
         with open(exp3_json) as f:
             exp3_m = json.load(f)
-            aopc10_val = float(exp3_m.get('aopc_K10', {}).get('top_k_features_mean', 63.10))
+            aopc10_val = float(exp3_m['aopc_K10']['top_k_features_mean'])
     else:
-        aopc10_val = 63.10
+        aopc10_val = None
 
     exp2_json = PACKAGE_ROOT / 'results' / 'EXPERIMENT_2_METRICS.json'
     if exp2_json.exists():
         with open(exp2_json) as f:
             exp2_m = json.load(f)
-            ccr_val = float(exp2_m.get('counterfactual_consistency_rate', 0.4333))
+            ccr_val = float(exp2_m['counterfactual_consistency_rate'])
     else:
-        ccr_val = 0.4333
+        ccr_val = None
 
     summary_json['xai_faithfulness_aopc10'] = aopc10_val
     summary_json['counterfactual_consistency_rate'] = ccr_val

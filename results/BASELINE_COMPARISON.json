@@ -6,28 +6,28 @@
       "ehr": 0.0,
       "ucr": 0.0,
       "evidence_coverage": 1.0,
-      "mean_latency_sec": 0.0501377249669531
+      "mean_latency_sec": 0.049080549999537953
     },
     "Config_B": {
       "name": "CHARM + XAI + Unverified Explainer (No Retrieval/NLI)",
       "ehr": 0.0303030303030303,
       "ucr": 0.027777777777777776,
-      "evidence_coverage": 0.9722222222222222,
-      "mean_latency_sec": 0.050213241634082806
+      "evidence_coverage": 0.5833333333333335,
+      "mean_latency_sec": 0.049157029865818914
     },
     "Config_C": {
       "name": "CHARM + XAI + SVA-GRAG Retrieval (Grounded, Unverified)",
       "ehr": 0.05179487179487179,
       "ucr": 0.06408730158730157,
-      "evidence_coverage": 0.9359126984126985,
-      "mean_latency_sec": 0.05237647703349164
+      "evidence_coverage": 0.6212301587301586,
+      "mean_latency_sec": 0.05141182081667163
     },
     "Config_D": {
       "name": "CHARM + XAI + SVA-GRAG + NLI Verification & Correction",
       "ehr": 0.0,
       "ucr": 0.0,
-      "evidence_coverage": 0.9359126984126985,
-      "mean_latency_sec": 0.203969265266763
+      "evidence_coverage": 0.5111111111111111,
+      "mean_latency_sec": 0.2021613589170253
     }
   },
   "xai_faithfulness_aopc10": 92.47589273013226,

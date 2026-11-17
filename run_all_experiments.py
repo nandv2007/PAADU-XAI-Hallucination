@@ -116,11 +116,19 @@ def main():
     if e1_json.exists():
         with open(e1_json) as f:
             e1 = json.load(f)
-            recomp_metrics.append(['Experiment 1', 'Unverified EHR', f"{e1['unverified_configuration_B']['mean_ehr']:.4f}", 'Dynamic claim evaluation'])
-            recomp_metrics.append(['Experiment 1', 'Verified EHR', f"{e1['verified_configuration_D']['mean_ehr']:.4f}", 'Dynamic claim evaluation'])
-            recomp_metrics.append(['Experiment 1', 'Unverified UCR', f"{e1['unverified_configuration_B']['mean_ucr']:.4f}", 'Dynamic claim evaluation'])
-            recomp_metrics.append(['Experiment 1', 'Verified UCR', f"{e1['verified_configuration_D']['mean_ucr']:.4f}", 'Dynamic claim evaluation'])
-            recomp_metrics.append(['Experiment 1', 'UCR Relative Reduction', f"{e1['relative_reductions']['ucr_reduction_percent']:.1f}%", 'Dynamic relative improvement'])
+            unv_macro = e1.get('macro_metrics', {}).get('unverified_configuration_B', e1.get('unverified_configuration_B', {}))
+            ver_macro = e1.get('macro_metrics', {}).get('verified_configuration_D', e1.get('verified_configuration_D', {}))
+            recomp_metrics.append(['Experiment 1', 'Macro Unverified EHR', f"{unv_macro.get('mean_ehr', 0.0):.4f}", 'Dynamic claim evaluation (N=60)'])
+            recomp_metrics.append(['Experiment 1', 'Macro Verified EHR', f"{ver_macro.get('mean_ehr', 0.0):.4f}", 'Dynamic claim evaluation (N=60)'])
+            recomp_metrics.append(['Experiment 1', 'Macro Unverified UCR', f"{unv_macro.get('mean_ucr', 0.0):.4f}", 'Dynamic claim evaluation (N=60)'])
+            recomp_metrics.append(['Experiment 1', 'Macro Verified UCR', f"{ver_macro.get('mean_ucr', 0.0):.4f}", 'Dynamic claim evaluation (N=60)'])
+            if 'pooled_metrics' in e1:
+                p_unv = e1['pooled_metrics']['unverified_configuration_B']
+                p_ver = e1['pooled_metrics']['verified_configuration_D']
+                recomp_metrics.append(['Experiment 1', 'Pooled Unverified EHR', f"{p_unv['pooled_ehr']:.4f}", f"Errors={p_unv['ehr_numerator_entity_errors']}/{p_unv['ehr_denominator_total_entities']}"])
+                recomp_metrics.append(['Experiment 1', 'Pooled Verified EHR', f"{p_ver['pooled_ehr']:.4f}", f"Errors={p_ver['ehr_numerator_entity_errors']}/{p_ver['ehr_denominator_total_entities']}"])
+                recomp_metrics.append(['Experiment 1', 'Pooled Unverified UCR', f"{p_unv['pooled_ucr']:.4f}", f"Unsupported={p_unv['ucr_numerator_unsupported_claims']}/{p_unv['ucr_denominator_total_claims']}"])
+                recomp_metrics.append(['Experiment 1', 'Pooled Verified UCR', f"{p_ver['pooled_ucr']:.4f}", f"Unsupported={p_ver['ucr_numerator_unsupported_claims']}/{p_ver['ucr_denominator_total_claims']}"])
 
     e2_json = PACKAGE_ROOT / 'results' / 'EXPERIMENT_2_METRICS.json'
     if e2_json.exists():
