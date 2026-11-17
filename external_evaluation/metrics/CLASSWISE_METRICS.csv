@@ -1,0 +1,22 @@
+dataset_id,class_name,class_type,records_available,evaluation_status,detection_recall,reason_or_finding
+CICIoV2024,BENIGN,Benign,1223737,SKIPPED,N/A,Incompatible CAN-bus schema
+CIC2025,BENIGN,Benign,1223737,SKIPPED,N/A,Incompatible CAN-bus schema (duplicate)
+CICIoV2024,DoS,Attack,74663,SKIPPED,N/A,Incompatible CAN-bus schema
+CIC2025,DoS,Attack,74663,SKIPPED,N/A,Incompatible CAN-bus schema (duplicate)
+CICIoV2024,RPM,Attack (Spoofing),54900,SKIPPED,N/A,Incompatible CAN-bus schema
+CIC2025,RPM,Attack (Spoofing),54900,SKIPPED,N/A,Incompatible CAN-bus schema (duplicate)
+CICIoV2024,SPEED,Attack (Spoofing),24951,SKIPPED,N/A,Incompatible CAN-bus schema
+CIC2025,SPEED,Attack (Spoofing),24951,SKIPPED,N/A,Incompatible CAN-bus schema (duplicate)
+CICIoV2024,STEERING_WHEEL,Attack (Spoofing),19977,SKIPPED,N/A,Incompatible CAN-bus schema
+CIC2025,STEERING_WHEEL,Attack (Spoofing),19977,SKIPPED,N/A,Incompatible CAN-bus schema (duplicate)
+CICIoV2024,GAS,Attack (Spoofing),9991,SKIPPED,N/A,Incompatible CAN-bus schema
+CIC2025,GAS,Attack (Spoofing),9991,SKIPPED,N/A,Incompatible CAN-bus schema (duplicate)
+CICIoMT2024,Benign,Benign,56898,SKIPPED,N/A,Missing 9 required flow features in CSV extraction
+CICIoMT2024,MQTT-DDoS-Connect_Flood,Attack (DoS/DDoS),592042,SKIPPED,N/A,Missing 9 required flow features in CSV extraction
+CICIoMT2024,TCP_IP-DDoS-UDP1,Attack (DDoS),411824,SKIPPED,N/A,Missing 9 required flow features in CSV extraction
+CICIoMT2024,TCP_IP-DDoS-ICMP2,Attack (DDoS),390510,SKIPPED,N/A,Missing 9 required flow features in CSV extraction
+CICIoMT2024,TCP_IP-DDoS-UDP2,Attack (DDoS),363711,SKIPPED,N/A,Missing 9 required flow features in CSV extraction
+CICIoMT2024,TCP_IP-DDoS-ICMP1,Attack (DDoS),348945,SKIPPED,N/A,Missing 9 required flow features in CSV extraction
+CICIoMT2024,ARP_Spoofing,Attack (Spoofing),102340,SKIPPED,N/A,Missing 9 required flow features in CSV extraction
+CICIoMT2024,Recon-Port_Scan,Attack (Recon),101230,SKIPPED,N/A,Missing 9 required flow features in CSV extraction
+CICIoMT2024,MQTT-Malformed_Data,Attack (Payload),100450,SKIPPED,N/A,Missing 9 required flow features in CSV extraction

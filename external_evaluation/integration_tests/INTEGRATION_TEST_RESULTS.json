@@ -1,0 +1,67 @@
+{
+  "charm_model_loading": {
+    "status": "PASS",
+    "execution_time_sec": 2.0629,
+    "evidence": "Successfully initialized SemanticAnomalyMAE(N=1, L=10, F=46, embed=64). Parameter count: 185007"
+  },
+  "charm_checkpoint_loading": {
+    "status": "PASS",
+    "execution_time_sec": 0.0079,
+    "evidence": "Strict state_dict load verified for 81 weight tensors from charm_model_weights.pt"
+  },
+  "calibration_loading": {
+    "status": "PASS",
+    "execution_time_sec": 0.0022,
+    "evidence": "Loaded calibration state. Floor=2.5, Feature count=46, MSE stats=(0.3614828498842944, 3.4892837713259226), DM stats=(7.247594958733322, 2.9263910934447375)"
+  },
+  "input_block_construction": {
+    "status": "PASS",
+    "execution_time_sec": 0.0005,
+    "evidence": "Engine input tensor validation passed for tensor shape [8, 1, 10, 46] dtype float32"
+  },
+  "anomaly_scoring": {
+    "status": "PASS",
+    "execution_time_sec": 0.0295,
+    "evidence": "Computed hybrid scores for 8 blocks. Min=28.3346, Max=49.5098, Mean=36.7556"
+  },
+  "anomaly_prediction": {
+    "status": "PASS",
+    "execution_time_sec": 0.002,
+    "evidence": "Decision engine executed over 8 blocks. Alert flags: [True, True, True, True, True, True, True, True]. Injected attacks detected: True"
+  },
+  "xai_interpretation": {
+    "status": "PASS",
+    "execution_time_sec": 0.3676,
+    "evidence": "XAI feature attribution completed for 8 alerts. Identified top contributing feature: 'SMTP' with contribution 10.6752"
+  },
+  "retrieval_pipeline_loading": {
+    "status": "PASS",
+    "execution_time_sec": 0.1087,
+    "evidence": "HybridRetriever initialized with 4 corpus documents. Graph nodes: 4, edges: 0"
+  },
+  "hybrid_retrieval_execution": {
+    "status": "PASS",
+    "execution_time_sec": 0.0006,
+    "evidence": "Retrieved 1 docs. Top hit: 'UDP' (score: 0.5868)"
+  },
+  "nli_verification": {
+    "status": "PASS",
+    "execution_time_sec": 4.4688,
+    "evidence": {
+      "entailment_test": "SUPPORTED",
+      "contradiction_test": "CONTRADICTED",
+      "insufficient_evidence_test": "INSUFFICIENT_EVIDENCE"
+    }
+  },
+  "conservative_correction": {
+    "status": "PASS",
+    "execution_time_sec": 1.3077,
+    "evidence": "Verification label: CONTRADICTED, Correction status: 'UNCHANGED_NO_VERIFIED_REPLACEMENT', Corrected output preserved without arbitrary rewriting"
+  },
+  "end_to_end_integration": {
+    "status": "NOT_CONNECTED",
+    "execution_time_sec": 0.0004,
+    "verdict": "COMPONENTS EXECUTE SEPARATELY \u2014 FULL END-TO-END INTEGRATION NOT VERIFIED.",
+    "evidence": "Code inspection confirms: integrated_pipeline.py does not import CHARM. pipeline_orchestrator.py does not import GraphRAG or NLI. verification_engine.py is a stub that raises RuntimeError('Phase 2 verification is not implemented or approved'). CHARM operates on 4D numerical network telemetry tensors [B, 1, 10, 46]. GraphRAG operates on natural language text queries and documents. No bridging module exists to transform CHARM anomaly alerts or XAI attributions into GraphRAG retrieval queries or verification claims."
+  }
+}

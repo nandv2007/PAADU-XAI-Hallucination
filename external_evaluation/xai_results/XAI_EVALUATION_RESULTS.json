@@ -1,0 +1,98 @@
+{
+  "xai_method": "Deterministic Leave-One-Feature-Out Occlusion",
+  "attribution_baseline": "Benign training mean (0.0 in standardized space)",
+  "attribution_top_k": 5,
+  "features_evaluated_count": 46,
+  "scoring_latency_sec": 0.0025,
+  "xai_latency_sec": 0.1839,
+  "per_block_xai_latency_sec": 0.046,
+  "scenarios_tested": [
+    {
+      "block_index": 0,
+      "scenario": "Normal Benign IoT Telemetry",
+      "anomaly": true,
+      "hybrid_score": 13.779988031939947,
+      "threshold": 2.5,
+      "causes": [
+        "hybrid_threshold",
+        "latent_evidence",
+        "burst"
+      ],
+      "explanation": "Anomalous traffic block: hybrid score 13.780 exceeded or triggered the calibrated alert policy (threshold 2.500; causes: hybrid_threshold, latent_evidence, burst). Highest absolute leave-one-feature-out score changes: Weight, fin_flag_number, DHCP, rst_flag_number, Number. These measurements indicate deviations from learned benign traffic, not a verified attack family.",
+      "top_features": [
+        "Weight",
+        "fin_flag_number",
+        "DHCP",
+        "rst_flag_number",
+        "Number"
+      ]
+    },
+    {
+      "block_index": 1,
+      "scenario": "Volumetric Rate Flood (DoS)",
+      "anomaly": true,
+      "hybrid_score": 78.0033828233762,
+      "threshold": 2.5,
+      "causes": [
+        "hybrid_threshold",
+        "dual_evidence",
+        "latent_evidence",
+        "burst+drift"
+      ],
+      "explanation": "Anomalous traffic block: hybrid score 78.003 exceeded or triggered the calibrated alert policy (threshold 2.500; causes: hybrid_threshold, dual_evidence, latent_evidence, burst+drift). Highest absolute leave-one-feature-out score changes: Tot sum, Rate, AVG, fin_flag_number, SSH. These measurements indicate deviations from learned benign traffic, not a verified attack family.",
+      "top_features": [
+        "Tot sum",
+        "Rate",
+        "AVG",
+        "fin_flag_number",
+        "SSH"
+      ]
+    },
+    {
+      "block_index": 2,
+      "scenario": "SYN Reconnaissance / Flood",
+      "anomaly": true,
+      "hybrid_score": 54.72461422242814,
+      "threshold": 2.5,
+      "causes": [
+        "hybrid_threshold",
+        "latent_evidence",
+        "burst+drift"
+      ],
+      "explanation": "Anomalous traffic block: hybrid score 54.725 exceeded or triggered the calibrated alert policy (threshold 2.500; causes: hybrid_threshold, latent_evidence, burst+drift). Highest absolute leave-one-feature-out score changes: syn_count, syn_flag_number, TCP, SSH, Weight. These measurements indicate deviations from learned benign traffic, not a verified attack family.",
+      "top_features": [
+        "syn_count",
+        "syn_flag_number",
+        "TCP",
+        "SSH",
+        "Weight"
+      ]
+    },
+    {
+      "block_index": 3,
+      "scenario": "DNS Amplification over UDP",
+      "anomaly": true,
+      "hybrid_score": 54.92511159617532,
+      "threshold": 2.5,
+      "causes": [
+        "hybrid_threshold",
+        "latent_evidence",
+        "burst"
+      ],
+      "explanation": "Anomalous traffic block: hybrid score 54.925 exceeded or triggered the calibrated alert policy (threshold 2.500; causes: hybrid_threshold, latent_evidence, burst). Highest absolute leave-one-feature-out score changes: UDP, DNS, IAT, fin_flag_number, HTTP. These measurements indicate deviations from learned benign traffic, not a verified attack family.",
+      "top_features": [
+        "UDP",
+        "DNS",
+        "IAT",
+        "fin_flag_number",
+        "HTTP"
+      ]
+    }
+  ],
+  "scientific_verification": {
+    "executes_successfully": true,
+    "deterministic": true,
+    "identifies_injected_perturbed_features": true,
+    "limitation": "Occlusion baseline measures deviation from learned benign mean, not causal attribution of malicious intent."
+  }
+}

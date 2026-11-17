@@ -1,0 +1,32 @@
+{
+  "experiment_1_ucr": {
+    "wilcoxon_statistic": 0.0,
+    "p_value": 0.003580327522366853,
+    "statistically_significant": false,
+    "cohens_d": 0.44019858758033614,
+    "unverified_95ci": [
+      0.04106646825396825,
+      0.08136408730158728
+    ],
+    "verified_95ci": [
+      0.021428571428571425,
+      0.05515873015873016
+    ]
+  },
+  "experiment_3_aopc": {
+    "paired_t_statistic": 4.395480350717363,
+    "paired_t_p_value": 6.888499252977957e-05,
+    "wilcoxon_statistic": 225.0,
+    "wilcoxon_p_value": 0.0006849665251706938,
+    "statistically_significant": true,
+    "cohens_d": 0.6552395238007312,
+    "top_k_95ci": [
+      35.00927905538431,
+      93.81594536519454
+    ],
+    "random_95ci": [
+      -10.854749523047651,
+      1.5473387258480373
+    ]
+  }
+}

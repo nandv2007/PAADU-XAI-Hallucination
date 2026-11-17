@@ -1,0 +1,16 @@
+{
+  "project/config.py": "0d3b81e12a3d7af8baa053de258030f4950e4d35d043cff9bdadd7372415f5ae",
+  "project/smoke_test.py": "c2e90b4934c1fd6039f0bd20bd3e0e8b625e60f4108e9161f65acd20e9ff906e",
+  "project/xai_interpreter.py": "8aec46739475b4de550d6d856ea5696687f41b12d0c54ad60462b3ca0bc86b70",
+  "project/verification_engine.py": "8e63535d2b3e18820c0f3409630d821d769f557ad51cbb72bcf54a52e62f50a4",
+  "project/pipeline_orchestrator.py": "4103efe616e1c87bf03744242aa3b849f08d6293bc9502423912e16ba8241ddc",
+  "project/charm_engine.py": "b415656591a5350ef37cdffe92e16839394089fafd0de88cd4d358bd14cd7f6c",
+  "project/original/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "project/original/paadu_benchmark_v7.py": "51030529567196e9b7e84c7eea4b7ad94879d34fb646e2947e529baec93029bb",
+  "project/original/paadu_pairs_core.py": "e89d9256d7d87159a44c81fe8cf8ba93c88fe331b94e2297a719140015276593",
+  "project/original/paadu_final_heldout_v7.py": "92f05e50ccf38c1514e21350cca5789667c88f5639704db73647b7fd595421d4",
+  "artifacts/charm_model_weights.pt": "647febba9cf564e6bf5e2c4ececd2dc8cf7bfd6d172235fb1a10286f532bb530",
+  "artifacts/charm_engine_state.pkl": "49d2967c214e63c435d18e0c66979f7aa9a1c60f95d535896a6e3af7fe63ca6b",
+  "artifacts/training_metadata.json": "63fe8a5b840f7a0dc3207e6fe2825a8f65124c047b1c27d80667ff2ca2be72b8",
+  "data/research_partition_manifest.csv": "acebacdcec7da266947aa345a5637e57c7e9ad095af12292c949efa420b0a017"
+}

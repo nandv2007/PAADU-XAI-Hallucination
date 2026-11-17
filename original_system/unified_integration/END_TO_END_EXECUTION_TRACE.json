@@ -1,0 +1,167 @@
+{
+  "trace_id": "TRACE-INC-CHARM-941FF42C",
+  "execution_timestamp": "2026-11-10T07:45:50.679886+00:00",
+  "input_telemetry": {
+    "shape": [
+      1,
+      1,
+      10,
+      46
+    ],
+    "dtype": "float32",
+    "reference": "sample_syn_flood_telemetry",
+    "scenario": "TCP SYN Flood Attack Simulation"
+  },
+  "stage_1_charm_inference": {
+    "model": "SemanticAnomalyMAE",
+    "weights_sha256": "647febba9cf564e6bf5e2c4ececd2dc8cf7bfd6d172235fb1a10286f532bb530",
+    "anomaly_detected": true,
+    "hybrid_score": 56.159788978235326,
+    "threshold": 2.5,
+    "reconstruction_mse": 8.488912582397461,
+    "mahalanobis_dm": 210.9754004380938,
+    "triggers": [
+      "hybrid_threshold",
+      "latent_evidence",
+      "burst"
+    ],
+    "latency_sec": 0.0432
+  },
+  "stage_2_charm_xai": {
+    "method": "Deterministic Leave-One-Feature-Out Occlusion",
+    "top_features": [
+      {
+        "feature": "syn_count",
+        "hybrid_contribution": -97.02705140277456,
+        "reconstruction_contribution": 4.341519355773926,
+        "latent_contribution": -355.8341597320078,
+        "observed_mean": 19.292112350463867,
+        "benign_mean": 0.7974284887313843,
+        "standardized_deviation": 24.003328323364258
+      },
+      {
+        "feature": "syn_flag_number",
+        "hybrid_contribution": 18.193512485398415,
+        "reconstruction_contribution": 1.1465749740600586,
+        "latent_contribution": 66.31126386151445,
+        "observed_mean": 0.04406033083796501,
+        "benign_mean": 3.0087252525845543e-05,
+        "standardized_deviation": 8.027356147766113
+      },
+      {
+        "feature": "TCP",
+        "hybrid_contribution": -1.816796603063139,
+        "reconstruction_contribution": 0.30551910400390625,
+        "latent_contribution": -6.709879906711166,
+        "observed_mean": 2.6210718154907227,
+        "benign_mean": 0.8591766357421875,
+        "standardized_deviation": 5.0681281089782715
+      },
+      {
+        "feature": "cwr_flag_number",
+        "hybrid_contribution": 0.10439015813037145,
+        "reconstruction_contribution": 0.0046749114990234375,
+        "latent_contribution": 0.3808778480266142,
+        "observed_mean": -0.04710124433040619,
+        "benign_mean": 0.0,
+        "standardized_deviation": -0.04710124433040619
+      },
+      {
+        "feature": "Radius",
+        "hybrid_contribution": 0.0701257980424117,
+        "reconstruction_contribution": 0.0001773834228515625,
+        "latent_contribution": 0.25648219655079174,
+        "observed_mean": 687.6945190429688,
+        "benign_mean": 698.724365234375,
+        "standardized_deviation": -0.013551861047744751
+      }
+    ],
+    "summary_text": "Anomalous traffic block: hybrid score 56.160 exceeded or triggered the calibrated alert policy (threshold 2.500; causes: hybrid_threshold, latent_evidence, burst). Highest absolute leave-one-feature-out score changes: syn_count, syn_flag_number, TCP, cwr_flag_number, Radius. These measurements indicate deviations from learned benign traffic, not a verified attack family.",
+    "latency_sec": 0.051
+  },
+  "stage_3_structured_incident_adapter": {
+    "incident_id": "INC-CHARM-941FF42C",
+    "schema": "CICIoT2023_46_features",
+    "latency_sec": 0.0001
+  },
+  "stage_4_incident_query_builder": {
+    "query_id": "QRY-941FF42C",
+    "query_text": "What network behaviors and attack patterns are associated with unusual deviations in syn_count, syn_flag_number, TCP, cwr_flag_number consistent with possible elevated TCP SYN connection requests and disproportionate SYN flag ratio, and what evidence helps distinguish such anomalies from rapid client reconnect storms or high-frequency microservice initiation?",
+    "target_features": [
+      "syn_count",
+      "syn_flag_number",
+      "TCP",
+      "cwr_flag_number"
+    ],
+    "latency_sec": 0.0
+  },
+  "stage_5_adaptive_graphrag_retrieval": {
+    "strategy": "Adaptive Hybrid (Category=COMPLEX, k=6, Boost=0.3, Domains=2)",
+    "query_complexity": {
+      "complexity_score": 0.82,
+      "category": "COMPLEX",
+      "detected_domains": [
+        "transport",
+        "flags"
+      ],
+      "is_comparative": true,
+      "recommended_k": 6,
+      "recommended_hybrid_boost": 0.3,
+      "analysis_details": {
+        "word_count": 46,
+        "domains_count": 2,
+        "domain_matches": {
+          "transport": [
+            "tcp"
+          ],
+          "flags": [
+            "syn",
+            "flag"
+          ]
+        },
+        "length_factor": 0.2,
+        "domain_factor": 0.32,
+        "comparative_factor": 0.3
+      }
+    },
+    "initial_evidence_retrieved": 6,
+    "latency_sec": 0.0037
+  },
+  "stage_6_quality_assessment_and_refinement": {
+    "quality_composite_score": 0.44,
+    "quality_status": "INSUFFICIENT",
+    "refinement_iterations": 2,
+    "refinement_termination": "Bounded limit reached (2 iterations). Proceeding with best-effort evidence.",
+    "final_evidence_pool_count": 6,
+    "latency_sec": 0.0016
+  },
+  "stage_7_evidence_grounded_explanation": {
+    "explanation_id": "EXP-4AC6A160",
+    "observed_facts_count": 3,
+    "supported_interpretations_count": 1,
+    "hypotheses_count": 2,
+    "total_claims_segmented": 6,
+    "latency_sec": 0.0
+  },
+  "stage_8_nli_verification_and_conservative_correction": {
+    "nli_model": "cross-encoder/nli-MiniLM2-L6-H768",
+    "total_claims_verified": 6,
+    "telemetry_facts_verified": 3,
+    "evidence_supported_claims": 1,
+    "contradicted_claims": 0,
+    "insufficient_evidence_claims": 0,
+    "verification_rate": 0.667,
+    "latency_sec": 0.5787
+  },
+  "stage_9_final_verified_report": {
+    "verified_narrative": "[VERIFIED TELEMETRY] PAADU/CHARM evaluated sample_syn_flood_telemetry as ANOMALOUS with a hybrid anomaly score of 56.160 against the calibrated baseline threshold of 2.500.\n\n[VERIFIED TELEMETRY] The alert was triggered by policies: [hybrid_threshold, latent_evidence, burst], with a reconstruction error of 8.4889 and a latent Mahalanobis distance of 210.9754.\n\n[VERIFIED TELEMETRY] Explainable AI leave-one-feature-out occlusion identified the most influential features as: syn_count (contribution: -97.03, observed mean: 19.29 vs benign mean: 0.80); syn_flag_number (contribution: +18.19, observed mean: 0.04 vs benign mean: 0.00); TCP (contribution: -1.82, observed mean: 2.62 vs benign mean: 0.86).\n\n[VERIFIED EVIDENCE] A TCP SYN flood is a denial-of-service attack exploiting the TCP three-way handshake.\n\n[OPERATIONAL HYPOTHESIS] The observed telemetry deviation cannot be conclusively attributed to malicious adversarial action solely from statistical flow metrics without inspecting packet payload headers or host process logs.\n\n[OPERATIONAL HYPOTHESIS] Further investigation is recommended to confirm whether the detected telemetry shift reflects a true attack or a benign non-malicious burst, such as scheduled sensor synchronization or client reconnection.",
+    "citations": [
+      {
+        "title": "TCP SYN Flood and Handshake Exhaustion",
+        "citation": "CERT Advisory CA-1996-21 / RFC 793: Transmission Control Protocol Specification (1981)",
+        "doc_id": "DOC-KB-002"
+      }
+    ],
+    "total_pipeline_latency_sec": 0.6783
+  }
+}

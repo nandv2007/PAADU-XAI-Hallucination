@@ -1,0 +1,57 @@
+{
+  "test_suite": "PAADU/CHARM + SVA-GRAG-Core Unified Integration Tests",
+  "execution_date": "2026-11-10 13:15:51",
+  "overall_status": "ALL_TESTS_PASSED",
+  "tests": {
+    "Test_A_Original_CHARM_Preservation": {
+      "status": "PASS",
+      "description": "Strict state_dict loading (185,007 params), identical deterministic scoring, identical XAI attributions",
+      "execution_time_sec": 0.102
+    },
+    "Test_B_Structured_Incident_Adapter": {
+      "status": "PASS",
+      "description": "Conversion of raw CHARM output into validated, typed CHARMIncident dataclass with non-negative constraints",
+      "execution_time_sec": 0.001
+    },
+    "Test_C_Investigation_Query_Builder": {
+      "status": "PASS",
+      "description": "Dynamic query synthesis from anomaly decisions and XAI top features with cautious scientific phrasing",
+      "execution_time_sec": 0.001
+    },
+    "Test_D_Retrieval_Connection": {
+      "status": "PASS",
+      "description": "Passing generated queries into HybridRetriever, verifying TF-IDF vector retrieval and document graph boosting",
+      "execution_time_sec": 0.005
+    },
+    "Test_E_Evidence_Quality_and_Refinement": {
+      "status": "PASS",
+      "description": "Multi-dimensional quality assessment (relevance, coverage, consistency, provenance) and bounded iterative refinement",
+      "execution_time_sec": 0.006
+    },
+    "Test_F_NLI_Claim_Verification": {
+      "status": "PASS",
+      "description": "cross-encoder/nli-MiniLM2-L6-H768 classification of generated factual claims against retrieved evidence sentences",
+      "execution_time_sec": 5.365
+    },
+    "Test_G_Conservative_Correction_Safety": {
+      "status": "PASS",
+      "description": "Conservative preservation of supported claims and explicit retraction/flagging of contradictions without text hallucination",
+      "execution_time_sec": 0.002
+    },
+    "Test_H_Full_Pipeline_Execution": {
+      "status": "PASS",
+      "description": "Continuous execution from 4D numerical telemetry input to final verified multi-section incident report",
+      "execution_time_sec": 0.28
+    },
+    "Test_I_Provenance_Tracing": {
+      "status": "PASS",
+      "description": "Tracing all factual claims to either underlying telemetry metrics or cited knowledge base documents with SHA-256 hashes",
+      "execution_time_sec": 0.001
+    },
+    "Test_J_Original_File_Integrity": {
+      "status": "PASS",
+      "description": "Cryptographic verification of 144 original project source files, checkpoints, and datasets (100% UNCHANGED)",
+      "execution_time_sec": 2.15
+    }
+  }
+}

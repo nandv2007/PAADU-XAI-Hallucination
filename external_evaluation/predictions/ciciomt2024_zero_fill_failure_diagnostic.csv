@@ -1,0 +1,101 @@
+block_index,actual_class,true_label,naive_zero_fill_prediction,hybrid_score,threshold,alert_causes,finding
+0,CICIoMT2024-Benign,0,1,25201160.847398892,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+1,CICIoMT2024-Benign,0,1,12390121.972242918,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+2,CICIoMT2024-Benign,0,1,12281441.317504585,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+3,CICIoMT2024-Benign,0,1,183806007.6462521,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+4,CICIoMT2024-Benign,0,1,600291.566829789,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+5,CICIoMT2024-Benign,0,1,235888049.14818454,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+6,CICIoMT2024-Benign,0,1,12274894.370464452,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+7,CICIoMT2024-Benign,0,1,24477828.4353805,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+8,CICIoMT2024-Benign,0,1,47411.724870299025,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+9,CICIoMT2024-Benign,0,1,24808843.29842538,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+10,CICIoMT2024-Benign,0,1,48708.67913335001,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+11,CICIoMT2024-Benign,0,1,34205.10031819563,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+12,CICIoMT2024-Benign,0,1,25323043.081974704,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+13,CICIoMT2024-Benign,0,1,163090.33825417302,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+14,CICIoMT2024-Benign,0,1,24683087.104332138,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+15,CICIoMT2024-Benign,0,1,12397188.468515057,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+16,CICIoMT2024-Benign,0,1,12177890.276140615,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+17,CICIoMT2024-Benign,0,1,315826700.45363164,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst+drift,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+18,CICIoMT2024-Benign,0,1,12276563.937327484,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+19,CICIoMT2024-Benign,0,1,24429474.239714798,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+20,CICIoMT2024-Benign,0,1,268145.39127002645,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+21,CICIoMT2024-Benign,0,1,24876900.555111326,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+22,CICIoMT2024-Benign,0,1,34011.02755367719,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+23,CICIoMT2024-Benign,0,1,481.6145582604428,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+24,CICIoMT2024-Benign,0,1,14045768.358115114,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+25,CICIoMT2024-Benign,0,1,346255603.2145197,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst+drift,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+26,CICIoMT2024-Benign,0,1,24385146.289447106,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+27,CICIoMT2024-Benign,0,1,351047.1253388483,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+28,CICIoMT2024-Benign,0,1,24403910.990973804,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+29,CICIoMT2024-Benign,0,1,177873.57838423122,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+30,CICIoMT2024-Benign,0,1,345728121.2125418,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+31,CICIoMT2024-Benign,0,1,20663341.674758516,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+32,CICIoMT2024-Benign,0,1,37387688.54923391,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+33,CICIoMT2024-Benign,0,1,43779.2490464222,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+34,CICIoMT2024-Benign,0,1,24714321.593327396,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+35,CICIoMT2024-Benign,0,1,24199.506227838127,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+36,CICIoMT2024-Benign,0,1,29596.666645207337,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+37,CICIoMT2024-Benign,0,1,25298286.68548329,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+38,CICIoMT2024-Benign,0,1,285665.1397673462,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+39,CICIoMT2024-Benign,0,1,25282523.498909105,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+40,CICIoMT2024-Benign,0,1,192168.19443970398,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+41,CICIoMT2024-Benign,0,1,24343793.470351845,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+42,CICIoMT2024-Benign,0,1,343470369.05038536,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+43,CICIoMT2024-Benign,0,1,12228150.63115995,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+44,CICIoMT2024-Benign,0,1,258557.3609819491,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+45,CICIoMT2024-Benign,0,1,23913717.03470005,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+46,CICIoMT2024-Benign,0,1,24309406.13917995,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+47,CICIoMT2024-Benign,0,1,1147.6361650629296,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+48,CICIoMT2024-Benign,0,1,61415.285079582456,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+49,CICIoMT2024-Benign,0,1,12161138.247447947,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,FALSE POSITIVE: Zero-fill of 9 missing features drove Mahalanobis DM far beyond threshold
+50,CICIoMT2024-Publish_Flood,1,1,43686.31738893348,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+51,CICIoMT2024-Publish_Flood,1,1,19180.454744444924,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+52,CICIoMT2024-Publish_Flood,1,1,613464.4085616907,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+53,CICIoMT2024-Publish_Flood,1,1,49236.048808120715,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+54,CICIoMT2024-Publish_Flood,1,1,63194.92916377302,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+55,CICIoMT2024-Publish_Flood,1,1,43916.161253891325,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+56,CICIoMT2024-Publish_Flood,1,1,42379.7783773121,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+57,CICIoMT2024-Publish_Flood,1,1,466261.52771313017,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+58,CICIoMT2024-Publish_Flood,1,1,79546.02218273659,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+59,CICIoMT2024-Publish_Flood,1,1,1550210.4161173636,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+60,CICIoMT2024-Publish_Flood,1,1,830162.502238889,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+61,CICIoMT2024-Publish_Flood,1,1,1601579.4261917772,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+62,CICIoMT2024-Publish_Flood,1,1,999665.1901677232,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+63,CICIoMT2024-Publish_Flood,1,1,25784429.594706412,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+64,CICIoMT2024-Publish_Flood,1,1,104897344.14023648,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+65,CICIoMT2024-Publish_Flood,1,1,23040248.42366604,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+66,CICIoMT2024-Publish_Flood,1,1,28303630.80683733,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+67,CICIoMT2024-Publish_Flood,1,1,1059798.6085728717,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+68,CICIoMT2024-Publish_Flood,1,1,60.24475036915523,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+69,CICIoMT2024-Publish_Flood,1,1,53.23764372487504,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+70,CICIoMT2024-Publish_Flood,1,1,54.04030053463816,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+71,CICIoMT2024-Publish_Flood,1,1,21712675.63711098,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+72,CICIoMT2024-Publish_Flood,1,1,82051129.53409359,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+73,CICIoMT2024-Publish_Flood,1,1,93046.27631021857,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+74,CICIoMT2024-Publish_Flood,1,1,17608.604055346397,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+75,CICIoMT2024-Publish_Flood,1,1,3249.877205866434,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+76,CICIoMT2024-Publish_Flood,1,1,155771.31229558444,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+77,CICIoMT2024-Publish_Flood,1,1,133454.17257375884,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+78,CICIoMT2024-Publish_Flood,1,1,126713.61485679513,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+79,CICIoMT2024-Publish_Flood,1,1,375016.5042014345,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+80,CICIoMT2024-Publish_Flood,1,1,276838.6828731993,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+81,CICIoMT2024-Publish_Flood,1,1,1223912.2494954648,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+82,CICIoMT2024-Publish_Flood,1,1,998115.999320371,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+83,CICIoMT2024-Publish_Flood,1,1,1142410.9246360047,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+84,CICIoMT2024-Publish_Flood,1,1,325894.45446435723,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+85,CICIoMT2024-Publish_Flood,1,1,282133.2469620113,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+86,CICIoMT2024-Publish_Flood,1,1,102247.6348714983,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+87,CICIoMT2024-Publish_Flood,1,1,57044.31145362963,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+88,CICIoMT2024-Publish_Flood,1,1,68813.59219183166,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+89,CICIoMT2024-Publish_Flood,1,1,137905.04517896535,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+90,CICIoMT2024-Publish_Flood,1,1,103247.86833334558,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+91,CICIoMT2024-Publish_Flood,1,1,124959.56847337674,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+92,CICIoMT2024-Publish_Flood,1,1,185712.2599360626,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+93,CICIoMT2024-Publish_Flood,1,1,79952.26129667083,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+94,CICIoMT2024-Publish_Flood,1,1,50675.268281561985,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+95,CICIoMT2024-Publish_Flood,1,1,68506.9821248664,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+96,CICIoMT2024-Publish_Flood,1,1,81938.70004234061,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+97,CICIoMT2024-Publish_Flood,1,1,116884.24310655786,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+98,CICIoMT2024-Publish_Flood,1,1,211698.64407749427,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior
+99,CICIoMT2024-Publish_Flood,1,1,197435.99276029022,2.5,hybrid_threshold; dual_evidence; latent_evidence; burst,Expected behavior

@@ -1,0 +1,39 @@
+{
+  "dataset": "CICIoT2023",
+  "experiment": "CHARM + XAI Phase 1",
+  "validation": "sampled partition-held-out",
+  "seed": 42,
+  "epochs": 30,
+  "batch_size": 64,
+  "train_blocks": 19942,
+  "calibration_blocks": 5000,
+  "test_benign_blocks": 4992,
+  "test_attack_blocks": 9984,
+  "training_seconds": 388.02269061299967,
+  "calibration_floor": 2.5,
+  "confusion_matrix": {
+    "TN": 4951,
+    "FP": 41,
+    "FN": 0,
+    "TP": 9984
+  },
+  "metrics": {
+    "accuracy": 0.9972622863247863,
+    "precision": 0.9959102244389028,
+    "recall": 1.0,
+    "f1": 0.9979509220850618,
+    "specificity": 0.9917868589743589,
+    "fpr": 0.008213141025641026
+  },
+  "xai_validation": {
+    "preservation_blocks": 40,
+    "attribution_comparisons": 25,
+    "max_absolute_difference": 0.0
+  },
+  "limitations": [
+    "CSV partitions are not verified independent capture sessions",
+    "Blocks are sampled-record sequences, not verified temporal windows",
+    "Evaluation uses separate benign and attack batches",
+    "XAI attribution reproduction is not causal validation"
+  ]
+}

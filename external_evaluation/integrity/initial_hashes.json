@@ -1,0 +1,578 @@
+{
+  "integrated_project/README.md": {
+    "sha256": "2ef330385723a633af05df76b6338869704d4392438de2cdb16ce576eca88fcf",
+    "size_bytes": 2067
+  },
+  "integrated_project/TEST_RUN_LOG.txt": {
+    "sha256": "b4f2d950436d56f2a4d06c023652ed398a171bdd86415fa75640af7ff936241b",
+    "size_bytes": 1168
+  },
+  "integrated_project/requirements.txt": {
+    "sha256": "4429a493c91336fc5fdf457af5036ee51583ce8b838f81f358b12598c7aec32f",
+    "size_bytes": 111
+  },
+  "integrated_project/run_all.sh": {
+    "sha256": "ab046e441bdc1bfa38574d38bcca3fd1340319cd69c38d14dfcea51661ec31c3",
+    "size_bytes": 281
+  },
+  "integrated_project/charm_original/checksums.json": {
+    "sha256": "3d6d3326553ece0272739419e687cbc08083206abfb29d0dafebcab1f48fe6cd",
+    "size_bytes": 1463
+  },
+  "integrated_project/charm_original/artifacts/charm_engine_state.pkl": {
+    "sha256": "49d2967c214e63c435d18e0c66979f7aa9a1c60f95d535896a6e3af7fe63ca6b",
+    "size_bytes": 35433
+  },
+  "integrated_project/charm_original/artifacts/charm_model_weights.pt": {
+    "sha256": "647febba9cf564e6bf5e2c4ececd2dc8cf7bfd6d172235fb1a10286f532bb530",
+    "size_bytes": 770692
+  },
+  "integrated_project/charm_original/artifacts/training_metadata.json": {
+    "sha256": "63fe8a5b840f7a0dc3207e6fe2825a8f65124c047b1c27d80667ff2ca2be72b8",
+    "size_bytes": 1061
+  },
+  "integrated_project/charm_original/data/research_partition_manifest.csv": {
+    "sha256": "acebacdcec7da266947aa345a5637e57c7e9ad095af12292c949efa420b0a017",
+    "size_bytes": 10782
+  },
+  "integrated_project/charm_original/project/charm_engine.py": {
+    "sha256": "b415656591a5350ef37cdffe92e16839394089fafd0de88cd4d358bd14cd7f6c",
+    "size_bytes": 7226
+  },
+  "integrated_project/charm_original/project/config.py": {
+    "sha256": "0d3b81e12a3d7af8baa053de258030f4950e4d35d043cff9bdadd7372415f5ae",
+    "size_bytes": 1845
+  },
+  "integrated_project/charm_original/project/pipeline_orchestrator.py": {
+    "sha256": "4103efe616e1c87bf03744242aa3b849f08d6293bc9502423912e16ba8241ddc",
+    "size_bytes": 578
+  },
+  "integrated_project/charm_original/project/smoke_test.py": {
+    "sha256": "c2e90b4934c1fd6039f0bd20bd3e0e8b625e60f4108e9161f65acd20e9ff906e",
+    "size_bytes": 893
+  },
+  "integrated_project/charm_original/project/verification_engine.py": {
+    "sha256": "8e63535d2b3e18820c0f3409630d821d769f557ad51cbb72bcf54a52e62f50a4",
+    "size_bytes": 211
+  },
+  "integrated_project/charm_original/project/xai_interpreter.py": {
+    "sha256": "8aec46739475b4de550d6d856ea5696687f41b12d0c54ad60462b3ca0bc86b70",
+    "size_bytes": 2444
+  },
+  "integrated_project/charm_original/project/original/__init__.py": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "size_bytes": 0
+  },
+  "integrated_project/charm_original/project/original/paadu_benchmark_v7.py": {
+    "sha256": "51030529567196e9b7e84c7eea4b7ad94879d34fb646e2947e529baec93029bb",
+    "size_bytes": 140128
+  },
+  "integrated_project/charm_original/project/original/paadu_final_heldout_v7.py": {
+    "sha256": "92f05e50ccf38c1514e21350cca5789667c88f5639704db73647b7fd595421d4",
+    "size_bytes": 27682
+  },
+  "integrated_project/charm_original/project/original/paadu_pairs_core.py": {
+    "sha256": "e89d9256d7d87159a44c81fe8cf8ba93c88fe331b94e2297a719140015276593",
+    "size_bytes": 12471
+  },
+  "integrated_project/project/Phase6_Colab_Reference.ipynb": {
+    "sha256": "a8da09d4b49e224b453f9b99b46300548aba7fd0627814e06b23052d6320674a",
+    "size_bytes": 1111533
+  },
+  "integrated_project/project/integrated_pipeline.py": {
+    "sha256": "4b9196038376ea54047fae60b94411e06d56309501f7db20ec47d68e156f5491",
+    "size_bytes": 5219
+  },
+  "integrated_project/project/run_demo.py": {
+    "sha256": "8ed38bec1654f304e8ce0d3d678270bff34a8d23d27ca51d158bd344d88b9fee",
+    "size_bytes": 1077
+  },
+  "integrated_project/tests/test_integration.py": {
+    "sha256": "797fd12e284ebeb297bfcc6ca87673ff050f5955d34d09205c08f092be40b387",
+    "size_bytes": 704
+  },
+  "datasets/Dataset/README.pdf": {
+    "sha256": "0ad5283fdc7086d03588c1cdc87f3d430e2ef32969985da51ba538eabc3b68af",
+    "size_bytes": 6992913
+  },
+  "datasets/Dataset/Bluetooth/README_Bluetooth_attacks.pdf": {
+    "sha256": "9c429f80beaabb5f8823979cf804e210a3844c46f99c3bb51f4284a84ad72f3f",
+    "size_bytes": 113561
+  },
+  "datasets/Dataset/Bluetooth/test/Bluetooth_Benign_test.pcap": {
+    "sha256": "0a7f608e3cbae4ca07bf14fe72b60d166ef27978c01dc88112f096311b841a47",
+    "size_bytes": 3782333
+  },
+  "datasets/Dataset/Bluetooth/test/Bluetooth_DoS_test.pcap": {
+    "sha256": "c0913f183342f41695530d67a5be230d8e717f45e7f6d1d33ed6b75f661db69d",
+    "size_bytes": 10070003
+  },
+  "datasets/Dataset/Bluetooth/train/Bluetooth_Benign_train.pcap": {
+    "sha256": "671cd2cc987a7f46e13700c17ca94c60a5dcc416f9108b60d3398736e3d32093",
+    "size_bytes": 12000016
+  },
+  "datasets/Dataset/Bluetooth/train/Bluetooth_DoS_train.pcap": {
+    "sha256": "5fa22540e1b213a957f59d6e4d0e6af6c9cd782f9fa3c47cde0a36e68796c121",
+    "size_bytes": 40000034
+  },
+  "datasets/Dataset/WiFI_and_MQTT/README_Wifi_and_MQTT_attacks.pdf": {
+    "sha256": "fa88de1fcdc39c845e638f91c9b43a12f4341b24aa61e453897d76336c3a34a8",
+    "size_bytes": 138278
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/ARP_Spoofing_test.pcap.csv": {
+    "sha256": "bb36a2cc3e04bcb66c359d89427ae96c5ddb6a788c87b40257607493351665a1",
+    "size_bytes": 1211227
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/Benign_test.pcap.csv": {
+    "sha256": "ddfe88e38c0355a256cf3a5ffcacfd0f1c244505eeb88c1f636fe8c34b6bdffd",
+    "size_bytes": 7698915
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/MQTT-DDoS-Connect_Flood_test.pcap.csv": {
+    "sha256": "42da9642352d8f7b4ffe150de0026c5808c3d7d7513eec6abfda7c9be8a062e8",
+    "size_bytes": 84959098
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/MQTT-DDoS-Publish_Flood_test.pcap.csv": {
+    "sha256": "aac2b6d9a749dd26d0e20b696ff687e7a64d9093e1431ac05b4a96a88e01a7aa",
+    "size_bytes": 17165533
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/MQTT-DoS-Connect_Flood_test.pcap.csv": {
+    "sha256": "70c2ae142f92ad2293568145f9f43161c1b836cf2b580650386b4aa3f92f38d6",
+    "size_bytes": 6366994
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/MQTT-DoS-Publish_Flood_test.pcap.csv": {
+    "sha256": "7101ed3c0e5a03c2e64982f88fd7b7883386c9622795656354fe5122cb8edbc5",
+    "size_bytes": 16945363
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/MQTT-Malformed_Data_test.pcap.csv": {
+    "sha256": "a616332ec581da3e19a4e3154ff5062da214e7813172dbd968c93e0465657012",
+    "size_bytes": 352198
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/Recon-OS_Scan_test.pcap.csv": {
+    "sha256": "9c224ad522b4a07ba3aec75af3311937dba638804572d6105894cbb9a5184008",
+    "size_bytes": 690523
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/Recon-Ping_Sweep_test.pcap.csv": {
+    "sha256": "78aee06ddf24ad24769346bb9d77c26f2e965f8f17452181733c5cb697b37321",
+    "size_bytes": 35913
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/Recon-Port_Scan_test.pcap.csv": {
+    "sha256": "a4fdc331720863b548a9a0acb8f4aa6a5803e0b9f62811c98d990f1dd0dc6eea",
+    "size_bytes": 3955194
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/Recon-VulScan_test.pcap.csv": {
+    "sha256": "6a3b1952701351f8acbb4a7cef2ad6357b4d6259eab350d849439097406bb2e0",
+    "size_bytes": 202293
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/TCP_IP-DDoS-ICMP1_test.pcap.csv": {
+    "sha256": "ac1b3e99cfebb79fdcb5412107f88c8a0a02c79d22840083763380f2af5c3775",
+    "size_bytes": 27988943
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/TCP_IP-DDoS-ICMP2_test.pcap.csv": {
+    "sha256": "89c41598189fac1b72990cb1a4221ecc6708b4a127cae456d7ed8752efd53cde",
+    "size_bytes": 35477681
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/TCP_IP-DDoS-SYN_test.pcap.csv": {
+    "sha256": "52d2f7bddb983f071d3aa3eb115556bc661c18dd8d0d545bf08fdbd3d03d5b47",
+    "size_bytes": 32158674
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/TCP_IP-DDoS-TCP_test.pcap.csv": {
+    "sha256": "6b5984de81409d4748e5c74a2f64093da14faef336568aad1a4e43ed749d3199",
+    "size_bytes": 33303977
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/TCP_IP-DDoS-UDP1_test.pcap.csv": {
+    "sha256": "b4c3a16d3c7f692db1f9952525ea68c709f7f13a1322da097ad690515544b7fb",
+    "size_bytes": 37486336
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/TCP_IP-DDoS-UDP2_test.pcap.csv": {
+    "sha256": "7acaf0b1b2e7c1096b2e6563ed0119664b8f50336b97ae648794cb749ddd15fa",
+    "size_bytes": 28574990
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/TCP_IP-DoS-ICMP_test.pcap.csv": {
+    "sha256": "90a9f0671da542d24aceb0572e6c7802f5dd9edb9ecc70fd7f8a55b6fc4f8f5a",
+    "size_bytes": 17934071
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/TCP_IP-DoS-SYN_test.pcap.csv": {
+    "sha256": "bd9aa6a0cab3004f10ec375419ff4dce35a36a4c9b203eec5b7bf7ecaedf6b99",
+    "size_bytes": 18521140
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/TCP_IP-DoS-TCP_test.pcap.csv": {
+    "sha256": "7d9e68ba11e8b849fb4ad4b140b2e2186da9dbc1c1142e87dd97f319b55fe9e6",
+    "size_bytes": 14971502
+  },
+  "datasets/Dataset/WiFI_and_MQTT/test/TCP_IP-DoS-UDP_test.pcap.csv": {
+    "sha256": "7d9dce1a2c22dd549ec66216a9f3ba629cc878465f750a5626d2343d74ce183e",
+    "size_bytes": 25117791
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/ARP_Spoofing_train.pcap.csv": {
+    "sha256": "5969323dafa34e5e4b694f6fe48bfba5bfe2c217bfae9000c4a381992a0fe4c8",
+    "size_bytes": 3244500
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/Benign_train.pcap.csv": {
+    "sha256": "69c15c9256aa1a8d319dc27fe0c763973d7183d733aba715cb7fe0cd2d80e4c5",
+    "size_bytes": 4228600
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/MQTT-DDoS-Connect_Flood_train.pcap.csv": {
+    "sha256": "ff2dfaacf6e7b80bfbf055eed62c2ea65e714dd384bd4223c27c83f48d0ace5e",
+    "size_bytes": 38092744
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/MQTT-DDoS-Publish_Flood_train.pcap.csv": {
+    "sha256": "6c9871e074776f4ca5ada56f6e0fb4ce366400512089b6151f9e8e229ef5f21b",
+    "size_bytes": 6092357
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/MQTT-DoS-Connect_Flood_train.pcap.csv": {
+    "sha256": "2554c8b9096bca3338f5e35b7c453578b21f3387d7351f086135e9d61b95c379",
+    "size_bytes": 2778277
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/MQTT-DoS-Publish_Flood_train.pcap.csv": {
+    "sha256": "a2e63ef4a0006e73d5dff4f4d8304b941a2bf1d5f23c481a089204776851457f",
+    "size_bytes": 9603122
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/MQTT-Malformed_Data_train.pcap.csv": {
+    "sha256": "e430ea9e88b7af44a64aea7b6996c2ea9dc2bceb7e2a4c0e45704f48be26d942",
+    "size_bytes": 1022244
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/Recon-OS_Scan_train.pcap.csv": {
+    "sha256": "2290076a5ce6517ad207f61b7def237cfedd8690983234da40f1e604ba597633",
+    "size_bytes": 3053244
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/Recon-Ping_Sweep_train.pcap.csv": {
+    "sha256": "d6ac6537aff2fcfb013e49a5194d17fa665166cb7f72bb7d484d024a901192df",
+    "size_bytes": 141311
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/Recon-Port_Scan_train.pcap.csv": {
+    "sha256": "ab445da14e8ac5b8e2588e220a20efde33c0eba1cf8c5d0e331b422f3914be8f",
+    "size_bytes": 14996235
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/Recon-VulScan_train.pcap.csv": {
+    "sha256": "4ac5e1df3c3aebe9ee8c18b4214bea6dae23841ce9917b66325d25e08ce5f394",
+    "size_bytes": 414893
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-ICMP1_train.pcap.csv": {
+    "sha256": "932b19853a5603a668d1cc364258241da894f8c32d0d248ca181ff153b875922",
+    "size_bytes": 35347455
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-ICMP2_train.pcap.csv": {
+    "sha256": "3a3a59a2bf8c74a500becf4353dbaa04741585733cdba761685975e1a8136d7b",
+    "size_bytes": 35320804
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-ICMP3_train.pcap.csv": {
+    "sha256": "6f2ba370956cfd97fceae455ee36ed9252060985b9a9ebcf2525c58a77f52727",
+    "size_bytes": 35753242
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-ICMP4_train.pcap.csv": {
+    "sha256": "e16a4630f257f6b3ec7a5ee626d3d162e42abf065adb44e20407a933069ad4b1",
+    "size_bytes": 35745582
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-ICMP5_train.pcap.csv": {
+    "sha256": "dc104f3760bc7fd9469793fb466a8af50f9274d4e23fc50da97bcc57a9ffc243",
+    "size_bytes": 35266730
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-ICMP6_train.pcap.csv": {
+    "sha256": "3bc9b30588f055807f5a4e940b30e89f7cc3209979a0afd15524406f7e9c41b7",
+    "size_bytes": 34672898
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-ICMP7_train.pcap.csv": {
+    "sha256": "2242d0a7ad58f6d80b62051c835a638a9bb0f037cd51f4dc4f409bfe5c887b64",
+    "size_bytes": 33929240
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-ICMP8_train.pcap.csv": {
+    "sha256": "b016d24c8f8b2c44f9f19d92769fc7fa16ffb5d4cf9a925b6c494b8783f3d38e",
+    "size_bytes": 35116820
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-SYN1_train.pcap.csv": {
+    "sha256": "1e38ea0766127a40d68205685fa8dc41ef0d0c0caa8547392be4c006dc9e0cae",
+    "size_bytes": 37206498
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-SYN2_train.pcap.csv": {
+    "sha256": "439c673527575beba81cbae3e2211ba852fb2808b5c22a3b7fc0019f7dc6ea11",
+    "size_bytes": 38059744
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-SYN3_train.pcap.csv": {
+    "sha256": "e36e826e3917a7a9884959297f5c55ef10e2b288507a52c25517560379302cfc",
+    "size_bytes": 38027640
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-SYN4_train.pcap.csv": {
+    "sha256": "d565271890d348406e00e62288951942322912ff5d5b8f4fadf8056fd76a9b2c",
+    "size_bytes": 36353012
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-TCP1_train.pcap.csv": {
+    "sha256": "4af483ea598a5ee9549be65e67d4e0d8c768d42708bc1af47b4386241cd2d199",
+    "size_bytes": 38254057
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-TCP2_train.pcap.csv": {
+    "sha256": "f1be7e0f76bb30d31ae11ea024b06c8b4512766900a137cb4272bde48fc72df8",
+    "size_bytes": 36794268
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-TCP3_train.pcap.csv": {
+    "sha256": "af0fd3b6ac83b6d1f4660ff18d9e823f4ee66c40067b1e8974ab198d3ad9bb26",
+    "size_bytes": 37292795
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-TCP4_train.pcap.csv": {
+    "sha256": "d79cd6c631ddff7b8777d085602f6a5add3f1005a4839b314e171c7666200e51",
+    "size_bytes": 36835840
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-UDP1_train.pcap.csv": {
+    "sha256": "55f16307c197ad77215254537f43259246cd7e1b2a874dcb9946712ae6471cef",
+    "size_bytes": 37756370
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-UDP2_train.pcap.csv": {
+    "sha256": "984e9c8d079d0ce05b40514e41a53674c79c1900f7b6fef5c85004d6dd6da5bf",
+    "size_bytes": 37772805
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-UDP3_train.pcap.csv": {
+    "sha256": "9b5769dcc120ac1236963d030702728cd97e61bbf2cf3f7e91976f7f8619e89c",
+    "size_bytes": 38806051
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-UDP4_train.pcap.csv": {
+    "sha256": "0d85e8a0a653e31ece277f2e2ab1e8fdda0cdeb80f31386194226c44923e5657",
+    "size_bytes": 38720044
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-UDP5_train.pcap.csv": {
+    "sha256": "7b1ebbfd0b541e4b158cbaae283d879c16f57fc2965d4a2ffb68fdee1cdfdf27",
+    "size_bytes": 38045043
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-UDP6_train.pcap.csv": {
+    "sha256": "d397cc9ae7084391809513032bf9c2caf0692dcda416393455ca8d55f31285f8",
+    "size_bytes": 38129313
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-UDP7_train.pcap.csv": {
+    "sha256": "e126ab0806e097a916d3e7ae9eeeae8578549a45c007352530ba50bbf9ce7af7",
+    "size_bytes": 36311102
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DDoS-UDP8_train.pcap.csv": {
+    "sha256": "1188c92b688e4223ae97377b1d5aac1a8b0bff0a9a6f1ffe9752c4aea71449db",
+    "size_bytes": 37326287
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DoS-ICMP1_train.pcap.csv": {
+    "sha256": "344d5d803ce2c291c756ace36ab39af0b7880db343b696477198bfff4c6b74ac",
+    "size_bytes": 20336236
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DoS-ICMP2_train.pcap.csv": {
+    "sha256": "442ddc0bb0e19bdd60e93dd6e6887118d69d6257bcbe50c1453c5c2de04ffdbb",
+    "size_bytes": 18179331
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DoS-ICMP3_train.pcap.csv": {
+    "sha256": "5a3ebfad5d53ede22146bf65349da8791ead536a6a7a83b2da3fc401d5001a79",
+    "size_bytes": 19776393
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DoS-ICMP4_train.pcap.csv": {
+    "sha256": "28c021a12ff96360a6dfdcd2a881b8c4edb5527bd21812c8aa917625e6223a52",
+    "size_bytes": 19719438
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DoS-SYN1_train.pcap.csv": {
+    "sha256": "49246c0ec96ed46822d9014eb544550131ff26baa947de69086893e33253b9db",
+    "size_bytes": 22584485
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DoS-SYN2_train.pcap.csv": {
+    "sha256": "f028354ea77101dd103821650e95cfff3763623abb0214d9bf30bdb2d6ee9413",
+    "size_bytes": 21215739
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DoS-SYN3_train.pcap.csv": {
+    "sha256": "ea38a9e5c09d887a4099710201beb3949ad943bfe3fb6ca73b93340b296d347e",
+    "size_bytes": 20295512
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DoS-SYN4_train.pcap.csv": {
+    "sha256": "82dc18b3cc3ce65d9e2e150725789334b602fce00f0969d0ca4e598d433bd373",
+    "size_bytes": 20734822
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DoS-TCP1_train.pcap.csv": {
+    "sha256": "095d113ac589f613f7c4a66fec4d327bc126fb1ed7d0be761cd2358b442e3f19",
+    "size_bytes": 17478346
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DoS-TCP2_train.pcap.csv": {
+    "sha256": "a12d609e7e5efa6adb6e5f9b3078f0b485d53b1c126505a67408bf49cd39c901",
+    "size_bytes": 18284887
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DoS-TCP3_train.pcap.csv": {
+    "sha256": "8f85063319a7a879ff1b1ca5f29d912e5ace415b5b6640b266793483528d958a",
+    "size_bytes": 17619566
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DoS-TCP4_train.pcap.csv": {
+    "sha256": "a7a0ab0830bd81407667594f8a673a6b08151fc6ef002e855b7f9f782defb83c",
+    "size_bytes": 17147457
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DoS-UDP1_train.pcap.csv": {
+    "sha256": "6457c8d2ec266aa1249a5d8505e6369c7f6b05c6bd42417768022f2fecd1de60",
+    "size_bytes": 26005240
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DoS-UDP2_train.pcap.csv": {
+    "sha256": "33ac8a5bb80e83850b79adaaafe741f4ba1df24a1e1fd6536f91b8e5e3110dbf",
+    "size_bytes": 25835819
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DoS-UDP3_train.pcap.csv": {
+    "sha256": "6f25192397b9e124a2819933e6cedca418f6a3ebdabc1958f56d0996ef81e6c3",
+    "size_bytes": 26832094
+  },
+  "datasets/Dataset/WiFI_and_MQTT/train/TCP_IP-DoS-UDP4_train.pcap.csv": {
+    "sha256": "06665341230df7eb467cbdb1b17c05fe3ba676ae6f54fa5945995f69a26ef07f",
+    "size_bytes": 28410088
+  },
+  "datasets/cic25/CICIoV2024_website.docx": {
+    "sha256": "2f8551f40455c95bdff86391ae79780645f23be6b30311d1daed169bdaca9fab",
+    "size_bytes": 1077970
+  },
+  "datasets/cic25/README.pdf": {
+    "sha256": "5f914b7b93e4ca524feb674e41d3fe4bd2dde83b9e911acdb597b59e52e85c57",
+    "size_bytes": 257667
+  },
+  "datasets/cic25/README_template.docx": {
+    "sha256": "daff863d381aae74e8853f518aea1c109d19b78f916a7a03338a9c4e6b3b2281",
+    "size_bytes": 972269
+  },
+  "datasets/cic25/binary/binary_DoS.csv": {
+    "sha256": "077758260ce51da461fe1c0fe66914158ecf97f7b77b1feb5c166d1a769eddc2",
+    "size_bytes": 23968072
+  },
+  "datasets/cic25/binary/binary_benign.csv": {
+    "sha256": "ef2040b49a5e83d737414f5e0befe57c1a5c4b3bdd4d275869dcf34285f4ad99",
+    "size_bytes": 400163248
+  },
+  "datasets/cic25/binary/binary_spoofing-GAS.csv": {
+    "sha256": "9589e7e103aadbd5a71f78efdcfd4d703d2f1ec64239a9b1d658d97e26fee1d6",
+    "size_bytes": 3258315
+  },
+  "datasets/cic25/binary/binary_spoofing-RPM.csv": {
+    "sha256": "abe9b6dc3f600e0b53c14b16f398ef3f564c864d95f2ad8134fe982ed63e52b4",
+    "size_bytes": 17898649
+  },
+  "datasets/cic25/binary/binary_spoofing-SPEED.csv": {
+    "sha256": "436af219007ce33edec0e3ea17c7f7798fd07aae2f292cec0356b8e229e326d4",
+    "size_bytes": 8185177
+  },
+  "datasets/cic25/binary/binary_spoofing-STEERING_WHEEL.csv": {
+    "sha256": "135ae51d6d37da74076426d75e8bc53c4b3d47226cef42c520c2e99b18337eeb",
+    "size_bytes": 6733498
+  },
+  "datasets/cic25/decimal/decimal_DoS.csv": {
+    "sha256": "84b45003b8ab75273e0a1dcb05de6a351a2ded4be1bd1127017a4b4624b4f1c8",
+    "size_bytes": 2827315
+  },
+  "datasets/cic25/decimal/decimal_benign.csv": {
+    "sha256": "b6d77f20dfb0a1a08717f02b3773568a6035332bc430c9a92f18407dc2893755",
+    "size_bytes": 57659154
+  },
+  "datasets/cic25/decimal/decimal_spoofing-GAS.csv": {
+    "sha256": "70631989df540d8699842b025a6a017578d6ef0e04416d5d417948f41d14ed90",
+    "size_bytes": 424710
+  },
+  "datasets/cic25/decimal/decimal_spoofing-RPM.csv": {
+    "sha256": "a9898d6c74236a22dcb57bbcf2fe0e4937ba31061c9508d85e75f0485cd41019",
+    "size_bytes": 2465547
+  },
+  "datasets/cic25/decimal/decimal_spoofing-SPEED.csv": {
+    "sha256": "40812845fd3abae2471c5a87deb84f3cb7cfc014696f4e90b6f48089fc5327bc",
+    "size_bytes": 1137857
+  },
+  "datasets/cic25/decimal/decimal_spoofing-STEERING_WHEEL.csv": {
+    "sha256": "9f7db973ee9a0ad2c38e48b9db7ba1c8e0b7aeb269c87e10f4894cee39fbd5e7",
+    "size_bytes": 1158699
+  },
+  "datasets/cic25/hexadecimal/hexadecimal_DoS.csv": {
+    "sha256": "d7af3d741fbb491c688eb6eff30d53d97805a9157b1702970cd1fda3c624ee63",
+    "size_bytes": 3733249
+  },
+  "datasets/cic25/hexadecimal/hexadecimal_benign.csv": {
+    "sha256": "a846cf5ca89fb5b5f1d9512c6cedac88265b49ed1fa5b83c7902966a4cf5ff14",
+    "size_bytes": 73424323
+  },
+  "datasets/cic25/hexadecimal/hexadecimal_spoofing-GAS.csv": {
+    "sha256": "1b6be53d3c3a2142a3c93d356fb8b905ea9c537aae8aae0d6c78c1ff9ebd8b91",
+    "size_bytes": 524634
+  },
+  "datasets/cic25/hexadecimal/hexadecimal_spoofing-RPM.csv": {
+    "sha256": "21152770835714ad21e1461c0c90fc4bf9e4d5c8fd00b6f2514e85e072b19326",
+    "size_bytes": 3199262
+  },
+  "datasets/cic25/hexadecimal/hexadecimal_spoofing-SPEED.csv": {
+    "sha256": "ae213ebfebf39370d4a98aa552882ee6256435cd56f1f2f6514e30e32c8b6bd6",
+    "size_bytes": 1477201
+  },
+  "datasets/cic25/hexadecimal/hexadecimal_spoofing-STEERING_WHEEL.csv": {
+    "sha256": "415d9a5a102cdb6e0845c1fd508555cae5a46075a959c4c794edd3c93fce5808",
+    "size_bytes": 1318561
+  },
+  "datasets/ciciov24/CICIoV2024_website.docx": {
+    "sha256": "2f8551f40455c95bdff86391ae79780645f23be6b30311d1daed169bdaca9fab",
+    "size_bytes": 1077970
+  },
+  "datasets/ciciov24/README.pdf": {
+    "sha256": "5f914b7b93e4ca524feb674e41d3fe4bd2dde83b9e911acdb597b59e52e85c57",
+    "size_bytes": 257667
+  },
+  "datasets/ciciov24/README_template.docx": {
+    "sha256": "daff863d381aae74e8853f518aea1c109d19b78f916a7a03338a9c4e6b3b2281",
+    "size_bytes": 972269
+  },
+  "datasets/ciciov24/binary/binary_DoS.csv": {
+    "sha256": "077758260ce51da461fe1c0fe66914158ecf97f7b77b1feb5c166d1a769eddc2",
+    "size_bytes": 23968072
+  },
+  "datasets/ciciov24/binary/binary_benign.csv": {
+    "sha256": "ef2040b49a5e83d737414f5e0befe57c1a5c4b3bdd4d275869dcf34285f4ad99",
+    "size_bytes": 400163248
+  },
+  "datasets/ciciov24/binary/binary_spoofing-GAS.csv": {
+    "sha256": "9589e7e103aadbd5a71f78efdcfd4d703d2f1ec64239a9b1d658d97e26fee1d6",
+    "size_bytes": 3258315
+  },
+  "datasets/ciciov24/binary/binary_spoofing-RPM.csv": {
+    "sha256": "abe9b6dc3f600e0b53c14b16f398ef3f564c864d95f2ad8134fe982ed63e52b4",
+    "size_bytes": 17898649
+  },
+  "datasets/ciciov24/binary/binary_spoofing-SPEED.csv": {
+    "sha256": "436af219007ce33edec0e3ea17c7f7798fd07aae2f292cec0356b8e229e326d4",
+    "size_bytes": 8185177
+  },
+  "datasets/ciciov24/binary/binary_spoofing-STEERING_WHEEL.csv": {
+    "sha256": "135ae51d6d37da74076426d75e8bc53c4b3d47226cef42c520c2e99b18337eeb",
+    "size_bytes": 6733498
+  },
+  "datasets/ciciov24/decimal/decimal_DoS.csv": {
+    "sha256": "84b45003b8ab75273e0a1dcb05de6a351a2ded4be1bd1127017a4b4624b4f1c8",
+    "size_bytes": 2827315
+  },
+  "datasets/ciciov24/decimal/decimal_benign.csv": {
+    "sha256": "b6d77f20dfb0a1a08717f02b3773568a6035332bc430c9a92f18407dc2893755",
+    "size_bytes": 57659154
+  },
+  "datasets/ciciov24/decimal/decimal_spoofing-GAS.csv": {
+    "sha256": "70631989df540d8699842b025a6a017578d6ef0e04416d5d417948f41d14ed90",
+    "size_bytes": 424710
+  },
+  "datasets/ciciov24/decimal/decimal_spoofing-RPM.csv": {
+    "sha256": "a9898d6c74236a22dcb57bbcf2fe0e4937ba31061c9508d85e75f0485cd41019",
+    "size_bytes": 2465547
+  },
+  "datasets/ciciov24/decimal/decimal_spoofing-SPEED.csv": {
+    "sha256": "40812845fd3abae2471c5a87deb84f3cb7cfc014696f4e90b6f48089fc5327bc",
+    "size_bytes": 1137857
+  },
+  "datasets/ciciov24/decimal/decimal_spoofing-STEERING_WHEEL.csv": {
+    "sha256": "9f7db973ee9a0ad2c38e48b9db7ba1c8e0b7aeb269c87e10f4894cee39fbd5e7",
+    "size_bytes": 1158699
+  },
+  "datasets/ciciov24/hexadecimal/hexadecimal_DoS.csv": {
+    "sha256": "d7af3d741fbb491c688eb6eff30d53d97805a9157b1702970cd1fda3c624ee63",
+    "size_bytes": 3733249
+  },
+  "datasets/ciciov24/hexadecimal/hexadecimal_benign.csv": {
+    "sha256": "a846cf5ca89fb5b5f1d9512c6cedac88265b49ed1fa5b83c7902966a4cf5ff14",
+    "size_bytes": 73424323
+  },
+  "datasets/ciciov24/hexadecimal/hexadecimal_spoofing-GAS.csv": {
+    "sha256": "1b6be53d3c3a2142a3c93d356fb8b905ea9c537aae8aae0d6c78c1ff9ebd8b91",
+    "size_bytes": 524634
+  },
+  "datasets/ciciov24/hexadecimal/hexadecimal_spoofing-RPM.csv": {
+    "sha256": "21152770835714ad21e1461c0c90fc4bf9e4d5c8fd00b6f2514e85e072b19326",
+    "size_bytes": 3199262
+  },
+  "datasets/ciciov24/hexadecimal/hexadecimal_spoofing-SPEED.csv": {
+    "sha256": "ae213ebfebf39370d4a98aa552882ee6256435cd56f1f2f6514e30e32c8b6bd6",
+    "size_bytes": 1477201
+  },
+  "datasets/ciciov24/hexadecimal/hexadecimal_spoofing-STEERING_WHEEL.csv": {
+    "sha256": "415d9a5a102cdb6e0845c1fd508555cae5a46075a959c4c794edd3c93fce5808",
+    "size_bytes": 1318561
+  }
+}

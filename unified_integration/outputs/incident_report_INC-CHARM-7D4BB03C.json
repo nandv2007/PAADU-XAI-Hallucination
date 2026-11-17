@@ -1,0 +1,408 @@
+{
+  "incident_id": "INC-CHARM-7D4BB03C",
+  "input_reference": "sample_benign_iot_flow",
+  "timestamp": "2026-11-10T10:19:07.604756+00:00",
+  "charm_inference": {
+    "anomaly_detected": true,
+    "hybrid_score": 10.590507758620307,
+    "decision_threshold": 2.5,
+    "trigger_reasons": [
+      "hybrid_threshold",
+      "latent_evidence",
+      "burst"
+    ],
+    "reconstruction_error": 0.019760552793741226,
+    "mahalanobis_distance": 46.05920331285493,
+    "reconstruction_z": -0.09793479679088962,
+    "latent_z": 13.262618397473105,
+    "top_xai_features": [
+      {
+        "feature": "fin_flag_number",
+        "hybrid_contribution": 0.33645789029272244,
+        "reconstruction_contribution": -0.0006027314811944962,
+        "latent_contribution": 1.230885591488132,
+        "observed_mean": 9.113282430917025e-05,
+        "benign_mean": 5.014542239223374e-06,
+        "standardized_deviation": 0.03845753148198128
+      },
+      {
+        "feature": "rst_flag_number",
+        "hybrid_contribution": 0.3302278059279349,
+        "reconstruction_contribution": 0.0008171200752258301,
+        "latent_contribution": 1.2077983121110876,
+        "observed_mean": 0.0003918853180948645,
+        "benign_mean": 6.0174505051691085e-05,
+        "standardized_deviation": 0.0427638404071331
+      },
+      {
+        "feature": "psh_flag_number",
+        "hybrid_contribution": 0.22034663676878274,
+        "reconstruction_contribution": 0.0001505054533481598,
+        "latent_contribution": 0.8059939876752509,
+        "observed_mean": 0.025302261114120483,
+        "benign_mean": 0.017911944538354874,
+        "standardized_deviation": 0.0557514950633049
+      },
+      {
+        "feature": "ARP",
+        "hybrid_contribution": -0.20277499291430878,
+        "reconstruction_contribution": 0.000852338969707489,
+        "latent_contribution": -0.74192737637226,
+        "observed_mean": 0.0003345161094330251,
+        "benign_mean": 0.00022063984943088144,
+        "standardized_deviation": 0.007668083067983389
+      },
+      {
+        "feature": "Rate",
+        "hybrid_contribution": -0.20061199583797418,
+        "reconstruction_contribution": 0.0007885675877332687,
+        "latent_contribution": -0.7340017862089212,
+        "observed_mean": 2135.986572265625,
+        "benign_mean": 1929.5863037109375,
+        "standardized_deviation": 0.010792849585413933
+      }
+    ],
+    "xai_summary": "Anomalous traffic block: hybrid score 10.591 exceeded or triggered the calibrated alert policy (threshold 2.500; causes: hybrid_threshold, latent_evidence, burst). Highest absolute leave-one-feature-out score changes: fin_flag_number, rst_flag_number, psh_flag_number, ARP, Rate. These measurements indicate deviations from learned benign traffic, not a verified attack family."
+  },
+  "investigation_query": {
+    "query_id": "QRY-7D4BB03C",
+    "incident_id": "INC-CHARM-7D4BB03C",
+    "query_text": "What network behaviors and attack patterns are associated with unusual deviations in fin_flag_number, rst_flag_number, psh_flag_number, ARP consistent with possible telemetry deviation in fin_flag_number and telemetry deviation in rst_flag_number, and what evidence helps distinguish such anomalies from DHCP address reassignment or subnet scan?",
+    "target_features": [
+      "fin_flag_number",
+      "rst_flag_number",
+      "psh_flag_number",
+      "ARP"
+    ],
+    "identified_concepts": [
+      "telemetry deviation in fin_flag_number",
+      "telemetry deviation in rst_flag_number",
+      "telemetry deviation in psh_flag_number",
+      "ARP resolution broadcast flood"
+    ],
+    "investigation_facets": [
+      "ARP spoofing",
+      "cache poisoning",
+      "fin_flag_number anomaly",
+      "psh_flag_number anomaly",
+      "rst_flag_number anomaly"
+    ],
+    "generated_at": "2026-11-10T10:19:07.604831+00:00",
+    "is_anomaly_query": true
+  },
+  "retrieval": {
+    "strategy": "Adaptive Hybrid (Category=MODERATE, k=4, Boost=0.22, Domains=1)",
+    "query_complexity": {
+      "complexity_score": 0.66,
+      "category": "MODERATE",
+      "detected_domains": [
+        "routing_layer2"
+      ],
+      "is_comparative": true,
+      "recommended_k": 4,
+      "recommended_hybrid_boost": 0.22,
+      "analysis_details": {
+        "word_count": 42,
+        "domains_count": 1,
+        "domain_matches": {
+          "routing_layer2": [
+            "arp"
+          ]
+        },
+        "length_factor": 0.2,
+        "domain_factor": 0.16,
+        "comparative_factor": 0.3
+      }
+    },
+    "initial_evidence_count": 4,
+    "refined_evidence_count": 6,
+    "refinement_iterations": 2,
+    "refinement_termination": "Bounded limit reached (2 iterations). Proceeding with best-effort evidence.",
+    "evidence_quality": {
+      "composite_score": 0.514,
+      "quality_status": "PARTIAL",
+      "relevance_score": 0.21,
+      "coverage_score": 0.4,
+      "consistency_score": 1.0,
+      "provenance_score": 1.0,
+      "covered_facets": [
+        "ARP spoofing",
+        "cache poisoning"
+      ],
+      "missing_facets": [
+        "fin_flag_number anomaly",
+        "psh_flag_number anomaly",
+        "rst_flag_number anomaly"
+      ],
+      "requires_refinement": true,
+      "diagnostic_notes": [
+        "Relevance: max_score=0.285, avg_score=0.098 -> score=0.210",
+        "Coverage: 2/5 facets covered -> score=0.400",
+        "Consistency: score=1.000",
+        "Provenance: 6/6 authoritative citations -> score=1.000"
+      ]
+    },
+    "retrieved_evidence": [
+      {
+        "doc_id": "DOC-KB-005",
+        "title": "ARP Spoofing and Layer 2 Cache Poisoning",
+        "text": "Address Resolution Protocol (ARP) translates 32-bit IPv4 addresses to 48-bit Ethernet MAC addresses. Because ARP lacks authentication, any host can send unsolicited, forged gratuitous ARP replies across a local broadcast domain. In ARP spoofing or ARP cache poisoning attacks, the attacker binds their MAC address to the IP address of an authorized default gateway, intercepting or modifying traffic in a man-in-the-middle posture. Network telemetry manifests as an anomalous burst of ARP broadcast frames with conflicting IP-to-MAC associations.",
+        "similarity_score": 0.2851,
+        "source_citation": "IETF RFC 826: An Ethernet Address Resolution Protocol (1982) / NIST SP 800-115",
+        "provenance": "IETF RFC 826 & NIST SP 800-115",
+        "topics": [
+          "ARP spoofing",
+          "cache poisoning",
+          "gratuitous ARP",
+          "layer 2 attacks"
+        ]
+      },
+      {
+        "doc_id": "DOC-KB-001",
+        "title": "Normal IoT Baseline Telemetry and Rate Patterns",
+        "text": "In benign IoT network environments, connected sensor telemetry exhibits periodic heartbeat signals, deterministic polling intervals, and bounded transmission rates. Occasional burst traffic and rate increases occur legitimately during firmware updates, scheduled cloud state synchronization, or temporary network reconnects. Benign telemetry flows generally maintain consistent TCP flag ratios and stable interarrival times, whereas attack bursts exhibit severe rate anomalies coupled with abnormal flag distributions.",
+        "similarity_score": 0.1625,
+        "source_citation": "NIST SP 800-213: IoT Device Cybersecurity Guidance for the Federal Government (2021)",
+        "provenance": "NIST Special Publication 800-213",
+        "topics": [
+          "baseline telemetry",
+          "IoT normal behavior",
+          "rate spikes",
+          "benign bursts"
+        ]
+      },
+      {
+        "doc_id": "DOC-KB-008",
+        "title": "Limitations of Anomaly-Based Network Intrusion Detection",
+        "text": "Machine learning and statistical anomaly detection models identify statistical deviations from a modeled benign traffic baseline. However, an anomaly score does not equal an attack classification. Unsupervised models (such as autoencoders and Mahalanobis scorers) frequently trigger false alarms due to non-malicious shifts in network behavior, including backup syncs, microservice initialization, or changes in protocol mix. Scientific validation requires that model attributions be treated as hypotheses requiring corroboration from endpoint telemetry, packet headers, or independent logs before confirming malicious activity.",
+        "similarity_score": 0.0677,
+        "source_citation": "Sommer & Paxson: Outside the Closed World: On Using Machine Learning for Network Intrusion Detection (IEEE S&P 2010)",
+        "provenance": "IEEE Symposium on Security and Privacy (S&P 2010)",
+        "topics": [
+          "anomaly detection limitations",
+          "false positives",
+          "drift",
+          "statistical vs causal attribution"
+        ]
+      },
+      {
+        "doc_id": "DOC-KB-002",
+        "title": "TCP SYN Flood and Handshake Exhaustion",
+        "text": "A TCP SYN flood is a classic denial-of-service attack exploiting the TCP three-way handshake. The attacker sends a rapid stream of TCP packets with the SYN flag set, initiating connections without sending the completing ACK packet. This leaves half-open connection entries in the target system's backlog queue, eventually exhausting connection table memory and denying access to legitimate clients. Primary network telemetry indicators include a surging syn_count, disproportionate syn_flag_number, and drastically reduced ACK completion ratios.",
+        "similarity_score": 0.029,
+        "source_citation": "CERT Advisory CA-1996-21 / RFC 793: Transmission Control Protocol Specification (1981)",
+        "provenance": "CERT Division & IETF RFC 793",
+        "topics": [
+          "TCP SYN flood",
+          "syn_count",
+          "three-way handshake",
+          "half-open connections",
+          "denial-of-service"
+        ]
+      },
+      {
+        "doc_id": "DOC-KB-007",
+        "title": "Network Reconnaissance, Port Scanning, and Host Probing",
+        "text": "Reconnaissance attacks gather intelligence regarding active IP addresses, open ports, and operating system versions before launching exploits. Techniques include TCP SYN stealth scans, full connect scans, UDP port probing, and ICMP ping sweeps. In flow telemetry, reconnaissance produces a large number of very short-lived connections (low flow_duration), elevated syn_count or rst_count, high ratio of RST packets returned by closed ports, and minimal payload size (low Tot sum and AVG).",
+        "similarity_score": 0.0278,
+        "source_citation": "NIST SP 800-94: Guide to Intrusion Detection and Prevention Systems (IDPS) (2012)",
+        "provenance": "NIST Special Publication 800-94",
+        "topics": [
+          "reconnaissance",
+          "port scan",
+          "ping sweep",
+          "RST flags",
+          "flow_duration"
+        ]
+      },
+      {
+        "doc_id": "DOC-KB-004",
+        "title": "DNS Amplification and Port 53 Protocol Floods",
+        "text": "DNS amplification is a specific form of distributed denial-of-service attack leveraging open recursive DNS resolvers. Adversaries transmit small DNS lookup queries (such as ANY requests with EDNS0 extensions) using the victim's spoofed source IP. The resolver returns responses that can be 50 to 70 times larger than the request payload. Telemetry features typically show concurrent surges in UDP traffic, elevated DNS protocol flags, high average packet sizes (AVG), and significant byte volumes.",
+        "similarity_score": 0.0171,
+        "source_citation": "NIST SP 800-81-2: Secure Domain Name System (DNS) Deployment Guide (2013) / RFC 1035",
+        "provenance": "NIST Special Publication 800-81-2",
+        "topics": [
+          "DNS amplification",
+          "UDP port 53",
+          "amplification factor",
+          "volumetric DDoS"
+        ]
+      }
+    ]
+  },
+  "explanation": {
+    "explanation_id": "EXP-ED2D1F70",
+    "observed_facts": [
+      "PAADU/CHARM evaluated sample_benign_iot_flow as ANOMALOUS with a hybrid anomaly score of 10.591 against the calibrated baseline threshold of 2.500.",
+      "The alert was triggered by policies: [hybrid_threshold, latent_evidence, burst], with a reconstruction error of 0.0198 and a latent Mahalanobis distance of 46.0592.",
+      "Explainable AI leave-one-feature-out occlusion identified the most influential features as: fin_flag_number (contribution: +0.34, observed mean: 0.00 vs benign mean: 0.00); rst_flag_number (contribution: +0.33, observed mean: 0.00 vs benign mean: 0.00); psh_flag_number (contribution: +0.22, observed mean: 0.03 vs benign mean: 0.02)."
+    ],
+    "supported_interpretations": [
+      "Retrieved cybersecurity reference ARP Spoofing and Layer 2 Cache Poisoning (IETF RFC 826: An Ethernet Address Resolution Protocol (1982) / NIST SP 800-115) indicates that unsupervised statistical telemetry anomalies reflect operational shifts that require external corroboration."
+    ],
+    "unverified_hypotheses": [
+      "The observed telemetry deviation cannot be conclusively attributed to malicious adversarial action solely from statistical flow metrics without inspecting packet payload headers or host process logs.",
+      "Further investigation is recommended to confirm whether the detected telemetry shift reflects a true attack or a benign non-malicious burst, such as scheduled sensor synchronization or client reconnection."
+    ],
+    "claims": [
+      {
+        "claim_id": "CLM-1",
+        "claim_text": "PAADU/CHARM evaluated sample_benign_iot_flow as ANOMALOUS with a hybrid anomaly score of 10.591 against the calibrated baseline threshold of 2.500.",
+        "claim_type": "OBSERVED_FACT",
+        "cited_doc_title": null,
+        "cited_doc_id": null
+      },
+      {
+        "claim_id": "CLM-2",
+        "claim_text": "The alert was triggered by policies: [hybrid_threshold, latent_evidence, burst], with a reconstruction error of 0.0198 and a latent Mahalanobis distance of 46.0592.",
+        "claim_type": "OBSERVED_FACT",
+        "cited_doc_title": null,
+        "cited_doc_id": null
+      },
+      {
+        "claim_id": "CLM-3",
+        "claim_text": "Explainable AI leave-one-feature-out occlusion identified the most influential features as: fin_flag_number (contribution: +0.34, observed mean: 0.00 vs benign mean: 0.00); rst_flag_number (contribution: +0.33, observed mean: 0.00 vs benign mean: 0.00); psh_flag_number (contribution: +0.22, observed mean: 0.03 vs benign mean: 0.02).",
+        "claim_type": "OBSERVED_FACT",
+        "cited_doc_title": null,
+        "cited_doc_id": null
+      },
+      {
+        "claim_id": "CLM-4",
+        "claim_text": "Retrieved cybersecurity reference ARP Spoofing and Layer 2 Cache Poisoning (IETF RFC 826: An Ethernet Address Resolution Protocol (1982) / NIST SP 800-115) indicates that unsupervised statistical telemetry anomalies reflect operational shifts that require external corroboration.",
+        "claim_type": "EVIDENCE_INTERPRETATION",
+        "cited_doc_title": "ARP Spoofing and Layer 2 Cache Poisoning",
+        "cited_doc_id": "DOC-KB-005"
+      },
+      {
+        "claim_id": "CLM-5",
+        "claim_text": "The observed telemetry deviation cannot be conclusively attributed to malicious adversarial action solely from statistical flow metrics without inspecting packet payload headers or host process logs.",
+        "claim_type": "HYPOTHESIS",
+        "cited_doc_title": null,
+        "cited_doc_id": null
+      },
+      {
+        "claim_id": "CLM-6",
+        "claim_text": "Further investigation is recommended to confirm whether the detected telemetry shift reflects a true attack or a benign non-malicious burst, such as scheduled sensor synchronization or client reconnection.",
+        "claim_type": "HYPOTHESIS",
+        "cited_doc_title": null,
+        "cited_doc_id": null
+      }
+    ],
+    "citations": [
+      {
+        "title": "ARP Spoofing and Layer 2 Cache Poisoning",
+        "citation": "IETF RFC 826: An Ethernet Address Resolution Protocol (1982) / NIST SP 800-115",
+        "doc_id": "DOC-KB-005"
+      }
+    ]
+  },
+  "verification_and_correction": {
+    "total_claims": 6,
+    "telemetry_facts_verified": 3,
+    "evidence_supported_claims": 0,
+    "contradicted_claims": 0,
+    "insufficient_evidence_claims": 1,
+    "verification_rate": 0.5,
+    "claim_results": [
+      {
+        "claim_id": "CLM-1",
+        "original_claim_text": "PAADU/CHARM evaluated sample_benign_iot_flow as ANOMALOUS with a hybrid anomaly score of 10.591 against the calibrated baseline threshold of 2.500.",
+        "claim_type": "OBSERVED_FACT",
+        "verification_status": "VERIFIED_OBSERVED_TELEMETRY",
+        "verification_method": "TELEMETRY_SCHEMA_CHECK",
+        "nli_raw_label": "DIRECT_MATCH",
+        "nli_confidence": 1.0,
+        "evidence_citation": "PAADU/CHARM Execution State (sample_benign_iot_flow)",
+        "evidence_sentence": "Direct model output: score=10.5905, threshold=2.5000",
+        "correction_action": "RETAINED_VERIFIED",
+        "final_presented_text": "[VERIFIED TELEMETRY] PAADU/CHARM evaluated sample_benign_iot_flow as ANOMALOUS with a hybrid anomaly score of 10.591 against the calibrated baseline threshold of 2.500."
+      },
+      {
+        "claim_id": "CLM-2",
+        "original_claim_text": "The alert was triggered by policies: [hybrid_threshold, latent_evidence, burst], with a reconstruction error of 0.0198 and a latent Mahalanobis distance of 46.0592.",
+        "claim_type": "OBSERVED_FACT",
+        "verification_status": "VERIFIED_OBSERVED_TELEMETRY",
+        "verification_method": "TELEMETRY_SCHEMA_CHECK",
+        "nli_raw_label": "DIRECT_MATCH",
+        "nli_confidence": 1.0,
+        "evidence_citation": "PAADU/CHARM Execution State (sample_benign_iot_flow)",
+        "evidence_sentence": "Direct model output: score=10.5905, threshold=2.5000",
+        "correction_action": "RETAINED_VERIFIED",
+        "final_presented_text": "[VERIFIED TELEMETRY] The alert was triggered by policies: [hybrid_threshold, latent_evidence, burst], with a reconstruction error of 0.0198 and a latent Mahalanobis distance of 46.0592."
+      },
+      {
+        "claim_id": "CLM-3",
+        "original_claim_text": "Explainable AI leave-one-feature-out occlusion identified the most influential features as: fin_flag_number (contribution: +0.34, observed mean: 0.00 vs benign mean: 0.00); rst_flag_number (contribution: +0.33, observed mean: 0.00 vs benign mean: 0.00); psh_flag_number (contribution: +0.22, observed mean: 0.03 vs benign mean: 0.02).",
+        "claim_type": "OBSERVED_FACT",
+        "verification_status": "VERIFIED_OBSERVED_TELEMETRY",
+        "verification_method": "TELEMETRY_SCHEMA_CHECK",
+        "nli_raw_label": "DIRECT_MATCH",
+        "nli_confidence": 1.0,
+        "evidence_citation": "PAADU/CHARM Execution State (sample_benign_iot_flow)",
+        "evidence_sentence": "Direct model output: score=10.5905, threshold=2.5000",
+        "correction_action": "RETAINED_VERIFIED",
+        "final_presented_text": "[VERIFIED TELEMETRY] Explainable AI leave-one-feature-out occlusion identified the most influential features as: fin_flag_number (contribution: +0.34, observed mean: 0.00 vs benign mean: 0.00); rst_flag_number (contribution: +0.33, observed mean: 0.00 vs benign mean: 0.00); psh_flag_number (contribution: +0.22, observed mean: 0.03 vs benign mean: 0.02)."
+      },
+      {
+        "claim_id": "CLM-4",
+        "original_claim_text": "Retrieved cybersecurity reference ARP Spoofing and Layer 2 Cache Poisoning (IETF RFC 826: An Ethernet Address Resolution Protocol (1982) / NIST SP 800-115) indicates that unsupervised statistical telemetry anomalies reflect operational shifts that require external corroboration.",
+        "claim_type": "EVIDENCE_INTERPRETATION",
+        "verification_status": "INSUFFICIENT_EVIDENCE",
+        "verification_method": "TRANSFORMER_NLI",
+        "nli_raw_label": "NEUTRAL",
+        "nli_confidence": 0.9640849232673645,
+        "evidence_citation": "Limitations of Anomaly-Based Network Intrusion Detection (DOC-KB-005)",
+        "evidence_sentence": "Unsupervised models (such as autoencoders and Mahalanobis scorers) frequently trigger false alarms due to non-malicious shifts in network behavior, including backup syncs, microservice initialization, or changes in protocol mix.",
+        "correction_action": "FLAGGED_WITH_UNCERTAINTY",
+        "final_presented_text": "[UNVERIFIED - INSUFFICIENT EVIDENCE] Retrieved cybersecurity reference ARP Spoofing and Layer 2 Cache Poisoning (IETF RFC 826: An Ethernet Address Resolution Protocol (1982) / NIST SP 800-115) indicates that unsupervised statistical telemetry anomalies reflect operational shifts that require external corroboration."
+      },
+      {
+        "claim_id": "CLM-5",
+        "original_claim_text": "The observed telemetry deviation cannot be conclusively attributed to malicious adversarial action solely from statistical flow metrics without inspecting packet payload headers or host process logs.",
+        "claim_type": "HYPOTHESIS",
+        "verification_status": "HYPOTHESIS_INVESTIGATION_BOUNDARY",
+        "verification_method": "POLICY_PRESERVATION",
+        "nli_raw_label": "HYPOTHESIS",
+        "nli_confidence": null,
+        "evidence_citation": "Scientific Methodology (Outside Closed World, Sommer & Paxson)",
+        "evidence_sentence": "Statistical anomaly metrics require corroboration before attribution.",
+        "correction_action": "RETAINED_VERIFIED",
+        "final_presented_text": "[OPERATIONAL HYPOTHESIS] The observed telemetry deviation cannot be conclusively attributed to malicious adversarial action solely from statistical flow metrics without inspecting packet payload headers or host process logs."
+      },
+      {
+        "claim_id": "CLM-6",
+        "original_claim_text": "Further investigation is recommended to confirm whether the detected telemetry shift reflects a true attack or a benign non-malicious burst, such as scheduled sensor synchronization or client reconnection.",
+        "claim_type": "HYPOTHESIS",
+        "verification_status": "HYPOTHESIS_INVESTIGATION_BOUNDARY",
+        "verification_method": "POLICY_PRESERVATION",
+        "nli_raw_label": "HYPOTHESIS",
+        "nli_confidence": null,
+        "evidence_citation": "Scientific Methodology (Outside Closed World, Sommer & Paxson)",
+        "evidence_sentence": "Statistical anomaly metrics require corroboration before attribution.",
+        "correction_action": "RETAINED_VERIFIED",
+        "final_presented_text": "[OPERATIONAL HYPOTHESIS] Further investigation is recommended to confirm whether the detected telemetry shift reflects a true attack or a benign non-malicious burst, such as scheduled sensor synchronization or client reconnection."
+      }
+    ],
+    "final_verified_narrative": "[VERIFIED TELEMETRY] PAADU/CHARM evaluated sample_benign_iot_flow as ANOMALOUS with a hybrid anomaly score of 10.591 against the calibrated baseline threshold of 2.500.\n\n[VERIFIED TELEMETRY] The alert was triggered by policies: [hybrid_threshold, latent_evidence, burst], with a reconstruction error of 0.0198 and a latent Mahalanobis distance of 46.0592.\n\n[VERIFIED TELEMETRY] Explainable AI leave-one-feature-out occlusion identified the most influential features as: fin_flag_number (contribution: +0.34, observed mean: 0.00 vs benign mean: 0.00); rst_flag_number (contribution: +0.33, observed mean: 0.00 vs benign mean: 0.00); psh_flag_number (contribution: +0.22, observed mean: 0.03 vs benign mean: 0.02).\n\n[UNVERIFIED - INSUFFICIENT EVIDENCE] Retrieved cybersecurity reference ARP Spoofing and Layer 2 Cache Poisoning (IETF RFC 826: An Ethernet Address Resolution Protocol (1982) / NIST SP 800-115) indicates that unsupervised statistical telemetry anomalies reflect operational shifts that require external corroboration.\n\n[OPERATIONAL HYPOTHESIS] The observed telemetry deviation cannot be conclusively attributed to malicious adversarial action solely from statistical flow metrics without inspecting packet payload headers or host process logs.\n\n[OPERATIONAL HYPOTHESIS] Further investigation is recommended to confirm whether the detected telemetry shift reflects a true attack or a benign non-malicious burst, such as scheduled sensor synchronization or client reconnection."
+  },
+  "stage_runtimes_sec": {
+    "charm_inference": 0.0034,
+    "charm_xai": 0.1449,
+    "incident_adapter": 0.0001,
+    "query_builder": 0.0,
+    "retrieval": 0.0019,
+    "refinement": 0.0013,
+    "explanation_generation": 0.0,
+    "nli_verification_and_correction": 0.5582,
+    "total_block_sec": 0.7098
+  },
+  "provenance_trace": {
+    "model_checkpoint_hash": "647febba9cf564e6bf5e2c4ececd2dc8cf7bfd6d172235fb1a10286f532bb530",
+    "feature_schema": "CICIoT2023_46_features",
+    "nli_model": "cross-encoder/nli-MiniLM2-L6-H768",
+    "knowledge_base_sources": [
+      "IETF RFC 826: An Ethernet Address Resolution Protocol (1982) / NIST SP 800-115"
+    ]
+  }
+}

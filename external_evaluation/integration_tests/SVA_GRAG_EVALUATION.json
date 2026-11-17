@@ -1,0 +1,222 @@
+{
+  "retriever": {
+    "corpus_size": 6,
+    "graph_nodes": 6,
+    "graph_edges": 0,
+    "hybrid_edge_boost": 0.22
+  },
+  "components_implementation_audit": {
+    "query_processing": {
+      "implemented": true,
+      "details": "TfidfVectorizer with unigram+bigram and English stopwords"
+    },
+    "query_complexity_analysis": {
+      "implemented": false,
+      "details": "Not present in reconstructed code; all queries receive uniform retrieval routing"
+    },
+    "adaptive_retrieval_control": {
+      "implemented": false,
+      "details": "Fixed parameter retrieval (k=3, hybrid=True); dynamic depth control absent"
+    },
+    "vector_retrieval": {
+      "implemented": true,
+      "details": "Cosine similarity over TF-IDF sparse matrix"
+    },
+    "graph_retrieval": {
+      "implemented": true,
+      "details": "NetworkX undirected co-mention graph over document titles"
+    },
+    "evidence_fusion": {
+      "implemented": true,
+      "details": "Additive boost (score + 0.22 * anchor_score) for top-2 anchor neighbors"
+    },
+    "retrieval_quality_prediction": {
+      "implemented": false,
+      "details": "Not present in reconstructed code; no confidence or calibration estimator"
+    },
+    "evidence_selection": {
+      "implemented": true,
+      "details": "Score descending sort with positive score filter and top-k slicing"
+    },
+    "answer_generation": {
+      "implemented": false,
+      "details": "Requires externally supplied candidate_answer; internal LLM generation absent"
+    },
+    "claim_segmentation": {
+      "implemented": true,
+      "details": "Regex punctuation sentence boundary splitting for evidence candidate search"
+    },
+    "nli_verification": {
+      "implemented": true,
+      "details": "Hugging Face cross-encoder/nli-MiniLM2-L6-H768 sequence classification"
+    },
+    "contradiction_detection": {
+      "implemented": true,
+      "details": "Thresholded decision rule (label CONTRADICTION with confidence >= 0.9)"
+    },
+    "insufficient_evidence_handling": {
+      "implemented": true,
+      "details": "Fallback status INSUFFICIENT_EVIDENCE when confidence thresholds not met"
+    },
+    "automatic_correction": {
+      "implemented": true,
+      "status": "CONSERVATIVE_IDENTITY",
+      "details": "Preserves candidate answer; status UNCHANGED_NO_VERIFIED_REPLACEMENT"
+    },
+    "reverification": {
+      "implemented": false,
+      "details": "No post-correction feedback loop; output returned after single pass"
+    }
+  },
+  "hallucination_verification_benchmark": {
+    "samples_tested": 10,
+    "accuracy": 0.8,
+    "macro_f1": 0.8024,
+    "confusion_matrix": {
+      "labels": [
+        "SUPPORTED",
+        "CONTRADICTED",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "matrix": [
+        [
+          3,
+          0,
+          1
+        ],
+        [
+          0,
+          2,
+          1
+        ],
+        [
+          0,
+          0,
+          3
+        ]
+      ]
+    },
+    "test_results": [
+      {
+        "test_id": 1,
+        "query": "What delivery guarantees does UDP provide?",
+        "claim": "UDP is connectionless and does not provide reliable delivery.",
+        "true_label": "SUPPORTED",
+        "predicted_label": "INSUFFICIENT_EVIDENCE",
+        "match": false,
+        "latency_sec": 0.4998,
+        "evidence_doc": "UDP Protocol",
+        "nli_raw_label": "NEUTRAL",
+        "nli_confidence": 0.9928750991821289
+      },
+      {
+        "test_id": 2,
+        "query": "Does TCP guarantee ordered delivery?",
+        "claim": "TCP is connection-oriented and provides reliable in-order byte stream delivery.",
+        "true_label": "SUPPORTED",
+        "predicted_label": "SUPPORTED",
+        "match": true,
+        "latency_sec": 0.0603,
+        "evidence_doc": "TCP Protocol",
+        "nli_raw_label": "ENTAILMENT",
+        "nli_confidence": 0.9882041215896606
+      },
+      {
+        "test_id": 3,
+        "query": "Which port does DNS primarily use?",
+        "claim": "DNS primarily uses UDP port 53 for standard queries.",
+        "true_label": "SUPPORTED",
+        "predicted_label": "SUPPORTED",
+        "match": true,
+        "latency_sec": 0.0463,
+        "evidence_doc": "DNS Protocol",
+        "nli_raw_label": "ENTAILMENT",
+        "nli_confidence": 0.8979567885398865
+      },
+      {
+        "test_id": 4,
+        "query": "What transport protocol does MQTT use?",
+        "claim": "MQTT runs over TCP port 1883 for IoT devices.",
+        "true_label": "SUPPORTED",
+        "predicted_label": "SUPPORTED",
+        "match": true,
+        "latency_sec": 0.0217,
+        "evidence_doc": "MQTT Protocol",
+        "nli_raw_label": "ENTAILMENT",
+        "nli_confidence": 0.9918010830879211
+      },
+      {
+        "test_id": 5,
+        "query": "Does UDP guarantee ordered delivery?",
+        "claim": "UDP guarantees strictly reliable and in-order packet delivery.",
+        "true_label": "CONTRADICTED",
+        "predicted_label": "CONTRADICTED",
+        "match": true,
+        "latency_sec": 0.0442,
+        "evidence_doc": "UDP Protocol",
+        "nli_raw_label": "CONTRADICTION",
+        "nli_confidence": 0.9924311637878418
+      },
+      {
+        "test_id": 6,
+        "query": "Is TCP a connectionless protocol?",
+        "claim": "TCP is a connectionless protocol that does not use three-way handshakes.",
+        "true_label": "CONTRADICTED",
+        "predicted_label": "CONTRADICTED",
+        "match": true,
+        "latency_sec": 0.0723,
+        "evidence_doc": "TCP Protocol",
+        "nli_raw_label": "CONTRADICTION",
+        "nli_confidence": 0.9985949397087097
+      },
+      {
+        "test_id": 7,
+        "query": "Does DNS use TCP port 80?",
+        "claim": "DNS resolves domain names using HTTP over TCP port 80.",
+        "true_label": "CONTRADICTED",
+        "predicted_label": "INSUFFICIENT_EVIDENCE",
+        "match": false,
+        "latency_sec": 0.0488,
+        "evidence_doc": "MQTT Protocol",
+        "nli_raw_label": "CONTRADICTION",
+        "nli_confidence": 0.8984031677246094
+      },
+      {
+        "test_id": 8,
+        "query": "What encryption does quantum computing use?",
+        "claim": "Post-quantum cryptography uses lattice-based Kyber algorithms for key exchange.",
+        "true_label": "INSUFFICIENT_EVIDENCE",
+        "predicted_label": "INSUFFICIENT_EVIDENCE",
+        "match": true,
+        "latency_sec": 0.0006,
+        "evidence_doc": null,
+        "nli_raw_label": null,
+        "nli_confidence": null
+      },
+      {
+        "test_id": 9,
+        "query": "How does BGP routing function?",
+        "claim": "BGP uses path-vector protocol with autonomous system numbers.",
+        "true_label": "INSUFFICIENT_EVIDENCE",
+        "predicted_label": "INSUFFICIENT_EVIDENCE",
+        "match": true,
+        "latency_sec": 0.0003,
+        "evidence_doc": null,
+        "nli_raw_label": null,
+        "nli_confidence": null
+      },
+      {
+        "test_id": 10,
+        "query": "What causes ARP spoofing?",
+        "claim": "ARP spoofing occurs when an attacker broadcasts forged ARP reply messages on the LAN.",
+        "true_label": "INSUFFICIENT_EVIDENCE",
+        "predicted_label": "INSUFFICIENT_EVIDENCE",
+        "match": true,
+        "latency_sec": 0.0003,
+        "evidence_doc": null,
+        "nli_raw_label": null,
+        "nli_confidence": null
+      }
+    ]
+  }
+}

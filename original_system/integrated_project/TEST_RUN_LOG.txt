@@ -1,0 +1,32 @@
+PASS: integration tests
+{
+  "query": "Does UDP guarantee reliable ordered delivery?",
+  "retrieval": [
+    {
+      "title": "UDP",
+      "text": "UDP is connectionless and does not guarantee reliable or ordered delivery.",
+      "score": 0.7881547713094574
+    },
+    {
+      "title": "TCP",
+      "text": "TCP is connection-oriented and provides reliable ordered data delivery.",
+      "score": 0.21731033080289508
+    }
+  ],
+  "answer": "UDP is connectionless and does not guarantee reliable or ordered delivery.",
+  "generation_status": "PROVIDED",
+  "verification": {
+    "label": "NOT_EVALUATED",
+    "reason": "NLI model not loaded",
+    "evidence": null
+  },
+  "corrected_answer": "UDP is connectionless and does not guarantee reliable or ordered delivery.",
+  "correction_status": "UNCHANGED_NO_VERIFIED_REPLACEMENT"
+}
+PASS: reconstructed GraphRAG retrieval + integration interface
+  [MahalScorer] fitted on 16 vectors (dim=16).
+  [VolumeRelaxer] z_floor set to 1510.3059 (held-out benign calibration)
+PASS: original CHARM model + scoring + XAI wiring; decisions unchanged
+alerts: 1 of 4
+
+PASS: reconstructed RAG and original CHARM smoke tests both completed.

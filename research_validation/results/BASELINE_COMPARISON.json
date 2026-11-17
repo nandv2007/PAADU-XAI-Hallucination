@@ -1,0 +1,45 @@
+{
+  "sample_count": 60,
+  "configurations": {
+    "Config_A": {
+      "name": "CHARM + Original XAI",
+      "description": "Raw continuous anomaly scores and deterministic occlusion attribution rankings without narrative generation.",
+      "ehr": 0.0,
+      "ucr": 0.0,
+      "evidence_coverage": 1.0,
+      "counterfactual_consistency": 1.0,
+      "xai_faithfulness_aopc5": 27.84,
+      "mean_latency_sec": 0.04948651528326688
+    },
+    "Config_B": {
+      "name": "CHARM + XAI + Unverified Explanation",
+      "description": "Direct factual claim segmentation from CHARM/XAI without retrieval grounding or NLI verification.",
+      "ehr": 0.02778333333333333,
+      "ucr": 0.3333000000000001,
+      "evidence_coverage": 0.6666999999999998,
+      "counterfactual_consistency": 1.0,
+      "xai_faithfulness_aopc5": 27.84,
+      "mean_latency_sec": 0.04955713681647467
+    },
+    "Config_C": {
+      "name": "CHARM + XAI + SVA-GRAG Retrieval",
+      "description": "Retrieval-augmented explanations with authoritative cybersecurity citations (RFC, NIST), but without NLI claim checking.",
+      "ehr": 0.02778333333333333,
+      "ucr": 0.16670000000000004,
+      "evidence_coverage": 0.8333000000000002,
+      "counterfactual_consistency": 1.0,
+      "xai_faithfulness_aopc5": 27.84,
+      "mean_latency_sec": 0.051714097183260796
+    },
+    "Config_D": {
+      "name": "CHARM + XAI + SVA-GRAG + NLI Verification & Correction",
+      "description": "Full pipeline with cross-encoder NLI sentence-level hallucination verification and conservative uncertainty badging.",
+      "ehr": 0.0,
+      "ucr": 0.0,
+      "evidence_coverage": 1.0,
+      "counterfactual_consistency": 1.0,
+      "xai_faithfulness_aopc5": 27.84,
+      "mean_latency_sec": 0.19710188606683612
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "Level_0_Trained": {
+    "mean_spearman": 1.0,
+    "std_spearman": 0.0,
+    "mean_kendall": 1.0,
+    "mean_cosine": 1.0,
+    "mean_top3_overlap": 1.0,
+    "mean_top5_overlap": 1.0
+  },
+  "Level_1_Decoder": {
+    "mean_spearman": 0.9998437660602322,
+    "std_spearman": 0.00014218617712644956,
+    "mean_kendall": 0.9976167471819647,
+    "mean_cosine": 0.999537181854248,
+    "mean_top3_overlap": 0.9833333333333333,
+    "mean_top5_overlap": 1.0
+  },
+  "Level_2_Perception": {
+    "mean_spearman": 0.9998437660602322,
+    "std_spearman": 0.00014218617712644956,
+    "mean_kendall": 0.9976167471819647,
+    "mean_cosine": 0.999537181854248,
+    "mean_top3_overlap": 0.9833333333333333,
+    "mean_top5_overlap": 1.0
+  },
+  "Level_3_Transformer": {
+    "mean_spearman": 0.13876091654495815,
+    "std_spearman": 0.13665746341379073,
+    "mean_kendall": 0.10451822573996221,
+    "mean_cosine": -0.20976000428199768,
+    "mean_top3_overlap": 0.9333333333333333,
+    "mean_top5_overlap": 0.5587301587301587
+  },
+  "Level_4_PatchEmbed": {
+    "mean_spearman": 0.13876091654495815,
+    "std_spearman": 0.13665746341379073,
+    "mean_kendall": 0.10451822573996221,
+    "mean_cosine": -0.20976000428199768,
+    "mean_top3_overlap": 0.9333333333333333,
+    "mean_top5_overlap": 0.5587301587301587
+  },
+  "Level_5_Complete": {
+    "mean_spearman": 0.13876091654495815,
+    "std_spearman": 0.13665746341379073,
+    "mean_kendall": 0.10451822573996221,
+    "mean_cosine": -0.20976000428199768,
+    "mean_top3_overlap": 0.9333333333333333,
+    "mean_top5_overlap": 0.5587301587301587
+  },
+  "Level_6_RandomBaseline": {
+    "mean_spearman": 0.011390002398328023,
+    "std_spearman": 0.15469606248647888,
+    "mean_kendall": 0.007257112184648415,
+    "mean_cosine": 0.041218597885128674,
+    "mean_top3_overlap": 0.03444444444444445,
+    "mean_top5_overlap": 0.06895943562610228
+  },
+  "Level_1_DecoderPred": {
+    "mean_spearman": 0.9998437660602322,
+    "std_spearman": 0.00014218617712644956,
+    "mean_kendall": 0.9976167471819647,
+    "mean_cosine": 0.999537181854248,
+    "mean_top3_overlap": 0.9833333333333333,
+    "mean_top5_overlap": 1.0
+  },
+  "Level_2_Decoder": {
+    "mean_spearman": 0.9998437660602322,
+    "std_spearman": 0.00014218617712644956,
+    "mean_kendall": 0.9976167471819647,
+    "mean_cosine": 0.999537181854248,
+    "mean_top3_overlap": 0.9833333333333333,
+    "mean_top5_overlap": 1.0
+  },
+  "Level_3_LatentProj": {
+    "mean_spearman": 0.13876091654495815,
+    "std_spearman": 0.13665746341379073,
+    "mean_kendall": 0.10451822573996221,
+    "mean_cosine": -0.20976000428199768,
+    "mean_top3_overlap": 0.9333333333333333,
+    "mean_top5_overlap": 0.5587301587301587
+  },
+  "Level_4_Encoder": {
+    "mean_spearman": 0.13876091654495815,
+    "std_spearman": 0.13665746341379073,
+    "mean_kendall": 0.10451822573996221,
+    "mean_cosine": -0.20976000428199768,
+    "mean_top3_overlap": 0.9333333333333333,
+    "mean_top5_overlap": 0.5587301587301587
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "total_evaluated": 60,
+  "stable_pairs_analyzed": 60,
+  "unstable_pairs_excluded": 0,
+  "unverified_configuration_B": {
+    "narrative_variance_score": 0.04583333333333333,
+    "attack_attribution_change_rate": 0.0,
+    "counterfactual_consistency_rate": 0.85,
+    "unsupported_claim_introduction_rate": 0.0
+  },
+  "verified_configuration_D": {
+    "narrative_variance_score": 0.04583333333333333,
+    "attack_attribution_change_rate": 0.0,
+    "counterfactual_consistency_rate": 0.85,
+    "unsupported_claim_introduction_rate": 0.0
+  },
+  "stability_gain": {
+    "nvs_reduction_percent": 0.0,
+    "ccr_improvement_percent": 0.0
+  }
+}

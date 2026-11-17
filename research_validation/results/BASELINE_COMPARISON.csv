@@ -1,0 +1,5 @@
+configuration,description,ehr_mean,ucr_mean,evidence_coverage,counterfactual_consistency,xai_aopc5,latency_sec
+Config A,CHARM + Original XAI,0.0000,0.0000,1.0000,1.0000,27.84,0.0495
+Config B,CHARM + XAI + Unverified Expl,0.0278,0.3333,0.6667,1.0000,27.84,0.0496
+Config C,CHARM + XAI + SVA-GRAG Retrieval,0.0278,0.1667,0.8333,1.0000,27.84,0.0517
+Config D,CHARM + XAI + SVA-GRAG + NLI Verified,0.0000,0.0000,1.0000,1.0000,27.84,0.1971

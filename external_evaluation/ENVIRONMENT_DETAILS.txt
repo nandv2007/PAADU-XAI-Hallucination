@@ -1,0 +1,107 @@
+================================================================================
+PAADU/CHARM + SVA-GRAG-Core External Validation Environment Details
+================================================================================
+
+Date & Timestamp: 2026-11-10T12:46:00+05:30
+Execution Mode: Isolated Read-Only Validation (Preserving All Original Code & Artifacts)
+
+1. SYSTEM & OPERATING SYSTEM
+--------------------------------------------------------------------------------
+OS Name: macOS (Darwin)
+OS Version: macOS 26.6.2 (Darwin Kernel Version 25.6.0: Fri Jul 31 19:17:12 PDT 2026; root:xnu-12377.161.14~5/RELEASE_ARM64_T8103 arm64)
+System Architecture: arm64 (Apple Silicon)
+Hostname: Nandhinis-MacBook-Air.local
+Shell: zsh / bash
+
+2. HARDWARE SPECIFICATIONS
+--------------------------------------------------------------------------------
+Model Name: MacBook Air (MacBookAir10,1, MGN93HN/A)
+Chip: Apple M1 (8 cores: 4 Performance, 4 Efficiency)
+GPU: Apple M1 Integrated GPU (7-core, Metal 4 support)
+System Memory (RAM): 8.00 GB unified memory
+Available Disk Space: ~16 GB
+
+3. PYTHON & EXECUTION RUNTIME
+--------------------------------------------------------------------------------
+Python Executable: /opt/anaconda3/bin/python3
+Python Version: Python 3.13.9 (CPython)
+Execution Device: Apple Silicon CPU (torch.device('cpu'))
+
+4. CORE PYTHON LIBRARY VERSIONS
+--------------------------------------------------------------------------------
+numpy: 2.3.5
+pandas: 2.3.3
+scikit-learn: 1.7.2
+scipy: 1.16.2
+torch: 2.13.0
+networkx: 3.5
+transformers: 5.22.2
+tokenizers: 0.23.3
+huggingface-hub: 2.4.0
+safetensors: 0.8.0
+sentencepiece: 0.2.3
+
+5. MODEL CHECKPOINTS & ARTIFACT DETAILS
+--------------------------------------------------------------------------------
+Checkpoint File: integrated_project/charm_original/artifacts/charm_model_weights.pt
+Checkpoint SHA-256: 647febba9cf564e6bf5e2c4ececd2dc8cf7bfd6d172235fb1a10286f532bb530
+Model Architecture: SemanticAnomalyMAE (N=1, L=10, F=46, embed_dim=64, mask_ratio=0.40, use_gnn=False)
+Trained Parameters Count: 185,007 float32 weights
+State / Calibration File: integrated_project/charm_original/artifacts/charm_engine_state.pkl
+State File SHA-256: 49d2967c214e63c435d18e0c66979f7aa9a1c60f95d535896a6e3af7fe63ca6b
+Calibrated Decision Floor: 2.5000 (Held-out benign calibration threshold)
+NLI Model: cross-encoder/nli-MiniLM2-L6-H768 (SequenceClassification, 328 MB)
+
+6. DATASET INTEGRITY & IDENTIFICATION
+--------------------------------------------------------------------------------
+Dataset 1: CICIoMT2024 (Directory: datasets/Dataset)
+  - Files: 79 files (71 CSV files in WiFI_and_MQTT, 4 pcap files in Bluetooth, 4 PDF documents)
+  - Total records: 9,162,994 records (56,898 benign, 9,106,096 attack)
+  - Schema: 39 network flow columns (37 overlapping with CHARM, 9 missing, 2 extra)
+
+Dataset 2: CICIoV2024 (Directory: datasets/ciciov24)
+  - Files: 21 files (18 CSV files in decimal/binary/hexadecimal, 2 Word docx, 1 PDF)
+  - Total records (decimal): 1,408,219 records (1,223,737 benign, 184,482 attack)
+  - Schema: CAN-bus frame schema (CAN ID + 8 payload bytes). 0 overlapping features with CHARM.
+
+Dataset 3: CIC2025 (Directory: datasets/cic25)
+  - Files: 21 files (Identical duplicate of CICIoV2024)
+  - Total records (decimal): 1,408,219 records
+  - Verification: SHA-256 diff confirmation: 100% byte identical to ciciov24.
+
+7. RANDOM SEEDS & REPRODUCIBILITY
+--------------------------------------------------------------------------------
+Phase 1 Seed: 42
+Smoke Test Seed: 17
+Evaluation Benchmark Seeds: 2024, 12345
+Deterministic Flags: torch.manual_seed, np.random.default_rng, seed_everything
+
+8. EXACT EXECUTION COMMANDS
+--------------------------------------------------------------------------------
+1. Hash Baseline Recording:
+   python3 external_evaluation/scripts/hash_integrity.py record
+
+2. Existing Test Suite Execution:
+   bash integrated_project/run_all.sh
+
+3. NLI Demonstration Execution:
+   PYTHONPATH=integrated_project/project python3 integrated_project/project/run_demo.py --nli
+
+4. Dataset Inspection & Profiling:
+   python3 external_evaluation/scripts/inspect_datasets.py
+
+5. Component & Integration Verification:
+   python3 external_evaluation/scripts/run_component_tests.py
+
+6. XAI Explainability Evaluation:
+   python3 external_evaluation/scripts/test_xai.py
+
+7. SVA-GRAG & NLI Verification Benchmark:
+   python3 external_evaluation/scripts/test_sva_grag.py
+
+8. Dataset Evaluation & Diagnostic Generator:
+   python3 external_evaluation/scripts/generate_evaluation_metrics.py
+
+9. Final Hash Integrity Verification:
+   PYTHONDONTWRITEBYTECODE=1 python3 external_evaluation/scripts/hash_integrity.py verify
+================================================================================

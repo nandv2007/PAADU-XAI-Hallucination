@@ -1,0 +1,416 @@
+{
+  "incident_id": "INC-CHARM-941FF42C",
+  "input_reference": "sample_syn_flood_telemetry",
+  "timestamp": "2026-11-10T07:45:50.679886+00:00",
+  "charm_inference": {
+    "anomaly_detected": true,
+    "hybrid_score": 56.159788978235326,
+    "decision_threshold": 2.5,
+    "trigger_reasons": [
+      "hybrid_threshold",
+      "latent_evidence",
+      "burst"
+    ],
+    "reconstruction_error": 8.488912582397461,
+    "mahalanobis_distance": 210.9754004380938,
+    "reconstruction_z": 2.329254444508752,
+    "latent_z": 69.61742261166697,
+    "top_xai_features": [
+      {
+        "feature": "syn_count",
+        "hybrid_contribution": -97.02705140277456,
+        "reconstruction_contribution": 4.341519355773926,
+        "latent_contribution": -355.8341597320078,
+        "observed_mean": 19.292112350463867,
+        "benign_mean": 0.7974284887313843,
+        "standardized_deviation": 24.003328323364258
+      },
+      {
+        "feature": "syn_flag_number",
+        "hybrid_contribution": 18.193512485398415,
+        "reconstruction_contribution": 1.1465749740600586,
+        "latent_contribution": 66.31126386151445,
+        "observed_mean": 0.04406033083796501,
+        "benign_mean": 3.0087252525845543e-05,
+        "standardized_deviation": 8.027356147766113
+      },
+      {
+        "feature": "TCP",
+        "hybrid_contribution": -1.816796603063139,
+        "reconstruction_contribution": 0.30551910400390625,
+        "latent_contribution": -6.709879906711166,
+        "observed_mean": 2.6210718154907227,
+        "benign_mean": 0.8591766357421875,
+        "standardized_deviation": 5.0681281089782715
+      },
+      {
+        "feature": "cwr_flag_number",
+        "hybrid_contribution": 0.10439015813037145,
+        "reconstruction_contribution": 0.0046749114990234375,
+        "latent_contribution": 0.3808778480266142,
+        "observed_mean": -0.04710124433040619,
+        "benign_mean": 0.0,
+        "standardized_deviation": -0.04710124433040619
+      },
+      {
+        "feature": "Radius",
+        "hybrid_contribution": 0.0701257980424117,
+        "reconstruction_contribution": 0.0001773834228515625,
+        "latent_contribution": 0.25648219655079174,
+        "observed_mean": 687.6945190429688,
+        "benign_mean": 698.724365234375,
+        "standardized_deviation": -0.013551861047744751
+      }
+    ],
+    "xai_summary": "Anomalous traffic block: hybrid score 56.160 exceeded or triggered the calibrated alert policy (threshold 2.500; causes: hybrid_threshold, latent_evidence, burst). Highest absolute leave-one-feature-out score changes: syn_count, syn_flag_number, TCP, cwr_flag_number, Radius. These measurements indicate deviations from learned benign traffic, not a verified attack family."
+  },
+  "investigation_query": {
+    "query_id": "QRY-941FF42C",
+    "incident_id": "INC-CHARM-941FF42C",
+    "query_text": "What network behaviors and attack patterns are associated with unusual deviations in syn_count, syn_flag_number, TCP, cwr_flag_number consistent with possible elevated TCP SYN connection requests and disproportionate SYN flag ratio, and what evidence helps distinguish such anomalies from rapid client reconnect storms or high-frequency microservice initiation?",
+    "target_features": [
+      "syn_count",
+      "syn_flag_number",
+      "TCP",
+      "cwr_flag_number"
+    ],
+    "identified_concepts": [
+      "elevated TCP SYN connection requests",
+      "disproportionate SYN flag ratio",
+      "telemetry deviation in TCP",
+      "telemetry deviation in cwr_flag_number"
+    ],
+    "investigation_facets": [
+      "SYN ratio anomaly",
+      "TCP SYN flood",
+      "TCP SYN scan",
+      "TCP anomaly",
+      "cwr_flag_number anomaly",
+      "half-open connection backlog"
+    ],
+    "generated_at": "2026-11-10T07:45:50.679936+00:00",
+    "is_anomaly_query": true
+  },
+  "retrieval": {
+    "strategy": "Adaptive Hybrid (Category=COMPLEX, k=6, Boost=0.3, Domains=2)",
+    "query_complexity": {
+      "complexity_score": 0.82,
+      "category": "COMPLEX",
+      "detected_domains": [
+        "transport",
+        "flags"
+      ],
+      "is_comparative": true,
+      "recommended_k": 6,
+      "recommended_hybrid_boost": 0.3,
+      "analysis_details": {
+        "word_count": 46,
+        "domains_count": 2,
+        "domain_matches": {
+          "transport": [
+            "tcp"
+          ],
+          "flags": [
+            "syn",
+            "flag"
+          ]
+        },
+        "length_factor": 0.2,
+        "domain_factor": 0.32,
+        "comparative_factor": 0.3
+      }
+    },
+    "initial_evidence_count": 6,
+    "refined_evidence_count": 6,
+    "refinement_iterations": 2,
+    "refinement_termination": "Bounded limit reached (2 iterations). Proceeding with best-effort evidence.",
+    "evidence_quality": {
+      "composite_score": 0.44,
+      "quality_status": "INSUFFICIENT",
+      "relevance_score": 0.233,
+      "coverage_score": 0.167,
+      "consistency_score": 1.0,
+      "provenance_score": 1.0,
+      "covered_facets": [
+        "TCP SYN flood"
+      ],
+      "missing_facets": [
+        "SYN ratio anomaly",
+        "TCP SYN scan",
+        "TCP anomaly",
+        "cwr_flag_number anomaly",
+        "half-open connection backlog"
+      ],
+      "requires_refinement": true,
+      "diagnostic_notes": [
+        "Relevance: max_score=0.309, avg_score=0.118 -> score=0.233",
+        "Coverage: 1/6 facets covered -> score=0.167",
+        "Consistency: score=1.000",
+        "Provenance: 6/6 authoritative citations -> score=1.000"
+      ]
+    },
+    "retrieved_evidence": [
+      {
+        "doc_id": "DOC-KB-002",
+        "title": "TCP SYN Flood and Handshake Exhaustion",
+        "text": "A TCP SYN flood is a classic denial-of-service attack exploiting the TCP three-way handshake. The attacker sends a rapid stream of TCP packets with the SYN flag set, initiating connections without sending the completing ACK packet. This leaves half-open connection entries in the target system's backlog queue, eventually exhausting connection table memory and denying access to legitimate clients. Primary network telemetry indicators include a surging syn_count, disproportionate syn_flag_number, and drastically reduced ACK completion ratios.",
+        "similarity_score": 0.3089,
+        "source_citation": "CERT Advisory CA-1996-21 / RFC 793: Transmission Control Protocol Specification (1981)",
+        "provenance": "CERT Division & IETF RFC 793",
+        "topics": [
+          "TCP SYN flood",
+          "syn_count",
+          "three-way handshake",
+          "half-open connections",
+          "denial-of-service"
+        ]
+      },
+      {
+        "doc_id": "DOC-KB-001",
+        "title": "Normal IoT Baseline Telemetry and Rate Patterns",
+        "text": "In benign IoT network environments, connected sensor telemetry exhibits periodic heartbeat signals, deterministic polling intervals, and bounded transmission rates. Occasional burst traffic and rate increases occur legitimately during firmware updates, scheduled cloud state synchronization, or temporary network reconnects. Benign telemetry flows generally maintain consistent TCP flag ratios and stable interarrival times, whereas attack bursts exhibit severe rate anomalies coupled with abnormal flag distributions.",
+        "similarity_score": 0.1147,
+        "source_citation": "NIST SP 800-213: IoT Device Cybersecurity Guidance for the Federal Government (2021)",
+        "provenance": "NIST Special Publication 800-213",
+        "topics": [
+          "baseline telemetry",
+          "IoT normal behavior",
+          "rate spikes",
+          "benign bursts"
+        ]
+      },
+      {
+        "doc_id": "DOC-KB-007",
+        "title": "Network Reconnaissance, Port Scanning, and Host Probing",
+        "text": "Reconnaissance attacks gather intelligence regarding active IP addresses, open ports, and operating system versions before launching exploits. Techniques include TCP SYN stealth scans, full connect scans, UDP port probing, and ICMP ping sweeps. In flow telemetry, reconnaissance produces a large number of very short-lived connections (low flow_duration), elevated syn_count or rst_count, high ratio of RST packets returned by closed ports, and minimal payload size (low Tot sum and AVG).",
+        "similarity_score": 0.1077,
+        "source_citation": "NIST SP 800-94: Guide to Intrusion Detection and Prevention Systems (IDPS) (2012)",
+        "provenance": "NIST Special Publication 800-94",
+        "topics": [
+          "reconnaissance",
+          "port scan",
+          "ping sweep",
+          "RST flags",
+          "flow_duration"
+        ]
+      },
+      {
+        "doc_id": "DOC-KB-006",
+        "title": "MQTT Protocol Security and IoT Publish/Connect Floods",
+        "text": "MQTT (Message Queuing Telemetry Transport) is an asynchronous publish-subscribe messaging protocol designed for constrained IoT sensors, running over TCP port 1883 or TLS port 8883. Common IoT DoS attacks targeting MQTT brokers include Connect Floods and Publish Floods, where attackers rapidly open client sessions or broadcast excessive high-frequency payloads across popular topics. These attacks cause memory exhaustion and queue starvation on the central broker, manifesting as surges in TCP flow rates and payload counts.",
+        "similarity_score": 0.0866,
+        "source_citation": "OASIS Standard: MQTT Version 5.0 Specification (2019)",
+        "provenance": "OASIS Standards Consortium MQTT v5.0",
+        "topics": [
+          "MQTT",
+          "IoT security",
+          "publish flood",
+          "connect flood",
+          "TCP port 1883"
+        ]
+      },
+      {
+        "doc_id": "DOC-KB-008",
+        "title": "Limitations of Anomaly-Based Network Intrusion Detection",
+        "text": "Machine learning and statistical anomaly detection models identify statistical deviations from a modeled benign traffic baseline. However, an anomaly score does not equal an attack classification. Unsupervised models (such as autoencoders and Mahalanobis scorers) frequently trigger false alarms due to non-malicious shifts in network behavior, including backup syncs, microservice initialization, or changes in protocol mix. Scientific validation requires that model attributions be treated as hypotheses requiring corroboration from endpoint telemetry, packet headers, or independent logs before confirming malicious activity.",
+        "similarity_score": 0.05,
+        "source_citation": "Sommer & Paxson: Outside the Closed World: On Using Machine Learning for Network Intrusion Detection (IEEE S&P 2010)",
+        "provenance": "IEEE Symposium on Security and Privacy (S&P 2010)",
+        "topics": [
+          "anomaly detection limitations",
+          "false positives",
+          "drift",
+          "statistical vs causal attribution"
+        ]
+      },
+      {
+        "doc_id": "DOC-KB-004",
+        "title": "DNS Amplification and Port 53 Protocol Floods",
+        "text": "DNS amplification is a specific form of distributed denial-of-service attack leveraging open recursive DNS resolvers. Adversaries transmit small DNS lookup queries (such as ANY requests with EDNS0 extensions) using the victim's spoofed source IP. The resolver returns responses that can be 50 to 70 times larger than the request payload. Telemetry features typically show concurrent surges in UDP traffic, elevated DNS protocol flags, high average packet sizes (AVG), and significant byte volumes.",
+        "similarity_score": 0.0407,
+        "source_citation": "NIST SP 800-81-2: Secure Domain Name System (DNS) Deployment Guide (2013) / RFC 1035",
+        "provenance": "NIST Special Publication 800-81-2",
+        "topics": [
+          "DNS amplification",
+          "UDP port 53",
+          "amplification factor",
+          "volumetric DDoS"
+        ]
+      }
+    ]
+  },
+  "explanation": {
+    "explanation_id": "EXP-4AC6A160",
+    "observed_facts": [
+      "PAADU/CHARM evaluated sample_syn_flood_telemetry as ANOMALOUS with a hybrid anomaly score of 56.160 against the calibrated baseline threshold of 2.500.",
+      "The alert was triggered by policies: [hybrid_threshold, latent_evidence, burst], with a reconstruction error of 8.4889 and a latent Mahalanobis distance of 210.9754.",
+      "Explainable AI leave-one-feature-out occlusion identified the most influential features as: syn_count (contribution: -97.03, observed mean: 19.29 vs benign mean: 0.80); syn_flag_number (contribution: +18.19, observed mean: 0.04 vs benign mean: 0.00); TCP (contribution: -1.82, observed mean: 2.62 vs benign mean: 0.86)."
+    ],
+    "supported_interpretations": [
+      "According to TCP SYN Flood and Handshake Exhaustion (CERT Advisory CA-1996-21 / RFC 793: Transmission Control Protocol Specification (1981)), A TCP SYN flood is a denial-of-service attack exploiting the TCP three-way handshake."
+    ],
+    "unverified_hypotheses": [
+      "The observed telemetry deviation cannot be conclusively attributed to malicious adversarial action solely from statistical flow metrics without inspecting packet payload headers or host process logs.",
+      "Further investigation is recommended to confirm whether the detected telemetry shift reflects a true attack or a benign non-malicious burst, such as scheduled sensor synchronization or client reconnection."
+    ],
+    "claims": [
+      {
+        "claim_id": "CLM-1",
+        "claim_text": "PAADU/CHARM evaluated sample_syn_flood_telemetry as ANOMALOUS with a hybrid anomaly score of 56.160 against the calibrated baseline threshold of 2.500.",
+        "claim_type": "OBSERVED_FACT",
+        "cited_doc_title": null,
+        "cited_doc_id": null
+      },
+      {
+        "claim_id": "CLM-2",
+        "claim_text": "The alert was triggered by policies: [hybrid_threshold, latent_evidence, burst], with a reconstruction error of 8.4889 and a latent Mahalanobis distance of 210.9754.",
+        "claim_type": "OBSERVED_FACT",
+        "cited_doc_title": null,
+        "cited_doc_id": null
+      },
+      {
+        "claim_id": "CLM-3",
+        "claim_text": "Explainable AI leave-one-feature-out occlusion identified the most influential features as: syn_count (contribution: -97.03, observed mean: 19.29 vs benign mean: 0.80); syn_flag_number (contribution: +18.19, observed mean: 0.04 vs benign mean: 0.00); TCP (contribution: -1.82, observed mean: 2.62 vs benign mean: 0.86).",
+        "claim_type": "OBSERVED_FACT",
+        "cited_doc_title": null,
+        "cited_doc_id": null
+      },
+      {
+        "claim_id": "CLM-4",
+        "claim_text": "A TCP SYN flood is a denial-of-service attack exploiting the TCP three-way handshake.",
+        "claim_type": "EVIDENCE_INTERPRETATION",
+        "cited_doc_title": "TCP SYN Flood and Handshake Exhaustion",
+        "cited_doc_id": "DOC-KB-002"
+      },
+      {
+        "claim_id": "CLM-5",
+        "claim_text": "The observed telemetry deviation cannot be conclusively attributed to malicious adversarial action solely from statistical flow metrics without inspecting packet payload headers or host process logs.",
+        "claim_type": "HYPOTHESIS",
+        "cited_doc_title": null,
+        "cited_doc_id": null
+      },
+      {
+        "claim_id": "CLM-6",
+        "claim_text": "Further investigation is recommended to confirm whether the detected telemetry shift reflects a true attack or a benign non-malicious burst, such as scheduled sensor synchronization or client reconnection.",
+        "claim_type": "HYPOTHESIS",
+        "cited_doc_title": null,
+        "cited_doc_id": null
+      }
+    ],
+    "citations": [
+      {
+        "title": "TCP SYN Flood and Handshake Exhaustion",
+        "citation": "CERT Advisory CA-1996-21 / RFC 793: Transmission Control Protocol Specification (1981)",
+        "doc_id": "DOC-KB-002"
+      }
+    ]
+  },
+  "verification_and_correction": {
+    "total_claims": 6,
+    "telemetry_facts_verified": 3,
+    "evidence_supported_claims": 1,
+    "contradicted_claims": 0,
+    "insufficient_evidence_claims": 0,
+    "verification_rate": 0.667,
+    "claim_results": [
+      {
+        "claim_id": "CLM-1",
+        "original_claim_text": "PAADU/CHARM evaluated sample_syn_flood_telemetry as ANOMALOUS with a hybrid anomaly score of 56.160 against the calibrated baseline threshold of 2.500.",
+        "claim_type": "OBSERVED_FACT",
+        "verification_status": "VERIFIED_OBSERVED_TELEMETRY",
+        "verification_method": "TELEMETRY_SCHEMA_CHECK",
+        "nli_raw_label": "DIRECT_MATCH",
+        "nli_confidence": 1.0,
+        "evidence_citation": "PAADU/CHARM Execution State (sample_syn_flood_telemetry)",
+        "evidence_sentence": "Direct model output: score=56.1598, threshold=2.5000",
+        "correction_action": "RETAINED_VERIFIED",
+        "final_presented_text": "[VERIFIED TELEMETRY] PAADU/CHARM evaluated sample_syn_flood_telemetry as ANOMALOUS with a hybrid anomaly score of 56.160 against the calibrated baseline threshold of 2.500."
+      },
+      {
+        "claim_id": "CLM-2",
+        "original_claim_text": "The alert was triggered by policies: [hybrid_threshold, latent_evidence, burst], with a reconstruction error of 8.4889 and a latent Mahalanobis distance of 210.9754.",
+        "claim_type": "OBSERVED_FACT",
+        "verification_status": "VERIFIED_OBSERVED_TELEMETRY",
+        "verification_method": "TELEMETRY_SCHEMA_CHECK",
+        "nli_raw_label": "DIRECT_MATCH",
+        "nli_confidence": 1.0,
+        "evidence_citation": "PAADU/CHARM Execution State (sample_syn_flood_telemetry)",
+        "evidence_sentence": "Direct model output: score=56.1598, threshold=2.5000",
+        "correction_action": "RETAINED_VERIFIED",
+        "final_presented_text": "[VERIFIED TELEMETRY] The alert was triggered by policies: [hybrid_threshold, latent_evidence, burst], with a reconstruction error of 8.4889 and a latent Mahalanobis distance of 210.9754."
+      },
+      {
+        "claim_id": "CLM-3",
+        "original_claim_text": "Explainable AI leave-one-feature-out occlusion identified the most influential features as: syn_count (contribution: -97.03, observed mean: 19.29 vs benign mean: 0.80); syn_flag_number (contribution: +18.19, observed mean: 0.04 vs benign mean: 0.00); TCP (contribution: -1.82, observed mean: 2.62 vs benign mean: 0.86).",
+        "claim_type": "OBSERVED_FACT",
+        "verification_status": "VERIFIED_OBSERVED_TELEMETRY",
+        "verification_method": "TELEMETRY_SCHEMA_CHECK",
+        "nli_raw_label": "DIRECT_MATCH",
+        "nli_confidence": 1.0,
+        "evidence_citation": "PAADU/CHARM Execution State (sample_syn_flood_telemetry)",
+        "evidence_sentence": "Direct model output: score=56.1598, threshold=2.5000",
+        "correction_action": "RETAINED_VERIFIED",
+        "final_presented_text": "[VERIFIED TELEMETRY] Explainable AI leave-one-feature-out occlusion identified the most influential features as: syn_count (contribution: -97.03, observed mean: 19.29 vs benign mean: 0.80); syn_flag_number (contribution: +18.19, observed mean: 0.04 vs benign mean: 0.00); TCP (contribution: -1.82, observed mean: 2.62 vs benign mean: 0.86)."
+      },
+      {
+        "claim_id": "CLM-4",
+        "original_claim_text": "A TCP SYN flood is a denial-of-service attack exploiting the TCP three-way handshake.",
+        "claim_type": "EVIDENCE_INTERPRETATION",
+        "verification_status": "SUPPORTED",
+        "verification_method": "TRANSFORMER_NLI",
+        "nli_raw_label": "ENTAILMENT",
+        "nli_confidence": 0.978592574596405,
+        "evidence_citation": "TCP SYN Flood and Handshake Exhaustion (DOC-KB-002)",
+        "evidence_sentence": "A TCP SYN flood is a classic denial-of-service attack exploiting the TCP three-way handshake.",
+        "correction_action": "RETAINED_VERIFIED",
+        "final_presented_text": "[VERIFIED EVIDENCE] A TCP SYN flood is a denial-of-service attack exploiting the TCP three-way handshake."
+      },
+      {
+        "claim_id": "CLM-5",
+        "original_claim_text": "The observed telemetry deviation cannot be conclusively attributed to malicious adversarial action solely from statistical flow metrics without inspecting packet payload headers or host process logs.",
+        "claim_type": "HYPOTHESIS",
+        "verification_status": "HYPOTHESIS_INVESTIGATION_BOUNDARY",
+        "verification_method": "POLICY_PRESERVATION",
+        "nli_raw_label": "HYPOTHESIS",
+        "nli_confidence": null,
+        "evidence_citation": "Scientific Methodology (Outside Closed World, Sommer & Paxson)",
+        "evidence_sentence": "Statistical anomaly metrics require corroboration before attribution.",
+        "correction_action": "RETAINED_VERIFIED",
+        "final_presented_text": "[OPERATIONAL HYPOTHESIS] The observed telemetry deviation cannot be conclusively attributed to malicious adversarial action solely from statistical flow metrics without inspecting packet payload headers or host process logs."
+      },
+      {
+        "claim_id": "CLM-6",
+        "original_claim_text": "Further investigation is recommended to confirm whether the detected telemetry shift reflects a true attack or a benign non-malicious burst, such as scheduled sensor synchronization or client reconnection.",
+        "claim_type": "HYPOTHESIS",
+        "verification_status": "HYPOTHESIS_INVESTIGATION_BOUNDARY",
+        "verification_method": "POLICY_PRESERVATION",
+        "nli_raw_label": "HYPOTHESIS",
+        "nli_confidence": null,
+        "evidence_citation": "Scientific Methodology (Outside Closed World, Sommer & Paxson)",
+        "evidence_sentence": "Statistical anomaly metrics require corroboration before attribution.",
+        "correction_action": "RETAINED_VERIFIED",
+        "final_presented_text": "[OPERATIONAL HYPOTHESIS] Further investigation is recommended to confirm whether the detected telemetry shift reflects a true attack or a benign non-malicious burst, such as scheduled sensor synchronization or client reconnection."
+      }
+    ],
+    "final_verified_narrative": "[VERIFIED TELEMETRY] PAADU/CHARM evaluated sample_syn_flood_telemetry as ANOMALOUS with a hybrid anomaly score of 56.160 against the calibrated baseline threshold of 2.500.\n\n[VERIFIED TELEMETRY] The alert was triggered by policies: [hybrid_threshold, latent_evidence, burst], with a reconstruction error of 8.4889 and a latent Mahalanobis distance of 210.9754.\n\n[VERIFIED TELEMETRY] Explainable AI leave-one-feature-out occlusion identified the most influential features as: syn_count (contribution: -97.03, observed mean: 19.29 vs benign mean: 0.80); syn_flag_number (contribution: +18.19, observed mean: 0.04 vs benign mean: 0.00); TCP (contribution: -1.82, observed mean: 2.62 vs benign mean: 0.86).\n\n[VERIFIED EVIDENCE] A TCP SYN flood is a denial-of-service attack exploiting the TCP three-way handshake.\n\n[OPERATIONAL HYPOTHESIS] The observed telemetry deviation cannot be conclusively attributed to malicious adversarial action solely from statistical flow metrics without inspecting packet payload headers or host process logs.\n\n[OPERATIONAL HYPOTHESIS] Further investigation is recommended to confirm whether the detected telemetry shift reflects a true attack or a benign non-malicious burst, such as scheduled sensor synchronization or client reconnection."
+  },
+  "stage_runtimes_sec": {
+    "charm_inference": 0.0432,
+    "charm_xai": 0.051,
+    "incident_adapter": 0.0001,
+    "query_builder": 0.0,
+    "retrieval": 0.0037,
+    "refinement": 0.0016,
+    "explanation_generation": 0.0,
+    "nli_verification_and_correction": 0.5787,
+    "total_block_sec": 0.6783
+  },
+  "provenance_trace": {
+    "model_checkpoint_hash": "647febba9cf564e6bf5e2c4ececd2dc8cf7bfd6d172235fb1a10286f532bb530",
+    "feature_schema": "CICIoT2023_46_features",
+    "nli_model": "cross-encoder/nli-MiniLM2-L6-H768",
+    "knowledge_base_sources": [
+      "CERT Advisory CA-1996-21 / RFC 793: Transmission Control Protocol Specification (1981)"
+    ]
+  }
+}

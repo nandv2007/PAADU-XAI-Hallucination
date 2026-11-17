@@ -1,0 +1,9 @@
+{
+  "total_stable_pairs_evaluated": 60,
+  "mean_narrative_variance_score": 0.16130952380952385,
+  "std_narrative_variance_score": 0.14426267889354455,
+  "attack_attribution_change_rate": 0.0,
+  "counterfactual_consistency_rate": 0.43333333333333335,
+  "unsupported_claim_introduction_rate": 0.5666666666666667,
+  "zero_flip_guarantee": true
+}

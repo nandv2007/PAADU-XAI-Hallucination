@@ -1,0 +1,30 @@
+{
+  "total_incidents_evaluated": 60,
+  "profiles_evaluated": [
+    "Reconnaissance & Port Scan",
+    "Volumetric Rate / Byte Flood",
+    "TCP SYN Flood Attack Simulation",
+    "Benign IoT Sensor Telemetry"
+  ],
+  "unverified_configuration_B": {
+    "mean_ehr": 0.0725,
+    "mean_ucr": 0.665674603174603,
+    "mean_cr": 0.02321428571428571,
+    "mean_ec": 0.6257936507936506,
+    "ehr_std": 0.10652660074679311,
+    "ucr_std": 0.05775309356280909
+  },
+  "verified_configuration_D": {
+    "mean_ehr": 0.0725,
+    "mean_ucr": 0.036309523809523805,
+    "mean_cr": 0.02321428571428571,
+    "mean_ec": 0.9404761904761904,
+    "ehr_std": 0.10652660074679311,
+    "ucr_std": 0.06318782514983036
+  },
+  "relative_reductions": {
+    "ehr_reduction_percent": 0.0,
+    "ucr_reduction_percent": 94.54545454545455,
+    "evidence_coverage_improvement_percent": 50.28535193405204
+  }
+}
