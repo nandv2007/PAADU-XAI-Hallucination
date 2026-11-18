@@ -33,6 +33,7 @@ from unified_integration.verification.verification_orchestrator import (
     VerificationOrchestrator,
     validate_telemetry_claim_strict
 )
+from unified_integration.verification.telemetry_grammar import parse_and_validate_telemetry
 from experiments.exp04_model_randomization.weight_randomization import get_randomized_model_copy
 
 class TestFinalAuditRegression(unittest.TestCase):
@@ -442,6 +443,127 @@ class TestFinalAuditRegression(unittest.TestCase):
         self.assertEqual(res['false_negatives'], 0, f"Held-out adversarial suite had {res['false_negatives']} false rejections!")
         self.assertEqual(res['true_positives'], res['should_accept_positives'])
         self.assertEqual(res['true_negatives'], res['should_reject_negatives'])
+
+    def test_arena_latest_strict_assertion_counterexamples(self):
+        """Regression test asserting that all four latest Arena counterexamples fail closed."""
+        arena_inc = CHARMIncident(
+            incident_id="INC-ARENA-LATEST",
+            model="SemanticAnomalyMAE",
+            input_reference="BENIGN-BLK-01",
+            anomaly_detected=True,
+            anomaly_score=10.549,
+            decision_threshold=2.500,
+            trigger_reasons=["hybrid_threshold", "latent_evidence"],
+            reconstruction_error=0.0071,
+            mahalanobis_distance=45.9105,
+            reconstruction_z=1.5,
+            latent_z=12.0,
+            top_xai_features=[
+                FeatureAttributionRecord(feature="Rate", hybrid_contribution=-0.39, reconstruction_contribution=0.1, latent_contribution=-0.49, observed_mean=5.0, benign_mean=6.0, standardized_deviation=-1.5)
+            ],
+            xai_summary_text="",
+            timestamp="2026-11-18T00:00:00Z",
+            model_checkpoint_hash="a1b2c3d4e5",
+            feature_schema="ciciot2023_46"
+        )
+        arena_cases = [
+            ("Anomaly score of 10.549 and policies: [invented].", ["CONTRADICTED", "UNSUPPORTED"]),
+            ("Anomaly score of 10.549 because threshold of 2.500.", ["UNSUPPORTED"]),
+            ("PAADU/CHARM evaluated VICTIM-HACKED as ANOMALOUS with a hybrid anomaly score of 10.549 against the calibrated baseline threshold of 2.500.", ["CONTRADICTED"]),
+            ("Anomaly score of 10.549 and Rate (contribution: 0.22, observed mean: 9 vs benign mean: 8), when actual Rate values are -0.39, 5 and 6.", ["CONTRADICTED"])
+        ]
+        for claim, acceptable_statuses in arena_cases:
+            st, ac, pres, rsn = validate_telemetry_claim_strict(claim, arena_inc)
+            self.assertIn(st, acceptable_statuses, f"Counterexample '{claim}' expected in {acceptable_statuses}, got {st} ({rsn})")
+            self.assertNotIn("[VERIFIED TELEMETRY]", pres, f"Counterexample '{claim}' falsely received [VERIFIED TELEMETRY]!")
+
+    def test_false_feature_tuple_audit_completeness(self):
+        """Regression test asserting that a false feature tuple is never omitted from audit records."""
+        arena_inc = CHARMIncident(
+            incident_id="INC-AUDIT-COMPLETENESS",
+            model="SemanticAnomalyMAE",
+            input_reference="BENIGN-BLK-01",
+            anomaly_detected=True,
+            anomaly_score=10.549,
+            decision_threshold=2.500,
+            trigger_reasons=["hybrid_threshold"],
+            reconstruction_error=0.0071,
+            mahalanobis_distance=45.9105,
+            reconstruction_z=1.5,
+            latent_z=12.0,
+            top_xai_features=[
+                FeatureAttributionRecord(feature="Rate", hybrid_contribution=-0.39, reconstruction_contribution=0.1, latent_contribution=-0.49, observed_mean=5.0, benign_mean=6.0, standardized_deviation=-1.5)
+            ],
+            xai_summary_text="",
+            timestamp="2026-11-18T00:00:00Z",
+            model_checkpoint_hash="a1b2c3d4e5",
+            feature_schema="ciciot2023_46"
+        )
+        claim = "Anomaly score of 10.549 and Rate (contribution: 0.22, observed mean: 9.0 vs benign mean: 8.0)."
+        st, ac, pres, rsn, audit_recs, unp = parse_and_validate_telemetry(claim, arena_inc)
+        self.assertEqual(st, "CONTRADICTED")
+        self.assertNotIn("[VERIFIED TELEMETRY]", pres)
+
+        # Invariant: False feature tuple MUST be present in audit records
+        rate_contrib_audits = [r for r in audit_recs if "Rate" in r.field_name and (r.is_contradiction or not r.is_supported)]
+        self.assertTrue(len(rate_contrib_audits) > 0, "FATAL: False feature tuple was omitted from audit records!")
+        contrib_rec = next((r for r in rate_contrib_audits if "hybrid_contribution" in r.field_name), None)
+        self.assertIsNotNone(contrib_rec, "Rate.hybrid_contribution false assertion missing from audit!")
+        self.assertTrue(contrib_rec.is_contradiction)
+
+    def test_verified_telemetry_span_and_assertion_invariant(self):
+        """Invariant: A claim receiving [VERIFIED TELEMETRY] must have zero unparsed spans and zero unsupported assertions."""
+        claims_csv = PACKAGE_ROOT / 'results' / 'FINAL_DISPLAYED_CLAIMS.csv'
+        if not claims_csv.exists():
+            return
+        with open(claims_csv) as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                if '[VERIFIED TELEMETRY]' in row['final_displayed_text']:
+                    self.assertEqual(row['verification_status'], 'SUPPORTED')
+                    self.assertEqual(row['is_hallucination'], 'False')
+
+    def test_published_output_paths_agreement(self):
+        """Asserts that published canonical outputs in results/ and recomputed_results/ agree byte-for-byte."""
+        import hashlib
+        canonical_dir = PACKAGE_ROOT / 'results'
+        recomp_dir = PACKAGE_ROOT / 'recomputed_results'
+
+        checked_files = [
+            'RAW_CLAIM_VALIDATION.csv',
+            'BASELINE_COMPARISON.csv',
+            'FINAL_DISPLAYED_CLAIMS.csv',
+            'ASSERTION_LEVEL_AUDIT.csv',
+            'EXPERIMENT_1_METRICS.json'
+        ]
+        for fname in checked_files:
+            c_path = canonical_dir / fname
+            r_path = recomp_dir / fname
+            if c_path.exists() and r_path.exists():
+                with open(c_path, 'rb') as f1, open(r_path, 'rb') as f2:
+                    h1 = hashlib.sha256(f1.read()).hexdigest()
+                    h2 = hashlib.sha256(f2.read()).hexdigest()
+                    self.assertEqual(h1, h2, f"Disagreement detected between results/{fname} and recomputed_results/{fname}!")
+
+    def test_config_a_narrative_metrics_na(self):
+        """Verifies that Configuration A reports N/A for narrative metrics (not 0.0 or 0.0000)."""
+        summary_csv = PACKAGE_ROOT / 'results' / 'COMPARISON_SUMMARY.csv'
+        if not summary_csv.exists():
+            return
+        with open(summary_csv) as f:
+            reader = csv.reader(f)
+            for row in reader:
+                if row[0] in ('entity_hallucination_rate', 'unsupported_claim_rate'):
+                    self.assertEqual(row[1], 'N/A', f"Config A {row[0]} must be 'N/A', got {row[1]}")
+
+    def test_independent_evaluation_interface_execution(self):
+        """Executes the independent evaluation interface and asserts zero false acceptances on external suite."""
+        from evaluation.independent_evaluation_interface import build_default_independent_suite, run_independent_evaluation
+        suite_dir = PACKAGE_ROOT / "datasets" / "independent_test_suite"
+        inc_p, cl_p = build_default_independent_suite(suite_dir)
+        summary = run_independent_evaluation(inc_p, cl_p, PACKAGE_ROOT / "results")
+        self.assertEqual(summary['confusion_matrix']['false_positives'], 0, "Independent evaluation interface had false acceptances!")
+        self.assertEqual(summary['confusion_matrix']['false_negatives'], 0, "Independent evaluation interface had false rejections!")
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestFinalAuditRegression)

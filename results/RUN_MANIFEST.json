@@ -1,0 +1,53 @@
+{
+  "run_id": "RUN-EXP1-20261118-025443",
+  "timestamp": "2026-11-18T02:54:43.018795+00:00",
+  "git_commit": "a4520b9d95c39a071fd55f0536b24d409395b1b3",
+  "canonical_results_directory": "results/",
+  "authoritative_artifacts": {
+    "EXPERIMENT_1_RESULTS.csv": {
+      "relative_path": "results/EXPERIMENT_1_RESULTS.csv",
+      "sha256": "7901d9eb630a635ba0176654d86aea04e3ac2e107ec2d5a590e71758ecfec2e1",
+      "row_count": 61
+    },
+    "RAW_CLAIM_VALIDATION.csv": {
+      "relative_path": "results/RAW_CLAIM_VALIDATION.csv",
+      "sha256": "1bda7eca1fe8525c06ed42cef54fb9086941f823fd0f68a1d6883007d883e686",
+      "row_count": 769
+    },
+    "FINAL_DISPLAYED_CLAIMS.csv": {
+      "relative_path": "results/FINAL_DISPLAYED_CLAIMS.csv",
+      "sha256": "b3f10e38450688aa0bcb8862332cb0cc97585be1a35a973321dc9af26e31ad1c",
+      "row_count": 385
+    },
+    "ASSERTION_LEVEL_AUDIT.csv": {
+      "relative_path": "results/ASSERTION_LEVEL_AUDIT.csv",
+      "sha256": "2b7bbf9c9dc44c9440dd2bd89f844672671f63479c3a032d835f614fa3dd0a13",
+      "row_count": 1364
+    },
+    "NLI_DISAGREEMENTS_ANALYSIS.csv": {
+      "relative_path": "results/NLI_DISAGREEMENTS_ANALYSIS.csv",
+      "sha256": "af6cba297ea549d5797c0567e67f6b3db963abae3bfbb0599ee20824c611cf57",
+      "row_count": 16
+    },
+    "EXPERIMENT_1_METRICS.json": {
+      "relative_path": "results/EXPERIMENT_1_METRICS.json",
+      "sha256": "8ff3e70ee793fd24dc9dca7dad6a06b8e85f1426f44b0b46df49f59e49a0b097",
+      "row_count": null
+    },
+    "BASELINE_COMPARISON.csv": {
+      "relative_path": "results/BASELINE_COMPARISON.csv",
+      "sha256": "e60509a8d568c362d1a48a5e9f37a6dcf73149cc6b029d24e188fe56a5f51a3b",
+      "row_count": 61
+    },
+    "BASELINE_COMPARISON.json": {
+      "relative_path": "results/BASELINE_COMPARISON.json",
+      "sha256": "ddee73abff0bcdf97d4132909625706ecd68b0395c68044e39d6fe044bddebdf",
+      "row_count": null
+    },
+    "COMPARISON_SUMMARY.csv": {
+      "relative_path": "results/COMPARISON_SUMMARY.csv",
+      "sha256": "2fe7f031b039f65ea015c07235942cbb58dd26c2be4b9f4c2a847f7575f3a409",
+      "row_count": 7
+    }
+  }
+}

@@ -1,29 +1,33 @@
 #!/usr/bin/env python3
 """
-Allowlisted Grammar-Based Factual Assertion Parser and Strict Validator
+Strict Allowlisted Grammar-Based Factual Assertion Parser and Complete Span Validator
 for PAADU/CHARM Telemetry and XAI Explanations.
 
-Replaces permissive regex matching with a strict allowlisted grammar of complete,
-supported telemetry assertions. Parses signed floating point numbers, scientific
-notation, multi-word flow features, and compound sentences.
-
-Fail-Closed Invariants:
-1. Every clause must match an allowlisted assertion schema with known fields,
-   operators, values, signs, and optional units.
-2. Any unmatched leftover text, causal inference, identity assertion, or unknown
-   feature fails closed as UNSUPPORTED (FLAGGED_WITH_UNCERTAINTY).
-3. Any numeric or categorical discrepancy against authoritative incident ground truth
-   fails closed as CONTRADICTED (CONTRADICTION_RETRACTED).
-4. A claim is ONLY labeled SUPPORTED [VERIFIED TELEMETRY] if every atomic assertion
-   is independently supported and zero unrecognized or contradictory text remains.
+Enforces Complete Assertion Validation Invariants:
+1. Every nontrivial span of the original text is accounted for.
+2. Every factual assertion is extracted with exact character offsets.
+3. Every extracted assertion has a source field and comparison result.
+4. Every factual assertion is independently verified against authoritative incident telemetry.
+5. Unknown causal relationships (e.g. 'because', 'proving'), unknown incident identifiers,
+   unrecognized policy values, and mismatched feature tuples FAIL CLOSED.
+6. A claim is ONLY labeled SUPPORTED [VERIFIED TELEMETRY] if:
+   - Zero unparsed factual spans remain.
+   - Zero unsupported or contradictory assertions exist.
+   - At least one supported telemetry assertion is present.
 """
 from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Any, Optional, Tuple, NamedTuple
 
 NUM_PATTERN = r'[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?'
+
+# Causal Connectors (Observational flow telemetry cannot verify causal attribution)
+RE_CAUSAL_CONNECTORS = re.compile(
+    r'\b(?:because|caused\s+by|due\s+to|proving|proves|as\s+a\s+result\s+of|therefore|implies|resulting\s+in|leads\s+to|explains\s+why)\b',
+    re.IGNORECASE
+)
 
 # Global Contradiction Scan Regexes
 RE_SCORE_GLOBAL = re.compile(
@@ -132,14 +136,64 @@ ATOMIC_SCHEMAS = {
     ),
 }
 
+# Delimiter pattern for splitting into atomic propositions (does NOT swallow causal connectors)
 DELIM_RE = re.compile(
-    r';|\s+-\s+|\s+(?:and|but|because|while|whereas|as\s+well\s+as|with)\s+|,\s*(?:proving|due\s+to|suggesting|caused\s+by|attributed\s+to|indicating)\s*|,\s+',
+    r';|\s+-\s+|\s+(?:and|but|while|whereas|as\s+well\s+as|with)\s+|,\s*',
     re.IGNORECASE
 )
 
 
-def split_clauses_protected(text: str) -> List[str]:
-    """Splits compound claims into atomic clauses while preserving commas inside parentheses."""
+@dataclass
+class TextSpan:
+    start_char: int
+    end_char: int
+    text: str
+    span_type: str  # 'canonical_full', 'clause', 'connector', 'causal_connector', 'unparsed'
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            'start_char': self.start_char,
+            'end_char': self.end_char,
+            'text': self.text,
+            'span_type': self.span_type
+        }
+
+
+@dataclass
+class AtomicAssertionAudit:
+    assertion_type: str
+    field_name: str
+    operator: str
+    asserted_value: Any
+    expected_value: Any
+    is_supported: bool
+    is_contradiction: bool
+    error_message: Optional[str] = None
+    raw_clause: str = ""
+    start_char: int = -1
+    end_char: int = -1
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            'assertion_type': self.assertion_type,
+            'field_name': self.field_name,
+            'operator': self.operator,
+            'asserted_value': str(self.asserted_value),
+            'expected_value': str(self.expected_value),
+            'is_supported': self.is_supported,
+            'is_contradiction': self.is_contradiction,
+            'error_message': self.error_message or "",
+            'raw_clause': self.raw_clause,
+            'start_char': self.start_char,
+            'end_char': self.end_char
+        }
+
+
+def split_clauses_protected(text: str) -> List[Tuple[str, int, int]]:
+    """
+    Splits compound claims into atomic clauses while preserving commas inside parentheses.
+    Returns list of (clause_text, start_char, end_char).
+    """
     chars: List[str] = []
     depth = 0
     for ch in text:
@@ -154,40 +208,36 @@ def split_clauses_protected(text: str) -> List[str]:
         else:
             chars.append(ch)
     protected = ''.join(chars)
-    raw = DELIM_RE.split(protected)
-    return [cl.replace('\x00', ',').strip().rstrip('.') for cl in raw if cl.strip()]
 
+    clauses: List[Tuple[str, int, int]] = []
+    last_end = 0
+    for m in DELIM_RE.finditer(protected):
+        cl = protected[last_end:m.start()].replace('\x00', ',').strip().rstrip('.')
+        if cl:
+            # Locate exact start and end in original text
+            raw_start = text.find(cl, last_end)
+            if raw_start != -1:
+                clauses.append((cl, raw_start, raw_start + len(cl)))
+            else:
+                clauses.append((cl, last_end, m.start()))
+        last_end = m.end()
 
-@dataclass
-class AtomicAssertionAudit:
-    assertion_type: str
-    field_name: str
-    operator: str
-    asserted_value: Any
-    expected_value: Any
-    is_supported: bool
-    is_contradiction: bool
-    error_message: Optional[str] = None
-    raw_clause: str = ""
+    # Trailing clause
+    trailing = protected[last_end:].replace('\x00', ',').strip().rstrip('.')
+    if trailing:
+        raw_start = text.find(trailing, last_end)
+        if raw_start != -1:
+            clauses.append((trailing, raw_start, raw_start + len(trailing)))
+        else:
+            clauses.append((trailing, last_end, len(text)))
 
-    def to_dict(self) -> Dict[str, Any]:
-        return {
-            'assertion_type': self.assertion_type,
-            'field_name': self.field_name,
-            'operator': self.operator,
-            'asserted_value': str(self.asserted_value),
-            'expected_value': str(self.expected_value),
-            'is_supported': self.is_supported,
-            'is_contradiction': self.is_contradiction,
-            'error_message': self.error_message or "",
-            'raw_clause': self.raw_clause
-        }
+    return clauses
 
 
 def parse_and_validate_telemetry(
     claim_text: str,
     incident: Any
-) -> Tuple[str, str, str, str, List[AtomicAssertionAudit]]:
+) -> Tuple[str, str, str, str, List[AtomicAssertionAudit], List[TextSpan]]:
     """
     Parses claim text using strict allowlisted grammar and validates every atomic
     factual assertion against authoritative incident ground truth.
@@ -198,6 +248,7 @@ def parse_and_validate_telemetry(
         presented_text: Safe narrative with verification badges or retraction notes
         reason: Diagnostic reason string detailing outcomes
         audit_records: List of AtomicAssertionAudit objects for structured assertion-level reporting
+        unparsed_spans: List of TextSpan objects identifying any unaccounted text
     """
     text = claim_text.strip()
 
@@ -212,16 +263,37 @@ def parse_and_validate_telemetry(
             is_supported=False,
             is_contradiction=True,
             error_message="Pre-existing retraction marker",
-            raw_clause=text
+            raw_clause=text,
+            start_char=0,
+            end_char=len(text)
         )
-        return "CONTRADICTED", "CONTRADICTION_RETRACTED", text, "Pre-existing retraction marker", [rec]
+        return "CONTRADICTED", "CONTRADICTION_RETRACTED", text, "Pre-existing retraction marker", [rec], []
 
     contradictions: List[str] = []
     unsupported_assertions: List[str] = []
     supported_assertions: List[str] = []
     audit_records: List[AtomicAssertionAudit] = []
+    unparsed_spans: List[TextSpan] = []
 
     top_feats = {f.feature.lower(): f for f in incident.top_xai_features}
+
+    # STEP 0: Causal Connector Trap (Flow telemetry cannot verify causal attribution)
+    for m_causal in RE_CAUSAL_CONNECTORS.finditer(text):
+        msg = f"Ungrounded causal connector '{m_causal.group(0)}' cannot be verified from flow telemetry"
+        unsupported_assertions.append(msg)
+        audit_records.append(AtomicAssertionAudit(
+            assertion_type="causal_claim",
+            field_name="causal_attribution",
+            operator="causes",
+            asserted_value=m_causal.group(0),
+            expected_value="Independent flow telemetry measurements (non-causal)",
+            is_supported=False,
+            is_contradiction=False,
+            error_message=msg,
+            raw_clause=m_causal.group(0),
+            start_char=m_causal.start(),
+            end_char=m_causal.end()
+        ))
 
     # STEP 1: Global Contradiction Scan (Find ANY Contradictory Telemetry Assertion)
     # 1.1 Global Score Scan
@@ -231,7 +303,7 @@ def parse_and_validate_telemetry(
         if abs(val - exp) > 0.05:
             msg = f"asserted score {val:.3f} contradicts actual {exp:.3f}"
             contradictions.append(msg)
-            audit_records.append(AtomicAssertionAudit('score', 'anomaly_score', 'of', val, exp, False, True, msg, m.group(0)))
+            audit_records.append(AtomicAssertionAudit('score', 'anomaly_score', 'of', val, exp, False, True, msg, m.group(0), m.start(), m.end()))
 
     # 1.2 Global Threshold Scan
     for m in RE_THRESH_GLOBAL.finditer(text):
@@ -240,7 +312,7 @@ def parse_and_validate_telemetry(
         if abs(val - exp) > 0.05:
             msg = f"asserted threshold {val:.3f} contradicts actual {exp:.3f}"
             contradictions.append(msg)
-            audit_records.append(AtomicAssertionAudit('threshold', 'decision_threshold', 'of', val, exp, False, True, msg, m.group(0)))
+            audit_records.append(AtomicAssertionAudit('threshold', 'decision_threshold', 'of', val, exp, False, True, msg, m.group(0), m.start(), m.end()))
 
     # 1.3 Global Reconstruction Error Scan
     for m in RE_RECON_GLOBAL.finditer(text):
@@ -249,7 +321,7 @@ def parse_and_validate_telemetry(
         if abs(val - exp) > 0.05:
             msg = f"asserted reconstruction error {val:.4f} contradicts actual {exp:.4f}"
             contradictions.append(msg)
-            audit_records.append(AtomicAssertionAudit('recon_error', 'reconstruction_error', 'of', val, exp, False, True, msg, m.group(0)))
+            audit_records.append(AtomicAssertionAudit('recon_error', 'reconstruction_error', 'of', val, exp, False, True, msg, m.group(0), m.start(), m.end()))
 
     # 1.4 Global Mahalanobis Distance Scan
     for m in RE_MAHAL_GLOBAL.finditer(text):
@@ -258,7 +330,7 @@ def parse_and_validate_telemetry(
         if abs(val - exp) > 0.5:
             msg = f"asserted Mahalanobis distance {val:.4f} contradicts actual {exp:.4f}"
             contradictions.append(msg)
-            audit_records.append(AtomicAssertionAudit('mahalanobis', 'mahalanobis_distance', 'of', val, exp, False, True, msg, m.group(0)))
+            audit_records.append(AtomicAssertionAudit('mahalanobis', 'mahalanobis_distance', 'of', val, exp, False, True, msg, m.group(0), m.start(), m.end()))
 
     # 1.5 Global Status Scan
     for m in RE_STATUS_GLOBAL.finditer(text):
@@ -267,7 +339,7 @@ def parse_and_validate_telemetry(
         if st != exp_st:
             msg = f"asserted status {st} contradicts actual {exp_st}"
             contradictions.append(msg)
-            audit_records.append(AtomicAssertionAudit('status', 'status', '=', st, exp_st, False, True, msg, m.group(0)))
+            audit_records.append(AtomicAssertionAudit('status', 'status', '=', st, exp_st, False, True, msg, m.group(0), m.start(), m.end()))
 
     # 1.6 Global Explicit Non-Existent Feature Scan
     if "non-existent" in text.lower() or "bogus" in text.lower():
@@ -281,16 +353,18 @@ def parse_and_validate_telemetry(
             is_supported=False,
             is_contradiction=True,
             error_message="Asserts non-existent flow feature",
-            raw_clause="non-existent flow feature"
+            raw_clause="non-existent flow feature",
+            start_char=-1,
+            end_char=-1
         ))
 
-    # 1.7 Global Feature Mentions Scan (e.g. 'feature FooBar')
+    # 1.7 Global Feature Mentions Scan
     for m in RE_FEAT_MENTION.finditer(text):
         fname = m.group(1).lower()
         if fname not in top_feats and fname not in ('leave-one-feature-out', 'occlusion'):
             msg = f"asserted feature '{m.group(1)}' not in top XAI features"
             contradictions.append(msg)
-            audit_records.append(AtomicAssertionAudit('feature_name', m.group(1), 'in', m.group(1), list(top_feats.keys()), False, True, msg, m.group(0)))
+            audit_records.append(AtomicAssertionAudit('feature_name', m.group(1), 'in', m.group(1), list(top_feats.keys()), False, True, msg, m.group(0), m.start(), m.end()))
 
     # 1.8 Global Contribution Scan
     for m in RE_CONTRIB_GLOBAL.finditer(text):
@@ -304,16 +378,16 @@ def parse_and_validate_telemetry(
                 if abs(val - exp_c) > 0.05:
                     msg = f"{fn_clean} contribution {val:+.2f} contradicts actual {exp_c:+.2f}"
                     contradictions.append(msg)
-                    audit_records.append(AtomicAssertionAudit('feature_contribution', f"{fn_clean}.contrib", ':', val, exp_c, False, True, msg, m.group(0)))
+                    audit_records.append(AtomicAssertionAudit('feature_contribution', f"{fn_clean}.contrib", ':', val, exp_c, False, True, msg, m.group(0), m.start(), m.end()))
             else:
                 msg = f"feature '{fn_clean}' not in top features"
                 contradictions.append(msg)
-                audit_records.append(AtomicAssertionAudit('feature_name', fn_clean, 'in', fn_clean, list(top_feats.keys()), False, True, msg, m.group(0)))
+                audit_records.append(AtomicAssertionAudit('feature_name', fn_clean, 'in', fn_clean, list(top_feats.keys()), False, True, msg, m.group(0), m.start(), m.end()))
         else:
             if not any(abs(val - f.hybrid_contribution) <= 0.05 for f in incident.top_xai_features):
                 msg = f"asserted contribution {val:+.2f} contradicts top feature attributions"
                 contradictions.append(msg)
-                audit_records.append(AtomicAssertionAudit('contribution', 'any_feature', ':', val, [f.hybrid_contribution for f in incident.top_xai_features], False, True, msg, m.group(0)))
+                audit_records.append(AtomicAssertionAudit('contribution', 'any_feature', ':', val, [f.hybrid_contribution for f in incident.top_xai_features], False, True, msg, m.group(0), m.start(), m.end()))
 
     # 1.9 Global Benign Mean Scan
     for m in RE_BEN_MEAN_GLOBAL.finditer(text):
@@ -326,16 +400,16 @@ def parse_and_validate_telemetry(
                 if abs(val - exp_b) > 0.1:
                     msg = f"{fn} benign mean {val:.2f} contradicts actual {exp_b:.2f}"
                     contradictions.append(msg)
-                    audit_records.append(AtomicAssertionAudit('benign_mean', f"{fn}.ben", ':', val, exp_b, False, True, msg, m.group(0)))
+                    audit_records.append(AtomicAssertionAudit('benign_mean', f"{fn}.ben", ':', val, exp_b, False, True, msg, m.group(0), m.start(), m.end()))
             else:
                 msg = f"feature '{fn}' not in top features"
                 contradictions.append(msg)
-                audit_records.append(AtomicAssertionAudit('feature_name', fn, 'in', fn, list(top_feats.keys()), False, True, msg, m.group(0)))
+                audit_records.append(AtomicAssertionAudit('feature_name', fn, 'in', fn, list(top_feats.keys()), False, True, msg, m.group(0), m.start(), m.end()))
         else:
             if not any(abs(val - f.benign_mean) <= 0.1 for f in incident.top_xai_features):
                 msg = f"asserted benign mean {val:.2f} contradicts all top features"
                 contradictions.append(msg)
-                audit_records.append(AtomicAssertionAudit('benign_mean', 'any_feature', ':', val, [f.benign_mean for f in incident.top_xai_features], False, True, msg, m.group(0)))
+                audit_records.append(AtomicAssertionAudit('benign_mean', 'any_feature', ':', val, [f.benign_mean for f in incident.top_xai_features], False, True, msg, m.group(0), m.start(), m.end()))
 
     # 1.10 Global Observed Mean Scan
     for m in RE_OBS_MEAN_GLOBAL.finditer(text):
@@ -348,18 +422,18 @@ def parse_and_validate_telemetry(
                 if abs(val - exp_o) > 0.1:
                     msg = f"{fn} observed mean {val:.2f} contradicts actual {exp_o:.2f}"
                     contradictions.append(msg)
-                    audit_records.append(AtomicAssertionAudit('observed_mean', f"{fn}.obs", ':', val, exp_o, False, True, msg, m.group(0)))
+                    audit_records.append(AtomicAssertionAudit('observed_mean', f"{fn}.obs", ':', val, exp_o, False, True, msg, m.group(0), m.start(), m.end()))
             else:
                 msg = f"feature '{fn}' not in top features"
                 contradictions.append(msg)
-                audit_records.append(AtomicAssertionAudit('feature_name', fn, 'in', fn, list(top_feats.keys()), False, True, msg, m.group(0)))
+                audit_records.append(AtomicAssertionAudit('feature_name', fn, 'in', fn, list(top_feats.keys()), False, True, msg, m.group(0), m.start(), m.end()))
         else:
             if not any(abs(val - f.observed_mean) <= 0.1 for f in incident.top_xai_features):
                 msg = f"asserted observed mean {val:.2f} contradicts all top features"
                 contradictions.append(msg)
-                audit_records.append(AtomicAssertionAudit('observed_mean', 'any_feature', ':', val, [f.observed_mean for f in incident.top_xai_features], False, True, msg, m.group(0)))
+                audit_records.append(AtomicAssertionAudit('observed_mean', 'any_feature', ':', val, [f.observed_mean for f in incident.top_xai_features], False, True, msg, m.group(0), m.start(), m.end()))
 
-    # 1.11 Global ungrounded IP check
+    # 1.11 Global Ungrounded IP Check
     m_ip = re.search(r'\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b', text)
     if m_ip:
         unsupported_assertions.append(f"asserts ungrounded IP address '{m_ip.group(0)}'")
@@ -372,7 +446,9 @@ def parse_and_validate_telemetry(
             is_supported=False,
             is_contradiction=False,
             error_message=f"Ungrounded IP address {m_ip.group(0)} unsupported by flow telemetry",
-            raw_clause=m_ip.group(0)
+            raw_clause=m_ip.group(0),
+            start_char=m_ip.start(),
+            end_char=m_ip.end()
         ))
 
     # STEP 2: Tier 1 Canonical Full Sentence Patterns
@@ -380,50 +456,148 @@ def parse_and_validate_telemetry(
     m_trig = FULL_TRIGGER_RE.match(text)
     is_xai_preamble = bool(FULL_XAI_PREAMBLE_RE.match(text))
 
-    if m_dec and not contradictions:
+    if m_dec and not contradictions and not unsupported_assertions:
         blk_ref, status_str, score_str, thresh_str = m_dec.groups()
-        supported_assertions.append(f"status={status_str}")
-        supported_assertions.append(f"anomaly_score={float(score_str):.3f}")
-        supported_assertions.append(f"threshold={float(thresh_str):.3f}")
+        
+        # 2.1 Validate Incident Identifier against ground truth
+        valid_refs = {incident.input_reference.lower(), incident.incident_id.lower()}
+        if blk_ref.lower() not in valid_refs:
+            msg = f"asserted incident identifier '{blk_ref}' contradicts actual '{incident.input_reference}'"
+            contradictions.append(msg)
+            audit_records.append(AtomicAssertionAudit(
+                assertion_type='incident_id',
+                field_name='input_reference',
+                operator='=',
+                asserted_value=blk_ref,
+                expected_value=incident.input_reference,
+                is_supported=False,
+                is_contradiction=True,
+                error_message=msg,
+                raw_clause=blk_ref,
+                start_char=m_dec.start(1),
+                end_char=m_dec.end(1)
+            ))
+        else:
+            supported_assertions.append(f"incident_id={blk_ref}")
+            audit_records.append(AtomicAssertionAudit(
+                assertion_type='incident_id',
+                field_name='input_reference',
+                operator='=',
+                asserted_value=blk_ref,
+                expected_value=incident.input_reference,
+                is_supported=True,
+                is_contradiction=False,
+                raw_clause=blk_ref,
+                start_char=m_dec.start(1),
+                end_char=m_dec.end(1)
+            ))
 
+        # 2.2 Status Validation
         exp_st = 'ANOMALOUS' if incident.anomaly_detected else 'BENIGN'
-        audit_records.append(AtomicAssertionAudit(
-            assertion_type='status',
-            field_name='status',
-            operator='=',
-            asserted_value=status_str.upper(),
-            expected_value=exp_st,
-            is_supported=True,
-            is_contradiction=False,
-            raw_clause=f"evaluated as {status_str}"
-        ))
-        audit_records.append(AtomicAssertionAudit(
-            assertion_type='score',
-            field_name='anomaly_score',
-            operator='=',
-            asserted_value=float(score_str),
-            expected_value=incident.anomaly_score,
-            is_supported=True,
-            is_contradiction=False,
-            raw_clause=f"hybrid anomaly score of {score_str}"
-        ))
-        audit_records.append(AtomicAssertionAudit(
-            assertion_type='threshold',
-            field_name='decision_threshold',
-            operator='=',
-            asserted_value=float(thresh_str),
-            expected_value=incident.decision_threshold,
-            is_supported=True,
-            is_contradiction=False,
-            raw_clause=f"baseline threshold of {thresh_str}"
-        ))
+        if status_str.upper() != exp_st:
+            msg = f"asserted status '{status_str}' contradicts actual '{exp_st}'"
+            contradictions.append(msg)
+            audit_records.append(AtomicAssertionAudit(
+                assertion_type='status',
+                field_name='status',
+                operator='=',
+                asserted_value=status_str.upper(),
+                expected_value=exp_st,
+                is_supported=False,
+                is_contradiction=True,
+                error_message=msg,
+                raw_clause=f"evaluated as {status_str}",
+                start_char=m_dec.start(2),
+                end_char=m_dec.end(2)
+            ))
+        else:
+            supported_assertions.append(f"status={status_str}")
+            audit_records.append(AtomicAssertionAudit(
+                assertion_type='status',
+                field_name='status',
+                operator='=',
+                asserted_value=status_str.upper(),
+                expected_value=exp_st,
+                is_supported=True,
+                is_contradiction=False,
+                raw_clause=f"evaluated as {status_str}",
+                start_char=m_dec.start(2),
+                end_char=m_dec.end(2)
+            ))
 
-    elif m_trig and not contradictions:
+        # 2.3 Score Validation
+        score_val = float(score_str)
+        if abs(score_val - incident.anomaly_score) > 0.05:
+            msg = f"asserted score {score_val:.3f} contradicts actual {incident.anomaly_score:.3f}"
+            contradictions.append(msg)
+            audit_records.append(AtomicAssertionAudit(
+                assertion_type='score',
+                field_name='anomaly_score',
+                operator='=',
+                asserted_value=score_val,
+                expected_value=incident.anomaly_score,
+                is_supported=False,
+                is_contradiction=True,
+                error_message=msg,
+                raw_clause=f"hybrid anomaly score of {score_str}",
+                start_char=m_dec.start(3),
+                end_char=m_dec.end(3)
+            ))
+        else:
+            supported_assertions.append(f"anomaly_score={score_val:.3f}")
+            audit_records.append(AtomicAssertionAudit(
+                assertion_type='score',
+                field_name='anomaly_score',
+                operator='=',
+                asserted_value=score_val,
+                expected_value=incident.anomaly_score,
+                is_supported=True,
+                is_contradiction=False,
+                raw_clause=f"hybrid anomaly score of {score_str}",
+                start_char=m_dec.start(3),
+                end_char=m_dec.end(3)
+            ))
+
+        # 2.4 Threshold Validation
+        thresh_val = float(thresh_str)
+        if abs(thresh_val - incident.decision_threshold) > 0.05:
+            msg = f"asserted threshold {thresh_val:.3f} contradicts actual {incident.decision_threshold:.3f}"
+            contradictions.append(msg)
+            audit_records.append(AtomicAssertionAudit(
+                assertion_type='threshold',
+                field_name='decision_threshold',
+                operator='=',
+                asserted_value=thresh_val,
+                expected_value=incident.decision_threshold,
+                is_supported=False,
+                is_contradiction=True,
+                error_message=msg,
+                raw_clause=f"baseline threshold of {thresh_str}",
+                start_char=m_dec.start(4),
+                end_char=m_dec.end(4)
+            ))
+        else:
+            supported_assertions.append(f"threshold={thresh_val:.3f}")
+            audit_records.append(AtomicAssertionAudit(
+                assertion_type='threshold',
+                field_name='decision_threshold',
+                operator='=',
+                asserted_value=thresh_val,
+                expected_value=incident.decision_threshold,
+                is_supported=True,
+                is_contradiction=False,
+                raw_clause=f"baseline threshold of {thresh_str}",
+                start_char=m_dec.start(4),
+                end_char=m_dec.end(4)
+            ))
+
+    elif m_trig and not contradictions and not unsupported_assertions:
         pol_str, recon_str, mahal_str = m_trig.groups()
         pols = [p.strip() for p in pol_str.split(',') if p.strip()]
         for p in pols:
             if p not in incident.trigger_reasons:
-                contradictions.append(f"asserted trigger policy '{p}' contradicts actual triggers")
+                msg = f"asserted trigger policy '{p}' contradicts actual triggers {incident.trigger_reasons}"
+                contradictions.append(msg)
                 audit_records.append(AtomicAssertionAudit(
                     assertion_type='policy',
                     field_name='trigger_reasons',
@@ -432,8 +606,10 @@ def parse_and_validate_telemetry(
                     expected_value=incident.trigger_reasons,
                     is_supported=False,
                     is_contradiction=True,
-                    error_message=f"asserted trigger policy '{p}' contradicts actual triggers",
-                    raw_clause=p
+                    error_message=msg,
+                    raw_clause=p,
+                    start_char=m_trig.start(1),
+                    end_char=m_trig.end(1)
                 ))
             else:
                 supported_assertions.append(f"policy={p}")
@@ -445,38 +621,84 @@ def parse_and_validate_telemetry(
                     expected_value=incident.trigger_reasons,
                     is_supported=True,
                     is_contradiction=False,
-                    raw_clause=p
+                    raw_clause=p,
+                    start_char=m_trig.start(1),
+                    end_char=m_trig.end(1)
                 ))
-        supported_assertions.append(f"reconstruction_error={float(recon_str):.4f}")
-        audit_records.append(AtomicAssertionAudit(
-            assertion_type='recon_error',
-            field_name='reconstruction_error',
-            operator='=',
-            asserted_value=float(recon_str),
-            expected_value=incident.reconstruction_error,
-            is_supported=True,
-            is_contradiction=False,
-            raw_clause=f"reconstruction error: {recon_str}"
-        ))
-        supported_assertions.append(f"mahalanobis_distance={float(mahal_str):.4f}")
-        audit_records.append(AtomicAssertionAudit(
-            assertion_type='mahalanobis',
-            field_name='mahalanobis_distance',
-            operator='=',
-            asserted_value=float(mahal_str),
-            expected_value=incident.mahalanobis_distance,
-            is_supported=True,
-            is_contradiction=False,
-            raw_clause=f"latent Mahalanobis distance: {mahal_str}"
-        ))
 
-    elif is_xai_preamble and not contradictions:
+        recon_val = float(recon_str)
+        if abs(recon_val - incident.reconstruction_error) > 0.05:
+            msg = f"asserted reconstruction error {recon_val:.4f} contradicts actual {incident.reconstruction_error:.4f}"
+            contradictions.append(msg)
+            audit_records.append(AtomicAssertionAudit(
+                assertion_type='recon_error',
+                field_name='reconstruction_error',
+                operator='=',
+                asserted_value=recon_val,
+                expected_value=incident.reconstruction_error,
+                is_supported=False,
+                is_contradiction=True,
+                error_message=msg,
+                raw_clause=f"reconstruction error: {recon_str}",
+                start_char=m_trig.start(2),
+                end_char=m_trig.end(2)
+            ))
+        else:
+            supported_assertions.append(f"reconstruction_error={recon_val:.4f}")
+            audit_records.append(AtomicAssertionAudit(
+                assertion_type='recon_error',
+                field_name='reconstruction_error',
+                operator='=',
+                asserted_value=recon_val,
+                expected_value=incident.reconstruction_error,
+                is_supported=True,
+                is_contradiction=False,
+                raw_clause=f"reconstruction error: {recon_str}",
+                start_char=m_trig.start(2),
+                end_char=m_trig.end(2)
+            ))
+
+        mahal_val = float(mahal_str)
+        if abs(mahal_val - incident.mahalanobis_distance) > 0.5:
+            msg = f"asserted Mahalanobis distance {mahal_val:.4f} contradicts actual {incident.mahalanobis_distance:.4f}"
+            contradictions.append(msg)
+            audit_records.append(AtomicAssertionAudit(
+                assertion_type='mahalanobis',
+                field_name='mahalanobis_distance',
+                operator='=',
+                asserted_value=mahal_val,
+                expected_value=incident.mahalanobis_distance,
+                is_supported=False,
+                is_contradiction=True,
+                error_message=msg,
+                raw_clause=f"latent Mahalanobis distance: {mahal_str}",
+                start_char=m_trig.start(3),
+                end_char=m_trig.end(3)
+            ))
+        else:
+            supported_assertions.append(f"mahalanobis_distance={mahal_val:.4f}")
+            audit_records.append(AtomicAssertionAudit(
+                assertion_type='mahalanobis',
+                field_name='mahalanobis_distance',
+                operator='=',
+                asserted_value=mahal_val,
+                expected_value=incident.mahalanobis_distance,
+                is_supported=True,
+                is_contradiction=False,
+                raw_clause=f"latent Mahalanobis distance: {mahal_str}",
+                start_char=m_trig.start(3),
+                end_char=m_trig.end(3)
+            ))
+
+    elif is_xai_preamble and not contradictions and not unsupported_assertions:
         rest = FULL_XAI_PREAMBLE_RE.sub('', text).rstrip('.')
         items = [s.strip() for s in rest.split(';') if s.strip()]
         for it in items:
             m_it = FEATURE_ITEM_RE.fullmatch(it)
+            it_idx = text.find(it)
             if not m_it:
                 unsupported_assertions.append(f"unrecognized feature proposition: '{it}'")
+                unparsed_spans.append(TextSpan(it_idx, it_idx + len(it), it, 'unparsed_feature_clause'))
                 audit_records.append(AtomicAssertionAudit(
                     assertion_type='unknown_syntax',
                     field_name='unknown',
@@ -486,7 +708,9 @@ def parse_and_validate_telemetry(
                     is_supported=False,
                     is_contradiction=False,
                     error_message=f"unrecognized feature proposition: '{it}'",
-                    raw_clause=it
+                    raw_clause=it,
+                    start_char=it_idx,
+                    end_char=it_idx + len(it)
                 ))
                 continue
 
@@ -494,7 +718,8 @@ def parse_and_validate_telemetry(
             fname_clean = fname.strip()
             fname_lower = fname_clean.lower()
             if fname_lower not in top_feats:
-                contradictions.append(f"feature '{fname_clean}' not in top XAI features")
+                msg = f"feature '{fname_clean}' not in top XAI features"
+                contradictions.append(msg)
                 audit_records.append(AtomicAssertionAudit(
                     assertion_type='feature_name',
                     field_name=fname_clean,
@@ -503,8 +728,10 @@ def parse_and_validate_telemetry(
                     expected_value=list(top_feats.keys()),
                     is_supported=False,
                     is_contradiction=True,
-                    error_message=f"feature '{fname_clean}' not in top XAI features",
-                    raw_clause=it
+                    error_message=msg,
+                    raw_clause=it,
+                    start_char=it_idx,
+                    end_char=it_idx + len(it)
                 ))
                 continue
 
@@ -514,7 +741,8 @@ def parse_and_validate_telemetry(
             ben_val = float(ben_str)
 
             if abs(contrib_val - act_f.hybrid_contribution) > 0.05:
-                contradictions.append(f"{fname_clean} contribution {contrib_val:+.2f} contradicts actual {act_f.hybrid_contribution:+.2f}")
+                msg = f"{fname_clean} contribution {contrib_val:+.2f} contradicts actual {act_f.hybrid_contribution:+.2f}"
+                contradictions.append(msg)
                 audit_records.append(AtomicAssertionAudit(
                     assertion_type='feature_contrib',
                     field_name=f"{act_f.feature}.hybrid_contribution",
@@ -523,8 +751,10 @@ def parse_and_validate_telemetry(
                     expected_value=act_f.hybrid_contribution,
                     is_supported=False,
                     is_contradiction=True,
-                    error_message=f"{fname_clean} contribution {contrib_val:+.2f} contradicts actual {act_f.hybrid_contribution:+.2f}",
-                    raw_clause=f"{fname_clean} contribution: {contrib_str}"
+                    error_message=msg,
+                    raw_clause=f"{fname_clean} contribution: {contrib_str}",
+                    start_char=it_idx,
+                    end_char=it_idx + len(it)
                 ))
             else:
                 supported_assertions.append(f"{fname_clean}_contribution={contrib_val:+.2f}")
@@ -536,11 +766,14 @@ def parse_and_validate_telemetry(
                     expected_value=act_f.hybrid_contribution,
                     is_supported=True,
                     is_contradiction=False,
-                    raw_clause=f"{fname_clean} contribution: {contrib_str}"
+                    raw_clause=f"{fname_clean} contribution: {contrib_str}",
+                    start_char=it_idx,
+                    end_char=it_idx + len(it)
                 ))
 
             if abs(obs_val - act_f.observed_mean) > 0.1:
-                contradictions.append(f"{fname_clean} observed mean {obs_val:.2f} contradicts actual {act_f.observed_mean:.2f}")
+                msg = f"{fname_clean} observed mean {obs_val:.2f} contradicts actual {act_f.observed_mean:.2f}"
+                contradictions.append(msg)
                 audit_records.append(AtomicAssertionAudit(
                     assertion_type='obs_mean',
                     field_name=f"{act_f.feature}.observed_mean",
@@ -549,8 +782,10 @@ def parse_and_validate_telemetry(
                     expected_value=act_f.observed_mean,
                     is_supported=False,
                     is_contradiction=True,
-                    error_message=f"{fname_clean} observed mean {obs_val:.2f} contradicts actual {act_f.observed_mean:.2f}",
-                    raw_clause=f"{fname_clean} observed mean: {obs_str}"
+                    error_message=msg,
+                    raw_clause=f"{fname_clean} observed mean: {obs_str}",
+                    start_char=it_idx,
+                    end_char=it_idx + len(it)
                 ))
             else:
                 supported_assertions.append(f"{fname_clean}_observed={obs_val:.2f}")
@@ -562,11 +797,14 @@ def parse_and_validate_telemetry(
                     expected_value=act_f.observed_mean,
                     is_supported=True,
                     is_contradiction=False,
-                    raw_clause=f"{fname_clean} observed mean: {obs_str}"
+                    raw_clause=f"{fname_clean} observed mean: {obs_str}",
+                    start_char=it_idx,
+                    end_char=it_idx + len(it)
                 ))
 
             if abs(ben_val - act_f.benign_mean) > 0.1:
-                contradictions.append(f"{fname_clean} benign mean {ben_val:.2f} contradicts actual {act_f.benign_mean:.2f}")
+                msg = f"{fname_clean} benign mean {ben_val:.2f} contradicts actual {act_f.benign_mean:.2f}"
+                contradictions.append(msg)
                 audit_records.append(AtomicAssertionAudit(
                     assertion_type='ben_mean',
                     field_name=f"{act_f.feature}.benign_mean",
@@ -575,8 +813,10 @@ def parse_and_validate_telemetry(
                     expected_value=act_f.benign_mean,
                     is_supported=False,
                     is_contradiction=True,
-                    error_message=f"{fname_clean} benign mean {ben_val:.2f} contradicts actual {act_f.benign_mean:.2f}",
-                    raw_clause=f"{fname_clean} benign mean: {ben_str}"
+                    error_message=msg,
+                    raw_clause=f"{fname_clean} benign mean: {ben_str}",
+                    start_char=it_idx,
+                    end_char=it_idx + len(it)
                 ))
             else:
                 supported_assertions.append(f"{fname_clean}_benign={ben_val:.2f}")
@@ -588,16 +828,41 @@ def parse_and_validate_telemetry(
                     expected_value=act_f.benign_mean,
                     is_supported=True,
                     is_contradiction=False,
-                    raw_clause=f"{fname_clean} benign mean: {ben_str}"
+                    raw_clause=f"{fname_clean} benign mean: {ben_str}",
+                    start_char=it_idx,
+                    end_char=it_idx + len(it)
                 ))
 
     elif not m_dec and not m_trig and not is_xai_preamble:
         # STEP 3: Tier 2 Atomic Clause Decomposition Grammar
-        clauses = split_clauses_protected(text)
-        if not clauses:
+        clause_tuples = split_clauses_protected(text)
+        if not clause_tuples:
             unsupported_assertions.append("empty claim proposition")
 
-        for cl in clauses:
+        current_cursor = 0
+        for cl, c_start, c_end in clause_tuples:
+            # Check for unaccounted delimiter spans between clauses
+            if c_start > current_cursor:
+                gap_text = text[current_cursor:c_start]
+                cleaned_gap = re.sub(r'[\s,;\.\-\(\)]+|and|with|as\s+well\s+as', '', gap_text, flags=re.IGNORECASE)
+                if cleaned_gap:
+                    unparsed_spans.append(TextSpan(current_cursor, c_start, gap_text.strip(), 'unparsed_intervening'))
+                    unsupported_assertions.append(f"unparsed intervening span: '{gap_text.strip()}'")
+                    audit_records.append(AtomicAssertionAudit(
+                        assertion_type='unparsed_span',
+                        field_name='unknown',
+                        operator='unknown',
+                        asserted_value=gap_text.strip(),
+                        expected_value='Allowlisted schema',
+                        is_supported=False,
+                        is_contradiction=False,
+                        error_message=f"Unparsed span '{gap_text.strip()}' fails closed",
+                        raw_clause=gap_text.strip(),
+                        start_char=current_cursor,
+                        end_char=c_start
+                    ))
+            current_cursor = c_end
+
             matched_schema = None
             groups = None
             for sname, pat in ATOMIC_SCHEMAS.items():
@@ -609,6 +874,7 @@ def parse_and_validate_telemetry(
 
             if not matched_schema:
                 unsupported_assertions.append(f"unrecognized clause: '{cl}'")
+                unparsed_spans.append(TextSpan(c_start, c_end, cl, 'unparsed_clause'))
                 audit_records.append(AtomicAssertionAudit(
                     assertion_type='unrecognized_clause',
                     field_name='unknown',
@@ -618,7 +884,9 @@ def parse_and_validate_telemetry(
                     is_supported=False,
                     is_contradiction=False,
                     error_message=f"Leftover/unrecognized clause '{cl}' fails closed",
-                    raw_clause=cl
+                    raw_clause=cl,
+                    start_char=c_start,
+                    end_char=c_end
                 ))
                 continue
 
@@ -635,7 +903,25 @@ def parse_and_validate_telemetry(
                         expected_value=exp_val,
                         is_supported=True,
                         is_contradiction=False,
-                        raw_clause=cl
+                        raw_clause=cl,
+                        start_char=c_start,
+                        end_char=c_end
+                    ))
+                else:
+                    msg = f"asserted score {val:.3f} contradicts actual {exp_val:.3f}"
+                    contradictions.append(msg)
+                    audit_records.append(AtomicAssertionAudit(
+                        assertion_type='score',
+                        field_name='anomaly_score',
+                        operator='=',
+                        asserted_value=val,
+                        expected_value=exp_val,
+                        is_supported=False,
+                        is_contradiction=True,
+                        error_message=msg,
+                        raw_clause=cl,
+                        start_char=c_start,
+                        end_char=c_end
                     ))
 
             elif matched_schema == 'threshold':
@@ -651,7 +937,25 @@ def parse_and_validate_telemetry(
                         expected_value=exp_val,
                         is_supported=True,
                         is_contradiction=False,
-                        raw_clause=cl
+                        raw_clause=cl,
+                        start_char=c_start,
+                        end_char=c_end
+                    ))
+                else:
+                    msg = f"asserted threshold {val:.3f} contradicts actual {exp_val:.3f}"
+                    contradictions.append(msg)
+                    audit_records.append(AtomicAssertionAudit(
+                        assertion_type='threshold',
+                        field_name='decision_threshold',
+                        operator='=',
+                        asserted_value=val,
+                        expected_value=exp_val,
+                        is_supported=False,
+                        is_contradiction=True,
+                        error_message=msg,
+                        raw_clause=cl,
+                        start_char=c_start,
+                        end_char=c_end
                     ))
 
             elif matched_schema == 'recon':
@@ -667,7 +971,25 @@ def parse_and_validate_telemetry(
                         expected_value=exp_val,
                         is_supported=True,
                         is_contradiction=False,
-                        raw_clause=cl
+                        raw_clause=cl,
+                        start_char=c_start,
+                        end_char=c_end
+                    ))
+                else:
+                    msg = f"asserted reconstruction error {val:.4f} contradicts actual {exp_val:.4f}"
+                    contradictions.append(msg)
+                    audit_records.append(AtomicAssertionAudit(
+                        assertion_type='recon_error',
+                        field_name='reconstruction_error',
+                        operator='=',
+                        asserted_value=val,
+                        expected_value=exp_val,
+                        is_supported=False,
+                        is_contradiction=True,
+                        error_message=msg,
+                        raw_clause=cl,
+                        start_char=c_start,
+                        end_char=c_end
                     ))
 
             elif matched_schema == 'mahal':
@@ -683,7 +1005,25 @@ def parse_and_validate_telemetry(
                         expected_value=exp_val,
                         is_supported=True,
                         is_contradiction=False,
-                        raw_clause=cl
+                        raw_clause=cl,
+                        start_char=c_start,
+                        end_char=c_end
+                    ))
+                else:
+                    msg = f"asserted Mahalanobis distance {val:.4f} contradicts actual {exp_val:.4f}"
+                    contradictions.append(msg)
+                    audit_records.append(AtomicAssertionAudit(
+                        assertion_type='mahalanobis',
+                        field_name='mahalanobis_distance',
+                        operator='=',
+                        asserted_value=val,
+                        expected_value=exp_val,
+                        is_supported=False,
+                        is_contradiction=True,
+                        error_message=msg,
+                        raw_clause=cl,
+                        start_char=c_start,
+                        end_char=c_end
                     ))
 
             elif matched_schema == 'status':
@@ -699,7 +1039,25 @@ def parse_and_validate_telemetry(
                         expected_value=exp_st,
                         is_supported=True,
                         is_contradiction=False,
-                        raw_clause=cl
+                        raw_clause=cl,
+                        start_char=c_start,
+                        end_char=c_end
+                    ))
+                else:
+                    msg = f"asserted status {st} contradicts actual {exp_st}"
+                    contradictions.append(msg)
+                    audit_records.append(AtomicAssertionAudit(
+                        assertion_type='status',
+                        field_name='status',
+                        operator='=',
+                        asserted_value=st,
+                        expected_value=exp_st,
+                        is_supported=False,
+                        is_contradiction=True,
+                        error_message=msg,
+                        raw_clause=cl,
+                        start_char=c_start,
+                        end_char=c_end
                     ))
 
             elif matched_schema == 'feature_tuple':
@@ -711,20 +1069,118 @@ def parse_and_validate_telemetry(
                     c_val = float(c_str)
                     o_val = float(o_str)
                     b_val = float(b_str)
-                    if (abs(c_val - act_f.hybrid_contribution) <= 0.05 and
-                        abs(o_val - act_f.observed_mean) <= 0.1 and
-                        abs(b_val - act_f.benign_mean) <= 0.1):
-                        supported_assertions.append(f"{fname_clean}_tuple=SUPPORTED")
+
+                    # Contribution audit
+                    if abs(c_val - act_f.hybrid_contribution) <= 0.05:
+                        supported_assertions.append(f"{fname_clean}_contribution={c_val:+.2f}")
                         audit_records.append(AtomicAssertionAudit(
-                            assertion_type='feature_tuple',
-                            field_name=f"{act_f.feature}.tuple",
+                            assertion_type='feature_contrib',
+                            field_name=f"{act_f.feature}.hybrid_contribution",
                             operator='=',
-                            asserted_value=(c_val, o_val, b_val),
-                            expected_value=(act_f.hybrid_contribution, act_f.observed_mean, act_f.benign_mean),
+                            asserted_value=c_val,
+                            expected_value=act_f.hybrid_contribution,
                             is_supported=True,
                             is_contradiction=False,
-                            raw_clause=cl
+                            raw_clause=f"{fname_clean} contribution: {c_str}",
+                            start_char=c_start,
+                            end_char=c_end
                         ))
+                    else:
+                        msg = f"{fname_clean} contribution {c_val:+.2f} contradicts actual {act_f.hybrid_contribution:+.2f}"
+                        contradictions.append(msg)
+                        audit_records.append(AtomicAssertionAudit(
+                            assertion_type='feature_contrib',
+                            field_name=f"{act_f.feature}.hybrid_contribution",
+                            operator='=',
+                            asserted_value=c_val,
+                            expected_value=act_f.hybrid_contribution,
+                            is_supported=False,
+                            is_contradiction=True,
+                            error_message=msg,
+                            raw_clause=f"{fname_clean} contribution: {c_str}",
+                            start_char=c_start,
+                            end_char=c_end
+                        ))
+
+                    # Observed mean audit
+                    if abs(o_val - act_f.observed_mean) <= 0.1:
+                        supported_assertions.append(f"{fname_clean}_observed={o_val:.2f}")
+                        audit_records.append(AtomicAssertionAudit(
+                            assertion_type='obs_mean',
+                            field_name=f"{act_f.feature}.observed_mean",
+                            operator='=',
+                            asserted_value=o_val,
+                            expected_value=act_f.observed_mean,
+                            is_supported=True,
+                            is_contradiction=False,
+                            raw_clause=f"{fname_clean} observed mean: {o_str}",
+                            start_char=c_start,
+                            end_char=c_end
+                        ))
+                    else:
+                        msg = f"{fname_clean} observed mean {o_val:.2f} contradicts actual {act_f.observed_mean:.2f}"
+                        contradictions.append(msg)
+                        audit_records.append(AtomicAssertionAudit(
+                            assertion_type='obs_mean',
+                            field_name=f"{act_f.feature}.observed_mean",
+                            operator='=',
+                            asserted_value=o_val,
+                            expected_value=act_f.observed_mean,
+                            is_supported=False,
+                            is_contradiction=True,
+                            error_message=msg,
+                            raw_clause=f"{fname_clean} observed mean: {o_str}",
+                            start_char=c_start,
+                            end_char=c_end
+                        ))
+
+                    # Benign mean audit
+                    if abs(b_val - act_f.benign_mean) <= 0.1:
+                        supported_assertions.append(f"{fname_clean}_benign={b_val:.2f}")
+                        audit_records.append(AtomicAssertionAudit(
+                            assertion_type='ben_mean',
+                            field_name=f"{act_f.feature}.benign_mean",
+                            operator='=',
+                            asserted_value=b_val,
+                            expected_value=act_f.benign_mean,
+                            is_supported=True,
+                            is_contradiction=False,
+                            raw_clause=f"{fname_clean} benign mean: {b_str}",
+                            start_char=c_start,
+                            end_char=c_end
+                        ))
+                    else:
+                        msg = f"{fname_clean} benign mean {b_val:.2f} contradicts actual {act_f.benign_mean:.2f}"
+                        contradictions.append(msg)
+                        audit_records.append(AtomicAssertionAudit(
+                            assertion_type='ben_mean',
+                            field_name=f"{act_f.feature}.benign_mean",
+                            operator='=',
+                            asserted_value=b_val,
+                            expected_value=act_f.benign_mean,
+                            is_supported=False,
+                            is_contradiction=True,
+                            error_message=msg,
+                            raw_clause=f"{fname_clean} benign mean: {b_str}",
+                            start_char=c_start,
+                            end_char=c_end
+                        ))
+                else:
+                    msg = f"feature '{fname_clean}' not in top XAI features"
+                    contradictions.append(msg)
+                    audit_records.append(AtomicAssertionAudit(
+                        assertion_type='feature_name',
+                        field_name=fname_clean,
+                        operator='in',
+                        asserted_value=fname_clean,
+                        expected_value=list(top_feats.keys()),
+                        is_supported=False,
+                        is_contradiction=True,
+                        error_message=msg,
+                        raw_clause=cl,
+                        start_char=c_start,
+                        end_char=c_end
+                    ))
 
             elif matched_schema in ('feature_contrib', 'single_contrib'):
                 val = float(groups[-1])
@@ -744,8 +1200,42 @@ def parse_and_validate_telemetry(
                                 expected_value=act_f.hybrid_contribution,
                                 is_supported=True,
                                 is_contradiction=False,
-                                raw_clause=cl
+                                raw_clause=cl,
+                                start_char=c_start,
+                                end_char=c_end
                             ))
+                        else:
+                            msg = f"{fn_clean} contribution {val:+.2f} contradicts actual {act_f.hybrid_contribution:+.2f}"
+                            contradictions.append(msg)
+                            audit_records.append(AtomicAssertionAudit(
+                                assertion_type='feature_contrib',
+                                field_name=f"{act_f.feature}.hybrid_contribution",
+                                operator='=',
+                                asserted_value=val,
+                                expected_value=act_f.hybrid_contribution,
+                                is_supported=False,
+                                is_contradiction=True,
+                                error_message=msg,
+                                raw_clause=cl,
+                                start_char=c_start,
+                                end_char=c_end
+                            ))
+                    else:
+                        msg = f"feature '{fn_clean}' not in top features"
+                        contradictions.append(msg)
+                        audit_records.append(AtomicAssertionAudit(
+                            assertion_type='feature_name',
+                            field_name=fn_clean,
+                            operator='in',
+                            asserted_value=fn_clean,
+                            expected_value=list(top_feats.keys()),
+                            is_supported=False,
+                            is_contradiction=True,
+                            error_message=msg,
+                            raw_clause=cl,
+                            start_char=c_start,
+                            end_char=c_end
+                        ))
                 else:
                     matching_f = next((f for f in incident.top_xai_features if abs(val - f.hybrid_contribution) <= 0.05), None)
                     if matching_f:
@@ -758,7 +1248,25 @@ def parse_and_validate_telemetry(
                             expected_value=matching_f.hybrid_contribution,
                             is_supported=True,
                             is_contradiction=False,
-                            raw_clause=cl
+                            raw_clause=cl,
+                            start_char=c_start,
+                            end_char=c_end
+                        ))
+                    else:
+                        msg = f"asserted contribution {val:+.2f} contradicts top feature attributions"
+                        contradictions.append(msg)
+                        audit_records.append(AtomicAssertionAudit(
+                            assertion_type='feature_contrib',
+                            field_name='any_feature.hybrid_contribution',
+                            operator='=',
+                            asserted_value=val,
+                            expected_value=[f.hybrid_contribution for f in incident.top_xai_features],
+                            is_supported=False,
+                            is_contradiction=True,
+                            error_message=msg,
+                            raw_clause=cl,
+                            start_char=c_start,
+                            end_char=c_end
                         ))
 
             elif matched_schema == 'obs_mean':
@@ -779,8 +1287,42 @@ def parse_and_validate_telemetry(
                                 expected_value=act_f.observed_mean,
                                 is_supported=True,
                                 is_contradiction=False,
-                                raw_clause=cl
+                                raw_clause=cl,
+                                start_char=c_start,
+                                end_char=c_end
                             ))
+                        else:
+                            msg = f"{fn_clean} observed mean {val:.2f} contradicts actual {act_f.observed_mean:.2f}"
+                            contradictions.append(msg)
+                            audit_records.append(AtomicAssertionAudit(
+                                assertion_type='obs_mean',
+                                field_name=f"{act_f.feature}.observed_mean",
+                                operator='=',
+                                asserted_value=val,
+                                expected_value=act_f.observed_mean,
+                                is_supported=False,
+                                is_contradiction=True,
+                                error_message=msg,
+                                raw_clause=cl,
+                                start_char=c_start,
+                                end_char=c_end
+                            ))
+                    else:
+                        msg = f"feature '{fn_clean}' not in top features"
+                        contradictions.append(msg)
+                        audit_records.append(AtomicAssertionAudit(
+                            assertion_type='feature_name',
+                            field_name=fn_clean,
+                            operator='in',
+                            asserted_value=fn_clean,
+                            expected_value=list(top_feats.keys()),
+                            is_supported=False,
+                            is_contradiction=True,
+                            error_message=msg,
+                            raw_clause=cl,
+                            start_char=c_start,
+                            end_char=c_end
+                        ))
                 else:
                     matching_f = next((f for f in incident.top_xai_features if abs(val - f.observed_mean) <= 0.1), None)
                     if matching_f:
@@ -793,7 +1335,25 @@ def parse_and_validate_telemetry(
                             expected_value=matching_f.observed_mean,
                             is_supported=True,
                             is_contradiction=False,
-                            raw_clause=cl
+                            raw_clause=cl,
+                            start_char=c_start,
+                            end_char=c_end
+                        ))
+                    else:
+                        msg = f"asserted observed mean {val:.2f} contradicts all top features"
+                        contradictions.append(msg)
+                        audit_records.append(AtomicAssertionAudit(
+                            assertion_type='obs_mean',
+                            field_name='any_feature.observed_mean',
+                            operator='=',
+                            asserted_value=val,
+                            expected_value=[f.observed_mean for f in incident.top_xai_features],
+                            is_supported=False,
+                            is_contradiction=True,
+                            error_message=msg,
+                            raw_clause=cl,
+                            start_char=c_start,
+                            end_char=c_end
                         ))
 
             elif matched_schema == 'ben_mean':
@@ -814,8 +1374,42 @@ def parse_and_validate_telemetry(
                                 expected_value=act_f.benign_mean,
                                 is_supported=True,
                                 is_contradiction=False,
-                                raw_clause=cl
+                                raw_clause=cl,
+                                start_char=c_start,
+                                end_char=c_end
                             ))
+                        else:
+                            msg = f"{fn_clean} benign mean {val:.2f} contradicts actual {act_f.benign_mean:.2f}"
+                            contradictions.append(msg)
+                            audit_records.append(AtomicAssertionAudit(
+                                assertion_type='ben_mean',
+                                field_name=f"{act_f.feature}.benign_mean",
+                                operator='=',
+                                asserted_value=val,
+                                expected_value=act_f.benign_mean,
+                                is_supported=False,
+                                is_contradiction=True,
+                                error_message=msg,
+                                raw_clause=cl,
+                                start_char=c_start,
+                                end_char=c_end
+                            ))
+                    else:
+                        msg = f"feature '{fn_clean}' not in top features"
+                        contradictions.append(msg)
+                        audit_records.append(AtomicAssertionAudit(
+                            assertion_type='feature_name',
+                            field_name=fn_clean,
+                            operator='in',
+                            asserted_value=fn_clean,
+                            expected_value=list(top_feats.keys()),
+                            is_supported=False,
+                            is_contradiction=True,
+                            error_message=msg,
+                            raw_clause=cl,
+                            start_char=c_start,
+                            end_char=c_end
+                        ))
                 else:
                     matching_f = next((f for f in incident.top_xai_features if abs(val - f.benign_mean) <= 0.1), None)
                     if matching_f:
@@ -828,40 +1422,104 @@ def parse_and_validate_telemetry(
                             expected_value=matching_f.benign_mean,
                             is_supported=True,
                             is_contradiction=False,
-                            raw_clause=cl
+                            raw_clause=cl,
+                            start_char=c_start,
+                            end_char=c_end
+                        ))
+                    else:
+                        msg = f"asserted benign mean {val:.2f} contradicts all top features"
+                        contradictions.append(msg)
+                        audit_records.append(AtomicAssertionAudit(
+                            assertion_type='ben_mean',
+                            field_name='any_feature.benign_mean',
+                            operator='=',
+                            asserted_value=val,
+                            expected_value=[f.benign_mean for f in incident.top_xai_features],
+                            is_supported=False,
+                            is_contradiction=True,
+                            error_message=msg,
+                            raw_clause=cl,
+                            start_char=c_start,
+                            end_char=c_end
                         ))
 
             elif matched_schema == 'policies':
                 pols = [p.strip() for p in groups[0].split(',') if p.strip()]
-                if all(p in incident.trigger_reasons for p in pols):
-                    supported_assertions.append(f"policies=[{', '.join(pols)}]")
-                    audit_records.append(AtomicAssertionAudit(
-                        assertion_type='policy',
-                        field_name='trigger_reasons',
-                        operator='in',
-                        asserted_value=pols,
-                        expected_value=incident.trigger_reasons,
-                        is_supported=True,
-                        is_contradiction=False,
-                        raw_clause=cl
-                    ))
+                for p in pols:
+                    if p in incident.trigger_reasons:
+                        supported_assertions.append(f"policy={p}")
+                        audit_records.append(AtomicAssertionAudit(
+                            assertion_type='policy',
+                            field_name='trigger_reasons',
+                            operator='in',
+                            asserted_value=p,
+                            expected_value=incident.trigger_reasons,
+                            is_supported=True,
+                            is_contradiction=False,
+                            raw_clause=p,
+                            start_char=c_start,
+                            end_char=c_end
+                        ))
+                    else:
+                        msg = f"asserted trigger policy '{p}' contradicts actual triggers {incident.trigger_reasons}"
+                        contradictions.append(msg)
+                        audit_records.append(AtomicAssertionAudit(
+                            assertion_type='policy',
+                            field_name='trigger_reasons',
+                            operator='in',
+                            asserted_value=p,
+                            expected_value=incident.trigger_reasons,
+                            is_supported=False,
+                            is_contradiction=True,
+                            error_message=msg,
+                            raw_clause=p,
+                            start_char=c_start,
+                            end_char=c_end
+                        ))
 
-    # STEP 4: Strict Fail-Closed Verdict Resolution
-    if contradictions:
+        # Check trailing text after the last clause
+        if current_cursor < len(text):
+            trailing_raw = text[current_cursor:].strip(' .;\t\n')
+            if trailing_raw:
+                unparsed_spans.append(TextSpan(current_cursor, len(text), trailing_raw, 'unparsed_trailing'))
+                unsupported_assertions.append(f"unparsed trailing span: '{trailing_raw}'")
+                audit_records.append(AtomicAssertionAudit(
+                    assertion_type='unparsed_span',
+                    field_name='unknown',
+                    operator='unknown',
+                    asserted_value=trailing_raw,
+                    expected_value='Allowlisted schema',
+                    is_supported=False,
+                    is_contradiction=False,
+                    error_message=f"Unparsed trailing span '{trailing_raw}' fails closed",
+                    raw_clause=trailing_raw,
+                    start_char=current_cursor,
+                    end_char=len(text)
+                ))
+
+    # STEP 4: Strict Fail-Closed Invariant Resolution
+    # Contradiction: any contradictory assertion found
+    any_contradiction = bool(contradictions) or any(r.is_contradiction for r in audit_records)
+    # Unsupported: any ungrounded assertion or any unparsed text span
+    any_unsupported = bool(unsupported_assertions) or bool(unparsed_spans) or any(not r.is_supported and not r.is_contradiction for r in audit_records)
+
+    if any_contradiction:
         status = "CONTRADICTED"
         action = "CONTRADICTION_RETRACTED"
-        reason = "; ".join(contradictions)
+        reason = "; ".join(contradictions) if contradictions else "Contradictory assertions detected"
         presented_text = (
             f"[CONTRADICTED TELEMETRY RETRACTED] Telemetry contradiction detected ({reason}). "
             f"Actual PAADU/CHARM telemetry: anomaly_score={incident.anomaly_score:.3f}, "
             f"threshold={incident.decision_threshold:.3f}, status={'ANOMALOUS' if incident.anomaly_detected else 'BENIGN'}."
         )
-    elif unsupported_assertions:
+    elif any_unsupported or len(unparsed_spans) > 0:
         status = "UNSUPPORTED"
         action = "FLAGGED_WITH_UNCERTAINTY"
-        reason = "; ".join(unsupported_assertions)
+        reasons_list = unsupported_assertions + [f"unparsed span '{s.text}'" for s in unparsed_spans]
+        reason = "; ".join(reasons_list) if reasons_list else "Ungrounded or unparsed assertions detected"
         presented_text = f"[UNVERIFIED TELEMETRY - UNGROUNDED ASSERTION] Compound telemetry claim contains unverified assertions ({reason}): '{claim_text}'"
-    elif supported_assertions:
+    elif supported_assertions and not any_contradiction and not any_unsupported and len(unparsed_spans) == 0:
+        # INVARIANT: Zero unparsed factual spans and zero unsupported assertions required for [VERIFIED TELEMETRY]
         status = "SUPPORTED"
         action = "RETAINED_VERIFIED"
         reason = f"Verified fields: {', '.join(supported_assertions)}"
@@ -872,4 +1530,4 @@ def parse_and_validate_telemetry(
         reason = "No verifiable telemetry fields identified matching incident schema"
         presented_text = f"[UNVERIFIED TELEMETRY - MISMATCH] {claim_text}"
 
-    return status, action, presented_text, reason, audit_records
+    return status, action, presented_text, reason, audit_records, unparsed_spans

@@ -1,0 +1,83 @@
+[
+  {
+    "incident_id": "EXT-INC-01",
+    "model": "SemanticAnomalyMAE",
+    "input_reference": "BENIGN-FLOW-01",
+    "anomaly_detected": false,
+    "anomaly_score": 1.15,
+    "decision_threshold": 2.5,
+    "trigger_reasons": [
+      "baseline_monitoring"
+    ],
+    "reconstruction_error": 0.0012,
+    "mahalanobis_distance": 8.42,
+    "reconstruction_z": 0.45,
+    "latent_z": 1.2,
+    "top_xai_features": [
+      {
+        "feature": "Rate",
+        "hybrid_contribution": -0.15,
+        "reconstruction_contribution": -0.05,
+        "latent_contribution": -0.1,
+        "observed_mean": 850.0,
+        "benign_mean": 920.0,
+        "standardized_deviation": -0.2
+      },
+      {
+        "feature": "Tot size",
+        "hybrid_contribution": 0.08,
+        "reconstruction_contribution": 0.04,
+        "latent_contribution": 0.04,
+        "observed_mean": 64.0,
+        "benign_mean": 60.0,
+        "standardized_deviation": 0.1
+      }
+    ]
+  },
+  {
+    "incident_id": "EXT-INC-02",
+    "model": "SemanticAnomalyMAE",
+    "input_reference": "ATTACK-DDOS-02",
+    "anomaly_detected": true,
+    "anomaly_score": 14.82,
+    "decision_threshold": 2.5,
+    "trigger_reasons": [
+      "hybrid_threshold",
+      "burst_policy",
+      "latent_evidence"
+    ],
+    "reconstruction_error": 0.0245,
+    "mahalanobis_distance": 68.31,
+    "reconstruction_z": 3.8,
+    "latent_z": 15.4,
+    "top_xai_features": [
+      {
+        "feature": "Rate",
+        "hybrid_contribution": 0.65,
+        "reconstruction_contribution": 0.35,
+        "latent_contribution": 0.3,
+        "observed_mean": 4500.0,
+        "benign_mean": 800.0,
+        "standardized_deviation": 5.2
+      },
+      {
+        "feature": "syn_flag_number",
+        "hybrid_contribution": 0.28,
+        "reconstruction_contribution": 0.14,
+        "latent_contribution": 0.14,
+        "observed_mean": 1.0,
+        "benign_mean": 0.05,
+        "standardized_deviation": 4.1
+      },
+      {
+        "feature": "Tot size",
+        "hybrid_contribution": -0.005,
+        "reconstruction_contribution": -0.002,
+        "latent_contribution": -0.003,
+        "observed_mean": 54.0,
+        "benign_mean": 58.0,
+        "standardized_deviation": -0.1
+      }
+    ]
+  }
+]

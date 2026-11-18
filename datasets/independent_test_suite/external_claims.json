@@ -1,0 +1,100 @@
+[
+  {
+    "claim_id": "EXT-CLM-01",
+    "incident_id": "EXT-INC-01",
+    "claim_text": "PAADU/CHARM evaluated BENIGN-FLOW-01 as BENIGN with a hybrid anomaly score of 1.150 against the calibrated baseline threshold of 2.500.",
+    "gold_label": "SUPPORTED",
+    "category": "canonical_decision_positive"
+  },
+  {
+    "claim_id": "EXT-CLM-02",
+    "incident_id": "EXT-INC-02",
+    "claim_text": "PAADU/CHARM evaluated ATTACK-DDOS-02 as ANOMALOUS with a hybrid anomaly score of 14.820 against the calibrated baseline threshold of 2.500.",
+    "gold_label": "SUPPORTED",
+    "category": "canonical_decision_positive"
+  },
+  {
+    "claim_id": "EXT-CLM-03",
+    "incident_id": "EXT-INC-02",
+    "claim_text": "The alert was triggered by policies: [hybrid_threshold, burst_policy, latent_evidence], with a reconstruction error of 0.0245 and a latent Mahalanobis distance of 68.3100.",
+    "gold_label": "SUPPORTED",
+    "category": "canonical_trigger_positive"
+  },
+  {
+    "claim_id": "EXT-CLM-04",
+    "incident_id": "EXT-INC-01",
+    "claim_text": "Rate contribution: -0.15.",
+    "gold_label": "SUPPORTED",
+    "category": "atomic_negative_attribution_positive"
+  },
+  {
+    "claim_id": "EXT-CLM-05",
+    "incident_id": "EXT-INC-02",
+    "claim_text": "Tot size contribution: -0.005.",
+    "gold_label": "SUPPORTED",
+    "category": "atomic_small_negative_positive"
+  },
+  {
+    "claim_id": "EXT-CLM-06",
+    "incident_id": "EXT-INC-01",
+    "claim_text": "PAADU/CHARM evaluated BENIGN-FLOW-01 as ANOMALOUS with a hybrid anomaly score of 1.150 against the calibrated baseline threshold of 2.500.",
+    "gold_label": "CONTRADICTED",
+    "category": "status_contradiction"
+  },
+  {
+    "claim_id": "EXT-CLM-07",
+    "incident_id": "EXT-INC-02",
+    "claim_text": "PAADU/CHARM evaluated VICTIM-EXTERNAL as ANOMALOUS with a hybrid anomaly score of 14.820 against the calibrated baseline threshold of 2.500.",
+    "gold_label": "CONTRADICTED",
+    "category": "incident_identifier_contradiction"
+  },
+  {
+    "claim_id": "EXT-CLM-08",
+    "incident_id": "EXT-INC-02",
+    "claim_text": "Anomaly score of 14.820 and policies: [unauthorized_policy].",
+    "gold_label": "CONTRADICTED",
+    "category": "unrecognized_policy_contradiction"
+  },
+  {
+    "claim_id": "EXT-CLM-09",
+    "incident_id": "EXT-INC-01",
+    "claim_text": "Rate contribution: +0.15.",
+    "gold_label": "CONTRADICTED",
+    "category": "inverted_sign_contradiction"
+  },
+  {
+    "claim_id": "EXT-CLM-10",
+    "incident_id": "EXT-INC-02",
+    "claim_text": "Anomaly score of 14.820 and Rate (contribution: 0.10, observed mean: 999 vs benign mean: 100).",
+    "gold_label": "CONTRADICTED",
+    "category": "feature_tuple_mismatch_contradiction"
+  },
+  {
+    "claim_id": "EXT-CLM-11",
+    "incident_id": "EXT-INC-02",
+    "claim_text": "Anomaly score of 14.820 because threshold of 2.500.",
+    "gold_label": "UNSUPPORTED",
+    "category": "ungrounded_causal_connector"
+  },
+  {
+    "claim_id": "EXT-CLM-12",
+    "incident_id": "EXT-INC-02",
+    "claim_text": "Anomaly score of 14.820, proving attacker Eve compromised the server.",
+    "gold_label": "UNSUPPORTED",
+    "category": "ungrounded_threat_actor"
+  },
+  {
+    "claim_id": "EXT-CLM-13",
+    "incident_id": "EXT-INC-01",
+    "claim_text": "Anomaly score of 1.150 and IP address 192.168.1.55 is the attacker.",
+    "gold_label": "UNSUPPORTED",
+    "category": "ungrounded_ip_address"
+  },
+  {
+    "claim_id": "EXT-CLM-14",
+    "incident_id": "EXT-INC-02",
+    "claim_text": "Anomaly score of 14.820 and arbitrary leftover unparsed claim statement.",
+    "gold_label": "UNSUPPORTED",
+    "category": "unparsed_span"
+  }
+]

@@ -12,6 +12,9 @@ import sys
 import os
 import json
 import csv
+import datetime
+import hashlib
+import shutil
 from pathlib import Path
 from typing import List, Dict, Any
 import numpy as np
@@ -133,17 +136,22 @@ def run_experiment():
 
             # Record structured assertion-level audit
             if c.claim_type == 'OBSERVED_FACT':
-                _, _, _, _, audit_recs = parse_and_validate_telemetry(c.original_claim_text, incident)
+                _, _, _, _, audit_recs, unparsed_spans = parse_and_validate_telemetry(c.original_claim_text, incident)
+                unparsed_str = "; ".join([f"[{s.start_char}:{s.end_char}] '{s.text}'" for s in unparsed_spans]) if unparsed_spans else "NONE"
                 for rec in audit_recs:
                     assertion_audit_rows.append([
                         meta['block_id'],
                         c.claim_id,
                         c.original_claim_text,
+                        rec.start_char,
+                        rec.end_char,
                         rec.raw_clause,
                         rec.field_name,
                         str(rec.expected_value),
                         str(rec.asserted_value),
                         'SUPPORTED' if rec.is_supported else ('CONTRADICTED' if rec.is_contradiction else 'UNSUPPORTED'),
+                        unparsed_str,
+                        c.verification_status,
                         c.final_presented_text,
                         rec.error_message or "Verified against incident telemetry schema"
                     ])
@@ -152,10 +160,14 @@ def run_experiment():
                     meta['block_id'],
                     c.claim_id,
                     c.original_claim_text,
+                    0,
+                    len(c.original_claim_text),
                     c.original_claim_text,
                     'retrieved_evidence' if c.claim_type == 'EVIDENCE_INTERPRETATION' else 'domain_knowledge_base',
                     'NLI Entailment >= 0.70' if c.claim_type == 'EVIDENCE_INTERPRETATION' else 'Operational Hypothesis Hedging',
                     f"NLI confidence: {c.nli_confidence:.4f}" if c.nli_confidence is not None else "N/A",
+                    c.verification_status,
+                    "NONE",
                     c.verification_status,
                     c.final_presented_text,
                     c.correction_action
@@ -306,61 +318,31 @@ def run_experiment():
         }
     }
 
-    # Save CSVs to both recomputed_results and results
-    for out_dir in [PACKAGE_ROOT / 'recomputed_results', PACKAGE_ROOT / 'results']:
-        out_dir.mkdir(parents=True, exist_ok=True)
-        with open(out_dir / 'EXPERIMENT_1_RESULTS.csv', 'w', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow([
-                'block_id', 'traffic_profile', 'perturbation_injected',
-                'unverified_ehr', 'unverified_ucr', 'unverified_cr', 'unverified_ec',
-                'verified_ehr', 'verified_ucr', 'verified_cr', 'verified_ec'
-            ])
-            writer.writerows(csv_rows)
+    # Canonical results directory is PACKAGE_ROOT / 'results'
+    canonical_dir = PACKAGE_ROOT / 'results'
+    canonical_dir.mkdir(parents=True, exist_ok=True)
 
-        with open(out_dir / 'RAW_CLAIM_VALIDATION.csv', 'w', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow([
-                'block_id', 'traffic_profile', 'claim_id', 'claim_type',
-                'configuration', 'claim_text', 'validation_label',
-                'entity_matches', 'entity_errors', 'verifiable_count',
-                'is_perturbed'
-            ])
-            writer.writerows(raw_claim_rows)
+    # 1. Save Canonical CSVs and Metrics
+    with open(canonical_dir / 'EXPERIMENT_1_RESULTS.csv', 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow([
+            'block_id', 'traffic_profile', 'perturbation_injected',
+            'unverified_ehr', 'unverified_ucr', 'unverified_cr', 'unverified_ec',
+            'verified_ehr', 'verified_ucr', 'verified_cr', 'verified_ec'
+        ])
+        writer.writerows(csv_rows)
 
-        with open(out_dir / 'FINAL_DISPLAYED_CLAIMS.csv', 'w', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow([
-                'sample_id', 'block_id', 'traffic_profile', 'claim_id', 'claim_type',
-                'configuration', 'original_claim_text', 'final_displayed_text',
-                'verification_status', 'correction_action', 'validation_label',
-                'entity_matches', 'entity_errors', 'verifiable_count', 'is_hallucination'
-            ])
-            writer.writerows(final_displayed_rows)
+    with open(canonical_dir / 'RAW_CLAIM_VALIDATION.csv', 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow([
+            'block_id', 'traffic_profile', 'claim_id', 'claim_type',
+            'configuration', 'claim_text', 'validation_label',
+            'entity_matches', 'entity_errors', 'verifiable_count',
+            'is_perturbed'
+        ])
+        writer.writerows(raw_claim_rows)
 
-        with open(out_dir / 'ASSERTION_LEVEL_AUDIT.csv', 'w', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow([
-                'incident_id', 'claim_id', 'original_claim', 'extracted_atomic_assertion',
-                'ground_truth_source_field', 'expected_value', 'observed_value',
-                'assertion_verdict', 'final_displayed_text', 'verification_or_abstention_reason'
-            ])
-            writer.writerows(assertion_audit_rows)
-
-        with open(out_dir / 'NLI_DISAGREEMENTS_ANALYSIS.csv', 'w', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow([
-                'disagreement_id', 'block_id', 'traffic_profile', 'claim_id',
-                'original_claim_text', 'final_presented_text', 'verification_status',
-                'nli_raw_label', 'validation_label', 'correction_action',
-                'nli_reason', 'lexical_override_resolution', 'independent_factual_annotation'
-            ])
-            writer.writerows(nli_disagreement_rows)
-
-        with open(out_dir / 'EXPERIMENT_1_METRICS.json', 'w') as f:
-            json.dump(summary_metrics, f, indent=2)
-
-    with open(PACKAGE_ROOT / 'FINAL_DISPLAYED_CLAIMS.csv', 'w', newline='') as f:
+    with open(canonical_dir / 'FINAL_DISPLAYED_CLAIMS.csv', 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerow([
             'sample_id', 'block_id', 'traffic_profile', 'claim_id', 'claim_type',
@@ -370,16 +352,18 @@ def run_experiment():
         ])
         writer.writerows(final_displayed_rows)
 
-    with open(PACKAGE_ROOT / 'ASSERTION_LEVEL_AUDIT.csv', 'w', newline='') as f:
+    assertion_audit_header = [
+        'incident_id', 'claim_id', 'original_claim', 'span_start', 'span_end',
+        'extracted_atomic_assertion', 'ground_truth_source_field', 'expected_value', 'observed_value',
+        'assertion_verdict', 'unparsed_spans', 'final_sentence_verdict', 'final_displayed_text',
+        'verification_or_abstention_reason'
+    ]
+    with open(canonical_dir / 'ASSERTION_LEVEL_AUDIT.csv', 'w', newline='') as f:
         writer = csv.writer(f)
-        writer.writerow([
-            'incident_id', 'claim_id', 'original_claim', 'extracted_atomic_assertion',
-            'ground_truth_source_field', 'expected_value', 'observed_value',
-            'assertion_verdict', 'final_displayed_text', 'verification_or_abstention_reason'
-        ])
+        writer.writerow(assertion_audit_header)
         writer.writerows(assertion_audit_rows)
 
-    with open(PACKAGE_ROOT / 'NLI_DISAGREEMENTS_ANALYSIS.csv', 'w', newline='') as f:
+    with open(canonical_dir / 'NLI_DISAGREEMENTS_ANALYSIS.csv', 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerow([
             'disagreement_id', 'block_id', 'traffic_profile', 'claim_id',
@@ -388,6 +372,69 @@ def run_experiment():
             'nli_reason', 'lexical_override_resolution', 'independent_factual_annotation'
         ])
         writer.writerows(nli_disagreement_rows)
+
+    with open(canonical_dir / 'EXPERIMENT_1_METRICS.json', 'w') as f:
+        json.dump(summary_metrics, f, indent=2)
+
+    # 2. Mirror Identical Copies to recomputed_results and root
+    import shutil
+    import hashlib
+    import subprocess
+
+    def get_git_commit() -> str:
+        try:
+            return subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=str(PACKAGE_ROOT)).decode().strip()
+        except Exception:
+            return "UNKNOWN_COMMIT"
+
+    def compute_sha256(filepath: Path) -> str:
+        h = hashlib.sha256()
+        with open(filepath, 'rb') as f:
+            while chunk := f.read(65536):
+                h.update(chunk)
+        return h.hexdigest()
+
+    recomp_dir = PACKAGE_ROOT / 'recomputed_results'
+    recomp_dir.mkdir(parents=True, exist_ok=True)
+
+    published_files = [
+        'EXPERIMENT_1_RESULTS.csv',
+        'RAW_CLAIM_VALIDATION.csv',
+        'FINAL_DISPLAYED_CLAIMS.csv',
+        'ASSERTION_LEVEL_AUDIT.csv',
+        'NLI_DISAGREEMENTS_ANALYSIS.csv',
+        'EXPERIMENT_1_METRICS.json'
+    ]
+
+    for fname in published_files:
+        src = canonical_dir / fname
+        shutil.copy2(src, recomp_dir / fname)
+        if fname in ['FINAL_DISPLAYED_CLAIMS.csv', 'ASSERTION_LEVEL_AUDIT.csv', 'RAW_CLAIM_VALIDATION.csv']:
+            shutil.copy2(src, PACKAGE_ROOT / fname)
+
+    # 3. Create Authoritative RUN_MANIFEST.json
+    manifest_data = {
+        'run_id': f"RUN-EXP1-{datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%d-%H%M%S')}",
+        'timestamp': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        'git_commit': get_git_commit(),
+        'canonical_results_directory': 'results/',
+        'authoritative_artifacts': {}
+    }
+    for fname in published_files:
+        src = canonical_dir / fname
+        row_cnt = None
+        if fname.endswith('.csv'):
+            with open(src) as cf:
+                row_cnt = sum(1 for _ in cf)
+        manifest_data['authoritative_artifacts'][fname] = {
+            'relative_path': f"results/{fname}",
+            'sha256': compute_sha256(src),
+            'row_count': row_cnt
+        }
+
+    for p in [canonical_dir, recomp_dir, PACKAGE_ROOT]:
+        with open(p / 'RUN_MANIFEST.json', 'w') as mf:
+            json.dump(manifest_data, mf, indent=2)
 
     # Define convenient aliases
     unv_ehr = macro_unv_ehr

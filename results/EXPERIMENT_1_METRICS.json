@@ -49,7 +49,7 @@
   },
   "audit_metrics": {
     "total_claims_displayed": 384,
-    "total_atomic_assertions_audited": 1303,
+    "total_atomic_assertions_audited": 1363,
     "verification_coverage": "239/384 (0.6224)",
     "abstention_rate": "135/384 (0.3516)",
     "retraction_rate": "10/384 (0.0260)",

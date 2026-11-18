@@ -82,8 +82,8 @@ def validate_telemetry_claim_strict(claim_text: str, incident: CHARMIncident) ->
     - ONLY if ALL asserted facts are supported by authoritative telemetry AND NO unverified or unrecognized
       clause exists -> SUPPORTED (RETAINED_VERIFIED) -> [VERIFIED TELEMETRY].
     """
-    status, action, presented_text, reason, _ = parse_and_validate_telemetry(claim_text, incident)
-    return status, action, presented_text, reason
+    res = parse_and_validate_telemetry(claim_text, incident)
+    return res[0], res[1], res[2], res[3]
 
 
 class VerificationOrchestrator:
